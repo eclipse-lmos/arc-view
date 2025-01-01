@@ -1,28 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'main.dart';
+part of 'message_sender.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sharedPreferencesHash() => r'07456aa2fb387df75069b98e64ced7107c50897f';
+String _$messageSenderHash() => r'f8b7e4cce90d2491c3e9665ebee14134e8565e9d';
 
-/// See also [sharedPreferences].
-@ProviderFor(sharedPreferences)
-final sharedPreferencesProvider =
-    AutoDisposeProvider<SharedPreferences>.internal(
-  sharedPreferences,
-  name: r'sharedPreferencesProvider',
+/// See also [messageSender].
+@ProviderFor(messageSender)
+final messageSenderProvider = AutoDisposeProvider<MessageSender>.internal(
+  messageSender,
+  name: r'messageSenderProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$sharedPreferencesHash,
+      : _$messageSenderHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef SharedPreferencesRef = AutoDisposeProviderRef<SharedPreferences>;
+typedef MessageSenderRef = AutoDisposeProviderRef<MessageSender>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
