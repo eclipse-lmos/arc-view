@@ -104,7 +104,6 @@ flutter:
     - fonts/LICENSE.txt
     - LICENSES/Apache-2.0.txt
     - assets/lmos.svg
-    - assets/config/app-config.yaml
 
     # To add assets to your application, add an assets section, like this:
     # assets:
