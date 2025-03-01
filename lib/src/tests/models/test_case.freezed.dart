@@ -21,6 +21,7 @@ TestCase _$TestCaseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TestCase {
   String get name => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   Conversation get expected => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $TestCaseCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
+      String? id,
       DateTime createdAt,
       Conversation expected,
       String? description,
@@ -71,6 +73,7 @@ class _$TestCaseCopyWithImpl<$Res, $Val extends TestCase>
   @override
   $Res call({
     Object? name = null,
+    Object? id = freezed,
     Object? createdAt = null,
     Object? expected = null,
     Object? description = freezed,
@@ -83,6 +86,10 @@ class _$TestCaseCopyWithImpl<$Res, $Val extends TestCase>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -131,6 +138,7 @@ abstract class _$$TestCaseImplCopyWith<$Res>
   @useResult
   $Res call(
       {String name,
+      String? id,
       DateTime createdAt,
       Conversation expected,
       String? description,
@@ -156,6 +164,7 @@ class __$$TestCaseImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? id = freezed,
     Object? createdAt = null,
     Object? expected = null,
     Object? description = freezed,
@@ -168,6 +177,10 @@ class __$$TestCaseImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -201,6 +214,7 @@ class __$$TestCaseImplCopyWithImpl<$Res>
 class _$TestCaseImpl extends _TestCase {
   _$TestCaseImpl(
       {required this.name,
+      this.id,
       required this.createdAt,
       required this.expected,
       this.description,
@@ -214,6 +228,8 @@ class _$TestCaseImpl extends _TestCase {
 
   @override
   final String name;
+  @override
+  final String? id;
   @override
   final DateTime createdAt;
   @override
@@ -229,7 +245,7 @@ class _$TestCaseImpl extends _TestCase {
 
   @override
   String toString() {
-    return 'TestCase(name: $name, createdAt: $createdAt, expected: $expected, description: $description, group: $group, lastRunSuccess: $lastRunSuccess, lastRunAt: $lastRunAt)';
+    return 'TestCase(name: $name, id: $id, createdAt: $createdAt, expected: $expected, description: $description, group: $group, lastRunSuccess: $lastRunSuccess, lastRunAt: $lastRunAt)';
   }
 
   @override
@@ -238,6 +254,7 @@ class _$TestCaseImpl extends _TestCase {
         (other.runtimeType == runtimeType &&
             other is _$TestCaseImpl &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.expected, expected) ||
@@ -253,7 +270,7 @@ class _$TestCaseImpl extends _TestCase {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, createdAt, expected,
+  int get hashCode => Object.hash(runtimeType, name, id, createdAt, expected,
       description, group, lastRunSuccess, lastRunAt);
 
   /// Create a copy of TestCase
@@ -275,6 +292,7 @@ class _$TestCaseImpl extends _TestCase {
 abstract class _TestCase extends TestCase {
   factory _TestCase(
       {required final String name,
+      final String? id,
       required final DateTime createdAt,
       required final Conversation expected,
       final String? description,
@@ -288,6 +306,8 @@ abstract class _TestCase extends TestCase {
 
   @override
   String get name;
+  @override
+  String? get id;
   @override
   DateTime get createdAt;
   @override

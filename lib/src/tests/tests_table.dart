@@ -4,14 +4,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import 'package:arc_view/src/core/section_title.dart';
+import 'package:arc_view/src/client/notifiers/agents_notifier.dart';
+import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart';
+import 'package:arc_view/src/core/secondary_button.dart';
+import 'package:arc_view/src/layout/notifiers/notification_notifier.dart';
 import 'package:arc_view/src/tests/completion_chart.dart';
 import 'package:arc_view/src/tests/models/test_case.dart';
 import 'package:arc_view/src/tests/models/test_run.dart';
 import 'package:arc_view/src/tests/notifiers/test_cases_notifier.dart';
+import 'package:arc_view/src/tests/notifiers/test_runs_notifier.dart';
 import 'package:arc_view/src/usecases/models/use_cases.dart';
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
-import "package:collection/collection.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -21,59 +24,70 @@ import 'package:smiles/smiles.dart';
 const _columnSizes = <double>[240, 300, 180, 180, 220];
 
 class TestsTable extends ConsumerWidget {
-  const TestsTable({super.key});
+  const TestsTable({
+    required this.group,
+    required this.testCases,
+    super.key,
+  });
+
+  final String group;
+  final List<TestCase> testCases;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final testCases = ref.watch(testCasesNotifierProvider);
     final screenWidth = MediaQuery.sizeOf(context).width;
     final largeScreen = screenWidth > 1400;
     final smallScreen = screenWidth < 1200;
-    final testGroups = groupBy(testCases.testCases, (e) => e.group);
-    final testRuns = groupBy(testCases.runs, (e) => e.group());
-
-    if (testCases.testCases.isEmpty) {
-      return ''.txt.pad(4, 8, 4, 8);
-    }
+    final testRuns =
+        ref.watch(testRunsNotifierProvider.select((runs) => runs[group]));
 
     return SingleChildScrollView(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for (final group in testGroups.entries)
-          _createTable(group.key ?? "", group.value, testRuns, context, ref,
-                  smallScreen)
-              .padByUnits(0, 0, 4, 0)
-      ],
-    ));
+      child: _createTable(
+        group,
+        testCases,
+        testRuns,
+        context,
+        ref,
+        smallScreen,
+      ).padByUnits(0, 0, 4, 0),
+    );
   }
 
   Widget _createTable(
     String groupName,
     List<TestCase> testCases,
-    Map<String, List<TestRun>> testRuns,
+    Map<String, TestRun>? testRuns,
     BuildContext context,
     WidgetRef ref,
     bool smallScreen,
   ) {
+    final agentsAvailable = _agentAvailable(ref);
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: [
-        SectionTitle(text: groupName).toLeft().padByUnits(1, 1, 1, 1),
+        // SectionTitle(text: groupName).toLeft().padByUnits(1, 1, 1, 1),
+        VGap.small(),
         Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          CompletionChart(runs: testRuns[groupName] ?? List.empty())
+          CompletionChart(runs: testRuns?.values.toList() ?? List.empty())
               .size(height: 200),
           Spacer(),
-          'Run All'.onButtonPressed(() {
-            for (final testCase in testCases) {
+          'Run All'.onButtonPressed(
+            () async {
+              for (final testCase in testCases) {
+                ref
+                    .read(notificationNotifierProvider.notifier)
+                    .notify('Running ${testCase.name}...');
+                await ref
+                    .read(testRunsNotifierProvider.notifier)
+                    .runTestCase(testCase);
+              }
               ref
-                  .read(testCasesNotifierProvider.notifier)
-                  .runTestCase(testCase);
-            }
-          })
+                  .read(notificationNotifierProvider.notifier)
+                  .notify('Tests finished');
+            },
+            disabled: !agentsAvailable,
+          ).padding(),
         ]),
-        HGap.medium(),
+        VGap.small(),
         Card(
           child: DataTable(
             showCheckboxColumn: false,
@@ -93,56 +107,90 @@ class TestsTable extends ConsumerWidget {
                   columnWidth: FixedColumnWidth(_columnSizes[0])),
               DataColumn(
                   label: 'Description'.txt, columnWidth: FlexColumnWidth()),
+              DataColumn(
+                  label: 'Last Run'.txt,
+                  columnWidth: FixedColumnWidth(_columnSizes[1])),
               if (!smallScreen)
                 DataColumn(
-                    label: 'Tags'.txt,
-                    columnWidth: FixedColumnWidth(_columnSizes[1])),
+                    label: 'Created At'.txt,
+                    columnWidth: FixedColumnWidth(_columnSizes[2])),
               DataColumn(
-                  label: 'Created At'.txt,
-                  columnWidth: FixedColumnWidth(_columnSizes[2])),
+                  label: 'Actions'.txt,
+                  columnWidth: FixedColumnWidth(_columnSizes[3])),
             ],
             rows: [
               for (var i = 0; i < testCases.length; i++)
-                DataRow(
-                  onSelectChanged: (selected) {
-                    if (selected == true) {
-                      //  _gotoUseCase(testCases[i], context);
-                    }
-                  },
-                  cells: [
-                    DataCell(
-                      [
-                        Icon(
-                          Icons.file_open_rounded,
-                          size: 16,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                        HGap.units(2),
-                        testCases[i].name.txt,
-                      ].row(),
-                    ),
-                    DataCell(
-                      (testCases[i].description ?? '').txt,
-                    ),
-                    if (!smallScreen)
-                      DataCell(
-                        'TODO'.txt,
-                      ),
-                    DataCell(DateFormat.Hm()
-                        .add_yMd()
-                        .format(testCases[i].createdAt)
-                        .txt),
-                  ],
-                )
+                _createRow(testCases[i], testRuns, context, smallScreen, ref),
             ],
-          ),
-        ),
+          ).padding(),
+        ).min(height: 500),
       ],
     );
   }
 
-  _gotoUseCase(UseCase useCase, BuildContext context) {
-    context.push('/edit_usecase/${useCase.id}');
+  DataRow _createRow(TestCase testCase, Map<String, TestRun>? testRuns,
+      BuildContext context, bool smallScreen, WidgetRef ref) {
+    final lastRun = testRuns?[testCase.ensureId()];
+    return DataRow(
+      onSelectChanged: (selected) {
+        if (selected == true) {
+          ref
+              .read(conversationsNotifierProvider.notifier)
+              .updateConversation(testCase.expected);
+          context.go("/chat");
+        }
+      },
+      cells: [
+        DataCell(
+          [
+            Icon(Icons.check_circle_rounded,
+                size: 16,
+                color: switch (lastRun?.success) {
+                  null => Theme.of(context).colorScheme.onSurface,
+                  true => Colors.green[800],
+                  false => Colors.red[800],
+                }),
+            HGap.units(2),
+            testCase.name.txt,
+          ].row(),
+        ),
+        DataCell((testCase.description ?? '').txt),
+        DataCell(_getLastRun(testCase, lastRun, ref, context)),
+        if (!smallScreen)
+          DataCell(DateFormat.Hm().add_yMd().format(testCase.createdAt).txt),
+        DataCell([
+          SecondaryButton(
+              icon: Icons.delete,
+              confirming: true,
+              description: 'Delete Test Case',
+              onPressed: () {
+                ref
+                    .read(testCasesNotifierProvider.notifier)
+                    .deleteTestCase(testCase);
+              }),
+        ].row()),
+      ],
+    );
+  }
+
+  Widget _getLastRun(TestCase testCases, TestRun? lastRun, WidgetRef ref,
+      BuildContext context) {
+    if (lastRun == null) return '-'.txt;
+    return [
+      DateFormat.Hm().add_yMd().format(lastRun.startedAt).txt,
+      HGap(),
+      "Open".onPressed(() {
+        ref
+            .read(conversationsNotifierProvider.notifier)
+            .updateConversation(lastRun.conversation);
+        context.go("/chat");
+      })
+    ].row(min: true);
+  }
+
+  _agentAvailable(WidgetRef ref) {
+    final agents = ref.watch(agentsNotifierProvider);
+    return agents.hasValue && agents.value?.names.isNotEmpty == true;
   }
 }
 

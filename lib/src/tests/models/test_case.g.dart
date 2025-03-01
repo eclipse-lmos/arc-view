@@ -9,6 +9,7 @@ part of 'test_case.dart';
 _$TestCaseImpl _$$TestCaseImplFromJson(Map<String, dynamic> json) =>
     _$TestCaseImpl(
       name: json['name'] as String,
+      id: json['id'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),
       expected: Conversation.fromJson(json['expected'] as Map<String, dynamic>),
       description: json['description'] as String?,
@@ -22,6 +23,7 @@ _$TestCaseImpl _$$TestCaseImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$TestCaseImplToJson(_$TestCaseImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'id': instance.id,
       'createdAt': instance.createdAt.toIso8601String(),
       'expected': instance.expected,
       'description': instance.description,

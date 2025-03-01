@@ -38,9 +38,8 @@ class _CompletionChartState extends State<CompletionChart> {
               spacing: 8,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                'Number of tests: ${testRuns.length}'.h3,
-                'Success tests: $successfulRuns'.txt,
-                'Failed tests: ${testRuns.length - successfulRuns}'.txt,
+                '${testRuns.length}'.style(size: 45),
+                'Number of tests'.h3,
               ],
             ),
             HGap.medium(),
@@ -78,7 +77,8 @@ class _CompletionChartState extends State<CompletionChart> {
               spacing: 8,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                'Last Run: 10.02.2025'.h3,
+                'Success tests: $successfulRuns'.txt,
+                'Failed tests: ${testRuns.length - successfulRuns}'.txt,
               ],
             ),
           ],

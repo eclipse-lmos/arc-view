@@ -15,7 +15,6 @@ class TestStatusLabel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return (testName != null ? 'Running test: $testName' : 'No Tests Running')
-        .small;
+    return (testName != null ? 'Test: $testName' : 'No Tests Running').small;
   }
 }

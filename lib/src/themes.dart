@@ -26,6 +26,12 @@ final darkTheme = ThemeData(
     ),
     cardTheme: CardTheme(
       color: const Color.fromARGB(255, 40, 39, 45),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(
+          color: const Color.fromARGB(255, 52, 52, 57),
+        ),
+        borderRadius: BorderRadius.circular(6),
+      ),
     ),
     tabBarTheme: TabBarTheme(
       labelColor: Colors.white.withOpacity(0.5),

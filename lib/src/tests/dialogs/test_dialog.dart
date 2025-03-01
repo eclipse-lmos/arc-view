@@ -39,6 +39,8 @@ class TestDialogState extends State<TestDialog> {
   final _descriptionController = TextEditingController();
   final _groupController = TextEditingController();
 
+  bool _valid = false;
+
   @override
   Widget build(BuildContext context) {
     if (widget.value != null) {
@@ -56,6 +58,13 @@ class TestDialogState extends State<TestDialog> {
             decoration: InputDecoration(
               hintText: 'Name',
             ),
+            onChanged: (_) {
+              if (_textController.text.isNotEmpty) {
+                setState(() {
+                  _valid = true;
+                });
+              }
+            },
           ),
           TextField(
             controller: _groupController,
@@ -84,14 +93,18 @@ class TestDialogState extends State<TestDialog> {
         ),
         TextButton(
           child: Text(widget.actionText ?? 'OK'),
-          onPressed: () {
-            widget.onConfirm((
-              name: _textController.text,
-              description: _descriptionController.text,
-              group: _groupController.text,
-            ));
-            Navigator.of(context).pop();
-          },
+          onPressed: !_valid
+              ? null
+              : () {
+                  widget.onConfirm((
+                    name: _textController.text,
+                    description: _descriptionController.text,
+                    group: _groupController.text.isEmpty
+                        ? 'default'
+                        : _groupController.text,
+                  ));
+                  Navigator.of(context).pop();
+                },
         ),
       ],
     );

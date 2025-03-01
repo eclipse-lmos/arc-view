@@ -6,6 +6,7 @@
 
 import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart';
 import 'package:arc_view/src/core/secondary_button.dart';
+import 'package:arc_view/src/layout/notifiers/notification_notifier.dart';
 import 'package:arc_view/src/tests/dialogs/test_dialog.dart';
 import 'package:arc_view/src/tests/notifiers/test_cases_notifier.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,9 @@ class NewTestCaseButton extends ConsumerWidget {
                 description: details.description,
                 group: details.group,
               );
+              ref.read(notificationNotifierProvider.notifier).notify(
+                    'Test ${details.name} added. Goto [Tests](#/tests) to view.',
+                  );
             },
           ),
         );

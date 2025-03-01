@@ -10,7 +10,8 @@ _$TestRunImpl _$$TestRunImplFromJson(Map<String, dynamic> json) =>
     _$TestRunImpl(
       testCase: TestCase.fromJson(json['testCase'] as Map<String, dynamic>),
       success: json['success'] as bool?,
-      conversationId: json['conversationId'] as String,
+      conversation:
+          Conversation.fromJson(json['conversation'] as Map<String, dynamic>),
       startedAt: DateTime.parse(json['startedAt'] as String),
     );
 
@@ -18,6 +19,6 @@ Map<String, dynamic> _$$TestRunImplToJson(_$TestRunImpl instance) =>
     <String, dynamic>{
       'testCase': instance.testCase,
       'success': instance.success,
-      'conversationId': instance.conversationId,
+      'conversation': instance.conversation,
       'startedAt': instance.startedAt.toIso8601String(),
     };

@@ -6,6 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smiles/smiles.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -73,6 +74,10 @@ extension MarkDownExtension on String {
         fitContent: true,
         data: this,
         onTapLink: (text, href, title) {
+          if (href?.startsWith('#') == true) {
+            context.go(href!.substringAfter('#'));
+            return;
+          }
           if (href != null) launchUrlString(href);
         },
       );

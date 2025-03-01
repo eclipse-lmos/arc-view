@@ -24,6 +24,7 @@ class Conversation with _$Conversation {
     required SystemContext systemContext,
     required String conversationId,
     required DateTime createdAt,
+    String? name,
     bool? loading,
   }) = _Conversation;
 

@@ -22,7 +22,7 @@ TestRun _$TestRunFromJson(Map<String, dynamic> json) {
 mixin _$TestRun {
   TestCase get testCase => throw _privateConstructorUsedError;
   bool? get success => throw _privateConstructorUsedError;
-  String get conversationId => throw _privateConstructorUsedError;
+  Conversation get conversation => throw _privateConstructorUsedError;
   DateTime get startedAt => throw _privateConstructorUsedError;
 
   /// Serializes this TestRun to a JSON map.
@@ -42,10 +42,11 @@ abstract class $TestRunCopyWith<$Res> {
   $Res call(
       {TestCase testCase,
       bool? success,
-      String conversationId,
+      Conversation conversation,
       DateTime startedAt});
 
   $TestCaseCopyWith<$Res> get testCase;
+  $ConversationCopyWith<$Res> get conversation;
 }
 
 /// @nodoc
@@ -65,7 +66,7 @@ class _$TestRunCopyWithImpl<$Res, $Val extends TestRun>
   $Res call({
     Object? testCase = null,
     Object? success = freezed,
-    Object? conversationId = null,
+    Object? conversation = null,
     Object? startedAt = null,
   }) {
     return _then(_value.copyWith(
@@ -77,10 +78,10 @@ class _$TestRunCopyWithImpl<$Res, $Val extends TestRun>
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
               as bool?,
-      conversationId: null == conversationId
-          ? _value.conversationId
-          : conversationId // ignore: cast_nullable_to_non_nullable
-              as String,
+      conversation: null == conversation
+          ? _value.conversation
+          : conversation // ignore: cast_nullable_to_non_nullable
+              as Conversation,
       startedAt: null == startedAt
           ? _value.startedAt
           : startedAt // ignore: cast_nullable_to_non_nullable
@@ -97,6 +98,16 @@ class _$TestRunCopyWithImpl<$Res, $Val extends TestRun>
       return _then(_value.copyWith(testCase: value) as $Val);
     });
   }
+
+  /// Create a copy of TestRun
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ConversationCopyWith<$Res> get conversation {
+    return $ConversationCopyWith<$Res>(_value.conversation, (value) {
+      return _then(_value.copyWith(conversation: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -109,11 +120,13 @@ abstract class _$$TestRunImplCopyWith<$Res> implements $TestRunCopyWith<$Res> {
   $Res call(
       {TestCase testCase,
       bool? success,
-      String conversationId,
+      Conversation conversation,
       DateTime startedAt});
 
   @override
   $TestCaseCopyWith<$Res> get testCase;
+  @override
+  $ConversationCopyWith<$Res> get conversation;
 }
 
 /// @nodoc
@@ -131,7 +144,7 @@ class __$$TestRunImplCopyWithImpl<$Res>
   $Res call({
     Object? testCase = null,
     Object? success = freezed,
-    Object? conversationId = null,
+    Object? conversation = null,
     Object? startedAt = null,
   }) {
     return _then(_$TestRunImpl(
@@ -143,10 +156,10 @@ class __$$TestRunImplCopyWithImpl<$Res>
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
               as bool?,
-      conversationId: null == conversationId
-          ? _value.conversationId
-          : conversationId // ignore: cast_nullable_to_non_nullable
-              as String,
+      conversation: null == conversation
+          ? _value.conversation
+          : conversation // ignore: cast_nullable_to_non_nullable
+              as Conversation,
       startedAt: null == startedAt
           ? _value.startedAt
           : startedAt // ignore: cast_nullable_to_non_nullable
@@ -161,7 +174,7 @@ class _$TestRunImpl extends _TestRun {
   _$TestRunImpl(
       {required this.testCase,
       this.success,
-      required this.conversationId,
+      required this.conversation,
       required this.startedAt})
       : super._();
 
@@ -173,13 +186,13 @@ class _$TestRunImpl extends _TestRun {
   @override
   final bool? success;
   @override
-  final String conversationId;
+  final Conversation conversation;
   @override
   final DateTime startedAt;
 
   @override
   String toString() {
-    return 'TestRun(testCase: $testCase, success: $success, conversationId: $conversationId, startedAt: $startedAt)';
+    return 'TestRun(testCase: $testCase, success: $success, conversation: $conversation, startedAt: $startedAt)';
   }
 
   @override
@@ -190,8 +203,8 @@ class _$TestRunImpl extends _TestRun {
             (identical(other.testCase, testCase) ||
                 other.testCase == testCase) &&
             (identical(other.success, success) || other.success == success) &&
-            (identical(other.conversationId, conversationId) ||
-                other.conversationId == conversationId) &&
+            (identical(other.conversation, conversation) ||
+                other.conversation == conversation) &&
             (identical(other.startedAt, startedAt) ||
                 other.startedAt == startedAt));
   }
@@ -199,7 +212,7 @@ class _$TestRunImpl extends _TestRun {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, testCase, success, conversationId, startedAt);
+      Object.hash(runtimeType, testCase, success, conversation, startedAt);
 
   /// Create a copy of TestRun
   /// with the given fields replaced by the non-null parameter values.
@@ -221,7 +234,7 @@ abstract class _TestRun extends TestRun {
   factory _TestRun(
       {required final TestCase testCase,
       final bool? success,
-      required final String conversationId,
+      required final Conversation conversation,
       required final DateTime startedAt}) = _$TestRunImpl;
   _TestRun._() : super._();
 
@@ -232,7 +245,7 @@ abstract class _TestRun extends TestRun {
   @override
   bool? get success;
   @override
-  String get conversationId;
+  Conversation get conversation;
   @override
   DateTime get startedAt;
 

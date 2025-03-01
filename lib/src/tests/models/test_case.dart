@@ -14,6 +14,7 @@ part 'test_case.g.dart';
 class TestCase with _$TestCase {
   factory TestCase({
     required String name,
+    String? id,
     required DateTime createdAt,
     required Conversation expected,
     String? description,
@@ -23,6 +24,8 @@ class TestCase with _$TestCase {
   }) = _TestCase;
 
   const TestCase._();
+
+  String ensureId() => id ?? '${expected.conversationId}-$createdAt';
 
   factory TestCase.fromJson(Map<String, dynamic> json) =>
       _$TestCaseFromJson(json);

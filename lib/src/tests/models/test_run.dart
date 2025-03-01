@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'package:arc_view/src/conversation/models/conversation.dart';
 import 'package:arc_view/src/tests/models/test_case.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -15,7 +16,7 @@ class TestRun with _$TestRun {
   factory TestRun({
     required TestCase testCase,
     bool? success,
-    required String conversationId,
+    required Conversation conversation,
     required DateTime startedAt,
   }) = _TestRun;
 

@@ -67,13 +67,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   }).pad(8, 8, 8, 8),
                 ],
               ),
-              Card(
-                elevation: 4,
-                child: [
-                  const AddressBar().padByUnits(1, 1, 1, 1),
-                  EnvWrap(),
-                ].column(),
-              ).padByUnits(1, 1, 0, 1),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Card(
+                    child: const AddressBar().padByUnits(1, 1, 1, 1),
+                  ).padByUnits(1, 1, 0, 1),
+                  Card(
+                    child: EnvWrap()
+                        .padByUnits(1, 1, 1, 1)
+                        .percentOfScreen(width: 0.4),
+                  ).padByUnits(1, 1, 0, 1),
+                ],
+              ),
               VGap.small(),
               Card(
                 elevation: 4,

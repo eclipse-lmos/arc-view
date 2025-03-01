@@ -9,7 +9,6 @@ import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart'
 import 'package:arc_view/src/events/events_panel.dart';
 import 'package:arc_view/src/events/models/event_filter.dart';
 import 'package:arc_view/src/events/notifiers/event_filters_notifier.dart';
-import 'package:arc_view/src/tests/test_cases_panel.dart';
 import 'package:arc_view/src/tools/notifiers/tools_notifier.dart';
 import 'package:arc_view/src/tools/tools_panel.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class RightPanel extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final tabIndex = ref.watch(rightPanelNavProvider); TODO
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -38,7 +37,6 @@ class RightPanel extends ConsumerWidget {
               EventsPanel(),
               ConversationsPanel(),
               ToolsPanel(),
-              TestCasesPanel(),
             ],
           ).expand(),
           VGap.units(3),
@@ -55,7 +53,6 @@ class _SwitchTabs extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
-        color: context.colorScheme.surfaceContainer,
         margin: const EdgeInsets.all(0),
         child: TabBar(
           dividerHeight: 0,

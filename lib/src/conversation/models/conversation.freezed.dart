@@ -25,6 +25,7 @@ mixin _$Conversation {
   SystemContext get systemContext => throw _privateConstructorUsedError;
   String get conversationId => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   bool? get loading => throw _privateConstructorUsedError;
 
   /// Serializes this Conversation to a JSON map.
@@ -49,6 +50,7 @@ abstract class $ConversationCopyWith<$Res> {
       SystemContext systemContext,
       String conversationId,
       DateTime createdAt,
+      String? name,
       bool? loading});
 
   $UserContextCopyWith<$Res> get userContext;
@@ -75,6 +77,7 @@ class _$ConversationCopyWithImpl<$Res, $Val extends Conversation>
     Object? systemContext = null,
     Object? conversationId = null,
     Object? createdAt = null,
+    Object? name = freezed,
     Object? loading = freezed,
   }) {
     return _then(_value.copyWith(
@@ -98,6 +101,10 @@ class _$ConversationCopyWithImpl<$Res, $Val extends Conversation>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       loading: freezed == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -140,6 +147,7 @@ abstract class _$$ConversationImplCopyWith<$Res>
       SystemContext systemContext,
       String conversationId,
       DateTime createdAt,
+      String? name,
       bool? loading});
 
   @override
@@ -166,6 +174,7 @@ class __$$ConversationImplCopyWithImpl<$Res>
     Object? systemContext = null,
     Object? conversationId = null,
     Object? createdAt = null,
+    Object? name = freezed,
     Object? loading = freezed,
   }) {
     return _then(_$ConversationImpl(
@@ -189,6 +198,10 @@ class __$$ConversationImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       loading: freezed == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -206,6 +219,7 @@ class _$ConversationImpl extends _Conversation {
       required this.systemContext,
       required this.conversationId,
       required this.createdAt,
+      this.name,
       this.loading})
       : _messages = messages,
         super._();
@@ -230,11 +244,13 @@ class _$ConversationImpl extends _Conversation {
   @override
   final DateTime createdAt;
   @override
+  final String? name;
+  @override
   final bool? loading;
 
   @override
   String toString() {
-    return 'Conversation(messages: $messages, userContext: $userContext, systemContext: $systemContext, conversationId: $conversationId, createdAt: $createdAt, loading: $loading)';
+    return 'Conversation(messages: $messages, userContext: $userContext, systemContext: $systemContext, conversationId: $conversationId, createdAt: $createdAt, name: $name, loading: $loading)';
   }
 
   @override
@@ -251,6 +267,7 @@ class _$ConversationImpl extends _Conversation {
                 other.conversationId == conversationId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.loading, loading) || other.loading == loading));
   }
 
@@ -263,6 +280,7 @@ class _$ConversationImpl extends _Conversation {
       systemContext,
       conversationId,
       createdAt,
+      name,
       loading);
 
   /// Create a copy of Conversation
@@ -288,6 +306,7 @@ abstract class _Conversation extends Conversation {
       required final SystemContext systemContext,
       required final String conversationId,
       required final DateTime createdAt,
+      final String? name,
       final bool? loading}) = _$ConversationImpl;
   _Conversation._() : super._();
 
@@ -304,6 +323,8 @@ abstract class _Conversation extends Conversation {
   String get conversationId;
   @override
   DateTime get createdAt;
+  @override
+  String? get name;
   @override
   bool? get loading;
 

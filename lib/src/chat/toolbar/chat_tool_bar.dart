@@ -11,6 +11,7 @@ import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart'
 import 'package:arc_view/src/conversation/services/conversation_exporter.dart';
 import 'package:arc_view/src/conversation/services/conversation_importer.dart';
 import 'package:arc_view/src/core/secondary_button.dart';
+import 'package:arc_view/src/layout/notification_panel.dart';
 import 'package:arc_view/src/tests/tests_tool_bar.dart';
 import 'package:arc_view/src/tools/notifiers/selected_tool_notifier.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +83,8 @@ class ChatToolBar extends ConsumerWidget {
                   : SizedBox());
         },
       ),
+      Spacer(),
+      NotificationPanel(),
       Spacer(),
       TestsToolBar(),
       Card(

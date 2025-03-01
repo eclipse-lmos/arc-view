@@ -93,7 +93,15 @@ class _MainLayoutState extends State<MainLayout> {
               ),
             ],
           ),
-          Expanded(child: widget.child),
+          Expanded(
+            child: Material(
+              child: Stack(
+                children: [
+                  widget.child,
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

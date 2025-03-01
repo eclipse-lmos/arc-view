@@ -124,7 +124,7 @@ class ConversationsNotifier extends _$ConversationsNotifier {
     state = state.addAsCurrent(conversation);
   }
 
-  Future<Conversation?> replay({
+  Future<Conversation> replay({
     UseCase? useCase,
     Conversation? replay,
     String? conversationId,
@@ -136,15 +136,17 @@ class ConversationsNotifier extends _$ConversationsNotifier {
     newConversation(conversationId: conversationId);
     for (final (index, msg) in conversation.messages.indexed) {
       if (msg.type == MessageType.bot) continue;
+      final expectedMessage = addExpectedMessage == true
+          ? conversation.messages.elementAtOrNull(index + 1)?.content
+          : null;
       result = await sendUserMessage(
         msg.content,
         useCase: useCase,
         tools: tools,
-        expectedMessage:
-            conversation.messages.elementAtOrNull(index + 1)?.content,
+        expectedMessage: expectedMessage,
       );
     }
-    return result;
+    return result!;
   }
 
   updateAndReplay(

@@ -129,6 +129,10 @@ class OneAIClient {
     final websocketLink = WebSocketLink(
       '${agentUrl.secure ? 'wss://' : 'ws://'}${agentUrl.url.host}:${agentUrl.url.port}/subscriptions',
       subProtocol: GraphQLProtocol.graphqlTransportWs,
+      config: SocketClientConfig(
+        autoReconnect: true,
+        inactivityTimeout: Duration(seconds: 10),
+      ),
     );
     Link link = Link.split(
         (request) => request.isSubscription, websocketLink, httpLink);

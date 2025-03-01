@@ -12,6 +12,7 @@ const agentEvents = [
   'LLMFinishedEvent',
   'LLMFunctionCalledEvent',
   'AgentLoadedEvent',
+  'DataAddedEvent',
   'FunctionLoadedEvent',
   'UseCaseEvent',
   'FilterExecutedEvent',

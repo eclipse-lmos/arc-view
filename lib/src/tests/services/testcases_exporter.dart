@@ -14,7 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'testcases_exporter.g.dart';
- 
+
 @riverpod
 TestCasesExporter testCasesExporter(Ref ref) {
   return TestCasesExporter(ref.watch(testCasesNotifierProvider));
@@ -30,7 +30,7 @@ class TestCasesExporter {
     final result = await getSaveLocation(suggestedName: fileName);
     if (result == null) return;
     final Uint8List fileData = utf8.encode(
-      jsonEncode(testCases.copyWith(runs: List.empty()).toJson()),
+      jsonEncode(testCases.toJson()),
     );
     final XFile textFile = XFile.fromData(
       fileData,

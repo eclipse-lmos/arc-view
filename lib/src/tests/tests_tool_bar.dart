@@ -6,6 +6,7 @@
 
 import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart';
 import 'package:arc_view/src/core/secondary_button.dart';
+import 'package:arc_view/src/layout/notifiers/notification_notifier.dart';
 import 'package:arc_view/src/tests/new_test_case_button.dart';
 import 'package:arc_view/src/tests/notifiers/test_cases_notifier.dart';
 import 'package:arc_view/src/tests/test_status_label.dart';
@@ -20,41 +21,46 @@ class TestsToolBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final conversation =
         ref.watch(conversationsNotifierProvider.select((c) => c.current));
-    final runningTest = ref.read(testCasesNotifierProvider
-        .select((t) => t.getTestRun(conversation.conversationId)));
+    final testCase = ref.watch(testCasesNotifierProvider
+        .select((t) => t.getTestCase(conversation.conversationId)));
 
     return [
-      if (runningTest != null)
+      if (testCase != null)
         Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: [
             HGap.small(),
-            TestStatusLabel(testName: runningTest.testCase.name),
+            TestStatusLabel(testName: testCase.name),
             SecondaryButton(
               description: 'Run Test',
               icon: Icons.play_circle,
               onPressed: () async {
-                final successful =
-                    await ref.runTestCaseWithUseCases(runningTest.testCase);
+                final successful = await ref.runTestCaseWithUseCases(testCase);
                 if (!context.mounted) return;
-                showTestNotification(context, successful);
+                ref.read(notificationNotifierProvider.notifier).notify(
+                      successful
+                          ? 'Test ${testCase.name} ran successfully. [Tests](#/tests)'
+                          : 'Test ${testCase.name} failed. [Tests](#/tests)',
+                    );
               },
             )
           ].row(),
         ),
       HGap(),
-      Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: [
-          Icon(
-            Icons.science,
-            size: 16,
-            color: Theme.of(context).colorScheme.onSurface,
-          ).padByUnits(0, 0, 0, 1),
-          NewTestCaseButton(),
-        ].row(),
-      )
+      if (testCase == null)
+        Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: [
+            Icon(
+              Icons.science,
+              size: 16,
+              color: Theme.of(context).colorScheme.onSurface,
+            ).padByUnits(0, 0, 0, 1),
+            NewTestCaseButton(),
+          ].row(),
+        )
     ].row(min: true);
   }
 }
