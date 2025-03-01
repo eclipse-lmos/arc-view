@@ -28,7 +28,7 @@ class _MainLayoutState extends State<MainLayout> {
       child: Row(
         children: [
           NavigationRail(
-            backgroundColor: context.colorScheme.surfaceContainer,
+            elevation: 6,
             selectedIndex: widget.index,
             onDestinationSelected: (int index) {
               switch (index) {
@@ -42,9 +42,12 @@ class _MainLayoutState extends State<MainLayout> {
                   GoRouter.of(context).go('/usecases');
                   break;
                 case 3:
-                  GoRouter.of(context).go('/charts');
+                  GoRouter.of(context).go('/tests');
                   break;
                 case 4:
+                  GoRouter.of(context).go('/charts');
+                  break;
+                case 5:
                   GoRouter.of(context).go('/settings');
                   break;
               }
@@ -75,6 +78,10 @@ class _MainLayoutState extends State<MainLayout> {
               NavigationRailDestination(
                 icon: Icon(Icons.book_rounded, size: 16),
                 label: SmallText('Use Cases'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.science, size: 16),
+                label: SmallText('Tests'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.bar_chart_sharp, size: 16),

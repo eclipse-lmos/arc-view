@@ -13,10 +13,10 @@ part 'env_notifier.g.dart';
 @riverpod
 class EnvNotifier extends _$EnvNotifier {
   @override
-  List<String> build() {
+  Set<String> build() {
     return ref.read(envsRepositoryProvider).fetch();
   }
-
+ 
   addEnv(String env) {
     state = ref.read(envsRepositoryProvider).add(env);
   }

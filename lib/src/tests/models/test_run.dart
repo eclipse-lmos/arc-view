@@ -14,11 +14,14 @@ part 'test_run.g.dart';
 class TestRun with _$TestRun {
   factory TestRun({
     required TestCase testCase,
+    bool? success,
     required String conversationId,
     required DateTime startedAt,
   }) = _TestRun;
 
   const TestRun._();
+
+  String group() => testCase.group ?? 'default';
 
   factory TestRun.fromJson(Map<String, dynamic> json) =>
       _$TestRunFromJson(json);

@@ -26,6 +26,7 @@ mixin _$ConversationMessage {
   List<BinaryData>? get binaryData => throw _privateConstructorUsedError;
   double? get responseTime => throw _privateConstructorUsedError;
   String? get agent => throw _privateConstructorUsedError;
+  Set<String>? get symbols => throw _privateConstructorUsedError;
 
   /// Serializes this ConversationMessage to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +50,8 @@ abstract class $ConversationMessageCopyWith<$Res> {
       String content,
       List<BinaryData>? binaryData,
       double? responseTime,
-      String? agent});
+      String? agent,
+      Set<String>? symbols});
 }
 
 /// @nodoc
@@ -73,6 +75,7 @@ class _$ConversationMessageCopyWithImpl<$Res, $Val extends ConversationMessage>
     Object? binaryData = freezed,
     Object? responseTime = freezed,
     Object? agent = freezed,
+    Object? symbols = freezed,
   }) {
     return _then(_value.copyWith(
       type: null == type
@@ -99,6 +102,10 @@ class _$ConversationMessageCopyWithImpl<$Res, $Val extends ConversationMessage>
           ? _value.agent
           : agent // ignore: cast_nullable_to_non_nullable
               as String?,
+      symbols: freezed == symbols
+          ? _value.symbols
+          : symbols // ignore: cast_nullable_to_non_nullable
+              as Set<String>?,
     ) as $Val);
   }
 }
@@ -117,7 +124,8 @@ abstract class _$$ConversationMessageImplCopyWith<$Res>
       String content,
       List<BinaryData>? binaryData,
       double? responseTime,
-      String? agent});
+      String? agent,
+      Set<String>? symbols});
 }
 
 /// @nodoc
@@ -139,6 +147,7 @@ class __$$ConversationMessageImplCopyWithImpl<$Res>
     Object? binaryData = freezed,
     Object? responseTime = freezed,
     Object? agent = freezed,
+    Object? symbols = freezed,
   }) {
     return _then(_$ConversationMessageImpl(
       type: null == type
@@ -165,6 +174,10 @@ class __$$ConversationMessageImplCopyWithImpl<$Res>
           ? _value.agent
           : agent // ignore: cast_nullable_to_non_nullable
               as String?,
+      symbols: freezed == symbols
+          ? _value._symbols
+          : symbols // ignore: cast_nullable_to_non_nullable
+              as Set<String>?,
     ));
   }
 }
@@ -178,8 +191,10 @@ class _$ConversationMessageImpl extends _ConversationMessage {
       required this.content,
       final List<BinaryData>? binaryData,
       this.responseTime,
-      this.agent})
+      this.agent,
+      final Set<String>? symbols})
       : _binaryData = binaryData,
+        _symbols = symbols,
         super._();
 
   factory _$ConversationMessageImpl.fromJson(Map<String, dynamic> json) =>
@@ -205,10 +220,19 @@ class _$ConversationMessageImpl extends _ConversationMessage {
   final double? responseTime;
   @override
   final String? agent;
+  final Set<String>? _symbols;
+  @override
+  Set<String>? get symbols {
+    final value = _symbols;
+    if (value == null) return null;
+    if (_symbols is EqualUnmodifiableSetView) return _symbols;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(value);
+  }
 
   @override
   String toString() {
-    return 'ConversationMessage(type: $type, conversationId: $conversationId, content: $content, binaryData: $binaryData, responseTime: $responseTime, agent: $agent)';
+    return 'ConversationMessage(type: $type, conversationId: $conversationId, content: $content, binaryData: $binaryData, responseTime: $responseTime, agent: $agent, symbols: $symbols)';
   }
 
   @override
@@ -224,13 +248,21 @@ class _$ConversationMessageImpl extends _ConversationMessage {
                 .equals(other._binaryData, _binaryData) &&
             (identical(other.responseTime, responseTime) ||
                 other.responseTime == responseTime) &&
-            (identical(other.agent, agent) || other.agent == agent));
+            (identical(other.agent, agent) || other.agent == agent) &&
+            const DeepCollectionEquality().equals(other._symbols, _symbols));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, type, conversationId, content,
-      const DeepCollectionEquality().hash(_binaryData), responseTime, agent);
+  int get hashCode => Object.hash(
+      runtimeType,
+      type,
+      conversationId,
+      content,
+      const DeepCollectionEquality().hash(_binaryData),
+      responseTime,
+      agent,
+      const DeepCollectionEquality().hash(_symbols));
 
   /// Create a copy of ConversationMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -256,7 +288,8 @@ abstract class _ConversationMessage extends ConversationMessage {
       required final String content,
       final List<BinaryData>? binaryData,
       final double? responseTime,
-      final String? agent}) = _$ConversationMessageImpl;
+      final String? agent,
+      final Set<String>? symbols}) = _$ConversationMessageImpl;
   _ConversationMessage._() : super._();
 
   factory _ConversationMessage.fromJson(Map<String, dynamic> json) =
@@ -274,6 +307,8 @@ abstract class _ConversationMessage extends ConversationMessage {
   double? get responseTime;
   @override
   String? get agent;
+  @override
+  Set<String>? get symbols;
 
   /// Create a copy of ConversationMessage
   /// with the given fields replaced by the non-null parameter values.

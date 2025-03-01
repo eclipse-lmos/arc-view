@@ -21,6 +21,7 @@ TestRun _$TestRunFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TestRun {
   TestCase get testCase => throw _privateConstructorUsedError;
+  bool? get success => throw _privateConstructorUsedError;
   String get conversationId => throw _privateConstructorUsedError;
   DateTime get startedAt => throw _privateConstructorUsedError;
 
@@ -38,7 +39,11 @@ abstract class $TestRunCopyWith<$Res> {
   factory $TestRunCopyWith(TestRun value, $Res Function(TestRun) then) =
       _$TestRunCopyWithImpl<$Res, TestRun>;
   @useResult
-  $Res call({TestCase testCase, String conversationId, DateTime startedAt});
+  $Res call(
+      {TestCase testCase,
+      bool? success,
+      String conversationId,
+      DateTime startedAt});
 
   $TestCaseCopyWith<$Res> get testCase;
 }
@@ -59,6 +64,7 @@ class _$TestRunCopyWithImpl<$Res, $Val extends TestRun>
   @override
   $Res call({
     Object? testCase = null,
+    Object? success = freezed,
     Object? conversationId = null,
     Object? startedAt = null,
   }) {
@@ -67,6 +73,10 @@ class _$TestRunCopyWithImpl<$Res, $Val extends TestRun>
           ? _value.testCase
           : testCase // ignore: cast_nullable_to_non_nullable
               as TestCase,
+      success: freezed == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as bool?,
       conversationId: null == conversationId
           ? _value.conversationId
           : conversationId // ignore: cast_nullable_to_non_nullable
@@ -96,7 +106,11 @@ abstract class _$$TestRunImplCopyWith<$Res> implements $TestRunCopyWith<$Res> {
       __$$TestRunImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({TestCase testCase, String conversationId, DateTime startedAt});
+  $Res call(
+      {TestCase testCase,
+      bool? success,
+      String conversationId,
+      DateTime startedAt});
 
   @override
   $TestCaseCopyWith<$Res> get testCase;
@@ -116,6 +130,7 @@ class __$$TestRunImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? testCase = null,
+    Object? success = freezed,
     Object? conversationId = null,
     Object? startedAt = null,
   }) {
@@ -124,6 +139,10 @@ class __$$TestRunImplCopyWithImpl<$Res>
           ? _value.testCase
           : testCase // ignore: cast_nullable_to_non_nullable
               as TestCase,
+      success: freezed == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as bool?,
       conversationId: null == conversationId
           ? _value.conversationId
           : conversationId // ignore: cast_nullable_to_non_nullable
@@ -141,6 +160,7 @@ class __$$TestRunImplCopyWithImpl<$Res>
 class _$TestRunImpl extends _TestRun {
   _$TestRunImpl(
       {required this.testCase,
+      this.success,
       required this.conversationId,
       required this.startedAt})
       : super._();
@@ -151,13 +171,15 @@ class _$TestRunImpl extends _TestRun {
   @override
   final TestCase testCase;
   @override
+  final bool? success;
+  @override
   final String conversationId;
   @override
   final DateTime startedAt;
 
   @override
   String toString() {
-    return 'TestRun(testCase: $testCase, conversationId: $conversationId, startedAt: $startedAt)';
+    return 'TestRun(testCase: $testCase, success: $success, conversationId: $conversationId, startedAt: $startedAt)';
   }
 
   @override
@@ -167,6 +189,7 @@ class _$TestRunImpl extends _TestRun {
             other is _$TestRunImpl &&
             (identical(other.testCase, testCase) ||
                 other.testCase == testCase) &&
+            (identical(other.success, success) || other.success == success) &&
             (identical(other.conversationId, conversationId) ||
                 other.conversationId == conversationId) &&
             (identical(other.startedAt, startedAt) ||
@@ -176,7 +199,7 @@ class _$TestRunImpl extends _TestRun {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, testCase, conversationId, startedAt);
+      Object.hash(runtimeType, testCase, success, conversationId, startedAt);
 
   /// Create a copy of TestRun
   /// with the given fields replaced by the non-null parameter values.
@@ -197,6 +220,7 @@ class _$TestRunImpl extends _TestRun {
 abstract class _TestRun extends TestRun {
   factory _TestRun(
       {required final TestCase testCase,
+      final bool? success,
       required final String conversationId,
       required final DateTime startedAt}) = _$TestRunImpl;
   _TestRun._() : super._();
@@ -205,6 +229,8 @@ abstract class _TestRun extends TestRun {
 
   @override
   TestCase get testCase;
+  @override
+  bool? get success;
   @override
   String get conversationId;
   @override

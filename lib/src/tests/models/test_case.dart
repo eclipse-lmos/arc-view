@@ -16,6 +16,10 @@ class TestCase with _$TestCase {
     required String name,
     required DateTime createdAt,
     required Conversation expected,
+    String? description,
+    String? group,
+    bool? lastRunSuccess,
+    DateTime? lastRunAt,
   }) = _TestCase;
 
   const TestCase._();

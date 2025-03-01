@@ -9,7 +9,6 @@ import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart'
 import 'package:arc_view/src/events/events_panel.dart';
 import 'package:arc_view/src/events/models/event_filter.dart';
 import 'package:arc_view/src/events/notifiers/event_filters_notifier.dart';
-import 'package:arc_view/src/tests/notifiers/test_cases_notifier.dart';
 import 'package:arc_view/src/tests/test_cases_panel.dart';
 import 'package:arc_view/src/tools/notifiers/tools_notifier.dart';
 import 'package:arc_view/src/tools/tools_panel.dart';
@@ -77,12 +76,6 @@ class _SwitchTabs extends ConsumerWidget {
                 toolsNotifierProvider.select((e) => e.length),
               );
               return Tab(child: ['Tools ($count)'.txt].row(min: true));
-            }),
-            Consumer(builder: (context, ref, child) {
-              final count = ref.watch(
-                testCasesNotifierProvider.select((e) => e.testCases.length),
-              );
-              return Tab(child: ['Lab ($count)'.txt].row(min: true));
             }),
           ],
         ));

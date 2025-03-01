@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'package:arc_view/src/core/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -28,25 +29,16 @@ class HomeScreen extends StatelessWidget {
       ).center(),
       'What magic should we create today?'.txt.padByUnits(2, 2, 2, 2),
       VGap.small(),
-      Wrap(children: [
-        Card(
-          child: MarkdownBody(
-            styleSheet:
-                MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
-              code: TextStyle(
-                  fontSize: 12,
-                  fontFamily:
-                      Theme.of(context).textTheme.bodyLarge?.fontFamily),
-              p: TextStyle(
-                  fontSize: 14,
-                  fontFamily:
-                      Theme.of(context).textTheme.bodyLarge?.fontFamily),
-            ),
-            selectable: true,
-            fitContent: true,
-            data: '''
+      Card(
+        child: MarkdownBody(
+          styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+            code: TextStyle(fontSize: 12),
+            p: TextStyle(fontSize: 12),
+          ),
+          selectable: true,
+          fitContent: true,
+          data: '''
 This is a tool for communicating and testing your Arc Agents.
-\\
 \\
 \\
 It is packed with features, with more on the way.
@@ -54,9 +46,16 @@ It is packed with features, with more on the way.
 Please let me know what you think. It is open source and contributions are welcome. 
 \\
 Check out https://github.com/eclipse-lmos/arc-view
-\\
-\\
-\\
+
+               ''',
+          onTapLink: (text, href, title) {
+            if (href != null) launchUrlString(href);
+          },
+        ).padByUnits(2, 2, 2, 2),
+      ).size(width: 700),
+      VGap.small(),
+      Card(
+        child: '''
 **Simply** start your Agents in a web application and connect to them using the Arc View.
 \\
 \\
@@ -64,25 +63,29 @@ Check out https://github.com/eclipse-lmos/arc-view
 \\
 \\
 Currently, the Arc View only supports the Arc GraphQL Protocol, see the [Agent GraphQL](https://eclipse.dev/lmos/docs/arc/spring/graphql) for more information.
-\\
-Or checkout the Spring Quickstart project: https://github.com/eclipse-lmos/arc-spring-init.
-\\
-\\
-\\
-Be sure to enable CORS in application.yml:
 
-```yaml
-arc:
-  cors:
-    enabled: true
-```
-               ''',
-            onTapLink: (text, href, title) {
-              if (href != null) launchUrlString(href);
-            },
-          ).padByUnits(3, 3, 3, 3),
-        ).percentOfScreen(width: 0.9),
-      ]).expand(),
+
+Or checkout the Spring Quickstart project: 
+
+https://github.com/eclipse-lmos/arc-spring-init.
+
+    '''
+            .markDown(context)
+            .padByUnits(2, 2, 2, 2),
+      ).size(width: 700),
+      VGap.small(),
+      Card(
+        child: '''Be sure to enable CORS in `application.yml`:
+         
+
+    arc:
+      cors:
+        enabled: true
+
+    '''
+            .markDown(context)
+            .padByUnits(2, 2, 2, 2),
+      ).size(width: 700),
       Spacer(),
       [
         'Powered by'.txt,

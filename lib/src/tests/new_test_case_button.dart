@@ -6,7 +6,7 @@
 
 import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart';
 import 'package:arc_view/src/core/secondary_button.dart';
-import 'package:arc_view/src/core/text_input_dialog.dart';
+import 'package:arc_view/src/tests/dialogs/test_dialog.dart';
 import 'package:arc_view/src/tests/notifiers/test_cases_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,12 +24,15 @@ class NewTestCaseButton extends ConsumerWidget {
       onPressed: () async {
         showDialog(
           context: context,
-          builder: (context) => TextInputDialog(
+          builder: (context) => TestDialog(
             title: 'New Test Case',
-            hintText: 'TestCase Name',
-            onConfirm: (newName) {
-              ref.storeConversationAsTest(newName,
-                  conversation: currentConversation);
+            onConfirm: (details) {
+              ref.storeConversationAsTest(
+                details.name,
+                conversation: currentConversation,
+                description: details.description,
+                group: details.group,
+              );
             },
           ),
         );

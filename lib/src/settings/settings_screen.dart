@@ -67,38 +67,53 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   }).pad(8, 8, 8, 8),
                 ],
               ),
-              const AddressBar().padByUnits(1, 1, 1, 1),
-              EnvWrap(),
+              Card(
+                elevation: 4,
+                child: [
+                  const AddressBar().padByUnits(1, 1, 1, 1),
+                  EnvWrap(),
+                ].column(),
+              ).padByUnits(1, 1, 0, 1),
               VGap.small(),
-              SectionTitle(text: 'Set the context for outgoing requests: ')
-                  .padByUnits(3, 1, 1, 2),
-              ContextField(
-                'User Context',
-                encoder.convert(conversation.userContext.toJson()),
-                onChanged: (value) {
-                  ref.read(settingsNotifierProvider.notifier).updateChanged();
-                },
-                onSave: (value) {
-                  ref
-                      .read(settingsNotifierProvider.notifier)
-                      .updateUserContext(value);
-                },
-              ).padding(16),
-              const VGap(),
-              ContextField(
-                'System Context',
-                encoder.convert(conversation.systemContext.toJson()),
-                onChanged: (value) {
-                  ref.read(settingsNotifierProvider.notifier).updateChanged();
-                },
-                onSave: (value) {
-                  ref
-                      .read(settingsNotifierProvider.notifier)
-                      .updateSystemContext(value);
-                },
-              ).padding(16),
+              Card(
+                elevation: 4,
+                child: [
+                  SectionTitle(text: 'Set the context for outgoing requests')
+                      .padByUnits(3, 1, 1, 2)
+                      .toLeft(),
+                  ContextField(
+                    'User Context',
+                    encoder.convert(conversation.userContext.toJson()),
+                    onChanged: (value) {
+                      ref
+                          .read(settingsNotifierProvider.notifier)
+                          .updateChanged();
+                    },
+                    onSave: (value) {
+                      ref
+                          .read(settingsNotifierProvider.notifier)
+                          .updateUserContext(value);
+                    },
+                  ).padding(16),
+                  const VGap(),
+                  ContextField(
+                    'System Context',
+                    encoder.convert(conversation.systemContext.toJson()),
+                    onChanged: (value) {
+                      ref
+                          .read(settingsNotifierProvider.notifier)
+                          .updateChanged();
+                    },
+                    onSave: (value) {
+                      ref
+                          .read(settingsNotifierProvider.notifier)
+                          .updateSystemContext(value);
+                    },
+                  ).padding(16)
+                ].column(),
+              ).padByUnits(1, 1, 1, 1),
             ],
-          ),
+          ).padByUnits(1, 1, 1, 1),
         ),
       );
     });

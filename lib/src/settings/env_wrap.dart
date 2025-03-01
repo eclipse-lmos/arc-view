@@ -43,7 +43,7 @@ class EnvWrap extends StatelessWidget {
                   );
                 },
               ),
-            ),
+            ).toLeft(),
             ...ref.watch(envNotifierProvider).map((env) {
               return Card(
                 child: [

@@ -28,6 +28,7 @@ class Message with _$Message {
   factory Message({
     required String role,
     required String content,
+    Set<String>? symbols,
   }) = _Message;
 
   factory Message.fromJson(Map<String, Object?> json) =>

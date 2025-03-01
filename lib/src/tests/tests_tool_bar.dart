@@ -34,8 +34,11 @@ class TestsToolBar extends ConsumerWidget {
             SecondaryButton(
               description: 'Run Test',
               icon: Icons.play_circle,
-              onPressed: () {
-                ref.runTestCaseWithUseCases(runningTest.testCase);
+              onPressed: () async {
+                final successful =
+                    await ref.runTestCaseWithUseCases(runningTest.testCase);
+                if (!context.mounted) return;
+                showTestNotification(context, successful);
               },
             )
           ].row(),

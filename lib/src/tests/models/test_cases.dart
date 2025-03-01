@@ -9,6 +9,7 @@ import 'package:arc_view/src/tests/models/test_run.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'test_cases.freezed.dart';
+
 part 'test_cases.g.dart';
 
 @freezed
@@ -29,12 +30,14 @@ class TestCases with _$TestCases {
     return null;
   }
 
-  TestCases addTestRun(TestCase testCase, String conversationId) {
+  TestCases addTestRun(
+      TestCase testCase, bool? success, String conversationId) {
     return copyWith(runs: [
       ...runs,
       TestRun(
         testCase: testCase,
         conversationId: conversationId,
+        success: success,
         startedAt: DateTime.now(),
       ),
     ]);

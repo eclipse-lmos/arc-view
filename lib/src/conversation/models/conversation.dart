@@ -79,6 +79,14 @@ class Conversation with _$Conversation {
     return addSystem(systemEntries);
   }
 
+  Conversation addExpectedMessage(String? expectedMessage) {
+    if (expectedMessage == null) return this;
+    final systemEntries = [
+      (key: 'expectedMessage', value: expectedMessage),
+    ];
+    return addSystem(systemEntries);
+  }
+
   Conversation addTools(Set<TestTool>? tools) {
     if (tools == null) return this;
     final systemEntries = tools
