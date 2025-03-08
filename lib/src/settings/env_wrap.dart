@@ -6,6 +6,7 @@
 
 import 'package:arc_view/src/client/notifiers/agent_url_notifier.dart';
 import 'package:arc_view/src/core/secondary_button.dart';
+import 'package:arc_view/src/core/section_title.dart';
 import 'package:arc_view/src/core/text_input_dialog.dart';
 import 'package:arc_view/src/settings/notifiers/env_notifier.dart';
 import 'package:flutter/material.dart';
@@ -22,55 +23,58 @@ class EnvWrap extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         final active = ref.watch(agentUrlNotifierProvider.select((a) => a.url));
-        return Wrap(
-          runSpacing: 1,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Card(
-              child: SecondaryButton(
-                icon: Icons.add,
-                description: 'Add and set new Agent Url',
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => TextInputDialog(
-                      title: 'New Agent Url',
-                      hintText: 'https://myagent.com',
-                      onConfirm: (newName) {
-                        if (newName.isEmpty) return;
-                        ref.addEnv(newName);
-                      },
-                    ),
-                  );
-                },
-              ),
-            ),
-            ...ref.watch(envNotifierProvider).map((env) {
-              return Card(
-                child: [
-                  if (active.toString() != env)
+            SectionTitle(text: 'Available Agent Urls').padByUnits(1, 1, 1, 1),
+            Wrap(
+              runSpacing: 1,
+              children: [
+                SecondaryButton(
+                  icon: Icons.add,
+                  description: 'Add and set new Agent Url',
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => TextInputDialog(
+                        title: 'New Agent Url',
+                        hintText: 'https://myagent.com',
+                        onConfirm: (newName) {
+                          if (newName.isEmpty) return;
+                          ref.addEnv(newName);
+                        },
+                      ),
+                    );
+                  },
+                ).toLeft(),
+                ...ref.watch(envNotifierProvider).map((env) {
+                  return [
+                    if (active.toString() != env)
+                      SecondaryButton(
+                          icon: Icons.check_box_outline_blank_sharp,
+                          description: 'Set $env as active',
+                          onPressed: () {
+                            ref
+                                .read(agentUrlNotifierProvider.notifier)
+                                .setUrl(env);
+                          }),
+                    if (active.toString() == env)
+                      Icon(Icons.check, size: 16, color: Colors.green)
+                          .padding(),
+                    env.txt,
                     SecondaryButton(
-                        icon: Icons.check_box_outline_blank_sharp,
-                        description: 'Set $env as active',
-                        onPressed: () {
-                          ref
-                              .read(agentUrlNotifierProvider.notifier)
-                              .setUrl(env);
-                        }),
-                  if (active.toString() == env)
-                    Icon(Icons.check, size: 16, color: Colors.green).padding(),
-                  env.txt,
-                  SecondaryButton(
-                    icon: Icons.clear,
-                    description: 'Delete $env as Favorite',
-                    onPressed: () {
-                      ref.removeEnv(env);
-                    },
-                  )
-                ].row(min: true),
-              );
-            })
+                      icon: Icons.clear,
+                      description: 'Delete $env as Favorite',
+                      onPressed: () {
+                        ref.removeEnv(env);
+                      },
+                    )
+                  ].row(min: true);
+                })
+              ],
+            ).padByUnits(0, 0, 0, 1),
           ],
-        ).padByUnits(0, 0, 0, 1);
+        );
       },
     );
   }

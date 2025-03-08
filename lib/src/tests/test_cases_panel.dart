@@ -58,13 +58,24 @@ class TestCasesPanel extends ConsumerWidget {
                     leading: SecondaryButton(
                       description: 'Play test',
                       icon: Icons.play_arrow,
-                      onPressed: () {
-                        ref.runTestCaseWithUseCases(tests[index]);
+                      onPressed: () async {
+                        final successful =
+                            await ref.runTestCaseWithUseCases(tests[index]);
+                        if (!context.mounted) return;
+                        showTestNotification(context, successful);
                       },
                     ),
                     title: tests[index].name.txt,
-                    subtitle:
-                        DateFormat.Hm().format(tests[index].createdAt).small,
+                    subtitle: [
+                      'Created At: '.txt,
+                      DateFormat.Hm().format(tests[index].createdAt).small,
+                      Spacer(),
+                      if (tests[index].lastRunSuccess != null)
+                        tests[index].lastRunSuccess!
+                            ? 'Success'.style(color: Colors.green[700])
+                            : 'Failed'.style(
+                                color: Theme.of(context).colorScheme.error),
+                    ].row(),
                     trailing: SecondaryButton(
                       description: 'Delete test',
                       confirming: true,

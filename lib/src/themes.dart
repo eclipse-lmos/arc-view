@@ -26,12 +26,29 @@ final darkTheme = ThemeData(
     ),
     cardTheme: CardTheme(
       color: const Color.fromARGB(255, 40, 39, 45),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(
+          color: const Color.fromARGB(255, 52, 52, 57),
+        ),
+        borderRadius: BorderRadius.circular(6),
+      ),
     ),
     tabBarTheme: TabBarTheme(
       labelColor: Colors.white.withOpacity(0.5),
       unselectedLabelColor: Colors.white.withOpacity(0.5),
       labelPadding: const EdgeInsets.all(0),
       indicatorColor: Colors.white.withOpacity(0.5),
+    ),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: const Color.fromARGB(255, 40, 39, 45),
+      behavior: SnackBarBehavior.floating,
+      width: 400,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      contentTextStyle: TextStyle(
+        color: Colors.white.withOpacity(0.7),
+      ),
     ),
     textTheme: TextTheme(
       bodySmall: TextStyle(
@@ -62,8 +79,9 @@ final lightTheme = ThemeData(
     fontFamily: 'RobotoMono',
     colorScheme: ColorScheme.fromSeed(
       brightness: Brightness.light,
-      seedColor: const Color.fromARGB(255, 1, 10, 11),
-      surface: const Color.fromARGB(255, 245, 251, 251),
+      seedColor: const Color.fromARGB(255, 0, 229, 255),
+      surface: const Color.fromARGB(255, 230, 230, 230),
+      surfaceContainer: const Color.fromARGB(255, 230, 230, 230),
       onSurface: Colors.black,
       outline: Colors.black.withOpacity(0.2),
     ),
@@ -73,10 +91,24 @@ final lightTheme = ThemeData(
       labelPadding: const EdgeInsets.all(0),
       indicatorColor: const Color.fromARGB(255, 1, 10, 11),
     ),
+    cardTheme: CardTheme(
+      color: const Color.fromARGB(255, 245, 245, 245),
+      elevation: 6,
+    ),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: const Color.fromARGB(255, 40, 39, 45),
+      behavior: SnackBarBehavior.floating,
+      width: 400,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      contentTextStyle: TextStyle(
+        color: Colors.white.withOpacity(0.7),
+      ),
+    ),
     textTheme: TextTheme(
       bodySmall: TextStyle(
         fontSize: 10.0,
-        color: const Color.fromARGB(255, 1, 10, 11),
       ),
       bodyMedium: TextStyle(fontSize: 12.0),
       bodyLarge: TextStyle(fontSize: 14.0),

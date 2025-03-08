@@ -24,10 +24,13 @@ _$MessageImpl _$$MessageImplFromJson(Map<String, dynamic> json) =>
     _$MessageImpl(
       role: json['role'] as String,
       content: json['content'] as String,
+      symbols:
+          (json['symbols'] as List<dynamic>?)?.map((e) => e as String).toSet(),
     );
 
 Map<String, dynamic> _$$MessageImplToJson(_$MessageImpl instance) =>
     <String, dynamic>{
       'role': instance.role,
       'content': instance.content,
+      'symbols': instance.symbols?.toList(),
     };

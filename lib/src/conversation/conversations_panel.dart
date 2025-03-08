@@ -61,7 +61,8 @@ class ConversationsPanel extends ConsumerWidget {
                         size: 16,
                         color: color(conversations[index].conversationId),
                       ),
-                      title: (conversations[index]
+                      title: (conversations[index].name ??
+                              conversations[index]
                                   .messages
                                   .elementAtOrNull(0)
                                   ?.content

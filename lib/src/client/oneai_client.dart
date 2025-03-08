@@ -22,6 +22,7 @@ class OneAIClient {
   final AgentUrlData agentUrl;
   final GraphQLClient _client;
   final _log = Logger('OneAIClient');
+  final _symbolRegex = RegExp(r'<(.+)>', multiLine: true);
 
   Future<List<String>> getAgents() async {
     final result = await _client.query(QueryOptions(
@@ -78,8 +79,15 @@ class OneAIClient {
 
       final List<Message> messages = [];
       for (final m in data['messages']) {
-        // TODO
-        messages.add(Message(content: m['content'], role: 'assistant'));
+        String content = m['content'];
+        final symbols = _symbolRegex
+            .allMatches(content)
+            .map((s) => s.group(1) ?? '')
+            .toSet();
+        // content = content.replaceAll(_symbolRegex, '').trim();
+        content = content.trim();
+        messages.add(
+            Message(content: content, role: 'assistant', symbols: symbols));
       }
 
       return (
@@ -121,6 +129,10 @@ class OneAIClient {
     final websocketLink = WebSocketLink(
       '${agentUrl.secure ? 'wss://' : 'ws://'}${agentUrl.url.host}:${agentUrl.url.port}/subscriptions',
       subProtocol: GraphQLProtocol.graphqlTransportWs,
+      config: SocketClientConfig(
+        autoReconnect: true,
+        inactivityTimeout: Duration(seconds: 10),
+      ),
     );
     Link link = Link.split(
         (request) => request.isSubscription, websocketLink, httpLink);

@@ -5,7 +5,6 @@
  */
 
 import 'package:arc_view/src/tests/models/test_case.dart';
-import 'package:arc_view/src/tests/models/test_run.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'test_cases.freezed.dart';
@@ -13,31 +12,17 @@ part 'test_cases.g.dart';
 
 @freezed
 class TestCases with _$TestCases {
-  factory TestCases({
-    required List<TestCase> testCases,
-    required List<TestRun> runs,
-  }) = _TestCases;
+  factory TestCases({required List<TestCase> testCases}) = _TestCases;
 
   const TestCases._();
 
-  TestRun? getTestRun(String conversationId) {
-    for (final run in runs) {
-      if (run.conversationId == conversationId) {
-        return run;
+  TestCase? getTestCase(String conversationId) {
+    for (final testCase in testCases) {
+      if (testCase.expected.conversationId == conversationId) {
+        return testCase;
       }
     }
     return null;
-  }
-
-  TestCases addTestRun(TestCase testCase, String conversationId) {
-    return copyWith(runs: [
-      ...runs,
-      TestRun(
-        testCase: testCase,
-        conversationId: conversationId,
-        startedAt: DateTime.now(),
-      ),
-    ]);
   }
 
   factory TestCases.fromJson(Map<String, dynamic> json) =>

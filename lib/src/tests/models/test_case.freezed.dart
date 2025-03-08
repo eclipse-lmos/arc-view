@@ -21,8 +21,13 @@ TestCase _$TestCaseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TestCase {
   String get name => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   Conversation get expected => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String? get group => throw _privateConstructorUsedError;
+  bool? get lastRunSuccess => throw _privateConstructorUsedError;
+  DateTime? get lastRunAt => throw _privateConstructorUsedError;
 
   /// Serializes this TestCase to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +44,15 @@ abstract class $TestCaseCopyWith<$Res> {
   factory $TestCaseCopyWith(TestCase value, $Res Function(TestCase) then) =
       _$TestCaseCopyWithImpl<$Res, TestCase>;
   @useResult
-  $Res call({String name, DateTime createdAt, Conversation expected});
+  $Res call(
+      {String name,
+      String? id,
+      DateTime createdAt,
+      Conversation expected,
+      String? description,
+      String? group,
+      bool? lastRunSuccess,
+      DateTime? lastRunAt});
 
   $ConversationCopyWith<$Res> get expected;
 }
@@ -60,14 +73,23 @@ class _$TestCaseCopyWithImpl<$Res, $Val extends TestCase>
   @override
   $Res call({
     Object? name = null,
+    Object? id = freezed,
     Object? createdAt = null,
     Object? expected = null,
+    Object? description = freezed,
+    Object? group = freezed,
+    Object? lastRunSuccess = freezed,
+    Object? lastRunAt = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -76,6 +98,22 @@ class _$TestCaseCopyWithImpl<$Res, $Val extends TestCase>
           ? _value.expected
           : expected // ignore: cast_nullable_to_non_nullable
               as Conversation,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      group: freezed == group
+          ? _value.group
+          : group // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastRunSuccess: freezed == lastRunSuccess
+          ? _value.lastRunSuccess
+          : lastRunSuccess // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      lastRunAt: freezed == lastRunAt
+          ? _value.lastRunAt
+          : lastRunAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 
@@ -98,7 +136,15 @@ abstract class _$$TestCaseImplCopyWith<$Res>
       __$$TestCaseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, DateTime createdAt, Conversation expected});
+  $Res call(
+      {String name,
+      String? id,
+      DateTime createdAt,
+      Conversation expected,
+      String? description,
+      String? group,
+      bool? lastRunSuccess,
+      DateTime? lastRunAt});
 
   @override
   $ConversationCopyWith<$Res> get expected;
@@ -118,14 +164,23 @@ class __$$TestCaseImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? id = freezed,
     Object? createdAt = null,
     Object? expected = null,
+    Object? description = freezed,
+    Object? group = freezed,
+    Object? lastRunSuccess = freezed,
+    Object? lastRunAt = freezed,
   }) {
     return _then(_$TestCaseImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -134,6 +189,22 @@ class __$$TestCaseImplCopyWithImpl<$Res>
           ? _value.expected
           : expected // ignore: cast_nullable_to_non_nullable
               as Conversation,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      group: freezed == group
+          ? _value.group
+          : group // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastRunSuccess: freezed == lastRunSuccess
+          ? _value.lastRunSuccess
+          : lastRunSuccess // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      lastRunAt: freezed == lastRunAt
+          ? _value.lastRunAt
+          : lastRunAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -142,7 +213,14 @@ class __$$TestCaseImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TestCaseImpl extends _TestCase {
   _$TestCaseImpl(
-      {required this.name, required this.createdAt, required this.expected})
+      {required this.name,
+      this.id,
+      required this.createdAt,
+      required this.expected,
+      this.description,
+      this.group,
+      this.lastRunSuccess,
+      this.lastRunAt})
       : super._();
 
   factory _$TestCaseImpl.fromJson(Map<String, dynamic> json) =>
@@ -151,13 +229,23 @@ class _$TestCaseImpl extends _TestCase {
   @override
   final String name;
   @override
+  final String? id;
+  @override
   final DateTime createdAt;
   @override
   final Conversation expected;
+  @override
+  final String? description;
+  @override
+  final String? group;
+  @override
+  final bool? lastRunSuccess;
+  @override
+  final DateTime? lastRunAt;
 
   @override
   String toString() {
-    return 'TestCase(name: $name, createdAt: $createdAt, expected: $expected)';
+    return 'TestCase(name: $name, id: $id, createdAt: $createdAt, expected: $expected, description: $description, group: $group, lastRunSuccess: $lastRunSuccess, lastRunAt: $lastRunAt)';
   }
 
   @override
@@ -166,15 +254,24 @@ class _$TestCaseImpl extends _TestCase {
         (other.runtimeType == runtimeType &&
             other is _$TestCaseImpl &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.expected, expected) ||
-                other.expected == expected));
+                other.expected == expected) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.group, group) || other.group == group) &&
+            (identical(other.lastRunSuccess, lastRunSuccess) ||
+                other.lastRunSuccess == lastRunSuccess) &&
+            (identical(other.lastRunAt, lastRunAt) ||
+                other.lastRunAt == lastRunAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, createdAt, expected);
+  int get hashCode => Object.hash(runtimeType, name, id, createdAt, expected,
+      description, group, lastRunSuccess, lastRunAt);
 
   /// Create a copy of TestCase
   /// with the given fields replaced by the non-null parameter values.
@@ -195,8 +292,13 @@ class _$TestCaseImpl extends _TestCase {
 abstract class _TestCase extends TestCase {
   factory _TestCase(
       {required final String name,
+      final String? id,
       required final DateTime createdAt,
-      required final Conversation expected}) = _$TestCaseImpl;
+      required final Conversation expected,
+      final String? description,
+      final String? group,
+      final bool? lastRunSuccess,
+      final DateTime? lastRunAt}) = _$TestCaseImpl;
   _TestCase._() : super._();
 
   factory _TestCase.fromJson(Map<String, dynamic> json) =
@@ -205,9 +307,19 @@ abstract class _TestCase extends TestCase {
   @override
   String get name;
   @override
+  String? get id;
+  @override
   DateTime get createdAt;
   @override
   Conversation get expected;
+  @override
+  String? get description;
+  @override
+  String? get group;
+  @override
+  bool? get lastRunSuccess;
+  @override
+  DateTime? get lastRunAt;
 
   /// Create a copy of TestCase
   /// with the given fields replaced by the non-null parameter values.

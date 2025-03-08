@@ -25,23 +25,25 @@ class EnvsRepository {
 
   final SharedPreferences _preferences;
 
-  List<String> fetch() {
-    final envs = _preferences.getStringList('envs');
-    return envs ?? List.empty();
+  Set<String> fetch() {
+    final envs = _preferences.getStringList('envs')?.toSet() ?? {};
+    envs.add('http://localhost:8080');
+    envs.add('http://localhost:8090');
+    return envs;
   }
 
-  save(List<String> envs) {
-    _preferences.setStringList('envs', envs);
+  save(Set<String> envs) {
+    _preferences.setStringList('envs', envs.toList());
   }
 
-  List<String> add(String env) {
-    final result = [...fetch().where((e) => e != env), env];
+  Set<String> add(String env) {
+    final result = {...fetch().where((e) => e != env), env};
     save(result);
     return result;
   }
 
-  List<String> remove(String env) {
-    final result = [...fetch().where((e) => e != env)];
+  Set<String> remove(String env) {
+    final result = {...fetch().where((e) => e != env)};
     save(result);
     return result;
   }

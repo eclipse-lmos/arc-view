@@ -199,6 +199,7 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
 mixin _$Message {
   String get role => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
+  Set<String>? get symbols => throw _privateConstructorUsedError;
 
   /// Serializes this Message to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -214,7 +215,7 @@ abstract class $MessageCopyWith<$Res> {
   factory $MessageCopyWith(Message value, $Res Function(Message) then) =
       _$MessageCopyWithImpl<$Res, Message>;
   @useResult
-  $Res call({String role, String content});
+  $Res call({String role, String content, Set<String>? symbols});
 }
 
 /// @nodoc
@@ -234,6 +235,7 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
   $Res call({
     Object? role = null,
     Object? content = null,
+    Object? symbols = freezed,
   }) {
     return _then(_value.copyWith(
       role: null == role
@@ -244,6 +246,10 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      symbols: freezed == symbols
+          ? _value.symbols
+          : symbols // ignore: cast_nullable_to_non_nullable
+              as Set<String>?,
     ) as $Val);
   }
 }
@@ -255,7 +261,7 @@ abstract class _$$MessageImplCopyWith<$Res> implements $MessageCopyWith<$Res> {
       __$$MessageImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String role, String content});
+  $Res call({String role, String content, Set<String>? symbols});
 }
 
 /// @nodoc
@@ -273,6 +279,7 @@ class __$$MessageImplCopyWithImpl<$Res>
   $Res call({
     Object? role = null,
     Object? content = null,
+    Object? symbols = freezed,
   }) {
     return _then(_$MessageImpl(
       role: null == role
@@ -283,6 +290,10 @@ class __$$MessageImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      symbols: freezed == symbols
+          ? _value._symbols
+          : symbols // ignore: cast_nullable_to_non_nullable
+              as Set<String>?,
     ));
   }
 }
@@ -290,7 +301,9 @@ class __$$MessageImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$MessageImpl implements _Message {
-  _$MessageImpl({required this.role, required this.content});
+  _$MessageImpl(
+      {required this.role, required this.content, final Set<String>? symbols})
+      : _symbols = symbols;
 
   factory _$MessageImpl.fromJson(Map<String, dynamic> json) =>
       _$$MessageImplFromJson(json);
@@ -299,10 +312,19 @@ class _$MessageImpl implements _Message {
   final String role;
   @override
   final String content;
+  final Set<String>? _symbols;
+  @override
+  Set<String>? get symbols {
+    final value = _symbols;
+    if (value == null) return null;
+    if (_symbols is EqualUnmodifiableSetView) return _symbols;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(value);
+  }
 
   @override
   String toString() {
-    return 'Message(role: $role, content: $content)';
+    return 'Message(role: $role, content: $content, symbols: $symbols)';
   }
 
   @override
@@ -311,12 +333,14 @@ class _$MessageImpl implements _Message {
         (other.runtimeType == runtimeType &&
             other is _$MessageImpl &&
             (identical(other.role, role) || other.role == role) &&
-            (identical(other.content, content) || other.content == content));
+            (identical(other.content, content) || other.content == content) &&
+            const DeepCollectionEquality().equals(other._symbols, _symbols));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, role, content);
+  int get hashCode => Object.hash(runtimeType, role, content,
+      const DeepCollectionEquality().hash(_symbols));
 
   /// Create a copy of Message
   /// with the given fields replaced by the non-null parameter values.
@@ -337,7 +361,8 @@ class _$MessageImpl implements _Message {
 abstract class _Message implements Message {
   factory _Message(
       {required final String role,
-      required final String content}) = _$MessageImpl;
+      required final String content,
+      final Set<String>? symbols}) = _$MessageImpl;
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$MessageImpl.fromJson;
 
@@ -345,6 +370,8 @@ abstract class _Message implements Message {
   String get role;
   @override
   String get content;
+  @override
+  Set<String>? get symbols;
 
   /// Create a copy of Message
   /// with the given fields replaced by the non-null parameter values.

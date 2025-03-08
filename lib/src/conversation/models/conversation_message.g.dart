@@ -17,6 +17,8 @@ _$ConversationMessageImpl _$$ConversationMessageImplFromJson(
           .toList(),
       responseTime: (json['responseTime'] as num?)?.toDouble(),
       agent: json['agent'] as String?,
+      symbols:
+          (json['symbols'] as List<dynamic>?)?.map((e) => e as String).toSet(),
     );
 
 Map<String, dynamic> _$$ConversationMessageImplToJson(
@@ -28,6 +30,7 @@ Map<String, dynamic> _$$ConversationMessageImplToJson(
       'binaryData': instance.binaryData,
       'responseTime': instance.responseTime,
       'agent': instance.agent,
+      'symbols': instance.symbols?.toList(),
     };
 
 const _$MessageTypeEnumMap = {

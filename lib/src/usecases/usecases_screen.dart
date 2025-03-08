@@ -34,8 +34,7 @@ class UseCasesScreen extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              ColoredBox(
-                color: context.colorScheme.surfaceContainer,
+              Card(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -48,10 +47,9 @@ class UseCasesScreen extends StatelessWidget {
                     }),
                   ],
                 ).padByUnits(2, 3, 2, 3),
-              ).size(height: 100),
+              ).size(height: 120),
               HGap.small(),
-              ColoredBox(
-                color: context.colorScheme.surfaceContainer,
+              Card(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -59,7 +57,7 @@ class UseCasesScreen extends StatelessWidget {
                     '${tagColors.keys.join(', ')}'.txt,
                   ],
                 ).padByUnits(2, 3, 2, 3),
-              ).size(height: 100)
+              ).size(height: 120)
             ],
           ).padByUnits(3, 3, 0, 3),
           UseCaseTable().padByUnits(3, 3, 3, 3).expand(),

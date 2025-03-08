@@ -24,6 +24,7 @@ class Conversation with _$Conversation {
     required SystemContext systemContext,
     required String conversationId,
     required DateTime createdAt,
+    String? name,
     bool? loading,
   }) = _Conversation;
 
@@ -75,6 +76,14 @@ class Conversation with _$Conversation {
     final systemEntries = [
       (key: 'usecase', value: useCase.content),
       (key: 'usecaseName', value: useCase.name),
+    ];
+    return addSystem(systemEntries);
+  }
+
+  Conversation addExpectedMessage(String? expectedMessage) {
+    if (expectedMessage == null) return this;
+    final systemEntries = [
+      (key: 'expectedMessage', value: expectedMessage),
     ];
     return addSystem(systemEntries);
   }

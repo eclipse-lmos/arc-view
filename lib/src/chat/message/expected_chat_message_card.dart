@@ -20,7 +20,7 @@ class ExpectedChatMessageCard extends StatelessWidget {
   });
 
   final ConversationMessage message;
-  final bool success;
+  final bool? success;
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +32,24 @@ class ExpectedChatMessageCard extends StatelessWidget {
         children: [
           Positioned(
             top: 0,
-            left: 0,
+            right: 8,
             child: [
               'Expected Message'.small.padding(),
-              if (success)
+              if (success == true)
                 Icon(
                   Icons.check,
-                  size: 12,
-                  color: Colors.teal,
+                  size: 24,
+                  color: Colors.green[800],
                 ),
-            ].row(min: true),
+              if (success == false)
+                Icon(
+                  Icons.close,
+                  size: 24,
+                  color: Colors.red[800],
+                ),
+            ].row(),
           ),
+          VGap(),
           MarkdownBody(
             selectable: true,
             fitContent: true,

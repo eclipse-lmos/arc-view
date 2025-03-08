@@ -20,6 +20,7 @@ class ConversationMessage with _$ConversationMessage {
     List<BinaryData>? binaryData,
     double? responseTime,
     String? agent,
+    Set<String>? symbols,
   }) = _ConversationMessage;
 
   const ConversationMessage._();

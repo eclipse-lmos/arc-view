@@ -66,30 +66,26 @@ class EventsList extends ConsumerWidget {
                                 as Map<String, dynamic>;
                             final contextLabel = _getEventLabel(json);
 
-                            return Card(
-                              elevation: 0,
-                              child: ExpansionTile(
-                                expandedAlignment: Alignment.topLeft,
-                                childrenPadding:
-                                    const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                                title: EventRowItem(event: event, json: json),
-                                subtitle: [
-                                  SmallText(contextLabel),
-                                  Spacer(),
-                                  SmallText(json['duration'] != null
-                                      ? '${(json['duration'] as double?)?.toStringAsPrecision(3)} seconds'
-                                      : ''),
-                                ].row(),
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: _transformEvent(
-                                            event.type, context, json)
-                                        .toList(),
-                                  ),
-                                ],
-                              ),
+                            return ExpansionTile(
+                              expandedAlignment: Alignment.topLeft,
+                              childrenPadding:
+                                  const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                              title: EventRowItem(event: event, json: json),
+                              subtitle: [
+                                SmallText(contextLabel),
+                                Spacer(),
+                                SmallText(json['duration'] != null
+                                    ? '${(json['duration'] as double?)?.toStringAsPrecision(3)} seconds'
+                                    : ''),
+                              ].row(),
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children:
+                                      _transformEvent(event.type, context, json)
+                                          .toList(),
+                                ),
+                              ],
                             );
                           },
                         ),

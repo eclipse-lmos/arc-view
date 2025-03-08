@@ -124,18 +124,29 @@ class ConversationsNotifier extends _$ConversationsNotifier {
     state = state.addAsCurrent(conversation);
   }
 
-  replay({
+  Future<Conversation> replay({
     UseCase? useCase,
     Conversation? replay,
     String? conversationId,
     Set<TestTool>? tools,
+    bool? addExpectedMessage,
   }) async {
+    Conversation? result;
     final conversation = replay ?? state.current;
     newConversation(conversationId: conversationId);
-    for (final msg in conversation.messages) {
+    for (final (index, msg) in conversation.messages.indexed) {
       if (msg.type == MessageType.bot) continue;
-      await sendUserMessage(msg.content, useCase: useCase, tools: tools);
+      final expectedMessage = addExpectedMessage == true
+          ? conversation.messages.elementAtOrNull(index + 1)?.content
+          : null;
+      result = await sendUserMessage(
+        msg.content,
+        useCase: useCase,
+        tools: tools,
+        expectedMessage: expectedMessage,
+      );
     }
+    return result!;
   }
 
   updateAndReplay(
@@ -157,21 +168,25 @@ class ConversationsNotifier extends _$ConversationsNotifier {
     await replay(replay: updatedConversation, useCase: useCase, tools: tools);
   }
 
-  Future<void> sendUserMessage(
+  Future<Conversation> sendUserMessage(
     String msg, {
     UseCase? useCase,
     Set<TestTool>? tools,
+    String? expectedMessage,
   }) {
-    final callback = Completer();
+    final callback = Completer<Conversation>();
     final updatedConversation = addUserRequest(msg, state.current);
 
     _log.fine('Sending message: $updatedConversation');
     ref
         .read(agentClientNotifierProvider)
-        .sendMessage(updatedConversation.addUseCase(useCase).addTools(tools))
-        .listen((value) {
-      addBotResponse(value, updatedConversation);
-      if (!callback.isCompleted) callback.complete();
+        .sendMessage(updatedConversation
+            .addUseCase(useCase)
+            .addTools(tools)
+            .addExpectedMessage(expectedMessage))
+        .listen((MessageResult value) {
+      final conversation = addBotResponse(value, updatedConversation);
+      if (!callback.isCompleted) callback.complete(conversation);
     });
     return callback.future;
   }
@@ -232,6 +247,7 @@ class ConversationsNotifier extends _$ConversationsNotifier {
             conversationId: conversation.conversationId,
             responseTime: value.responseTime,
             agent: value.agent,
+            symbols: message.symbols,
           )
       };
     }).toList();

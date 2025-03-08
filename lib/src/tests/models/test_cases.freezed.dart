@@ -21,7 +21,6 @@ TestCases _$TestCasesFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TestCases {
   List<TestCase> get testCases => throw _privateConstructorUsedError;
-  List<TestRun> get runs => throw _privateConstructorUsedError;
 
   /// Serializes this TestCases to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,7 +37,7 @@ abstract class $TestCasesCopyWith<$Res> {
   factory $TestCasesCopyWith(TestCases value, $Res Function(TestCases) then) =
       _$TestCasesCopyWithImpl<$Res, TestCases>;
   @useResult
-  $Res call({List<TestCase> testCases, List<TestRun> runs});
+  $Res call({List<TestCase> testCases});
 }
 
 /// @nodoc
@@ -57,17 +56,12 @@ class _$TestCasesCopyWithImpl<$Res, $Val extends TestCases>
   @override
   $Res call({
     Object? testCases = null,
-    Object? runs = null,
   }) {
     return _then(_value.copyWith(
       testCases: null == testCases
           ? _value.testCases
           : testCases // ignore: cast_nullable_to_non_nullable
               as List<TestCase>,
-      runs: null == runs
-          ? _value.runs
-          : runs // ignore: cast_nullable_to_non_nullable
-              as List<TestRun>,
     ) as $Val);
   }
 }
@@ -80,7 +74,7 @@ abstract class _$$TestCasesImplCopyWith<$Res>
       __$$TestCasesImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<TestCase> testCases, List<TestRun> runs});
+  $Res call({List<TestCase> testCases});
 }
 
 /// @nodoc
@@ -97,17 +91,12 @@ class __$$TestCasesImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? testCases = null,
-    Object? runs = null,
   }) {
     return _then(_$TestCasesImpl(
       testCases: null == testCases
           ? _value._testCases
           : testCases // ignore: cast_nullable_to_non_nullable
               as List<TestCase>,
-      runs: null == runs
-          ? _value._runs
-          : runs // ignore: cast_nullable_to_non_nullable
-              as List<TestRun>,
     ));
   }
 }
@@ -115,11 +104,8 @@ class __$$TestCasesImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$TestCasesImpl extends _TestCases {
-  _$TestCasesImpl(
-      {required final List<TestCase> testCases,
-      required final List<TestRun> runs})
+  _$TestCasesImpl({required final List<TestCase> testCases})
       : _testCases = testCases,
-        _runs = runs,
         super._();
 
   factory _$TestCasesImpl.fromJson(Map<String, dynamic> json) =>
@@ -133,17 +119,9 @@ class _$TestCasesImpl extends _TestCases {
     return EqualUnmodifiableListView(_testCases);
   }
 
-  final List<TestRun> _runs;
-  @override
-  List<TestRun> get runs {
-    if (_runs is EqualUnmodifiableListView) return _runs;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_runs);
-  }
-
   @override
   String toString() {
-    return 'TestCases(testCases: $testCases, runs: $runs)';
+    return 'TestCases(testCases: $testCases)';
   }
 
   @override
@@ -152,16 +130,13 @@ class _$TestCasesImpl extends _TestCases {
         (other.runtimeType == runtimeType &&
             other is _$TestCasesImpl &&
             const DeepCollectionEquality()
-                .equals(other._testCases, _testCases) &&
-            const DeepCollectionEquality().equals(other._runs, _runs));
+                .equals(other._testCases, _testCases));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_testCases),
-      const DeepCollectionEquality().hash(_runs));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_testCases));
 
   /// Create a copy of TestCases
   /// with the given fields replaced by the non-null parameter values.
@@ -180,9 +155,8 @@ class _$TestCasesImpl extends _TestCases {
 }
 
 abstract class _TestCases extends TestCases {
-  factory _TestCases(
-      {required final List<TestCase> testCases,
-      required final List<TestRun> runs}) = _$TestCasesImpl;
+  factory _TestCases({required final List<TestCase> testCases}) =
+      _$TestCasesImpl;
   _TestCases._() : super._();
 
   factory _TestCases.fromJson(Map<String, dynamic> json) =
@@ -190,8 +164,6 @@ abstract class _TestCases extends TestCases {
 
   @override
   List<TestCase> get testCases;
-  @override
-  List<TestRun> get runs;
 
   /// Create a copy of TestCases
   /// with the given fields replaced by the non-null parameter values.

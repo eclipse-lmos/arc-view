@@ -10,6 +10,7 @@ import 'package:arc_view/src/home/home_screen.dart';
 import 'package:arc_view/src/layout/main_layout.dart';
 import 'package:arc_view/src/metrics/charts_screen.dart';
 import 'package:arc_view/src/settings/settings_screen.dart';
+import 'package:arc_view/src/tests/tests_screen.dart';
 import 'package:arc_view/src/usecases/edit_usecases_screen.dart';
 import 'package:arc_view/src/usecases/usecases_screen.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,9 @@ final appRoutes = GoRouter(
           '/' => 0,
           '/chat' => 1,
           '/usecases' => 2,
-          '/charts' => 3,
-          '/settings' => 4,
+          '/tests' => 3,
+          '/charts' => 4,
+          '/settings' => 5,
           _ => 0,
         };
         return MainLayout(index: index, child: child);
@@ -54,6 +56,10 @@ final appRoutes = GoRouter(
         GoRoute(
           path: '/usecases',
           builder: (context, state) => const UseCasesScreen(),
+        ),
+        GoRoute(
+          path: '/tests',
+          builder: (context, state) => const TestsScreen(),
         ),
         GoRoute(
           path: '/events',
