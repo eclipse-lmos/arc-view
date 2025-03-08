@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import 'package:arc_view/src/chat/dialogs/apply_usecase_dialog.dart';
 import 'package:arc_view/src/chat/notifiers/selected_usecase_notifier.dart';
 import 'package:arc_view/src/client/notifiers/agents_notifier.dart';
 import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart';
@@ -14,6 +13,7 @@ import 'package:arc_view/src/core/secondary_button.dart';
 import 'package:arc_view/src/layout/notification_panel.dart';
 import 'package:arc_view/src/tests/tests_tool_bar.dart';
 import 'package:arc_view/src/tools/notifiers/selected_tool_notifier.dart';
+import 'package:arc_view/src/usecases/buttons/apply_use_case_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -30,34 +30,9 @@ class ChatToolBar extends ConsumerWidget {
 
     final currentConversation =
         ref.watch(conversationsNotifierProvider.select((e) => e.current));
-    final selectedUseCase = ref.watch(selectedUsecaseNotifierProvider);
 
     return [
-      Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: [
-          SecondaryButton(
-            description: 'Apply Use Cases',
-            onPressed: () {
-              showDialog(
-                  context: context, builder: (_) => ApplyUsecaseDialog());
-            },
-            icon: Icons.import_contacts,
-          ),
-          if (selectedUseCase == null)
-            'No Use Case selected'.txt.padByUnits(0, 2, 0, 0),
-          if (selectedUseCase != null) ...[
-            selectedUseCase.name.txt.padByUnits(0, 2, 0, 0),
-            SecondaryButton(
-              description: 'Remove Use Case',
-              icon: Icons.close,
-              onPressed: () {
-                ref.read(selectedUsecaseNotifierProvider.notifier).remove();
-              },
-            )
-          ],
-        ].row(),
-      ),
+      ApplyUseCaseButton(),
       HGap.small(),
       Consumer(
         builder: (context, ref, _) {

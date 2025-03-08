@@ -13,6 +13,7 @@ import 'package:arc_view/src/tests/models/test_case.dart';
 import 'package:arc_view/src/tests/models/test_run.dart';
 import 'package:arc_view/src/tests/notifiers/test_cases_notifier.dart';
 import 'package:arc_view/src/tests/notifiers/test_runs_notifier.dart';
+import 'package:arc_view/src/usecases/buttons/apply_use_case_button.dart';
 import 'package:arc_view/src/usecases/models/use_cases.dart';
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,8 @@ class TestsTable extends ConsumerWidget {
         Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
           CompletionChart(runs: testRuns?.values.toList() ?? List.empty())
               .size(height: 200),
+          HGap.small(),
+          ApplyUseCaseButton(),
           Spacer(),
           'Run All'.onButtonPressed(
             () async {
@@ -76,9 +79,7 @@ class TestsTable extends ConsumerWidget {
                 ref
                     .read(notificationNotifierProvider.notifier)
                     .notify('Running ${testCase.name}...');
-                await ref
-                    .read(testRunsNotifierProvider.notifier)
-                    .runTestCase(testCase);
+                await ref.runTestCaseWithUseCases(testCase);
               }
               ref
                   .read(notificationNotifierProvider.notifier)

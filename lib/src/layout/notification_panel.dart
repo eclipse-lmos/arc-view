@@ -19,7 +19,7 @@ class NotificationPanel extends ConsumerWidget {
     final message = ref.watch(notificationNotifierProvider);
 
     if (message == null) {
-      return const SizedBox();
+      return const SizedBox.shrink();
     }
 
     return Card(
