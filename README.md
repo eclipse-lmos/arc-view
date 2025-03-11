@@ -6,7 +6,7 @@
 
 The Arc View is a UI application for communicating with an Arc Agent service.
 
-The App is currently implemented to use the ARC Agent Graphql Endpoint described here https://eclipse-lmos.github.io/arc/docs/graphql.
+The App is currently implemented to use the ARC Agent Graphql Endpoint described [here](https://eclipse.dev/lmos/docs/arc/spring/graphql/) 
 
 ![Screenshot](screenshot.png)
 
