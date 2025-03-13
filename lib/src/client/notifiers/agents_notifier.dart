@@ -6,6 +6,7 @@
 
 import 'package:arc_view/src/client/notifiers/agent_client_notifier.dart';
 import 'package:arc_view/src/client/notifiers/agent_url_notifier.dart';
+import 'package:arc_view/src/client/oneai_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -26,6 +27,19 @@ class AgentsNotifier extends _$AgentsNotifier {
   setActivated(String activated, List<String> names) {
     state = AsyncData((activated: activated, names: names));
     ref.read(agentUrlNotifierProvider.notifier).setAgent(activated);
+  }
+
+  Future<Agents> checkUrl(String url) async {
+    try {
+      final agentUrl = Uri.parse(url);
+      final client = OneAIClient(
+          (url: agentUrl, agent: null, secure: agentUrl.isScheme('https')));
+      final agents = await client.getAgents();
+      client.close();
+      return (activated: null, names: agents);
+    } catch (_) {
+      return (activated: null, names: <String>[]);
+    }
   }
 
   refresh() async {

@@ -131,7 +131,7 @@ class OneAIClient {
       subProtocol: GraphQLProtocol.graphqlTransportWs,
       config: SocketClientConfig(
         autoReconnect: true,
-        inactivityTimeout: Duration(seconds: 10),
+        inactivityTimeout: Duration(seconds: 5),
       ),
     );
     Link link = Link.split(
