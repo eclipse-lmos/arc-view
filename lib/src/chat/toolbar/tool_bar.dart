@@ -21,10 +21,13 @@ class ToolBar extends ConsumerWidget {
     return Row(
       children: [
         const AgentTabs().padByUnits(0, 0, 0, 1),
-        'at'.style(color: textColor),
+        Spacer(),
+        'connected to'.style(color: textColor),
         agentUrl.url.toString().onPressed(() {
           showEditAgentUrl(context, ref);
         }),
+        HGap(),
+        HGap(),
       ],
     );
   }

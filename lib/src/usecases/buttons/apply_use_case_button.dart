@@ -9,6 +9,7 @@ import 'package:arc_view/src/chat/notifiers/selected_usecase_notifier.dart';
 import 'package:arc_view/src/core/secondary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smiles/smiles.dart';
 
 class ApplyUseCaseButton extends ConsumerWidget {
@@ -31,7 +32,9 @@ class ApplyUseCaseButton extends ConsumerWidget {
         if (selectedUseCase == null)
           'No Use Case selected'.txt.padByUnits(0, 2, 0, 0),
         if (selectedUseCase != null) ...[
-          selectedUseCase.name.txt.padByUnits(0, 2, 0, 0),
+          selectedUseCase.name.onPressed(() {
+            context.push('/edit_usecase/${selectedUseCase.id}');
+          }).padByUnits(0, 2, 0, 0),
           SecondaryButton(
             description: 'Remove Use Case',
             icon: Icons.close,
