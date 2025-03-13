@@ -9,9 +9,7 @@ import 'dart:convert';
 import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart';
 import 'package:arc_view/src/core/app_bar_title.dart';
 import 'package:arc_view/src/core/section_title.dart';
-import 'package:arc_view/src/settings/address_bar.dart';
 import 'package:arc_view/src/settings/context_field.dart';
-import 'package:arc_view/src/settings/env_wrap.dart';
 import 'package:arc_view/src/settings/notifiers/settings_notifier.dart';
 import 'package:arc_view/src/theme_notifier.dart';
 import 'package:flutter/material.dart';
@@ -67,19 +65,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   }).pad(8, 8, 8, 8),
                 ],
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Card(
-                    child: const AddressBar().padByUnits(1, 1, 1, 1),
-                  ).padByUnits(1, 1, 0, 1),
-                  Card(
-                    child: EnvWrap()
-                        .padByUnits(1, 1, 1, 1)
-                        .percentOfScreen(width: 0.4),
-                  ).padByUnits(1, 1, 0, 1),
-                ],
-              ),
+              // Row(
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //    children: [
+              //    Card(
+              //         child: const AddressBar().padByUnits(1, 1, 1, 1),
+              //       ).padByUnits(1, 1, 0, 1),
+              //   Card(
+              //         child: EnvWrap()
+              //           .padByUnits(1, 1, 1, 1)
+              //           .percentOfScreen(width: 0.4),
+              //       ).padByUnits(1, 1, 0, 1),
+              // ],
+              //   ),
               VGap.small(),
               Card(
                 elevation: 4,
