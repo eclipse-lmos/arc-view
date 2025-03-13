@@ -41,7 +41,7 @@ dependencies:
   flutter_riverpod: ^2.6.1
   flutter_state_notifier: ^1.0.0
   riverpod_annotation: ^2.6.1
-  freezed_annotation: ^2.4.1
+  freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
   flutter_animate: ^4.5.2
   shared_preferences: ^2.5.2
@@ -77,8 +77,8 @@ dev_dependencies:
     sdk: flutter
 
   build_runner: ^2.4.14
-  riverpod_generator: ^2.6.3
-  freezed: ^2.5.7
+  riverpod_generator: ^2.6.5
+  freezed: ^3.0.3
   json_serializable: ^6.7.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -87,7 +87,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-  riverpod_lint: ^2.6.3
+  riverpod_lint: ^2.6.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
