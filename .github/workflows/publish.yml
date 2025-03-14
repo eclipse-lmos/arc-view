@@ -23,7 +23,7 @@ jobs:
         run: |
           # Extract version from flutter's pubspec.yaml, and remove build number
           app_version=$(yq eval '.version' pubspec.yaml)
-          app_version_tag=$(echo $app_version | cut -d '+' -f 1)
+          app_version_tag=${app_version/\+*/-SNAPSHOT}
           echo "app_version=$app_version" >> $GITHUB_OUTPUT
           echo "app_version_tag=$app_version_tag" >> $GITHUB_OUTPUT
 
@@ -76,8 +76,8 @@ jobs:
       - name: Package and publish helm chart
         run: |
           # Add app version to chart.yaml
-          echo -e "\n# appVersion added by build script" >> helm/arc-view-web-chart/Chart.yaml
-          echo -e "appVersion: \"${{needs.extract-application-version.outputs.app_version_tag}}\"" >> helm/arc-view-web-chart/Chart.yaml
+          echo -e "version: \"${{needs.extract-application-version.outputs.app_version_tag}}\"" >> helm/arc-view-web-chart/Chart.yaml
+          echo -e "appVersion: \"${{needs.extract-application-version.outputs.app_version}}\"" >> helm/arc-view-web-chart/Chart.yaml
           
           # Package and publish helm chart
           package_output=$(helm package helm/arc-view-web-chart)
