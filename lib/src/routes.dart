@@ -18,8 +18,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'authentication/login_screen.dart';
+import 'authentication/notifier/token_notifier.dart';
 import 'authentication/splash_screen.dart';
-import 'authentication/storage/token_storage_default.dart';
 import 'authentication/util/auth_util.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =

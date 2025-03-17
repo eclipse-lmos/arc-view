@@ -8,13 +8,13 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:arc_view/src/authentication/model/tokens.dart';
-import 'package:arc_view/src/authentication/storage/token_storage_default.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../client/oidc_api.dart';
+import '../client/oidc.dart';
 import '../model/openid_config.dart';
+import '../notifier/token_notifier.dart';
 
 class OidcDesktopService {
   final TokenNotifier _tokenNotifier;

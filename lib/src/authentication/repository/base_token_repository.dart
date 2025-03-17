@@ -9,7 +9,7 @@ import '../model/tokens.dart';
 // Token Storage Factory Interface
 // ────────────────────────────────────────────
 
-abstract class TokenStorage {
+abstract class TokenStorageRepository {
   Future<void> saveToken(Tokens tokens) async {
     throw UnimplementedError("Token storage is not available.");
   }
