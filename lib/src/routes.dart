@@ -100,20 +100,16 @@ GoRouter createRouter(WidgetRef ref) {
     ],
     // 4. Global redirect logic
     redirect: (context, state) {
+      final tokenNotifier = ref.watch(tokenNotifierProvider.notifier);
+      final hasValidToken = tokenNotifier.hasValidToken;
+      final isSplash = state.uri.path == '/splash';
+      final isLogin = state.uri.path == '/login';
       if (mandatoryLoggedInEnabled()) {
-        final tokenNotifier = ref.watch(tokenNotifierProvider.notifier);
-        final hasValidToken = tokenNotifier.hasValidToken;
-        final isSplash = state.uri.path == '/splash';
-        final isLogin = state.uri.path == '/login';
-        if (isSplash) return null;
+        if (isSplash) return hasValidToken ? '/' : '/login';
         //No valid then go to login screen
-        if (!hasValidToken && !isLogin) {
-          return '/login';
-        }
+        if (!hasValidToken && !isLogin) return '/login';
         //already login then redirect to home
-        if (hasValidToken && isLogin) {
-          return '/';
-        }
+        if (hasValidToken && isLogin) return '/';
         //No redirection required
         return null;
       }

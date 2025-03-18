@@ -15,8 +15,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../client/oidc.dart';
 import '../model/openid_config.dart';
 import '../notifier/token_notifier.dart';
+import 'oidc_service.dart';
 
-class OidcDesktopService {
+class OidcDesktopService implements OidcService{
   final TokenNotifier _tokenNotifier;
   final OpenIdCredentialConfig _config;
   final OidcHttpClient _oidcHttpClient;
@@ -31,6 +32,7 @@ class OidcDesktopService {
         _oidcHttpClient = oidcHttpClient;
 
   // Initiates the login flow by spinning up a local server and opening the browser.
+  @override
   Future<bool> login() async {
     final completer = Completer<bool>();
     try {
@@ -75,6 +77,7 @@ class OidcDesktopService {
   }
 
   // Initiates the logout flow
+  @override
   Future<bool> logout() async {
     bool logoutSuccess = false;
     try {
@@ -97,6 +100,7 @@ class OidcDesktopService {
   }
 
   /// **Attempts to refresh the access token using a refresh token**
+  @override
   Future<Tokens?> tryRefresh(String refreshToken) async {
     Tokens? refreshTokens;
     try {

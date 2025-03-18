@@ -13,7 +13,7 @@ import 'package:go_router/go_router.dart';
 import 'package:smiles/smiles.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../authentication/service/oidc_desktop_service.dart';
+import '../authentication/service/desktop_oidc_service.dart';
 import '../config_loader.dart';
 
 class MainLayout extends StatefulWidget {

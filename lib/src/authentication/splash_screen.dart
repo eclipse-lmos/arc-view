@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-import 'package:arc_view/src/authentication/service/oidc_desktop_service.dart';
+import 'package:arc_view/src/authentication/service/desktop_oidc_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -29,38 +29,20 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   }
 
   Future<void> _initCheck() async {
-    if (checkOidcAndNavigate(
-        context, (value) => setState(() => _isLoading = value))) {
-      return;
-    }
-
     try {
       final desktopService = ref.read(oidcDesktopServiceProvider);
       final tokens = await desktopService.getStoredToken();
-      bool navigateToHomeFlag = false;
 
-      //1. check valid access-token if yes then go home
-      if (isValidAccessToken(tokens)) {
-        navigateToHomeFlag = true;
-      }
-
-      //2. try refresh token if yes then go home
+      // Check and refresh token if needed
       if (shouldTryRefresh(tokens)) {
         final refreshedTokens =
             await desktopService.tryRefresh(tokens!.refreshToken!);
         if (refreshedTokens != null) {
           await desktopService.saveToken(refreshedTokens);
-          navigateToHomeFlag = true;
         }
       }
-      // 3. Perform navigation
       if (!mounted) return;
-
-      navigateToHomeFlag
-          ? navigateToHome(
-              context, (value) => setState(() => _isLoading = value))
-          : navigateToLogin(
-              context, (value) => setState(() => _isLoading = value));
+      setState(() => _isLoading = false);
     } catch (e) {
       // If any exception occurs, disable loading and show error or direct to login
       handleError(context, (value) => setState(() => _isLoading = value), e);
