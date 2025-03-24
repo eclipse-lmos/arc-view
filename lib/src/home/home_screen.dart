@@ -7,6 +7,7 @@
 import 'package:arc_view/src/core/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:go_router/go_router.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:smiles/smiles.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -59,11 +60,8 @@ Check out https://github.com/eclipse-lmos/arc-view
 **Simply** start your Agents in a web application and connect to them using the Arc View.
 \\
 \\
-**Go to Settings and set the Agent Url to your Application**.
-\\
-\\
-Currently, the Arc View only supports the Arc GraphQL Protocol, see the [Agent GraphQL](https://eclipse.dev/lmos/docs/arc/spring/graphql) for more information.
-
+Currently, the Arc View connects to Agents that use the the Arc GraphQL Protocol,
+ see the [Agent GraphQL](https://eclipse.dev/lmos/docs/arc/spring/graphql) for more information.
 
 Or checkout the Spring Quickstart project: 
 
@@ -86,6 +84,10 @@ https://github.com/eclipse-lmos/arc-spring-init.
             .markDown(context)
             .padByUnits(2, 2, 2, 2),
       ).size(width: 700),
+      VGap.small(),
+      'Go to Chat'.onButtonPressed(() {
+        context.go('/chat');
+      }).center(),
       Spacer(),
       [
         'Powered by'.txt,

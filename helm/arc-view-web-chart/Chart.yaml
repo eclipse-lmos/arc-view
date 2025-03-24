@@ -3,4 +3,4 @@ name: arc-view-web-chart
 description: A Helm chart for deploying the arc view as web application
 
 type: application
-version: 0.1.0-SNAPSHOT
+# version and appVersion will be added by build script
