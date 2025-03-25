@@ -14,11 +14,9 @@ final useCaseNameInvalidCharacters = RegExp(r'[^a-zA-Z0-9_-]');
 
 /// A collection of use cases where one use case can be selected.
 @freezed
-class UseCases with _$UseCases {
-  factory UseCases({
-    required List<UseCase> cases,
-    required int selected,
-  }) = _UseCases;
+sealed class UseCases with _$UseCases {
+  factory UseCases({required List<UseCase> cases, required int selected}) =
+      _UseCases;
 
   UseCases._();
 
@@ -33,7 +31,7 @@ class UseCases with _$UseCases {
 }
 
 @freezed
-class UseCase with _$UseCase {
+sealed class UseCase with _$UseCase {
   factory UseCase({
     required String name,
     String? id,

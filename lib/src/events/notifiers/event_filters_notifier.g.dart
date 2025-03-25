@@ -17,14 +17,15 @@ String _$eventFiltersNotifierHash() =>
 @ProviderFor(EventFiltersNotifier)
 final eventFiltersNotifierProvider =
     NotifierProvider<EventFiltersNotifier, List<EventFilter>>.internal(
-  EventFiltersNotifier.new,
-  name: r'eventFiltersNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$eventFiltersNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      EventFiltersNotifier.new,
+      name: r'eventFiltersNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$eventFiltersNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$EventFiltersNotifier = Notifier<List<EventFilter>>;
 // ignore_for_file: type=lint

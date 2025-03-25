@@ -13,14 +13,15 @@ String _$conversationsNotifierHash() =>
 @ProviderFor(ConversationsNotifier)
 final conversationsNotifierProvider =
     NotifierProvider<ConversationsNotifier, Conversations>.internal(
-  ConversationsNotifier.new,
-  name: r'conversationsNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$conversationsNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      ConversationsNotifier.new,
+      name: r'conversationsNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$conversationsNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$ConversationsNotifier = Notifier<Conversations>;
 // ignore_for_file: type=lint

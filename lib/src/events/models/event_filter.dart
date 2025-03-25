@@ -10,7 +10,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'event_filter.freezed.dart';
 
 @freezed
-class EventFilter with _$EventFilter {
+sealed class EventFilter with _$EventFilter {
   factory EventFilter({
     required String label,
     required List<String> options,

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,196 +10,145 @@ part of 'settings.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Settings _$SettingsFromJson(Map<String, dynamic> json) {
-  return _Settings.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Settings {
-  bool get changed => throw _privateConstructorUsedError;
-  String? get newUserContext => throw _privateConstructorUsedError;
-  String? get newSystemContext => throw _privateConstructorUsedError;
+
+ bool get changed; String? get newUserContext; String? get newSystemContext;
+/// Create a copy of Settings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SettingsCopyWith<Settings> get copyWith => _$SettingsCopyWithImpl<Settings>(this as Settings, _$identity);
 
   /// Serializes this Settings to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of Settings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $SettingsCopyWith<Settings> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Settings&&(identical(other.changed, changed) || other.changed == changed)&&(identical(other.newUserContext, newUserContext) || other.newUserContext == newUserContext)&&(identical(other.newSystemContext, newSystemContext) || other.newSystemContext == newSystemContext));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,changed,newUserContext,newSystemContext);
+
+@override
+String toString() {
+  return 'Settings(changed: $changed, newUserContext: $newUserContext, newSystemContext: $newSystemContext)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $SettingsCopyWith<$Res> {
-  factory $SettingsCopyWith(Settings value, $Res Function(Settings) then) =
-      _$SettingsCopyWithImpl<$Res, Settings>;
-  @useResult
-  $Res call({bool changed, String? newUserContext, String? newSystemContext});
-}
+abstract mixin class $SettingsCopyWith<$Res>  {
+  factory $SettingsCopyWith(Settings value, $Res Function(Settings) _then) = _$SettingsCopyWithImpl;
+@useResult
+$Res call({
+ bool changed, String? newUserContext, String? newSystemContext
+});
 
+
+
+
+}
 /// @nodoc
-class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
+class _$SettingsCopyWithImpl<$Res>
     implements $SettingsCopyWith<$Res> {
-  _$SettingsCopyWithImpl(this._value, this._then);
+  _$SettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Settings _self;
+  final $Res Function(Settings) _then;
 
-  /// Create a copy of Settings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? changed = null,
-    Object? newUserContext = freezed,
-    Object? newSystemContext = freezed,
-  }) {
-    return _then(_value.copyWith(
-      changed: null == changed
-          ? _value.changed
-          : changed // ignore: cast_nullable_to_non_nullable
-              as bool,
-      newUserContext: freezed == newUserContext
-          ? _value.newUserContext
-          : newUserContext // ignore: cast_nullable_to_non_nullable
-              as String?,
-      newSystemContext: freezed == newSystemContext
-          ? _value.newSystemContext
-          : newSystemContext // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
+/// Create a copy of Settings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? changed = null,Object? newUserContext = freezed,Object? newSystemContext = freezed,}) {
+  return _then(_self.copyWith(
+changed: null == changed ? _self.changed : changed // ignore: cast_nullable_to_non_nullable
+as bool,newUserContext: freezed == newUserContext ? _self.newUserContext : newUserContext // ignore: cast_nullable_to_non_nullable
+as String?,newSystemContext: freezed == newSystemContext ? _self.newSystemContext : newSystemContext // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$SettingsImplCopyWith<$Res>
-    implements $SettingsCopyWith<$Res> {
-  factory _$$SettingsImplCopyWith(
-          _$SettingsImpl value, $Res Function(_$SettingsImpl) then) =
-      __$$SettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool changed, String? newUserContext, String? newSystemContext});
 }
 
-/// @nodoc
-class __$$SettingsImplCopyWithImpl<$Res>
-    extends _$SettingsCopyWithImpl<$Res, _$SettingsImpl>
-    implements _$$SettingsImplCopyWith<$Res> {
-  __$$SettingsImplCopyWithImpl(
-      _$SettingsImpl _value, $Res Function(_$SettingsImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Settings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? changed = null,
-    Object? newUserContext = freezed,
-    Object? newSystemContext = freezed,
-  }) {
-    return _then(_$SettingsImpl(
-      changed: null == changed
-          ? _value.changed
-          : changed // ignore: cast_nullable_to_non_nullable
-              as bool,
-      newUserContext: freezed == newUserContext
-          ? _value.newUserContext
-          : newUserContext // ignore: cast_nullable_to_non_nullable
-              as String?,
-      newSystemContext: freezed == newSystemContext
-          ? _value.newSystemContext
-          : newSystemContext // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$SettingsImpl implements _Settings {
-  _$SettingsImpl(
-      {required this.changed,
-      required this.newUserContext,
-      required this.newSystemContext});
 
-  factory _$SettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SettingsImplFromJson(json);
+class _Settings implements Settings {
+   _Settings({required this.changed, required this.newUserContext, required this.newSystemContext});
+  factory _Settings.fromJson(Map<String, dynamic> json) => _$SettingsFromJson(json);
 
-  @override
-  final bool changed;
-  @override
-  final String? newUserContext;
-  @override
-  final String? newSystemContext;
+@override final  bool changed;
+@override final  String? newUserContext;
+@override final  String? newSystemContext;
 
-  @override
-  String toString() {
-    return 'Settings(changed: $changed, newUserContext: $newUserContext, newSystemContext: $newSystemContext)';
-  }
+/// Create a copy of Settings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SettingsCopyWith<_Settings> get copyWith => __$SettingsCopyWithImpl<_Settings>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SettingsImpl &&
-            (identical(other.changed, changed) || other.changed == changed) &&
-            (identical(other.newUserContext, newUserContext) ||
-                other.newUserContext == newUserContext) &&
-            (identical(other.newSystemContext, newSystemContext) ||
-                other.newSystemContext == newSystemContext));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, changed, newUserContext, newSystemContext);
-
-  /// Create a copy of Settings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SettingsImplCopyWith<_$SettingsImpl> get copyWith =>
-      __$$SettingsImplCopyWithImpl<_$SettingsImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SettingsImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$SettingsToJson(this, );
 }
 
-abstract class _Settings implements Settings {
-  factory _Settings(
-      {required final bool changed,
-      required final String? newUserContext,
-      required final String? newSystemContext}) = _$SettingsImpl;
-
-  factory _Settings.fromJson(Map<String, dynamic> json) =
-      _$SettingsImpl.fromJson;
-
-  @override
-  bool get changed;
-  @override
-  String? get newUserContext;
-  @override
-  String? get newSystemContext;
-
-  /// Create a copy of Settings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SettingsImplCopyWith<_$SettingsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Settings&&(identical(other.changed, changed) || other.changed == changed)&&(identical(other.newUserContext, newUserContext) || other.newUserContext == newUserContext)&&(identical(other.newSystemContext, newSystemContext) || other.newSystemContext == newSystemContext));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,changed,newUserContext,newSystemContext);
+
+@override
+String toString() {
+  return 'Settings(changed: $changed, newUserContext: $newUserContext, newSystemContext: $newSystemContext)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SettingsCopyWith<$Res> implements $SettingsCopyWith<$Res> {
+  factory _$SettingsCopyWith(_Settings value, $Res Function(_Settings) _then) = __$SettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ bool changed, String? newUserContext, String? newSystemContext
+});
+
+
+
+
+}
+/// @nodoc
+class __$SettingsCopyWithImpl<$Res>
+    implements _$SettingsCopyWith<$Res> {
+  __$SettingsCopyWithImpl(this._self, this._then);
+
+  final _Settings _self;
+  final $Res Function(_Settings) _then;
+
+/// Create a copy of Settings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? changed = null,Object? newUserContext = freezed,Object? newSystemContext = freezed,}) {
+  return _then(_Settings(
+changed: null == changed ? _self.changed : changed // ignore: cast_nullable_to_non_nullable
+as bool,newUserContext: freezed == newUserContext ? _self.newUserContext : newUserContext // ignore: cast_nullable_to_non_nullable
+as String?,newSystemContext: freezed == newSystemContext ? _self.newSystemContext : newSystemContext // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+// dart format on

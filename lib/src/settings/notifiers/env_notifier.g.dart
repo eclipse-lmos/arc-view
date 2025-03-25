@@ -12,13 +12,15 @@ String _$envNotifierHash() => r'7cd377fc6c6d7fb75d2ecc87089aab9348ebe6d2';
 @ProviderFor(EnvNotifier)
 final envNotifierProvider =
     AutoDisposeNotifierProvider<EnvNotifier, Set<String>>.internal(
-  EnvNotifier.new,
-  name: r'envNotifierProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$envNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      EnvNotifier.new,
+      name: r'envNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$envNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$EnvNotifier = AutoDisposeNotifier<Set<String>>;
 // ignore_for_file: type=lint

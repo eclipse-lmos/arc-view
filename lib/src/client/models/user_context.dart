@@ -10,7 +10,7 @@ part 'user_context.freezed.dart';
 part 'user_context.g.dart';
 
 @freezed
-class UserContext with _$UserContext {
+sealed class UserContext with _$UserContext {
   factory UserContext({
     required List<ProfileEntry> profile,
     required String userId,
@@ -22,11 +22,9 @@ class UserContext with _$UserContext {
 }
 
 @freezed
-class ProfileEntry with _$ProfileEntry {
-  factory ProfileEntry({
-    required String key,
-    required String value,
-  }) = _ProfileEntry;
+sealed class ProfileEntry with _$ProfileEntry {
+  factory ProfileEntry({required String key, required String value}) =
+      _ProfileEntry;
 
   factory ProfileEntry.fromJson(Map<String, dynamic> json) =>
       _$ProfileEntryFromJson(json);

@@ -10,7 +10,7 @@ part 'settings.freezed.dart';
 part 'settings.g.dart';
 
 @freezed
-class Settings with _$Settings {
+sealed class Settings with _$Settings {
   factory Settings({
     required bool changed,
     required String? newUserContext,

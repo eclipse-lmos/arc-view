@@ -21,6 +21,9 @@ final darkTheme = ThemeData(
       surface: const Color.fromARGB(255, 24, 23, 29),
       surfaceContainer: const Color.fromARGB(255, 40, 39, 45),
     ),
+    navigationRailTheme: NavigationRailThemeData(
+      backgroundColor: const Color.fromARGB(255, 21, 20, 25),
+    ),
     dialogTheme: DialogTheme(
       backgroundColor: const Color.fromARGB(255, 40, 39, 45),
     ),

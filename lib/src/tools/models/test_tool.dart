@@ -10,7 +10,7 @@ part 'test_tool.freezed.dart';
 part 'test_tool.g.dart';
 
 @freezed
-class TestTool with _$TestTool {
+sealed class TestTool with _$TestTool {
   factory TestTool({
     required String name,
     required String title,
@@ -27,11 +27,12 @@ class TestTool with _$TestTool {
 }
 
 @freezed
-class TestToolParameter with _$TestToolParameter {
-  factory TestToolParameter(
-      {required String name,
-      required String description,
-      required String type}) = _TestToolParameter;
+sealed class TestToolParameter with _$TestToolParameter {
+  factory TestToolParameter({
+    required String name,
+    required String description,
+    required String type,
+  }) = _TestToolParameter;
 
   TestToolParameter._();
 

@@ -9,6 +9,7 @@ import 'package:arc_view/src/usecases/dialogs/usecase_dialog.dart';
 import 'package:arc_view/src/usecases/models/use_cases.dart';
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
 import 'package:arc_view/src/usecases/services/usecase_exporter.dart';
+import 'package:arc_view/src/usecases/usecases_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -26,9 +27,16 @@ class UseCaseTable extends ConsumerWidget {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final largeScreen = screenWidth > 1400;
     final smallScreen = screenWidth < 1200;
+    final useCaseFilter = ref.watch(useCaseFilterProvider);
+    var cases = useCases?.cases ?? [];
 
-    if (useCases == null || useCases.cases.isEmpty) {
-      return ''.txt.pad(4, 8, 4, 8);
+    if (cases.isEmpty) {
+      return 'No Use Cases at the moment'.txt.center();
+    }
+
+    if (useCaseFilter.isNotEmpty) {
+      cases =
+          cases.where((u) => u.tags?.contains(useCaseFilter) == true).toList();
     }
 
     return Column(
@@ -36,125 +44,132 @@ class UseCaseTable extends ConsumerWidget {
       children: [
         SingleChildScrollView(
           child: DataTable(
-              showCheckboxColumn: false,
-              headingRowHeight: 40,
-              headingRowColor: WidgetStateColor.resolveWith(
-                (states) => context.colorScheme.surfaceContainer,
+            showCheckboxColumn: false,
+            headingRowHeight: 40,
+            headingRowColor: WidgetStateColor.resolveWith(
+              (states) => context.colorScheme.surfaceContainer,
+            ),
+            columns: [
+              DataColumn(
+                numeric: false,
+                label: 'Name'.txt,
+                onSort: (columnIndex, ascending) {
+                  ref
+                      .read(useCasesNotifierProvider.notifier)
+                      .sortByName(ascending: ascending);
+                },
+                columnWidth: FixedColumnWidth(_columnSizes[0]),
               ),
-              columns: [
+              DataColumn(
+                label: 'Description'.txt,
+                columnWidth: FlexColumnWidth(),
+              ),
+              if (!smallScreen)
                 DataColumn(
-                    numeric: false,
-                    label: 'Name'.txt,
-                    onSort: (columnIndex, ascending) {
-                      ref
-                          .read(useCasesNotifierProvider.notifier)
-                          .sortByName(ascending: ascending);
-                    },
-                    columnWidth: FixedColumnWidth(_columnSizes[0])),
+                  label: 'Tags'.txt,
+                  columnWidth: FixedColumnWidth(_columnSizes[1]),
+                ),
+              DataColumn(
+                label: 'Created At'.txt,
+                columnWidth: FixedColumnWidth(_columnSizes[2]),
+              ),
+              if (largeScreen)
                 DataColumn(
-                    label: 'Description'.txt, columnWidth: FlexColumnWidth()),
-                if (!smallScreen)
-                  DataColumn(
-                      label: 'Tags'.txt,
-                      columnWidth: FixedColumnWidth(_columnSizes[1])),
-                DataColumn(
-                    label: 'Created At'.txt,
-                    columnWidth: FixedColumnWidth(_columnSizes[2])),
-                if (largeScreen)
-                  DataColumn(
-                      label: 'Hash'.txt,
-                      columnWidth: FixedColumnWidth(_columnSizes[3])),
-                DataColumn(
-                    label: 'Actions'.txt,
-                    columnWidth: FixedColumnWidth(_columnSizes[4])),
-              ],
-              rows: [
-                for (var i = 0; i < useCases.cases.length; i++)
-                  DataRow(
-                    onSelectChanged: (selected) {
-                      if (selected == true) {
-                        _gotoUseCase(useCases.cases[i], context);
-                      }
-                    },
-                    cells: [
-                      DataCell(
-                        [
-                          Icon(
-                            Icons.file_open_rounded,
-                            size: 16,
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
-                          HGap.units(2),
-                          useCases.cases[i].name.txt,
-                        ].row(),
-                      ),
-                      DataCell(
-                        (useCases.cases[i].description ?? '').txt,
-                      ),
-                      if (!smallScreen)
-                        DataCell(
-                          UseCaseTags(useCase: useCases.cases[i]),
+                  label: 'Hash'.txt,
+                  columnWidth: FixedColumnWidth(_columnSizes[3]),
+                ),
+              DataColumn(
+                label: 'Actions'.txt,
+                columnWidth: FixedColumnWidth(_columnSizes[4]),
+              ),
+            ],
+            rows: [
+              for (var i = 0; i < cases.length; i++)
+                DataRow(
+                  onSelectChanged: (selected) {
+                    if (selected == true) {
+                      _gotoUseCase(cases[i], context);
+                    }
+                  },
+                  cells: [
+                    DataCell(
+                      [
+                        Icon(
+                          Icons.file_open_rounded,
+                          size: 16,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
-                      DataCell(DateFormat.Hm()
-                          .add_yMd()
-                          .format(useCases.cases[i].createdAt)
-                          .txt),
-                      if (largeScreen)
-                        DataCell(
-                          useCases.cases[i].generateHash().txt,
+                        HGap.units(2),
+                        cases[i].name.txt,
+                      ].row(),
+                    ),
+                    DataCell((cases[i].description ?? '').txt),
+                    if (!smallScreen) DataCell(UseCaseTags(useCase: cases[i])),
+                    DataCell(
+                      DateFormat.Hm().add_yMd().format(cases[i].createdAt).txt,
+                    ),
+                    if (largeScreen) DataCell(cases[i].generateHash().txt),
+                    DataCell(
+                      [
+                        SecondaryButton(
+                          icon: Icons.edit,
+                          description: 'Edit Use Case Details',
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder:
+                                  (context) => UseCaseDialog(
+                                    title: 'Edit UseCases Details',
+                                    value: cases[i],
+                                    onConfirm: (details) {
+                                      ref
+                                          .read(
+                                            useCasesNotifierProvider.notifier,
+                                          )
+                                          .updateUseCase(
+                                            cases[i].copyWith(
+                                              name: details.name,
+                                              description: details.description,
+                                              tags: details.tags,
+                                            ),
+                                          );
+                                    },
+                                  ),
+                            );
+                          },
                         ),
-                      DataCell([
                         SecondaryButton(
-                            icon: Icons.edit,
-                            description: 'Edit Use Case Details',
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => UseCaseDialog(
-                                  title: 'Edit UseCases Details',
-                                  value: useCases.cases[i],
-                                  onConfirm: (details) {
-                                    ref
-                                        .read(useCasesNotifierProvider.notifier)
-                                        .updateUseCase(
-                                            useCases.cases[i].copyWith(
-                                          name: details.name,
-                                          description: details.description,
-                                          tags: details.tags,
-                                        ));
-                                  },
-                                ),
-                              );
-                            }),
+                          icon: Icons.download,
+                          description: 'Export Use Case',
+                          onPressed: () {
+                            ref.read(useCaseExporterProvider).export(cases[i]);
+                          },
+                        ),
                         SecondaryButton(
-                            icon: Icons.download,
-                            description: 'Export Use Case',
-                            onPressed: () {
-                              ref
-                                  .read(useCaseExporterProvider)
-                                  .export(useCases.cases[i]);
-                            }),
+                          icon: Icons.copy,
+                          description: 'Duplicate Use Case',
+                          onPressed: () {
+                            ref
+                                .read(useCasesNotifierProvider.notifier)
+                                .addUseCase(cases[i].duplicate());
+                          },
+                        ),
                         SecondaryButton(
-                            icon: Icons.copy,
-                            description: 'Duplicate Use Case',
-                            onPressed: () {
-                              ref
-                                  .read(useCasesNotifierProvider.notifier)
-                                  .addUseCase(useCases.cases[i].duplicate());
-                            }),
-                        SecondaryButton(
-                            icon: Icons.delete,
-                            confirming: true,
-                            description: 'Delete Use Case',
-                            onPressed: () {
-                              ref
-                                  .read(useCasesNotifierProvider.notifier)
-                                  .deleteUseCase(useCases.cases[i]);
-                            }),
-                      ].row()),
-                    ],
-                  )
-              ]),
+                          icon: Icons.delete,
+                          confirming: true,
+                          description: 'Delete Use Case',
+                          onPressed: () {
+                            ref
+                                .read(useCasesNotifierProvider.notifier)
+                                .deleteUseCase(cases[i]);
+                          },
+                        ),
+                      ].row(),
+                    ),
+                  ],
+                ),
+            ],
+          ),
         ).expand(),
       ],
     );
@@ -188,14 +203,15 @@ class _UseCaseTagsState extends State<UseCaseTags> {
   Widget build(BuildContext context) {
     return <Widget>[
       ...(widget.useCase.tags
-              ?.map((t) => Container(
-                    decoration: BoxDecoration(
-                      color:
-                          tagColors[t] ?? context.colorScheme.surfaceContainer,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: t.txt.padByUnits(0, 1, 0, 1),
-                  ))
+              ?.map(
+                (t) => Container(
+                  decoration: BoxDecoration(
+                    color: tagColors[t] ?? context.colorScheme.surfaceContainer,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: t.txt.padByUnits(0, 1, 0, 1),
+                ),
+              )
               .toList() ??
           []),
     ].wrap(spacing: 8);

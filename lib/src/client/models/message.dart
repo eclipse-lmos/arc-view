@@ -13,7 +13,7 @@ part 'message.g.dart';
 /// Message Type from the Arc API.
 ///
 @freezed
-class AgentResult with _$AgentResult {
+sealed class AgentResult with _$AgentResult {
   factory AgentResult({
     required List<Message> messages,
     required double responseTime,
@@ -24,7 +24,7 @@ class AgentResult with _$AgentResult {
 }
 
 @freezed
-class Message with _$Message {
+sealed class Message with _$Message {
   factory Message({
     required String role,
     required String content,

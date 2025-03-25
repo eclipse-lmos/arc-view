@@ -13,9 +13,10 @@ String _$metricsImporterHash() => r'8d7201cc2cf02c14c39809a7487b5619fe2ea90f';
 final metricsImporterProvider = AutoDisposeProvider<MetricsImporter>.internal(
   metricsImporter,
   name: r'metricsImporterProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$metricsImporterHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$metricsImporterHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

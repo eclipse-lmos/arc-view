@@ -30,7 +30,7 @@ final GlobalKey<NavigatorState> _mainNavigatorKey =
 /// Main Routing
 GoRouter createRouter(WidgetRef ref) {
   return GoRouter(
-    initialLocation: '/splash',
+    initialLocation: '/',
     debugLogDiagnostics: true,
     //enable for testing and see logs
     navigatorKey: _rootNavigatorKey,
@@ -77,10 +77,10 @@ GoRouter createRouter(WidgetRef ref) {
           GoRoute(
             path: '/usecases',
             builder: (context, state) => const UseCasesScreen(),
-        ),
-        GoRoute(
-          path: '/tests',
-          builder: (context, state) => const TestsScreen(),
+          ),
+          GoRoute(
+            path: '/tests',
+            builder: (context, state) => const TestsScreen(),
           ),
           GoRoute(
             path: '/events',
@@ -89,11 +89,11 @@ GoRouter createRouter(WidgetRef ref) {
           GoRoute(
             path: '/charts',
             builder: (context, state) => const ChartsScreen(),
-        ),
-        GoRoute(
-          path: '/edit_usecase/:id',
-          builder: (context, state) =>
-              EditUseCasesScreen(useCaseId: state.pathParameters['id']!),
+          ),
+          GoRoute(
+            path: '/edit_usecase/:id',
+            builder: (context, state) =>
+                EditUseCasesScreen(useCaseId: state.pathParameters['id']!),
           ),
         ],
       ),

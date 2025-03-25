@@ -13,14 +13,15 @@ String _$currentPromptNotifierHash() =>
 @ProviderFor(CurrentPromptNotifier)
 final currentPromptNotifierProvider =
     AutoDisposeNotifierProvider<CurrentPromptNotifier, String>.internal(
-  CurrentPromptNotifier.new,
-  name: r'currentPromptNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentPromptNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      CurrentPromptNotifier.new,
+      name: r'currentPromptNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$currentPromptNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$CurrentPromptNotifier = AutoDisposeNotifier<String>;
 // ignore_for_file: type=lint

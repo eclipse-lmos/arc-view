@@ -14,13 +14,16 @@ String _$testRunsNotifierHash() => r'940db30e60a78531a4f43bd24eef8db0c1ac1aba';
 ///
 /// Copied from [TestRunsNotifier].
 @ProviderFor(TestRunsNotifier)
-final testRunsNotifierProvider = NotifierProvider<TestRunsNotifier,
-    Map<String, Map<String, TestRun>>>.internal(
+final testRunsNotifierProvider = NotifierProvider<
+  TestRunsNotifier,
+  Map<String, Map<String, TestRun>>
+>.internal(
   TestRunsNotifier.new,
   name: r'testRunsNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$testRunsNotifierHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$testRunsNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

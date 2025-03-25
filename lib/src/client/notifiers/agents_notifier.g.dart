@@ -6,20 +6,21 @@ part of 'agents_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$agentsNotifierHash() => r'884a853f644df564334d84326b629390758d6809';
+String _$agentsNotifierHash() => r'ef8ab0e5441cb309f1d77aac1d8490fdf52319ab';
 
 /// See also [AgentsNotifier].
 @ProviderFor(AgentsNotifier)
 final agentsNotifierProvider =
     AutoDisposeAsyncNotifierProvider<AgentsNotifier, Agents>.internal(
-  AgentsNotifier.new,
-  name: r'agentsNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$agentsNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      AgentsNotifier.new,
+      name: r'agentsNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$agentsNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$AgentsNotifier = AutoDisposeAsyncNotifier<Agents>;
 // ignore_for_file: type=lint

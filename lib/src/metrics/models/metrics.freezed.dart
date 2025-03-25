@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,385 +10,290 @@ part of 'metrics.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Metrics _$MetricsFromJson(Map<String, dynamic> json) {
-  return _Metrics.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Metrics {
-  int get color => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String? get conversationId => throw _privateConstructorUsedError;
-  Map<PlotType, List<Plot>> get plots => throw _privateConstructorUsedError;
+
+ int get color; String get name; String? get conversationId; Map<PlotType, List<Plot>> get plots;
+/// Create a copy of Metrics
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$MetricsCopyWith<Metrics> get copyWith => _$MetricsCopyWithImpl<Metrics>(this as Metrics, _$identity);
 
   /// Serializes this Metrics to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of Metrics
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $MetricsCopyWith<Metrics> get copyWith => throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Metrics&&(identical(other.color, color) || other.color == color)&&(identical(other.name, name) || other.name == name)&&(identical(other.conversationId, conversationId) || other.conversationId == conversationId)&&const DeepCollectionEquality().equals(other.plots, plots));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,color,name,conversationId,const DeepCollectionEquality().hash(plots));
+
+@override
+String toString() {
+  return 'Metrics(color: $color, name: $name, conversationId: $conversationId, plots: $plots)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $MetricsCopyWith<$Res> {
-  factory $MetricsCopyWith(Metrics value, $Res Function(Metrics) then) =
-      _$MetricsCopyWithImpl<$Res, Metrics>;
-  @useResult
-  $Res call(
-      {int color,
-      String name,
-      String? conversationId,
-      Map<PlotType, List<Plot>> plots});
-}
+abstract mixin class $MetricsCopyWith<$Res>  {
+  factory $MetricsCopyWith(Metrics value, $Res Function(Metrics) _then) = _$MetricsCopyWithImpl;
+@useResult
+$Res call({
+ int color, String name, String? conversationId, Map<PlotType, List<Plot>> plots
+});
 
+
+
+
+}
 /// @nodoc
-class _$MetricsCopyWithImpl<$Res, $Val extends Metrics>
+class _$MetricsCopyWithImpl<$Res>
     implements $MetricsCopyWith<$Res> {
-  _$MetricsCopyWithImpl(this._value, this._then);
+  _$MetricsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Metrics _self;
+  final $Res Function(Metrics) _then;
 
-  /// Create a copy of Metrics
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? color = null,
-    Object? name = null,
-    Object? conversationId = freezed,
-    Object? plots = null,
-  }) {
-    return _then(_value.copyWith(
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      conversationId: freezed == conversationId
-          ? _value.conversationId
-          : conversationId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      plots: null == plots
-          ? _value.plots
-          : plots // ignore: cast_nullable_to_non_nullable
-              as Map<PlotType, List<Plot>>,
-    ) as $Val);
-  }
+/// Create a copy of Metrics
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? color = null,Object? name = null,Object? conversationId = freezed,Object? plots = null,}) {
+  return _then(_self.copyWith(
+color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,conversationId: freezed == conversationId ? _self.conversationId : conversationId // ignore: cast_nullable_to_non_nullable
+as String?,plots: null == plots ? _self.plots : plots // ignore: cast_nullable_to_non_nullable
+as Map<PlotType, List<Plot>>,
+  ));
 }
 
-/// @nodoc
-abstract class _$$MetricsImplCopyWith<$Res> implements $MetricsCopyWith<$Res> {
-  factory _$$MetricsImplCopyWith(
-          _$MetricsImpl value, $Res Function(_$MetricsImpl) then) =
-      __$$MetricsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int color,
-      String name,
-      String? conversationId,
-      Map<PlotType, List<Plot>> plots});
 }
 
-/// @nodoc
-class __$$MetricsImplCopyWithImpl<$Res>
-    extends _$MetricsCopyWithImpl<$Res, _$MetricsImpl>
-    implements _$$MetricsImplCopyWith<$Res> {
-  __$$MetricsImplCopyWithImpl(
-      _$MetricsImpl _value, $Res Function(_$MetricsImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Metrics
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? color = null,
-    Object? name = null,
-    Object? conversationId = freezed,
-    Object? plots = null,
-  }) {
-    return _then(_$MetricsImpl(
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      conversationId: freezed == conversationId
-          ? _value.conversationId
-          : conversationId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      plots: null == plots
-          ? _value._plots
-          : plots // ignore: cast_nullable_to_non_nullable
-              as Map<PlotType, List<Plot>>,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$MetricsImpl implements _Metrics {
-  _$MetricsImpl(
-      {required this.color,
-      required this.name,
-      this.conversationId,
-      required final Map<PlotType, List<Plot>> plots})
-      : _plots = plots;
 
-  factory _$MetricsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MetricsImplFromJson(json);
+class _Metrics implements Metrics {
+   _Metrics({required this.color, required this.name, this.conversationId, required final  Map<PlotType, List<Plot>> plots}): _plots = plots;
+  factory _Metrics.fromJson(Map<String, dynamic> json) => _$MetricsFromJson(json);
 
-  @override
-  final int color;
-  @override
-  final String name;
-  @override
-  final String? conversationId;
-  final Map<PlotType, List<Plot>> _plots;
-  @override
-  Map<PlotType, List<Plot>> get plots {
-    if (_plots is EqualUnmodifiableMapView) return _plots;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_plots);
-  }
-
-  @override
-  String toString() {
-    return 'Metrics(color: $color, name: $name, conversationId: $conversationId, plots: $plots)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$MetricsImpl &&
-            (identical(other.color, color) || other.color == color) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.conversationId, conversationId) ||
-                other.conversationId == conversationId) &&
-            const DeepCollectionEquality().equals(other._plots, _plots));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, color, name, conversationId,
-      const DeepCollectionEquality().hash(_plots));
-
-  /// Create a copy of Metrics
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$MetricsImplCopyWith<_$MetricsImpl> get copyWith =>
-      __$$MetricsImplCopyWithImpl<_$MetricsImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MetricsImplToJson(
-      this,
-    );
-  }
+@override final  int color;
+@override final  String name;
+@override final  String? conversationId;
+ final  Map<PlotType, List<Plot>> _plots;
+@override Map<PlotType, List<Plot>> get plots {
+  if (_plots is EqualUnmodifiableMapView) return _plots;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_plots);
 }
 
-abstract class _Metrics implements Metrics {
-  factory _Metrics(
-      {required final int color,
-      required final String name,
-      final String? conversationId,
-      required final Map<PlotType, List<Plot>> plots}) = _$MetricsImpl;
 
-  factory _Metrics.fromJson(Map<String, dynamic> json) = _$MetricsImpl.fromJson;
+/// Create a copy of Metrics
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$MetricsCopyWith<_Metrics> get copyWith => __$MetricsCopyWithImpl<_Metrics>(this, _$identity);
 
-  @override
-  int get color;
-  @override
-  String get name;
-  @override
-  String? get conversationId;
-  @override
-  Map<PlotType, List<Plot>> get plots;
-
-  /// Create a copy of Metrics
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MetricsImplCopyWith<_$MetricsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$MetricsToJson(this, );
 }
 
-Plot _$PlotFromJson(Map<String, dynamic> json) {
-  return _Plot.fromJson(json);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Metrics&&(identical(other.color, color) || other.color == color)&&(identical(other.name, name) || other.name == name)&&(identical(other.conversationId, conversationId) || other.conversationId == conversationId)&&const DeepCollectionEquality().equals(other._plots, _plots));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,color,name,conversationId,const DeepCollectionEquality().hash(_plots));
+
+@override
+String toString() {
+  return 'Metrics(color: $color, name: $name, conversationId: $conversationId, plots: $plots)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$MetricsCopyWith<$Res> implements $MetricsCopyWith<$Res> {
+  factory _$MetricsCopyWith(_Metrics value, $Res Function(_Metrics) _then) = __$MetricsCopyWithImpl;
+@override @useResult
+$Res call({
+ int color, String name, String? conversationId, Map<PlotType, List<Plot>> plots
+});
+
+
+
+
+}
+/// @nodoc
+class __$MetricsCopyWithImpl<$Res>
+    implements _$MetricsCopyWith<$Res> {
+  __$MetricsCopyWithImpl(this._self, this._then);
+
+  final _Metrics _self;
+  final $Res Function(_Metrics) _then;
+
+/// Create a copy of Metrics
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? color = null,Object? name = null,Object? conversationId = freezed,Object? plots = null,}) {
+  return _then(_Metrics(
+color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,conversationId: freezed == conversationId ? _self.conversationId : conversationId // ignore: cast_nullable_to_non_nullable
+as String?,plots: null == plots ? _self._plots : plots // ignore: cast_nullable_to_non_nullable
+as Map<PlotType, List<Plot>>,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$Plot {
-  double get x => throw _privateConstructorUsedError;
-  double get y => throw _privateConstructorUsedError;
+
+ double get x; double get y;
+/// Create a copy of Plot
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PlotCopyWith<Plot> get copyWith => _$PlotCopyWithImpl<Plot>(this as Plot, _$identity);
 
   /// Serializes this Plot to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of Plot
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $PlotCopyWith<Plot> get copyWith => throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Plot&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,x,y);
+
+@override
+String toString() {
+  return 'Plot(x: $x, y: $y)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PlotCopyWith<$Res> {
-  factory $PlotCopyWith(Plot value, $Res Function(Plot) then) =
-      _$PlotCopyWithImpl<$Res, Plot>;
-  @useResult
-  $Res call({double x, double y});
-}
+abstract mixin class $PlotCopyWith<$Res>  {
+  factory $PlotCopyWith(Plot value, $Res Function(Plot) _then) = _$PlotCopyWithImpl;
+@useResult
+$Res call({
+ double x, double y
+});
 
+
+
+
+}
 /// @nodoc
-class _$PlotCopyWithImpl<$Res, $Val extends Plot>
+class _$PlotCopyWithImpl<$Res>
     implements $PlotCopyWith<$Res> {
-  _$PlotCopyWithImpl(this._value, this._then);
+  _$PlotCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Plot _self;
+  final $Res Function(Plot) _then;
 
-  /// Create a copy of Plot
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? x = null,
-    Object? y = null,
-  }) {
-    return _then(_value.copyWith(
-      x: null == x
-          ? _value.x
-          : x // ignore: cast_nullable_to_non_nullable
-              as double,
-      y: null == y
-          ? _value.y
-          : y // ignore: cast_nullable_to_non_nullable
-              as double,
-    ) as $Val);
-  }
+/// Create a copy of Plot
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? x = null,Object? y = null,}) {
+  return _then(_self.copyWith(
+x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
+as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
 }
 
-/// @nodoc
-abstract class _$$PlotImplCopyWith<$Res> implements $PlotCopyWith<$Res> {
-  factory _$$PlotImplCopyWith(
-          _$PlotImpl value, $Res Function(_$PlotImpl) then) =
-      __$$PlotImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({double x, double y});
 }
 
-/// @nodoc
-class __$$PlotImplCopyWithImpl<$Res>
-    extends _$PlotCopyWithImpl<$Res, _$PlotImpl>
-    implements _$$PlotImplCopyWith<$Res> {
-  __$$PlotImplCopyWithImpl(_$PlotImpl _value, $Res Function(_$PlotImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Plot
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? x = null,
-    Object? y = null,
-  }) {
-    return _then(_$PlotImpl(
-      x: null == x
-          ? _value.x
-          : x // ignore: cast_nullable_to_non_nullable
-              as double,
-      y: null == y
-          ? _value.y
-          : y // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$PlotImpl implements _Plot {
-  _$PlotImpl({required this.x, required this.y});
 
-  factory _$PlotImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PlotImplFromJson(json);
+class _Plot implements Plot {
+   _Plot({required this.x, required this.y});
+  factory _Plot.fromJson(Map<String, dynamic> json) => _$PlotFromJson(json);
 
-  @override
-  final double x;
-  @override
-  final double y;
+@override final  double x;
+@override final  double y;
 
-  @override
-  String toString() {
-    return 'Plot(x: $x, y: $y)';
-  }
+/// Create a copy of Plot
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PlotCopyWith<_Plot> get copyWith => __$PlotCopyWithImpl<_Plot>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PlotImpl &&
-            (identical(other.x, x) || other.x == x) &&
-            (identical(other.y, y) || other.y == y));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, x, y);
-
-  /// Create a copy of Plot
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PlotImplCopyWith<_$PlotImpl> get copyWith =>
-      __$$PlotImplCopyWithImpl<_$PlotImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PlotImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$PlotToJson(this, );
 }
 
-abstract class _Plot implements Plot {
-  factory _Plot({required final double x, required final double y}) =
-      _$PlotImpl;
-
-  factory _Plot.fromJson(Map<String, dynamic> json) = _$PlotImpl.fromJson;
-
-  @override
-  double get x;
-  @override
-  double get y;
-
-  /// Create a copy of Plot
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PlotImplCopyWith<_$PlotImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Plot&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,x,y);
+
+@override
+String toString() {
+  return 'Plot(x: $x, y: $y)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PlotCopyWith<$Res> implements $PlotCopyWith<$Res> {
+  factory _$PlotCopyWith(_Plot value, $Res Function(_Plot) _then) = __$PlotCopyWithImpl;
+@override @useResult
+$Res call({
+ double x, double y
+});
+
+
+
+
+}
+/// @nodoc
+class __$PlotCopyWithImpl<$Res>
+    implements _$PlotCopyWith<$Res> {
+  __$PlotCopyWithImpl(this._self, this._then);
+
+  final _Plot _self;
+  final $Res Function(_Plot) _then;
+
+/// Create a copy of Plot
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? x = null,Object? y = null,}) {
+  return _then(_Plot(
+x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
+as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
+}
+
+// dart format on

@@ -10,10 +10,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'features.freezed.dart';
 
 @freezed
-class Features with _$Features {
-  factory Features({
-    required List<Feature> seatures,
-  }) = _Features;
+sealed class Features with _$Features {
+  factory Features({required List<Feature> seatures}) = _Features;
 
   const Features._();
 }

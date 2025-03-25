@@ -17,7 +17,7 @@ part 'conversation.freezed.dart';
 part 'conversation.g.dart';
 
 @freezed
-class Conversation with _$Conversation {
+sealed class Conversation with _$Conversation {
   factory Conversation({
     required List<ConversationMessage> messages,
     required UserContext userContext,
@@ -30,10 +30,7 @@ class Conversation with _$Conversation {
 
   const Conversation._();
 
-  Conversation add(
-    List<ConversationMessage> newMessages, {
-    bool? loading,
-  }) {
+  Conversation add(List<ConversationMessage> newMessages, {bool? loading}) {
     return copyWith(loading: loading, messages: [...messages, ...newMessages]);
   }
 
@@ -50,9 +47,10 @@ class Conversation with _$Conversation {
           type: MessageType.user,
           conversationId: conversationId,
           content: content,
-          binaryData: streamAudio == true
-              ? [BinaryData(source: 'STREAM_SOURCE', mimeType: 'audio/pcm')]
-              : null,
+          binaryData:
+              streamAudio == true
+                  ? [BinaryData(source: 'STREAM_SOURCE', mimeType: 'audio/pcm')]
+                  : null,
         ),
       ],
     );
@@ -65,7 +63,7 @@ class Conversation with _$Conversation {
       systemContext: systemContext.copyWith(
         entries: [
           ...systemContext.entries.where((e) => !keys.contains(e.key)),
-          ...systemEntries
+          ...systemEntries,
         ],
       ),
     );
@@ -82,22 +80,21 @@ class Conversation with _$Conversation {
 
   Conversation addExpectedMessage(String? expectedMessage) {
     if (expectedMessage == null) return this;
-    final systemEntries = [
-      (key: 'expectedMessage', value: expectedMessage),
-    ];
+    final systemEntries = [(key: 'expectedMessage', value: expectedMessage)];
     return addSystem(systemEntries);
   }
 
   Conversation addTools(Set<TestTool>? tools) {
     if (tools == null) return this;
-    final systemEntries = tools
-        .map(
-          (tool) => (
-            key: 'function_${tool.name}',
-            value: jsonEncode(tool.toJson()),
-          ),
-        )
-        .toList();
+    final systemEntries =
+        tools
+            .map(
+              (tool) => (
+                key: 'function_${tool.name}',
+                value: jsonEncode(tool.toJson()),
+              ),
+            )
+            .toList();
     return addSystem(systemEntries);
   }
 

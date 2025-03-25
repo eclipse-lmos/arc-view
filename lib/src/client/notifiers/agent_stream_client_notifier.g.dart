@@ -13,14 +13,15 @@ String _$agentStreamClientNotifierHash() =>
 @ProviderFor(AgentStreamClientNotifier)
 final agentStreamClientNotifierProvider =
     NotifierProvider<AgentStreamClientNotifier, OneAIStreamClient>.internal(
-  AgentStreamClientNotifier.new,
-  name: r'agentStreamClientNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$agentStreamClientNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      AgentStreamClientNotifier.new,
+      name: r'agentStreamClientNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$agentStreamClientNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$AgentStreamClientNotifier = Notifier<OneAIStreamClient>;
 // ignore_for_file: type=lint

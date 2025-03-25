@@ -10,7 +10,7 @@ part 'metrics.freezed.dart';
 part 'metrics.g.dart';
 
 @freezed
-class Metrics with _$Metrics {
+sealed class Metrics with _$Metrics {
   factory Metrics({
     required int color,
     required String name,
@@ -23,11 +23,8 @@ class Metrics with _$Metrics {
 }
 
 @freezed
-class Plot with _$Plot {
-  factory Plot({
-    required double x,
-    required double y,
-  }) = _Plot;
+sealed class Plot with _$Plot {
+  factory Plot({required double x, required double y}) = _Plot;
 
   factory Plot.fromJson(Map<String, dynamic> json) => _$PlotFromJson(json);
 }

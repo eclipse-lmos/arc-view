@@ -6,14 +6,13 @@ part of 'agent_events.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AgentEventImpl _$$AgentEventImplFromJson(Map<String, dynamic> json) =>
-    _$AgentEventImpl(
-      type: json['type'] as String,
-      payload: json['payload'] as String,
-      conversationId: json['conversationId'] as String?,
-    );
+_AgentEvent _$AgentEventFromJson(Map<String, dynamic> json) => _AgentEvent(
+  type: json['type'] as String,
+  payload: json['payload'] as String,
+  conversationId: json['conversationId'] as String?,
+);
 
-Map<String, dynamic> _$$AgentEventImplToJson(_$AgentEventImpl instance) =>
+Map<String, dynamic> _$AgentEventToJson(_AgentEvent instance) =>
     <String, dynamic>{
       'type': instance.type,
       'payload': instance.payload,

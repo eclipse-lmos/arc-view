@@ -12,14 +12,15 @@ String _$historyRepositoryHash() => r'6f98e7d1dd20ee4067d6691f2fd8eb2b7cdc7356';
 @ProviderFor(historyRepository)
 final historyRepositoryProvider =
     AutoDisposeProvider<HistoryRepository>.internal(
-  historyRepository,
-  name: r'historyRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$historyRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      historyRepository,
+      name: r'historyRepositoryProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$historyRepositoryHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

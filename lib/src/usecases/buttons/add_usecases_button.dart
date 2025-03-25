@@ -6,6 +6,7 @@
 
 import 'package:arc_view/src/usecases/dialogs/usecase_dialog.dart';
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
+import 'package:arc_view/src/usecases/usecases_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,16 +26,20 @@ class AddUseCasesButton extends ConsumerWidget {
   _newUseCase(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
-      builder: (context) => UseCaseDialog(
-        title: 'New UseCases File',
-        onConfirm: (details) {
-          ref.read(useCasesNotifierProvider.notifier).newUseCase(
-                details.name,
-                description: details.description,
-                tags: details.tags,
-              );
-        },
-      ),
+      builder:
+          (context) => UseCaseDialog(
+            title: 'New UseCases File',
+            onConfirm: (details) {
+              ref.read(useCaseFilterProvider.notifier).state = "";
+              ref
+                  .read(useCasesNotifierProvider.notifier)
+                  .newUseCase(
+                    details.name,
+                    description: details.description,
+                    tags: details.tags,
+                  );
+            },
+          ),
     );
   }
 }

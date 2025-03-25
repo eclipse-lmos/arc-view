@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,133 +10,133 @@ part of 'feature.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$Feature {
-  String get name => throw _privateConstructorUsedError;
 
-  /// Create a copy of Feature
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $FeatureCopyWith<Feature> get copyWith => throw _privateConstructorUsedError;
+ String get name;
+/// Create a copy of Feature
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FeatureCopyWith<Feature> get copyWith => _$FeatureCopyWithImpl<Feature>(this as Feature, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Feature&&(identical(other.name, name) || other.name == name));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,name);
+
+@override
+String toString() {
+  return 'Feature(name: $name)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $FeatureCopyWith<$Res> {
-  factory $FeatureCopyWith(Feature value, $Res Function(Feature) then) =
-      _$FeatureCopyWithImpl<$Res, Feature>;
-  @useResult
-  $Res call({String name});
-}
+abstract mixin class $FeatureCopyWith<$Res>  {
+  factory $FeatureCopyWith(Feature value, $Res Function(Feature) _then) = _$FeatureCopyWithImpl;
+@useResult
+$Res call({
+ String name
+});
 
+
+
+
+}
 /// @nodoc
-class _$FeatureCopyWithImpl<$Res, $Val extends Feature>
+class _$FeatureCopyWithImpl<$Res>
     implements $FeatureCopyWith<$Res> {
-  _$FeatureCopyWithImpl(this._value, this._then);
+  _$FeatureCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Feature _self;
+  final $Res Function(Feature) _then;
 
-  /// Create a copy of Feature
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-  }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
+/// Create a copy of Feature
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,}) {
+  return _then(_self.copyWith(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$FeatureImplCopyWith<$Res> implements $FeatureCopyWith<$Res> {
-  factory _$$FeatureImplCopyWith(
-          _$FeatureImpl value, $Res Function(_$FeatureImpl) then) =
-      __$$FeatureImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String name});
 }
 
-/// @nodoc
-class __$$FeatureImplCopyWithImpl<$Res>
-    extends _$FeatureCopyWithImpl<$Res, _$FeatureImpl>
-    implements _$$FeatureImplCopyWith<$Res> {
-  __$$FeatureImplCopyWithImpl(
-      _$FeatureImpl _value, $Res Function(_$FeatureImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Feature
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-  }) {
-    return _then(_$FeatureImpl(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
 
 /// @nodoc
 
-class _$FeatureImpl extends _Feature {
-  _$FeatureImpl({required this.name}) : super._();
 
-  @override
-  final String name;
+class _Feature extends Feature {
+   _Feature({required this.name}): super._();
+  
 
-  @override
-  String toString() {
-    return 'Feature(name: $name)';
-  }
+@override final  String name;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FeatureImpl &&
-            (identical(other.name, name) || other.name == name));
-  }
+/// Create a copy of Feature
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FeatureCopyWith<_Feature> get copyWith => __$FeatureCopyWithImpl<_Feature>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, name);
 
-  /// Create a copy of Feature
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FeatureImplCopyWith<_$FeatureImpl> get copyWith =>
-      __$$FeatureImplCopyWithImpl<_$FeatureImpl>(this, _$identity);
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Feature&&(identical(other.name, name) || other.name == name));
 }
 
-abstract class _Feature extends Feature {
-  factory _Feature({required final String name}) = _$FeatureImpl;
-  _Feature._() : super._();
 
-  @override
-  String get name;
+@override
+int get hashCode => Object.hash(runtimeType,name);
 
-  /// Create a copy of Feature
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FeatureImplCopyWith<_$FeatureImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+String toString() {
+  return 'Feature(name: $name)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$FeatureCopyWith<$Res> implements $FeatureCopyWith<$Res> {
+  factory _$FeatureCopyWith(_Feature value, $Res Function(_Feature) _then) = __$FeatureCopyWithImpl;
+@override @useResult
+$Res call({
+ String name
+});
+
+
+
+
+}
+/// @nodoc
+class __$FeatureCopyWithImpl<$Res>
+    implements _$FeatureCopyWith<$Res> {
+  __$FeatureCopyWithImpl(this._self, this._then);
+
+  final _Feature _self;
+  final $Res Function(_Feature) _then;
+
+/// Create a copy of Feature
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,}) {
+  return _then(_Feature(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

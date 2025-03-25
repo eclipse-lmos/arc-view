@@ -13,9 +13,10 @@ String _$envsRepositoryHash() => r'3f6a551ff8c0213c608eb1e7c2eb950af078e09f';
 final envsRepositoryProvider = AutoDisposeProvider<EnvsRepository>.internal(
   envsRepository,
   name: r'envsRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$envsRepositoryHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$envsRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

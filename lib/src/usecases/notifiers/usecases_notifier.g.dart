@@ -16,14 +16,15 @@ String _$useCasesNotifierHash() => r'b2ab0a4dc9057a3963f2552e6261fa5b399b1b89';
 @ProviderFor(UseCasesNotifier)
 final useCasesNotifierProvider =
     AutoDisposeAsyncNotifierProvider<UseCasesNotifier, UseCases>.internal(
-  UseCasesNotifier.new,
-  name: r'useCasesNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$useCasesNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      UseCasesNotifier.new,
+      name: r'useCasesNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$useCasesNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$UseCasesNotifier = AutoDisposeAsyncNotifier<UseCases>;
 // ignore_for_file: type=lint

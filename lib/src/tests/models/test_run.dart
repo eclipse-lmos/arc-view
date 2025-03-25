@@ -12,7 +12,7 @@ part 'test_run.freezed.dart';
 part 'test_run.g.dart';
 
 @freezed
-class TestRun with _$TestRun {
+sealed class TestRun with _$TestRun {
   factory TestRun({
     required TestCase testCase,
     bool? success,

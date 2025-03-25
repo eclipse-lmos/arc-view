@@ -17,14 +17,15 @@ String _$selectedToolNotifierHash() =>
 @ProviderFor(SelectedToolNotifier)
 final selectedToolNotifierProvider =
     NotifierProvider<SelectedToolNotifier, Set<TestTool>>.internal(
-  SelectedToolNotifier.new,
-  name: r'selectedToolNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$selectedToolNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      SelectedToolNotifier.new,
+      name: r'selectedToolNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$selectedToolNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$SelectedToolNotifier = Notifier<Set<TestTool>>;
 // ignore_for_file: type=lint

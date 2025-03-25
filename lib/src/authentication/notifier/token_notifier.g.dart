@@ -12,14 +12,15 @@ String _$tokenNotifierHash() => r'f29c7af56fdf695e2633ac3bab9c295dc11e249b';
 @ProviderFor(TokenNotifier)
 final tokenNotifierProvider =
     AutoDisposeAsyncNotifierProvider<TokenNotifier, Tokens?>.internal(
-  TokenNotifier.new,
-  name: r'tokenNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$tokenNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      TokenNotifier.new,
+      name: r'tokenNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$tokenNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$TokenNotifier = AutoDisposeAsyncNotifier<Tokens?>;
 // ignore_for_file: type=lint

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,167 +10,145 @@ part of 'system_context.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-SystemContext _$SystemContextFromJson(Map<String, dynamic> json) {
-  return _SystemContext.fromJson(json);
-}
 
 /// @nodoc
 mixin _$SystemContext {
-  List<({String key, String value})> get entries =>
-      throw _privateConstructorUsedError;
+
+ List<SystemContextEntry> get entries;
+/// Create a copy of SystemContext
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SystemContextCopyWith<SystemContext> get copyWith => _$SystemContextCopyWithImpl<SystemContext>(this as SystemContext, _$identity);
 
   /// Serializes this SystemContext to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of SystemContext
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $SystemContextCopyWith<SystemContext> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SystemContext&&const DeepCollectionEquality().equals(other.entries, entries));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(entries));
+
+@override
+String toString() {
+  return 'SystemContext(entries: $entries)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $SystemContextCopyWith<$Res> {
-  factory $SystemContextCopyWith(
-          SystemContext value, $Res Function(SystemContext) then) =
-      _$SystemContextCopyWithImpl<$Res, SystemContext>;
-  @useResult
-  $Res call({List<({String key, String value})> entries});
-}
+abstract mixin class $SystemContextCopyWith<$Res>  {
+  factory $SystemContextCopyWith(SystemContext value, $Res Function(SystemContext) _then) = _$SystemContextCopyWithImpl;
+@useResult
+$Res call({
+ List<({String key, String value})> entries
+});
 
+
+
+
+}
 /// @nodoc
-class _$SystemContextCopyWithImpl<$Res, $Val extends SystemContext>
+class _$SystemContextCopyWithImpl<$Res>
     implements $SystemContextCopyWith<$Res> {
-  _$SystemContextCopyWithImpl(this._value, this._then);
+  _$SystemContextCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final SystemContext _self;
+  final $Res Function(SystemContext) _then;
 
-  /// Create a copy of SystemContext
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? entries = null,
-  }) {
-    return _then(_value.copyWith(
-      entries: null == entries
-          ? _value.entries
-          : entries // ignore: cast_nullable_to_non_nullable
-              as List<({String key, String value})>,
-    ) as $Val);
-  }
+/// Create a copy of SystemContext
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? entries = null,}) {
+  return _then(_self.copyWith(
+entries: null == entries ? _self.entries! : entries // ignore: cast_nullable_to_non_nullable
+as List<({String key, String value})>,
+  ));
 }
 
-/// @nodoc
-abstract class _$$SystemContextImplCopyWith<$Res>
-    implements $SystemContextCopyWith<$Res> {
-  factory _$$SystemContextImplCopyWith(
-          _$SystemContextImpl value, $Res Function(_$SystemContextImpl) then) =
-      __$$SystemContextImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({List<({String key, String value})> entries});
 }
 
-/// @nodoc
-class __$$SystemContextImplCopyWithImpl<$Res>
-    extends _$SystemContextCopyWithImpl<$Res, _$SystemContextImpl>
-    implements _$$SystemContextImplCopyWith<$Res> {
-  __$$SystemContextImplCopyWithImpl(
-      _$SystemContextImpl _value, $Res Function(_$SystemContextImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of SystemContext
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? entries = null,
-  }) {
-    return _then(_$SystemContextImpl(
-      entries: null == entries
-          ? _value._entries
-          : entries // ignore: cast_nullable_to_non_nullable
-              as List<({String key, String value})>,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$SystemContextImpl implements _SystemContext {
-  _$SystemContextImpl(
-      {required final List<({String key, String value})> entries})
-      : _entries = entries;
 
-  factory _$SystemContextImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SystemContextImplFromJson(json);
+class _SystemContext implements SystemContext {
+   _SystemContext({required final  List<({String key, String value})> entries}): _entries = entries;
+  factory _SystemContext.fromJson(Map<String, dynamic> json) => _$SystemContextFromJson(json);
 
-  final List<({String key, String value})> _entries;
-  @override
-  List<({String key, String value})> get entries {
-    if (_entries is EqualUnmodifiableListView) return _entries;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_entries);
-  }
-
-  @override
-  String toString() {
-    return 'SystemContext(entries: $entries)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SystemContextImpl &&
-            const DeepCollectionEquality().equals(other._entries, _entries));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_entries));
-
-  /// Create a copy of SystemContext
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SystemContextImplCopyWith<_$SystemContextImpl> get copyWith =>
-      __$$SystemContextImplCopyWithImpl<_$SystemContextImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SystemContextImplToJson(
-      this,
-    );
-  }
+ final  List<({String key, String value})> _entries;
+@override List<({String key, String value})> get entries {
+  if (_entries is EqualUnmodifiableListView) return _entries;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_entries);
 }
 
-abstract class _SystemContext implements SystemContext {
-  factory _SystemContext(
-          {required final List<({String key, String value})> entries}) =
-      _$SystemContextImpl;
 
-  factory _SystemContext.fromJson(Map<String, dynamic> json) =
-      _$SystemContextImpl.fromJson;
+/// Create a copy of SystemContext
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SystemContextCopyWith<_SystemContext> get copyWith => __$SystemContextCopyWithImpl<_SystemContext>(this, _$identity);
 
-  @override
-  List<({String key, String value})> get entries;
-
-  /// Create a copy of SystemContext
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SystemContextImplCopyWith<_$SystemContextImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$SystemContextToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SystemContext&&const DeepCollectionEquality().equals(other._entries, _entries));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_entries));
+
+@override
+String toString() {
+  return 'SystemContext(entries: $entries)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SystemContextCopyWith<$Res> implements $SystemContextCopyWith<$Res> {
+  factory _$SystemContextCopyWith(_SystemContext value, $Res Function(_SystemContext) _then) = __$SystemContextCopyWithImpl;
+@override @useResult
+$Res call({
+ List<({String key, String value})> entries
+});
+
+
+
+
+}
+/// @nodoc
+class __$SystemContextCopyWithImpl<$Res>
+    implements _$SystemContextCopyWith<$Res> {
+  __$SystemContextCopyWithImpl(this._self, this._then);
+
+  final _SystemContext _self;
+  final $Res Function(_SystemContext) _then;
+
+/// Create a copy of SystemContext
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? entries = null,}) {
+  return _then(_SystemContext(
+entries: null == entries ? _self._entries : entries // ignore: cast_nullable_to_non_nullable
+as List<({String key, String value})>,
+  ));
+}
+
+
+}
+
+// dart format on

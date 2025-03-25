@@ -12,14 +12,15 @@ String _$featuresNotifierHash() => r'91e081880a53d44109d613d997f52774006166b7';
 @ProviderFor(FeaturesNotifier)
 final featuresNotifierProvider =
     AutoDisposeNotifierProvider<FeaturesNotifier, List<Feature>>.internal(
-  FeaturesNotifier.new,
-  name: r'featuresNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$featuresNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      FeaturesNotifier.new,
+      name: r'featuresNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$featuresNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$FeaturesNotifier = AutoDisposeNotifier<List<Feature>>;
 // ignore_for_file: type=lint

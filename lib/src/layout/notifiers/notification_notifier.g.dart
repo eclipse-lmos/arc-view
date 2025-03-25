@@ -17,14 +17,15 @@ String _$notificationNotifierHash() =>
 @ProviderFor(NotificationNotifier)
 final notificationNotifierProvider =
     AutoDisposeNotifierProvider<NotificationNotifier, String?>.internal(
-  NotificationNotifier.new,
-  name: r'notificationNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$notificationNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      NotificationNotifier.new,
+      name: r'notificationNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$notificationNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$NotificationNotifier = AutoDisposeNotifier<String?>;
 // ignore_for_file: type=lint
