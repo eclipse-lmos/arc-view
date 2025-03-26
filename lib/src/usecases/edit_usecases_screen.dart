@@ -20,11 +20,14 @@ class EditUseCasesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedCase = ref.watch(useCasesNotifierProvider
-        .select((u) => u.valueOrNull?.getById(useCaseId)));
+    final selectedCase = ref.watch(
+      useCasesNotifierProvider.select((u) => u.valueOrNull?.getById(useCaseId)),
+    );
 
     return Scaffold(
-      appBar: AppBar(title: 'Use Case ${selectedCase?.name}'.txt),
+      appBar: AppBar(
+        title: 'Use Case ${selectedCase?.name} ${selectedCase?.version}'.txt,
+      ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

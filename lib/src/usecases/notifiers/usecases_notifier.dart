@@ -58,6 +58,7 @@ class UseCasesNotifier extends _$UseCasesNotifier {
                   .replaceAll(useCaseNameInvalidCharacters, ''),
       createdAt: DateTime.now(),
       content: content ?? useCaseTemplate,
+      version: _getVersion(content),
     );
     _update([newUseCase, ...useCases.cases]);
   }
@@ -83,6 +84,7 @@ class UseCasesNotifier extends _$UseCasesNotifier {
 
     final updatedUseCase = selected.copyWith(
       content: '$content\n${selected.content}',
+      version: _getVersion(content),
     );
     _update(
       useCases.cases.map((e) {
@@ -102,7 +104,11 @@ class UseCasesNotifier extends _$UseCasesNotifier {
     if (useCases == null) return;
     _update(
       useCases.cases.map((e) {
-        return e.id == updatedUseCase.id ? updatedUseCase : e;
+        return e.id == updatedUseCase.id
+            ? updatedUseCase.copyWith(
+              version: _getVersion(updatedUseCase.content),
+            )
+            : e;
       }).toList(),
     );
   }
@@ -113,7 +119,10 @@ class UseCasesNotifier extends _$UseCasesNotifier {
     final selected = useCases.getById(id);
     if (selected == null) return;
 
-    final updatedUseCase = selected.copyWith(content: text);
+    final updatedUseCase = selected.copyWith(
+      content: text,
+      version: _getVersion(text),
+    );
     _update(
       useCases.cases.map((e) {
         return e == selected ? updatedUseCase : e;
@@ -145,4 +154,9 @@ class UseCasesNotifier extends _$UseCasesNotifier {
         });
     state = AsyncData(useCases.copyWith(cases: sorted));
   }
+
+  String _getVersion(String? content) =>
+      content == null
+          ? '-'
+          : UseCase.useCaseVersionRegex.firstMatch(content)?.group(1) ?? '-';
 }

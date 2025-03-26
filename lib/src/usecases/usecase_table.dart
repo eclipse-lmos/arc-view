@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'package:arc_view/src/chat/notifiers/selected_usecase_notifier.dart';
 import 'package:arc_view/src/core/secondary_button.dart';
 import 'package:arc_view/src/usecases/dialogs/usecase_dialog.dart';
 import 'package:arc_view/src/usecases/models/use_cases.dart';
@@ -16,7 +17,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:smiles/smiles.dart';
 
-const _columnSizes = <double>[240, 300, 180, 180, 220];
+const _columnSizes = <double>[240, 120, 300, 180, 180, 260];
 
 class UseCaseTable extends ConsumerWidget {
   const UseCaseTable({super.key});
@@ -63,23 +64,27 @@ class UseCaseTable extends ConsumerWidget {
                 label: 'Description'.txt,
                 columnWidth: FlexColumnWidth(),
               ),
+              DataColumn(
+                label: 'Version'.txt,
+                columnWidth: FixedColumnWidth(_columnSizes[1]),
+              ),
               if (!smallScreen)
                 DataColumn(
                   label: 'Tags'.txt,
-                  columnWidth: FixedColumnWidth(_columnSizes[1]),
+                  columnWidth: FixedColumnWidth(_columnSizes[2]),
                 ),
               DataColumn(
                 label: 'Created At'.txt,
-                columnWidth: FixedColumnWidth(_columnSizes[2]),
+                columnWidth: FixedColumnWidth(_columnSizes[3]),
               ),
               if (largeScreen)
                 DataColumn(
                   label: 'Hash'.txt,
-                  columnWidth: FixedColumnWidth(_columnSizes[3]),
+                  columnWidth: FixedColumnWidth(_columnSizes[4]),
                 ),
               DataColumn(
                 label: 'Actions'.txt,
-                columnWidth: FixedColumnWidth(_columnSizes[4]),
+                columnWidth: FixedColumnWidth(_columnSizes[5]),
               ),
             ],
             rows: [
@@ -103,6 +108,7 @@ class UseCaseTable extends ConsumerWidget {
                       ].row(),
                     ),
                     DataCell((cases[i].description ?? '').txt),
+                    DataCell((cases[i].version ?? '').txt),
                     if (!smallScreen) DataCell(UseCaseTags(useCase: cases[i])),
                     DataCell(
                       DateFormat.Hm().add_yMd().format(cases[i].createdAt).txt,
@@ -161,6 +167,16 @@ class UseCaseTable extends ConsumerWidget {
                             ref
                                 .read(useCasesNotifierProvider.notifier)
                                 .deleteUseCase(cases[i]);
+                          },
+                        ),
+                        SecondaryButton(
+                          icon: Icons.open_in_new,
+                          description: 'Apply Use Case',
+                          onPressed: () {
+                            ref
+                                .read(selectedUsecaseNotifierProvider.notifier)
+                                .setSelected(cases[i]);
+                            context.go('/chat');
                           },
                         ),
                       ].row(),

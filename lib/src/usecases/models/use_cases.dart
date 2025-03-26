@@ -39,11 +39,13 @@ sealed class UseCase with _$UseCase {
     required String content,
     String? description,
     List<String>? tags,
+    String? version,
   }) = _UseCase;
 
   UseCase._();
 
   static final useCaseSplitRegex = RegExp(r'(?=###\s*UseCase\s*:\s*)');
+  static final useCaseVersionRegex = RegExp(r'<Version:(.*)>');
 
   List<(String, String)> splitContent() {
     if (content.trim().isEmpty) return [];

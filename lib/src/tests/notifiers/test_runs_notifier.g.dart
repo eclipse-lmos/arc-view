@@ -6,7 +6,7 @@ part of 'test_runs_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$testRunsNotifierHash() => r'940db30e60a78531a4f43bd24eef8db0c1ac1aba';
+String _$testRunsNotifierHash() => r'4b7fcc8f904e74f4a1282da89b10d74413e544d6';
 
 ///
 /// Manages the test cases.
