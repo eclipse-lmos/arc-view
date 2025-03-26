@@ -25,28 +25,31 @@ class EventFiltersNotifier extends _$EventFiltersNotifier {
     // Update Agent Names
     ref.listen(agentsNotifierProvider, (_, agents) {
       final agentNames = agents.valueOrNull?.names ?? [];
-      state = state.map((f) {
-        if (f.label == 'Agent') {
-          return f.copyWith(options: agentNames);
-        }
-        return f;
-      }).toList();
+      state =
+          state.map((f) {
+            if (f.label == 'Agent') {
+              return f.copyWith(options: agentNames);
+            }
+            return f;
+          }).toList();
     });
 
     // Update Current Conversation id
     ref.listen(conversationsNotifierProvider, (_, conversations) {
       final cid = conversations.current.conversationId;
-      state = state.map((f) {
-        if (f.label == 'Conversation') {
-          return f.copyWith(
-            match: (e, filter) =>
-                e.conversationId == null ||
-                e.conversationId?.isEmpty == true ||
-                e.conversationId == cid,
-          );
-        }
-        return f;
-      }).toList();
+      state =
+          state.map((f) {
+            if (f.label == 'Conversation') {
+              return f.copyWith(
+                match:
+                    (e, filter) =>
+                        e.conversationId == null ||
+                        e.conversationId?.isEmpty == true ||
+                        e.conversationId == cid,
+              );
+            }
+            return f;
+          }).toList();
     });
 
     return [
@@ -72,7 +75,15 @@ class EventFiltersNotifier extends _$EventFiltersNotifier {
         label: 'Conversation',
         options: ['Display only current conversation'],
         active: ['Display only current conversation'],
-        match: (e, filter) => true,
+        match:
+            (e, filter) =>
+                e.conversationId == null ||
+                e.conversationId?.isEmpty == true ||
+                ref
+                        .read(conversationsNotifierProvider)
+                        .current
+                        .conversationId ==
+                    e.conversationId,
       ),
     ];
   }
@@ -82,12 +93,13 @@ class EventFiltersNotifier extends _$EventFiltersNotifier {
   }
 
   void updateFilter(EventFilter filter) {
-    state = state.map((f) {
-      if (f.label == filter.label) {
-        return filter;
-      }
-      return f;
-    }).toList();
+    state =
+        state.map((f) {
+          if (f.label == filter.label) {
+            return filter;
+          }
+          return f;
+        }).toList();
   }
 }
 

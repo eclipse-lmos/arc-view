@@ -73,8 +73,8 @@ final lightTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     brightness: Brightness.light,
     seedColor: const Color.fromARGB(255, 0, 229, 255),
-    surface: const Color.fromARGB(255, 230, 230, 230),
-    surfaceContainer: const Color.fromARGB(255, 230, 230, 230),
+    surface: const Color.fromARGB(255, 245, 250, 250),
+    surfaceContainer: const Color.fromARGB(255, 244, 251, 251),
     onSurface: Colors.black,
     outline: Colors.black.withOpacity(0.2),
   ),
@@ -84,9 +84,12 @@ final lightTheme = ThemeData(
     labelPadding: const EdgeInsets.all(0),
     indicatorColor: const Color.fromARGB(255, 1, 10, 11),
   ),
+  navigationRailTheme: NavigationRailThemeData(
+    backgroundColor: Color.fromARGB(255, 255, 255, 255),
+  ),
   cardTheme: CardTheme(
-    color: const Color.fromARGB(255, 245, 245, 245),
-    elevation: 6,
+    color: const Color.fromARGB(255, 255, 255, 255),
+    elevation: 4,
   ),
   snackBarTheme: SnackBarThemeData(
     backgroundColor: const Color.fromARGB(255, 40, 39, 45),
