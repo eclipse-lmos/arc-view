@@ -45,7 +45,6 @@ class UseCaseTable extends ConsumerWidget {
         SingleChildScrollView(
           child: DataTable(
             showCheckboxColumn: false,
-            headingRowHeight: 40,
             headingRowColor: WidgetStateColor.resolveWith(
               (states) => context.colorScheme.surfaceContainer,
             ),
