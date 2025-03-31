@@ -25,6 +25,7 @@ final darkTheme = ThemeData(
     backgroundColor: const Color.fromARGB(255, 21, 20, 25),
   ),
   dialogTheme: DialogTheme(
+    shape: BeveledRectangleBorder(),
     backgroundColor: const Color.fromARGB(255, 40, 39, 45),
   ),
   cardTheme: CardTheme(

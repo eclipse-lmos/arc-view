@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'package:arc_view/src/chat/buttons/login_user_button.dart';
 import 'package:arc_view/src/chat/notifiers/selected_usecase_notifier.dart';
 import 'package:arc_view/src/client/notifiers/agents_notifier.dart';
 import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart';
@@ -28,22 +29,26 @@ class ChatToolBar extends ConsumerWidget {
       return const SizedBox();
     }
 
-    final currentConversation =
-        ref.watch(conversationsNotifierProvider.select((e) => e.current));
+    final currentConversation = ref.watch(
+      conversationsNotifierProvider.select((e) => e.current),
+    );
 
     return [
       ApplyUseCaseButton(),
+      LoginUserButton(),
       HGap.small(),
       Consumer(
         builder: (context, ref, _) {
-          final selected =
-              ref.watch(selectedToolNotifierProvider.select((s) => s.length));
+          final selected = ref.watch(
+            selectedToolNotifierProvider.select((s) => s.length),
+          );
           return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: selected > 0
-                  ? [
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child:
+                selected > 0
+                    ? [
                       '$selected Tools active'.txt.padByUnits(0, 1, 0, 3),
                       SecondaryButton(
                         description: 'DeSelect Tools',
@@ -55,7 +60,8 @@ class ChatToolBar extends ConsumerWidget {
                         },
                       ),
                     ].row(min: true)
-                  : SizedBox());
+                    : SizedBox(),
+          );
         },
       ),
       Spacer(),
@@ -71,13 +77,13 @@ class ChatToolBar extends ConsumerWidget {
               description: 'Replay conversation',
               enabled: currentConversation.messages.isNotEmpty,
               onPressed: () {
-                final selectedUseCase =
-                    ref.read(selectedUsecaseNotifierProvider);
+                final selectedUseCase = ref.read(
+                  selectedUsecaseNotifierProvider,
+                );
                 final selectedTools = ref.read(selectedToolNotifierProvider);
-                ref.read(conversationsNotifierProvider.notifier).replay(
-                      useCase: selectedUseCase,
-                      tools: selectedTools,
-                    );
+                ref
+                    .read(conversationsNotifierProvider.notifier)
+                    .replay(useCase: selectedUseCase, tools: selectedTools);
               },
               icon: Icons.replay_circle_filled_sharp,
             ),
@@ -104,7 +110,7 @@ class ChatToolBar extends ConsumerWidget {
             ),
           ],
         ),
-      )
+      ),
     ].row();
   }
 

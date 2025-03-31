@@ -45,10 +45,7 @@ class ConversationsNotifier extends _$ConversationsNotifier {
 
     newConversation = addFromQueryParam(newConversation);
 
-    return Conversations(
-      conversations: [],
-      current: newConversation,
-    );
+    return Conversations(conversations: [], current: newConversation);
   }
 
   UserContext _loadUserContext() {
@@ -80,17 +77,21 @@ class ConversationsNotifier extends _$ConversationsNotifier {
             if (key.startsWith('profile_')) {
               final profileKey = key.substring(8);
               _log.fine('Adding user context: $profileKey -> $value');
-              userContext = userContext.copyWith(profile: [
-                ...userContext.profile.where((e) => e.key != profileKey),
-                ProfileEntry(key: profileKey, value: value)
-              ]);
+              userContext = userContext.copyWith(
+                profile: [
+                  ...userContext.profile.where((e) => e.key != profileKey),
+                  ProfileEntry(key: profileKey, value: value),
+                ],
+              );
             } else {
               final systemKey = key;
               _log.fine('Adding system context: $systemKey -> $value');
-              systemContext = systemContext.copyWith(entries: [
-                ...systemContext.entries.where((e) => e.key != systemKey),
-                (key: systemKey, value: value)
-              ]);
+              systemContext = systemContext.copyWith(
+                entries: [
+                  ...systemContext.entries.where((e) => e.key != systemKey),
+                  (key: systemKey, value: value),
+                ],
+              );
             }
           }
       }
@@ -117,10 +118,14 @@ class ConversationsNotifier extends _$ConversationsNotifier {
 
   updateConversation(Conversation conversation) {
     final preferences = ref.read(sharedPreferencesProvider);
-    preferences.setString('conversation_user_context',
-        jsonEncode(conversation.userContext.toJson()));
-    preferences.setString('conversation_system_context',
-        jsonEncode(conversation.systemContext.toJson()));
+    preferences.setString(
+      'conversation_user_context',
+      jsonEncode(conversation.userContext.toJson()),
+    );
+    preferences.setString(
+      'conversation_system_context',
+      jsonEncode(conversation.systemContext.toJson()),
+    );
     state = state.addAsCurrent(conversation);
   }
 
@@ -136,9 +141,10 @@ class ConversationsNotifier extends _$ConversationsNotifier {
     newConversation(conversationId: conversationId);
     for (final (index, msg) in conversation.messages.indexed) {
       if (msg.type == MessageType.bot) continue;
-      final expectedMessage = addExpectedMessage == true
-          ? conversation.messages.elementAtOrNull(index + 1)?.content
-          : null;
+      final expectedMessage =
+          addExpectedMessage == true
+              ? conversation.messages.elementAtOrNull(index + 1)?.content
+              : null;
       result = await sendUserMessage(
         msg.content,
         useCase: useCase,
@@ -159,10 +165,12 @@ class ConversationsNotifier extends _$ConversationsNotifier {
       (element) => element.conversationId == oldMessage.conversationId,
     );
     final updatedConversation = conversation.copyWith(
-        messages: conversation.messages.map((msg) {
-      if (msg == oldMessage) return newMessage;
-      return msg;
-    }).toList());
+      messages:
+          conversation.messages.map((msg) {
+            if (msg == oldMessage) return newMessage;
+            return msg;
+          }).toList(),
+    );
 
     updateConversation(updatedConversation);
     await replay(replay: updatedConversation, useCase: useCase, tools: tools);
@@ -175,27 +183,32 @@ class ConversationsNotifier extends _$ConversationsNotifier {
     String? expectedMessage,
   }) {
     final callback = Completer<Conversation>();
-    final updatedConversation = addUserRequest(msg, state.current);
+    var updatedConversation = addUserRequest(msg, state.current);
 
     _log.fine('Sending message: $updatedConversation');
     ref
         .read(agentClientNotifierProvider)
-        .sendMessage(updatedConversation
-            .addUseCase(useCase)
-            .addTools(tools)
-            .addExpectedMessage(expectedMessage))
+        .sendMessage(
+          updatedConversation
+              .addUseCase(useCase)
+              .addTools(tools)
+              .addExpectedMessage(expectedMessage),
+        )
         .listen((MessageResult value) {
-      final conversation = addBotResponse(value, updatedConversation);
-      if (!callback.isCompleted) callback.complete(conversation);
-    });
+          updatedConversation = addBotResponse(value, updatedConversation);
+          if (!callback.isCompleted) callback.complete(updatedConversation);
+        });
     return callback.future;
   }
 
   ///
   /// Adds a message from the user to the conversation and sets loading to true.
   ///
-  Conversation addUserRequest(String msg, Conversation conversation,
-      {bool? streamAudio}) {
+  Conversation addUserRequest(
+    String msg,
+    Conversation conversation, {
+    bool? streamAudio,
+  }) {
     final updatedConversation = conversation.addUserMessage(
       msg,
       loading: true,
@@ -229,26 +242,26 @@ class ConversationsNotifier extends _$ConversationsNotifier {
           conversationId: conversation.conversationId,
           responseTime: value.responseTime,
           agent: value.agent,
-        )
+        ),
       ];
     }
     return value.messages.map((message) {
       return switch (message) {
         Message(role: 'user') => ConversationMessage(
-            type: MessageType.user,
-            content: message.content,
-            conversationId: conversation.conversationId,
-            responseTime: value.responseTime,
-            agent: value.agent,
-          ),
+          type: MessageType.user,
+          content: message.content,
+          conversationId: conversation.conversationId,
+          responseTime: value.responseTime,
+          agent: value.agent,
+        ),
         _ => ConversationMessage(
-            type: MessageType.bot,
-            content: message.content,
-            conversationId: conversation.conversationId,
-            responseTime: value.responseTime,
-            agent: value.agent,
-            symbols: message.symbols,
-          )
+          type: MessageType.bot,
+          content: message.content,
+          conversationId: conversation.conversationId,
+          responseTime: value.responseTime,
+          agent: value.agent,
+          symbols: message.symbols,
+        ),
       };
     }).toList();
   }
@@ -273,19 +286,19 @@ class ConversationsNotifier extends _$ConversationsNotifier {
 
 extension ConversationsNotifierExtension on Ref {
   Conversation addBotResponse(MessageResult value, Conversation conversation) {
-    return read(conversationsNotifierProvider.notifier).addBotResponse(
-      value,
-      conversation,
-    );
+    return read(
+      conversationsNotifierProvider.notifier,
+    ).addBotResponse(value, conversation);
   }
 
-  Conversation addUserRequest(String msg, Conversation conversation,
-      {bool? streamAudio}) {
-    return read(conversationsNotifierProvider.notifier).addUserRequest(
-      msg,
-      conversation,
-      streamAudio: streamAudio,
-    );
+  Conversation addUserRequest(
+    String msg,
+    Conversation conversation, {
+    bool? streamAudio,
+  }) {
+    return read(
+      conversationsNotifierProvider.notifier,
+    ).addUserRequest(msg, conversation, streamAudio: streamAudio);
   }
 
   Conversation currentConversation() {
