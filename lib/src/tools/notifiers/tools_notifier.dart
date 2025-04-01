@@ -22,7 +22,7 @@ class ToolsNotifier extends _$ToolsNotifier {
   }
 
   newTool(TestTool testTool) {
-    state = [...state, testTool];
+    state = [...state.where((t) => t.id != testTool.id), testTool];
     ref.read(toolsRepositoryProvider).save(state);
   }
 

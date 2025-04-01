@@ -39,6 +39,7 @@ class ToolsPanel extends ConsumerWidget {
                   );
                 },
               ),
+              Spacer(),
               SecondaryButton(
                 description: 'Import Tools',
                 icon: Icons.upload,
@@ -46,17 +47,25 @@ class ToolsPanel extends ConsumerWidget {
                   ref.read(toolsImporterProvider).importTool();
                 },
               ),
+              SecondaryButton(
+                description: 'Exports All Tools',
+                icon: Icons.download,
+                onPressed: () {
+                  ref.read(toolsExporterProvider).exportAll(tools);
+                },
+              ),
             ],
           ),
           (tools.isEmpty)
               ? Center(child: 'Add a new tool.'.txt).expand()
               : ListView.builder(
-                  itemCount: tools.length,
-                  itemBuilder: (context, index) {
-                    final tool = tools[index];
-                    return ListTile(
-                      leading: selected.contains(tool)
-                          ? SecondaryButton(
+                itemCount: tools.length,
+                itemBuilder: (context, index) {
+                  final tool = tools[index];
+                  return ListTile(
+                    leading:
+                        selected.contains(tool)
+                            ? SecondaryButton(
                               color: context.colorScheme.primary,
                               icon: Icons.check,
                               description: 'DeSelect Tool',
@@ -66,7 +75,7 @@ class ToolsPanel extends ConsumerWidget {
                                     .deselect(tool);
                               },
                             )
-                          : SecondaryButton(
+                            : SecondaryButton(
                               icon: Icons.check_box_outline_blank,
                               description: 'Select Tool',
                               onPressed: () {
@@ -75,53 +84,50 @@ class ToolsPanel extends ConsumerWidget {
                                     .select(tool);
                               },
                             ),
-                      title: tool.title.txt,
-                      subtitle: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          tool.name.txt,
-                          tool.description.txt,
-                        ],
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SecondaryButton(
-                            description: 'Edit Tool',
-                            icon: Icons.edit,
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => NewToolDialog(tool: tool),
-                              );
-                            },
-                          ),
-                          HGap(),
-                          SecondaryButton(
-                            description: 'Download Tools',
-                            enabled: tools.isNotEmpty,
-                            onPressed: () {
-                              ref.read(toolsExporterProvider).export(tool);
-                            },
-                            icon: Icons.download,
-                          ),
-                          HGap(),
-                          SecondaryButton(
-                            confirming: true,
-                            description: 'Delete Tool',
-                            icon: Icons.delete,
-                            onPressed: () {
-                              ref
-                                  .read(toolsNotifierProvider.notifier)
-                                  .removeTool(tool);
-                            },
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ).expand(),
+                    title: tool.title.txt,
+                    subtitle: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [tool.name.txt, tool.description.txt],
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SecondaryButton(
+                          description: 'Edit Tool',
+                          icon: Icons.edit,
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => NewToolDialog(tool: tool),
+                            );
+                          },
+                        ),
+                        HGap(),
+                        SecondaryButton(
+                          description: 'Download Tools',
+                          enabled: tools.isNotEmpty,
+                          onPressed: () {
+                            ref.read(toolsExporterProvider).export(tool);
+                          },
+                          icon: Icons.download,
+                        ),
+                        HGap(),
+                        SecondaryButton(
+                          confirming: true,
+                          description: 'Delete Tool',
+                          icon: Icons.delete,
+                          onPressed: () {
+                            ref
+                                .read(toolsNotifierProvider.notifier)
+                                .removeTool(tool);
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ).expand(),
         ],
       ),
     );

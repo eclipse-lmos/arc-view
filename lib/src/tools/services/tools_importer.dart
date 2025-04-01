@@ -31,6 +31,13 @@ class ToolsImporter {
     final file = await openFile(acceptedTypeGroups: <XTypeGroup>[typeGroup]);
     if (file == null) return;
     final json = await file.readAsString();
-    toolsNotifier.newTool(TestTool.fromJson(jsonDecode(json)));
+    final decodedJson = jsonDecode(json);
+    if (decodedJson is List) {
+      for (var tool in decodedJson) {
+        toolsNotifier.newTool(TestTool.fromJson(tool));
+      }
+    } else {
+      toolsNotifier.newTool(TestTool.fromJson(jsonDecode(json)));
+    }
   }
 }
