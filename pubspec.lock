@@ -612,10 +612,10 @@ packages:
     dependency: "direct main"
     description:
       name: graphql
-      sha256: e15f0cb6299baacff816b844ca103ea0f3e85da30109ea6a0b7c3d58eaafc6ef
+      sha256: b67471ddb954fd538c5930f989c5072e038a9fc910afc85a8a926a7f9b8c56d3
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.0-beta.11"
+    version: "5.2.0"
   graphs:
     dependency: transitive
     description:
