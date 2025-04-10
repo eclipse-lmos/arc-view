@@ -23,12 +23,19 @@ class ToolBar extends ConsumerWidget {
         const AgentTabs().padByUnits(0, 0, 0, 1),
         Spacer(),
         'connected to'.style(color: textColor),
-        agentUrl.url.toString().onPressed(() {
+        _formatUrl(agentUrl.url).onPressed(() {
           showEditAgentUrl(context, ref);
         }),
         HGap(),
         HGap(),
       ],
     );
+  }
+
+  String _formatUrl(Uri url) {
+    if (url.host == 'localhost') {
+      return '${url.host}:${url.port}';
+    }
+    return url.host;
   }
 }

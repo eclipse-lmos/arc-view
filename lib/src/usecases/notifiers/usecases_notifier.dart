@@ -157,6 +157,6 @@ class UseCasesNotifier extends _$UseCasesNotifier {
 
   String _getVersion(String? content) =>
       content == null
-          ? '-'
-          : UseCase.useCaseVersionRegex.firstMatch(content)?.group(1) ?? '-';
+          ? ''
+          : UseCase.useCaseVersionRegex.firstMatch(content)?.group(1) ?? '';
 }

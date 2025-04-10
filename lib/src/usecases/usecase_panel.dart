@@ -145,6 +145,8 @@ class _UseCasePanelState extends State<UseCasePanel> {
                 HGap.small(),
               ],
             ),
+            VGap.units(2),
+            Divider(height: 1),
             _showSource
                 ? TextField(
                   controller: _textController,

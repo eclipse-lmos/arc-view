@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+import 'package:arc_view/src/core/dialog_header.dart';
 import 'package:arc_view/src/usecases/models/use_cases.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,7 +45,7 @@ class UseCaseDialogState extends State<UseCaseDialog> {
       _descriptionController.text = widget.value?.description ?? '';
     }
     return AlertDialog(
-      title: Text(widget.title),
+      title: DialogHeader(widget.title),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -78,7 +79,7 @@ class UseCaseDialogState extends State<UseCaseDialog> {
               maxLines: 12,
               minLines: 8,
               decoration: InputDecoration(hintText: 'Description'),
-            ).padByUnits(1, 1, 1, 1).size(width: 400),
+            ).padByUnits(1, 1, 1, 1).size(width: 600),
           ),
         ],
       ).max(height: 400, width: 880),
