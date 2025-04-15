@@ -40,12 +40,21 @@ sealed class UseCase with _$UseCase {
     String? description,
     List<String>? tags,
     String? version,
+    bool? readOnly,
   }) = _UseCase;
 
-  UseCase._();
+  UseCase._() {
+    sections.clear();
+    sections.addAll(
+      splitContent().where((s) => !s.$2.contains('<Version:')).toList(),
+    );
+  }
 
   static final useCaseSplitRegex = RegExp(r'(?=###\s*UseCase\s*:\s*)');
   static final useCaseVersionRegex = RegExp(r'<Version:(.*)>');
+
+  @override
+  final List<(String, String)> sections = [];
 
   List<(String, String)> splitContent() {
     if (content.trim().isEmpty) return [];

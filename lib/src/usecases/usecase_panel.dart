@@ -75,7 +75,9 @@ class _UseCasePanelState extends State<UseCasePanel> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 if (!_showSource)
-                  SectionTitle(text: 'Overview').padByUnits(0, 0, 0, 2),
+                  SectionTitle(
+                    text: 'Overview (${selectedCase.sections.length})',
+                  ).padByUnits(0, 0, 0, 2),
                 Spacer(),
                 if (_showSource && findLines.isNotEmpty) ...[
                   SecondaryButton(
@@ -115,25 +117,27 @@ class _UseCasePanelState extends State<UseCasePanel> {
                 if (_showSource && searchTerm != null)
                   'Found: ${findLines.length}'.txt.padByUnits(0, 2, 0, 0),
                 if (_showSource) SearchPanel().size(width: 300),
-                SecondaryButton(
-                  icon: Icons.add,
-                  description: 'Add Use Case',
-                  onPressed: () {
-                    showAddUseCaseDialog(widget.useCaseId, context, ref);
-                  },
-                ),
-                SecondaryButton(
-                  icon: _showSource ? Icons.code : Icons.edit,
-                  description: 'Show Source',
-                  onPressed: () {
-                    setState(() {
-                      if (_showSource)
-                        _saveText(_textController.text, ref, true);
-                      _showSource = !_showSource;
-                      ref.watch(searchNotifierProvider.notifier).clear();
-                    });
-                  },
-                ),
+                if (selectedCase.readOnly != true)
+                  SecondaryButton(
+                    icon: Icons.add,
+                    description: 'Add Use Case',
+                    onPressed: () {
+                      showAddUseCaseDialog(widget.useCaseId, context, ref);
+                    },
+                  ),
+                if (selectedCase.readOnly != true)
+                  SecondaryButton(
+                    icon: _showSource ? Icons.code : Icons.edit,
+                    description: 'Show Source',
+                    onPressed: () {
+                      setState(() {
+                        if (_showSource)
+                          _saveText(_textController.text, ref, true);
+                        _showSource = !_showSource;
+                        ref.watch(searchNotifierProvider.notifier).clear();
+                      });
+                    },
+                  ),
                 SecondaryButton(
                   icon: Icons.download,
                   description: 'Export Use Case',

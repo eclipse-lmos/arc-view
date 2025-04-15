@@ -5,6 +5,7 @@
  */
 
 import 'package:arc_view/src/usecases/dialogs/usecase_dialog.dart';
+import 'package:arc_view/src/usecases/notifiers/selected_usecase_group_notifier.dart';
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
 import 'package:arc_view/src/usecases/usecases_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,9 @@ class AddUseCasesButton extends ConsumerWidget {
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () {
+        ref
+            .read(selectedUseCaseGroupNotifierProvider.notifier)
+            .selectPersonal();
         _newUseCase(context, ref);
       },
     );

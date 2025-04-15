@@ -4,8 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'package:arc_view/src/core/text.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:smiles/smiles.dart';
 
 part 'notification_notifier.g.dart';
 
@@ -28,5 +31,18 @@ class NotificationNotifier extends _$NotificationNotifier {
 
   clear() {
     state = null;
+  }
+}
+
+///
+/// Extension on [BuildContext] to show a notification.
+///
+extension NotificationNotifierX on BuildContext {
+  notify(String message) {
+    final snackBar = SnackBar(
+      content: message.markDown(this),
+      backgroundColor: colorScheme.primaryContainer,
+    );
+    ScaffoldMessenger.of(this).showSnackBar(snackBar);
   }
 }

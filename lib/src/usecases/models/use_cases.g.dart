@@ -27,6 +27,7 @@ _UseCase _$UseCaseFromJson(Map<String, dynamic> json) => _UseCase(
   description: json['description'] as String?,
   tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
   version: json['version'] as String?,
+  readOnly: json['readOnly'] as bool?,
 );
 
 Map<String, dynamic> _$UseCaseToJson(_UseCase instance) => <String, dynamic>{
@@ -37,4 +38,5 @@ Map<String, dynamic> _$UseCaseToJson(_UseCase instance) => <String, dynamic>{
   'description': instance.description,
   'tags': instance.tags,
   'version': instance.version,
+  'readOnly': instance.readOnly,
 };

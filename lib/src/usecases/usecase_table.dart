@@ -24,13 +24,17 @@ class UseCaseTable extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final useCases = ref.watch(useCasesNotifierProvider).valueOrNull;
+    final useCasesValue = ref.watch(useCasesNotifierProvider);
+    final useCases = useCasesValue.valueOrNull;
     final screenWidth = MediaQuery.sizeOf(context).width;
     final largeScreen = screenWidth > 1400;
     final smallScreen = screenWidth < 1200;
     final useCaseFilter = ref.watch(useCaseFilterProvider);
     var cases = useCases?.cases ?? [];
 
+    if (useCasesValue.isLoading) {
+      return 'Loading Use Cases...'.txt.center();
+    }
     if (cases.isEmpty) {
       return 'No Use Cases at the moment'.txt.center();
     }
@@ -116,33 +120,35 @@ class UseCaseTable extends ConsumerWidget {
                     if (largeScreen) DataCell(cases[i].generateHash().txt),
                     DataCell(
                       [
-                        SecondaryButton(
-                          icon: Icons.edit,
-                          description: 'Edit Use Case Details',
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder:
-                                  (context) => UseCaseDialog(
-                                    title: 'Edit UseCases Details',
-                                    value: cases[i],
-                                    onConfirm: (details) {
-                                      ref
-                                          .read(
-                                            useCasesNotifierProvider.notifier,
-                                          )
-                                          .updateUseCase(
-                                            cases[i].copyWith(
-                                              name: details.name,
-                                              description: details.description,
-                                              tags: details.tags,
-                                            ),
-                                          );
-                                    },
-                                  ),
-                            );
-                          },
-                        ),
+                        if (cases[i].readOnly != true)
+                          SecondaryButton(
+                            icon: Icons.edit,
+                            description: 'Edit Use Case Details',
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder:
+                                    (context) => UseCaseDialog(
+                                      title: 'Edit UseCases Details',
+                                      value: cases[i],
+                                      onConfirm: (details) {
+                                        ref
+                                            .read(
+                                              useCasesNotifierProvider.notifier,
+                                            )
+                                            .updateUseCase(
+                                              cases[i].copyWith(
+                                                name: details.name,
+                                                description:
+                                                    details.description,
+                                                tags: details.tags,
+                                              ),
+                                            );
+                                      },
+                                    ),
+                              );
+                            },
+                          ),
                         SecondaryButton(
                           icon: Icons.download,
                           description: 'Export Use Case',
@@ -150,25 +156,27 @@ class UseCaseTable extends ConsumerWidget {
                             ref.read(useCaseExporterProvider).export(cases[i]);
                           },
                         ),
-                        SecondaryButton(
-                          icon: Icons.copy,
-                          description: 'Duplicate Use Case',
-                          onPressed: () {
-                            ref
-                                .read(useCasesNotifierProvider.notifier)
-                                .addUseCase(cases[i].duplicate());
-                          },
-                        ),
-                        SecondaryButton(
-                          icon: Icons.delete,
-                          confirming: true,
-                          description: 'Delete Use Case',
-                          onPressed: () {
-                            ref
-                                .read(useCasesNotifierProvider.notifier)
-                                .deleteUseCase(cases[i]);
-                          },
-                        ),
+                        if (cases[i].readOnly != true)
+                          SecondaryButton(
+                            icon: Icons.copy,
+                            description: 'Duplicate Use Case',
+                            onPressed: () {
+                              ref
+                                  .read(useCasesNotifierProvider.notifier)
+                                  .addUseCase(cases[i].duplicate());
+                            },
+                          ),
+                        if (cases[i].readOnly != true)
+                          SecondaryButton(
+                            icon: Icons.delete,
+                            confirming: true,
+                            description: 'Delete Use Case',
+                            onPressed: () {
+                              ref
+                                  .read(useCasesNotifierProvider.notifier)
+                                  .deleteUseCase(cases[i]);
+                            },
+                          ),
                         SecondaryButton(
                           icon: Icons.open_in_new,
                           description: 'Apply Use Case',

@@ -42,13 +42,6 @@ final darkTheme = ThemeData(
     labelPadding: const EdgeInsets.all(0),
     indicatorColor: Colors.white.withOpacity(0.5),
   ),
-  snackBarTheme: SnackBarThemeData(
-    backgroundColor: const Color.fromARGB(255, 40, 39, 45),
-    behavior: SnackBarBehavior.floating,
-    width: 400,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    contentTextStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
-  ),
   textTheme: TextTheme(
     bodySmall: TextStyle(fontSize: 10.0, color: Colors.white.withOpacity(0.6)),
     bodyMedium: TextStyle(fontSize: 12.0),

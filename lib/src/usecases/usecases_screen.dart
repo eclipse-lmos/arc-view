@@ -7,6 +7,8 @@
 import 'package:arc_view/src/core/app_bar_title.dart';
 import 'package:arc_view/src/usecases/buttons/add_usecases_button.dart';
 import 'package:arc_view/src/usecases/buttons/import_usecases_button.dart';
+import 'package:arc_view/src/usecases/buttons/usecase_group_button.dart';
+import 'package:arc_view/src/usecases/notifiers/usecase_groups_notifier.dart';
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
 import 'package:arc_view/src/usecases/usecase_table.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +33,24 @@ class UseCasesScreen extends StatelessWidget {
         AddUseCasesButton(),
       ].row(min: true),
       body: Column(
+        spacing: 16,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          VGap.small(),
+          Consumer(
+            builder: (context, ref, _) {
+              final groups =
+                  ref.watch(useCaseGroupsNotifierProvider).valueOrNull ?? [];
+              return Row(
+                spacing: 16,
+                children: [
+                  for (final group in groups) UseCaseGroupButton(group: group),
+                ],
+              );
+            },
+          ),
+          Divider(),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -60,10 +77,10 @@ class UseCasesScreen extends StatelessWidget {
                 },
               ),
             ],
-          ).padByUnits(3, 3, 0, 3),
-          UseCaseTable().padByUnits(3, 3, 3, 3).expand(),
+          ),
+          UseCaseTable().expand(),
         ],
-      ).size(width: double.infinity),
+      ).padByUnits(0, 3, 0, 3).size(width: double.infinity),
     );
   }
 }

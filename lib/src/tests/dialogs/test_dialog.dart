@@ -40,12 +40,17 @@ class TestDialogState extends State<TestDialog> {
   bool _valid = false;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     if (widget.value != null) {
       _textController.text = widget.value!.name;
       _groupController.text = widget.value!.group ?? 'default';
       _descriptionController.text = widget.value?.description ?? '';
     }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(widget.title),
       content: Column(
@@ -93,7 +98,7 @@ class TestDialogState extends State<TestDialog> {
             ).padByUnits(1, 1, 1, 1),
           ),
         ],
-      ).max(height: 400, width: 880),
+      ).size(height: 400, width: 600),
       actions: <Widget>[
         TextButton(
           child: const Text('Cancel'),

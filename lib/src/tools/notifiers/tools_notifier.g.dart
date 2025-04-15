@@ -6,7 +6,7 @@ part of 'tools_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$toolsNotifierHash() => r'250cbeca3a03552a8159030ab5e8a342146c2c87';
+String _$toolsNotifierHash() => r'b238e40de763896182e7d5e7c88d0cc4e763d788';
 
 ///
 /// Holds the use case that has been selected and is sent to the Agent.

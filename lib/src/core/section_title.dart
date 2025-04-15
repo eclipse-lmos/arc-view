@@ -20,7 +20,7 @@ class SectionTitle extends StatelessWidget {
         height: 10,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Color(0xff073a40),
+          color: context.colorScheme.secondary,
         ),
       ),
       HGap.units(2),

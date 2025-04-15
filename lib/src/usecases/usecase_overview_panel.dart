@@ -39,12 +39,7 @@ class _UsecaseOverviewPanelState extends State<UsecaseOverviewPanel> {
           ),
         );
         if (selectedCase == null) return ''.txt;
-
-        final sections =
-            selectedCase
-                .splitContent()
-                .where((s) => !s.$2.contains('<Version:'))
-                .toList();
+        final sections = selectedCase.sections;
         final sectionKeys = sections.map((s) => GlobalKey()).toList();
 
         return Row(
@@ -89,32 +84,34 @@ class _UsecaseOverviewPanelState extends State<UsecaseOverviewPanel> {
                           right: 8,
                           bottom: 8,
                           child: [
-                            SecondaryButton(
-                              icon: Icons.edit,
-                              description: 'Edit Use Case',
-                              onPressed: () {
-                                showEditUseCaseDialog(
-                                  context,
-                                  i,
-                                  sections,
-                                  ref,
-                                  widget.useCaseId,
-                                );
-                              },
-                            ),
-                            SecondaryButton(
-                              icon: Icons.delete,
-                              confirming: true,
-                              description: 'Delete Use Case',
-                              onPressed: () {
-                                _deleteUseCase(
-                                  sections,
-                                  i,
-                                  ref,
-                                  widget.useCaseId,
-                                );
-                              },
-                            ),
+                            if (selectedCase.readOnly != true)
+                              SecondaryButton(
+                                icon: Icons.edit,
+                                description: 'Edit Use Case',
+                                onPressed: () {
+                                  showEditUseCaseDialog(
+                                    context,
+                                    i,
+                                    sections,
+                                    ref,
+                                    widget.useCaseId,
+                                  );
+                                },
+                              ),
+                            if (selectedCase.readOnly != true)
+                              SecondaryButton(
+                                icon: Icons.delete,
+                                confirming: true,
+                                description: 'Delete Use Case',
+                                onPressed: () {
+                                  _deleteUseCase(
+                                    sections,
+                                    i,
+                                    ref,
+                                    widget.useCaseId,
+                                  );
+                                },
+                              ),
                           ].row(min: true),
                         ),
                       ],

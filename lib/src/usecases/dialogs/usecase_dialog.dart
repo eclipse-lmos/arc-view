@@ -38,12 +38,17 @@ class UseCaseDialogState extends State<UseCaseDialog> {
   final _tagsController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     if (widget.value != null) {
       _textController.text = widget.value!.name;
       _tagsController.text = widget.value!.tags?.join(',') ?? '';
       _descriptionController.text = widget.value?.description ?? '';
     }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AlertDialog(
       title: DialogHeader(widget.title),
       content: Column(

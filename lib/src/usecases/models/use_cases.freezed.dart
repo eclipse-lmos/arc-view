@@ -158,7 +158,7 @@ as int,
 /// @nodoc
 mixin _$UseCase {
 
- String get name; String? get id; DateTime get createdAt; String get content; String? get description; List<String>? get tags; String? get version;
+ List<(String, String)> get sections; String get name; String? get id; DateTime get createdAt; String get content; String? get description; List<String>? get tags; String? get version; bool? get readOnly;
 /// Create a copy of UseCase
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -171,16 +171,16 @@ $UseCaseCopyWith<UseCase> get copyWith => _$UseCaseCopyWithImpl<UseCase>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UseCase&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.content, content) || other.content == content)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.tags, tags)&&(identical(other.version, version) || other.version == version));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UseCase&&const DeepCollectionEquality().equals(other.sections, sections)&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.content, content) || other.content == content)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.tags, tags)&&(identical(other.version, version) || other.version == version)&&(identical(other.readOnly, readOnly) || other.readOnly == readOnly));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,id,createdAt,content,description,const DeepCollectionEquality().hash(tags),version);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(sections),name,id,createdAt,content,description,const DeepCollectionEquality().hash(tags),version,readOnly);
 
 @override
 String toString() {
-  return 'UseCase(name: $name, id: $id, createdAt: $createdAt, content: $content, description: $description, tags: $tags, version: $version)';
+  return 'UseCase(sections: $sections, name: $name, id: $id, createdAt: $createdAt, content: $content, description: $description, tags: $tags, version: $version, readOnly: $readOnly)';
 }
 
 
@@ -191,7 +191,7 @@ abstract mixin class $UseCaseCopyWith<$Res>  {
   factory $UseCaseCopyWith(UseCase value, $Res Function(UseCase) _then) = _$UseCaseCopyWithImpl;
 @useResult
 $Res call({
- String name, String? id, DateTime createdAt, String content, String? description, List<String>? tags, String? version
+ String name, String? id, DateTime createdAt, String content, String? description, List<String>? tags, String? version, bool? readOnly
 });
 
 
@@ -208,7 +208,7 @@ class _$UseCaseCopyWithImpl<$Res>
 
 /// Create a copy of UseCase
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? id = freezed,Object? createdAt = null,Object? content = null,Object? description = freezed,Object? tags = freezed,Object? version = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? id = freezed,Object? createdAt = null,Object? content = null,Object? description = freezed,Object? tags = freezed,Object? version = freezed,Object? readOnly = freezed,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
@@ -217,7 +217,8 @@ as DateTime,content: null == content ? _self.content : content // ignore: cast_n
 as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,tags: freezed == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
 as List<String>?,version: freezed == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,readOnly: freezed == readOnly ? _self.readOnly : readOnly // ignore: cast_nullable_to_non_nullable
+as bool?,
   ));
 }
 
@@ -228,7 +229,7 @@ as String?,
 @JsonSerializable()
 
 class _UseCase extends UseCase {
-   _UseCase({required this.name, this.id, required this.createdAt, required this.content, this.description, final  List<String>? tags, this.version}): _tags = tags,super._();
+   _UseCase({required this.name, this.id, required this.createdAt, required this.content, this.description, final  List<String>? tags, this.version, this.readOnly}): _tags = tags,super._();
   factory _UseCase.fromJson(Map<String, dynamic> json) => _$UseCaseFromJson(json);
 
 @override final  String name;
@@ -246,6 +247,7 @@ class _UseCase extends UseCase {
 }
 
 @override final  String? version;
+@override final  bool? readOnly;
 
 /// Create a copy of UseCase
 /// with the given fields replaced by the non-null parameter values.
@@ -260,16 +262,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UseCase&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.content, content) || other.content == content)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._tags, _tags)&&(identical(other.version, version) || other.version == version));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UseCase&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.content, content) || other.content == content)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._tags, _tags)&&(identical(other.version, version) || other.version == version)&&(identical(other.readOnly, readOnly) || other.readOnly == readOnly));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,id,createdAt,content,description,const DeepCollectionEquality().hash(_tags),version);
+int get hashCode => Object.hash(runtimeType,name,id,createdAt,content,description,const DeepCollectionEquality().hash(_tags),version,readOnly);
 
 @override
 String toString() {
-  return 'UseCase(name: $name, id: $id, createdAt: $createdAt, content: $content, description: $description, tags: $tags, version: $version)';
+  return 'UseCase(name: $name, id: $id, createdAt: $createdAt, content: $content, description: $description, tags: $tags, version: $version, readOnly: $readOnly)';
 }
 
 
@@ -280,7 +282,7 @@ abstract mixin class _$UseCaseCopyWith<$Res> implements $UseCaseCopyWith<$Res> {
   factory _$UseCaseCopyWith(_UseCase value, $Res Function(_UseCase) _then) = __$UseCaseCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String? id, DateTime createdAt, String content, String? description, List<String>? tags, String? version
+ String name, String? id, DateTime createdAt, String content, String? description, List<String>? tags, String? version, bool? readOnly
 });
 
 
@@ -297,7 +299,7 @@ class __$UseCaseCopyWithImpl<$Res>
 
 /// Create a copy of UseCase
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? id = freezed,Object? createdAt = null,Object? content = null,Object? description = freezed,Object? tags = freezed,Object? version = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? id = freezed,Object? createdAt = null,Object? content = null,Object? description = freezed,Object? tags = freezed,Object? version = freezed,Object? readOnly = freezed,}) {
   return _then(_UseCase(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
@@ -306,7 +308,8 @@ as DateTime,content: null == content ? _self.content : content // ignore: cast_n
 as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,tags: freezed == tags ? _self._tags : tags // ignore: cast_nullable_to_non_nullable
 as List<String>?,version: freezed == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,readOnly: freezed == readOnly ? _self.readOnly : readOnly // ignore: cast_nullable_to_non_nullable
+as bool?,
   ));
 }
 
