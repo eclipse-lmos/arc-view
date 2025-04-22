@@ -13,14 +13,15 @@ String _$agentMetricsNotifierHash() =>
 @ProviderFor(AgentMetricsNotifier)
 final agentMetricsNotifierProvider =
     AsyncNotifierProvider<AgentMetricsNotifier, List<Metrics>>.internal(
-  AgentMetricsNotifier.new,
-  name: r'agentMetricsNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$agentMetricsNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      AgentMetricsNotifier.new,
+      name: r'agentMetricsNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$agentMetricsNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$AgentMetricsNotifier = AsyncNotifier<List<Metrics>>;
 // ignore_for_file: type=lint

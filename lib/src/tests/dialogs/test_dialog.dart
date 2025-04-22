@@ -4,14 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import 'package:arc_view/src/tests/models/test_case.dart';
+import 'package:arc_view/src/tests/notifiers/test_cases_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smiles/smiles.dart';
 
-typedef TestDetails = ({
-  String name,
-  String description,
-  String group,
-});
+typedef TestDetails = ({String name, String description, String group});
 
 ///
 /// Dialog for creating or editing Test details, such as name and description.
@@ -42,12 +40,17 @@ class TestDialogState extends State<TestDialog> {
   bool _valid = false;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     if (widget.value != null) {
       _textController.text = widget.value!.name;
       _groupController.text = widget.value!.group ?? 'default';
       _descriptionController.text = widget.value?.description ?? '';
     }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(widget.title),
       content: Column(
@@ -55,9 +58,7 @@ class TestDialogState extends State<TestDialog> {
         children: [
           TextField(
             controller: _textController,
-            decoration: InputDecoration(
-              hintText: 'Name',
-            ),
+            decoration: InputDecoration(hintText: 'Name'),
             onChanged: (_) {
               if (_textController.text.isNotEmpty) {
                 setState(() {
@@ -68,24 +69,36 @@ class TestDialogState extends State<TestDialog> {
           ),
           TextField(
             controller: _groupController,
-            decoration: InputDecoration(
-              hintText: 'Group',
-            ),
+            decoration: InputDecoration(hintText: 'Group'),
           ),
+          VGap.small(),
+          Consumer(
+            builder:
+                (context, ref, _) =>
+                    [
+                      for (final group
+                          in ref
+                              .watch(testCasesNotifierProvider)
+                              .testCases
+                              .map((t) => t.group)
+                              .where((g) => g != null)
+                              .toSet())
+                        group!.onPressed(() => _groupController.text = group),
+                    ].wrap().toLeft(),
+          ).max(width: 600),
+          VGap.small(),
           VGap.small(),
           ColoredBox(
             color: context.colorScheme.surface,
             child: TextField(
               controller: _descriptionController,
-              maxLines: 8,
-              minLines: 4,
-              decoration: InputDecoration(
-                hintText: 'Description',
-              ),
-            ).padByUnits(1, 1, 1, 1).size(width: 400),
+              maxLines: 16,
+              minLines: 8,
+              decoration: InputDecoration(hintText: 'Description'),
+            ).padByUnits(1, 1, 1, 1),
           ),
         ],
-      ).max(height: 400, width: 880),
+      ).size(height: 400, width: 600),
       actions: <Widget>[
         TextButton(
           child: const Text('Cancel'),
@@ -93,18 +106,20 @@ class TestDialogState extends State<TestDialog> {
         ),
         TextButton(
           child: Text(widget.actionText ?? 'OK'),
-          onPressed: !_valid
-              ? null
-              : () {
-                  widget.onConfirm((
-                    name: _textController.text,
-                    description: _descriptionController.text,
-                    group: _groupController.text.isEmpty
-                        ? 'default'
-                        : _groupController.text,
-                  ));
-                  Navigator.of(context).pop();
-                },
+          onPressed:
+              !_valid
+                  ? null
+                  : () {
+                    widget.onConfirm((
+                      name: _textController.text,
+                      description: _descriptionController.text,
+                      group:
+                          _groupController.text.isEmpty
+                              ? 'default'
+                              : _groupController.text,
+                    ));
+                    Navigator.of(context).pop();
+                  },
         ),
       ],
     );

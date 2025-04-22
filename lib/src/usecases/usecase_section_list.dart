@@ -26,37 +26,47 @@ class UseCaseSectionList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final selectedCase = ref.watch(
+      useCasesNotifierProvider.select((u) => u.valueOrNull?.getById(useCaseId)),
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         VGap(),
-        Card(
-          child: ListView.builder(
-            itemCount: sections.length,
-            itemBuilder: (context, i) => HoverableListTile(
-              title: '> ${sections[i].$1.substringAfter(':').trim()}'.txt,
-              onTap: () {
-                onSelect(i, sections[i].$1);
-              },
-              buttons: [
-                SecondaryButton(
-                  icon: Icons.edit,
-                  description: 'Edit Use Case',
-                  onPressed: () {
-                    showEditUseCaseDialog(context, i, sections, ref, useCaseId);
-                  },
-                ),
-                SecondaryButton(
-                  icon: Icons.delete,
-                  confirming: true,
-                  description: 'Delete Use Case',
-                  onPressed: () {
-                    _deleteUseCase(sections, i, ref, useCaseId);
-                  },
-                ),
-              ],
-            ),
-          ),
+        ListView.builder(
+          itemCount: sections.length,
+          itemBuilder:
+              (context, i) => HoverableListTile(
+                title: '> ${sections[i].$1.substringAfter(':').trim()}'.txt,
+                onTap: () {
+                  onSelect(i, sections[i].$1);
+                },
+                buttons: [
+                  if (selectedCase?.readOnly != true)
+                    SecondaryButton(
+                      icon: Icons.edit,
+                      description: 'Edit Use Case',
+                      onPressed: () {
+                        showEditUseCaseDialog(
+                          context,
+                          i,
+                          sections,
+                          ref,
+                          useCaseId,
+                        );
+                      },
+                    ),
+                  if (selectedCase?.readOnly != true)
+                    SecondaryButton(
+                      icon: Icons.delete,
+                      confirming: true,
+                      description: 'Delete Use Case',
+                      onPressed: () {
+                        _deleteUseCase(sections, i, ref, useCaseId);
+                      },
+                    ),
+                ],
+              ),
         ).expand(),
       ],
     );

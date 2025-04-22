@@ -30,12 +30,29 @@ class ToolsExporter {
     _export(tool, fileName, result);
   }
 
-  _export(
-    TestTool tool,
+  exportAll(List<TestTool> tools) async {
+    final fileName = 'tools.json';
+    final result = await getSaveLocation(suggestedName: fileName);
+    if (result == null) return;
+    _exportAll(tools, fileName, result);
+  }
+
+  _export(TestTool tool, String fileName, FileSaveLocation location) async {
+    final Uint8List fileData = utf8.encode(jsonEncode(tool.toJson()));
+    final XFile textFile = XFile.fromData(
+      fileData,
+      mimeType: 'application/json',
+      name: fileName,
+    );
+    await textFile.saveTo(location.path);
+  }
+
+  _exportAll(
+    List<TestTool> tools,
     String fileName,
     FileSaveLocation location,
   ) async {
-    final Uint8List fileData = utf8.encode(jsonEncode(tool.toJson()));
+    final Uint8List fileData = utf8.encode(jsonEncode(tools));
     final XFile textFile = XFile.fromData(
       fileData,
       mimeType: 'application/json',

@@ -10,7 +10,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'conversations.freezed.dart';
 
 @Freezed(equal: false)
-class Conversations with _$Conversations {
+sealed class Conversations with _$Conversations {
   factory Conversations({
     required List<Conversation> conversations,
     required Conversation current,
@@ -20,23 +20,31 @@ class Conversations with _$Conversations {
 
   Conversations addAsCurrent(Conversation conversation) {
     return copyWith(
-        current: conversation, conversations: _addOrReplace(conversation));
+      current: conversation,
+      conversations: _addOrReplace(conversation),
+    );
   }
 
   Conversations update(Conversation conversation) {
     return copyWith(
-        current: current.conversationId == conversation.conversationId
-            ? conversation
-            : current,
-        conversations: _addOrReplace(conversation));
+      current:
+          current.conversationId == conversation.conversationId
+              ? conversation
+              : current,
+      conversations: _addOrReplace(conversation),
+    );
   }
 
   Conversations remove(Conversation conversation) {
     return copyWith(
-        conversations: conversations
-            .where((element) =>
-                element.conversationId != conversation.conversationId)
-            .toList());
+      conversations:
+          conversations
+              .where(
+                (element) =>
+                    element.conversationId != conversation.conversationId,
+              )
+              .toList(),
+    );
   }
 
   List<Conversation> _addOrReplace(Conversation conversation) {

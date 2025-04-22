@@ -17,9 +17,10 @@ String _$toolsImporterHash() => r'2afe5f9800da9a1be98dda0ae26c522a56122ca5';
 final toolsImporterProvider = AutoDisposeProvider<ToolsImporter>.internal(
   toolsImporter,
   name: r'toolsImporterProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$toolsImporterHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$toolsImporterHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

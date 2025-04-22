@@ -6,7 +6,7 @@ part of 'test_runs_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$testRunsNotifierHash() => r'940db30e60a78531a4f43bd24eef8db0c1ac1aba';
+String _$testRunsNotifierHash() => r'4b7fcc8f904e74f4a1282da89b10d74413e544d6';
 
 ///
 /// Manages the test cases.
@@ -14,13 +14,16 @@ String _$testRunsNotifierHash() => r'940db30e60a78531a4f43bd24eef8db0c1ac1aba';
 ///
 /// Copied from [TestRunsNotifier].
 @ProviderFor(TestRunsNotifier)
-final testRunsNotifierProvider = NotifierProvider<TestRunsNotifier,
-    Map<String, Map<String, TestRun>>>.internal(
+final testRunsNotifierProvider = NotifierProvider<
+  TestRunsNotifier,
+  Map<String, Map<String, TestRun>>
+>.internal(
   TestRunsNotifier.new,
   name: r'testRunsNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$testRunsNotifierHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$testRunsNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

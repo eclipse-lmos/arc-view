@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,374 +10,295 @@ part of 'message.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-AgentResult _$AgentResultFromJson(Map<String, dynamic> json) {
-  return _AgentResult.fromJson(json);
-}
 
 /// @nodoc
 mixin _$AgentResult {
-  List<Message> get messages => throw _privateConstructorUsedError;
-  double get responseTime => throw _privateConstructorUsedError;
+
+ List<Message> get messages; double get responseTime;
+/// Create a copy of AgentResult
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AgentResultCopyWith<AgentResult> get copyWith => _$AgentResultCopyWithImpl<AgentResult>(this as AgentResult, _$identity);
 
   /// Serializes this AgentResult to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of AgentResult
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $AgentResultCopyWith<AgentResult> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AgentResult&&const DeepCollectionEquality().equals(other.messages, messages)&&(identical(other.responseTime, responseTime) || other.responseTime == responseTime));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(messages),responseTime);
+
+@override
+String toString() {
+  return 'AgentResult(messages: $messages, responseTime: $responseTime)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $AgentResultCopyWith<$Res> {
-  factory $AgentResultCopyWith(
-          AgentResult value, $Res Function(AgentResult) then) =
-      _$AgentResultCopyWithImpl<$Res, AgentResult>;
-  @useResult
-  $Res call({List<Message> messages, double responseTime});
-}
+abstract mixin class $AgentResultCopyWith<$Res>  {
+  factory $AgentResultCopyWith(AgentResult value, $Res Function(AgentResult) _then) = _$AgentResultCopyWithImpl;
+@useResult
+$Res call({
+ List<Message> messages, double responseTime
+});
 
+
+
+
+}
 /// @nodoc
-class _$AgentResultCopyWithImpl<$Res, $Val extends AgentResult>
+class _$AgentResultCopyWithImpl<$Res>
     implements $AgentResultCopyWith<$Res> {
-  _$AgentResultCopyWithImpl(this._value, this._then);
+  _$AgentResultCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final AgentResult _self;
+  final $Res Function(AgentResult) _then;
 
-  /// Create a copy of AgentResult
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? messages = null,
-    Object? responseTime = null,
-  }) {
-    return _then(_value.copyWith(
-      messages: null == messages
-          ? _value.messages
-          : messages // ignore: cast_nullable_to_non_nullable
-              as List<Message>,
-      responseTime: null == responseTime
-          ? _value.responseTime
-          : responseTime // ignore: cast_nullable_to_non_nullable
-              as double,
-    ) as $Val);
-  }
+/// Create a copy of AgentResult
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? messages = null,Object? responseTime = null,}) {
+  return _then(_self.copyWith(
+messages: null == messages ? _self.messages : messages // ignore: cast_nullable_to_non_nullable
+as List<Message>,responseTime: null == responseTime ? _self.responseTime : responseTime // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
 }
 
-/// @nodoc
-abstract class _$$AgentResultImplCopyWith<$Res>
-    implements $AgentResultCopyWith<$Res> {
-  factory _$$AgentResultImplCopyWith(
-          _$AgentResultImpl value, $Res Function(_$AgentResultImpl) then) =
-      __$$AgentResultImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({List<Message> messages, double responseTime});
 }
 
-/// @nodoc
-class __$$AgentResultImplCopyWithImpl<$Res>
-    extends _$AgentResultCopyWithImpl<$Res, _$AgentResultImpl>
-    implements _$$AgentResultImplCopyWith<$Res> {
-  __$$AgentResultImplCopyWithImpl(
-      _$AgentResultImpl _value, $Res Function(_$AgentResultImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of AgentResult
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? messages = null,
-    Object? responseTime = null,
-  }) {
-    return _then(_$AgentResultImpl(
-      messages: null == messages
-          ? _value._messages
-          : messages // ignore: cast_nullable_to_non_nullable
-              as List<Message>,
-      responseTime: null == responseTime
-          ? _value.responseTime
-          : responseTime // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$AgentResultImpl implements _AgentResult {
-  _$AgentResultImpl(
-      {required final List<Message> messages, required this.responseTime})
-      : _messages = messages;
 
-  factory _$AgentResultImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AgentResultImplFromJson(json);
+class _AgentResult implements AgentResult {
+   _AgentResult({required final  List<Message> messages, required this.responseTime}): _messages = messages;
+  factory _AgentResult.fromJson(Map<String, dynamic> json) => _$AgentResultFromJson(json);
 
-  final List<Message> _messages;
-  @override
-  List<Message> get messages {
-    if (_messages is EqualUnmodifiableListView) return _messages;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_messages);
-  }
-
-  @override
-  final double responseTime;
-
-  @override
-  String toString() {
-    return 'AgentResult(messages: $messages, responseTime: $responseTime)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AgentResultImpl &&
-            const DeepCollectionEquality().equals(other._messages, _messages) &&
-            (identical(other.responseTime, responseTime) ||
-                other.responseTime == responseTime));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_messages), responseTime);
-
-  /// Create a copy of AgentResult
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AgentResultImplCopyWith<_$AgentResultImpl> get copyWith =>
-      __$$AgentResultImplCopyWithImpl<_$AgentResultImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AgentResultImplToJson(
-      this,
-    );
-  }
+ final  List<Message> _messages;
+@override List<Message> get messages {
+  if (_messages is EqualUnmodifiableListView) return _messages;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_messages);
 }
 
-abstract class _AgentResult implements AgentResult {
-  factory _AgentResult(
-      {required final List<Message> messages,
-      required final double responseTime}) = _$AgentResultImpl;
+@override final  double responseTime;
 
-  factory _AgentResult.fromJson(Map<String, dynamic> json) =
-      _$AgentResultImpl.fromJson;
+/// Create a copy of AgentResult
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AgentResultCopyWith<_AgentResult> get copyWith => __$AgentResultCopyWithImpl<_AgentResult>(this, _$identity);
 
-  @override
-  List<Message> get messages;
-  @override
-  double get responseTime;
-
-  /// Create a copy of AgentResult
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AgentResultImplCopyWith<_$AgentResultImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$AgentResultToJson(this, );
 }
 
-Message _$MessageFromJson(Map<String, dynamic> json) {
-  return _Message.fromJson(json);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AgentResult&&const DeepCollectionEquality().equals(other._messages, _messages)&&(identical(other.responseTime, responseTime) || other.responseTime == responseTime));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_messages),responseTime);
+
+@override
+String toString() {
+  return 'AgentResult(messages: $messages, responseTime: $responseTime)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AgentResultCopyWith<$Res> implements $AgentResultCopyWith<$Res> {
+  factory _$AgentResultCopyWith(_AgentResult value, $Res Function(_AgentResult) _then) = __$AgentResultCopyWithImpl;
+@override @useResult
+$Res call({
+ List<Message> messages, double responseTime
+});
+
+
+
+
+}
+/// @nodoc
+class __$AgentResultCopyWithImpl<$Res>
+    implements _$AgentResultCopyWith<$Res> {
+  __$AgentResultCopyWithImpl(this._self, this._then);
+
+  final _AgentResult _self;
+  final $Res Function(_AgentResult) _then;
+
+/// Create a copy of AgentResult
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? messages = null,Object? responseTime = null,}) {
+  return _then(_AgentResult(
+messages: null == messages ? _self._messages : messages // ignore: cast_nullable_to_non_nullable
+as List<Message>,responseTime: null == responseTime ? _self.responseTime : responseTime // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$Message {
-  String get role => throw _privateConstructorUsedError;
-  String get content => throw _privateConstructorUsedError;
-  Set<String>? get symbols => throw _privateConstructorUsedError;
+
+ String get role; String get content; Set<String>? get symbols;
+/// Create a copy of Message
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$MessageCopyWith<Message> get copyWith => _$MessageCopyWithImpl<Message>(this as Message, _$identity);
 
   /// Serializes this Message to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of Message
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $MessageCopyWith<Message> get copyWith => throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Message&&(identical(other.role, role) || other.role == role)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other.symbols, symbols));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,role,content,const DeepCollectionEquality().hash(symbols));
+
+@override
+String toString() {
+  return 'Message(role: $role, content: $content, symbols: $symbols)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $MessageCopyWith<$Res> {
-  factory $MessageCopyWith(Message value, $Res Function(Message) then) =
-      _$MessageCopyWithImpl<$Res, Message>;
-  @useResult
-  $Res call({String role, String content, Set<String>? symbols});
-}
+abstract mixin class $MessageCopyWith<$Res>  {
+  factory $MessageCopyWith(Message value, $Res Function(Message) _then) = _$MessageCopyWithImpl;
+@useResult
+$Res call({
+ String role, String content, Set<String>? symbols
+});
 
+
+
+
+}
 /// @nodoc
-class _$MessageCopyWithImpl<$Res, $Val extends Message>
+class _$MessageCopyWithImpl<$Res>
     implements $MessageCopyWith<$Res> {
-  _$MessageCopyWithImpl(this._value, this._then);
+  _$MessageCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Message _self;
+  final $Res Function(Message) _then;
 
-  /// Create a copy of Message
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? role = null,
-    Object? content = null,
-    Object? symbols = freezed,
-  }) {
-    return _then(_value.copyWith(
-      role: null == role
-          ? _value.role
-          : role // ignore: cast_nullable_to_non_nullable
-              as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String,
-      symbols: freezed == symbols
-          ? _value.symbols
-          : symbols // ignore: cast_nullable_to_non_nullable
-              as Set<String>?,
-    ) as $Val);
-  }
+/// Create a copy of Message
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? role = null,Object? content = null,Object? symbols = freezed,}) {
+  return _then(_self.copyWith(
+role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String,symbols: freezed == symbols ? _self.symbols : symbols // ignore: cast_nullable_to_non_nullable
+as Set<String>?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$MessageImplCopyWith<$Res> implements $MessageCopyWith<$Res> {
-  factory _$$MessageImplCopyWith(
-          _$MessageImpl value, $Res Function(_$MessageImpl) then) =
-      __$$MessageImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String role, String content, Set<String>? symbols});
 }
 
-/// @nodoc
-class __$$MessageImplCopyWithImpl<$Res>
-    extends _$MessageCopyWithImpl<$Res, _$MessageImpl>
-    implements _$$MessageImplCopyWith<$Res> {
-  __$$MessageImplCopyWithImpl(
-      _$MessageImpl _value, $Res Function(_$MessageImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Message
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? role = null,
-    Object? content = null,
-    Object? symbols = freezed,
-  }) {
-    return _then(_$MessageImpl(
-      role: null == role
-          ? _value.role
-          : role // ignore: cast_nullable_to_non_nullable
-              as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String,
-      symbols: freezed == symbols
-          ? _value._symbols
-          : symbols // ignore: cast_nullable_to_non_nullable
-              as Set<String>?,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$MessageImpl implements _Message {
-  _$MessageImpl(
-      {required this.role, required this.content, final Set<String>? symbols})
-      : _symbols = symbols;
 
-  factory _$MessageImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MessageImplFromJson(json);
+class _Message implements Message {
+   _Message({required this.role, required this.content, final  Set<String>? symbols}): _symbols = symbols;
+  factory _Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
 
-  @override
-  final String role;
-  @override
-  final String content;
-  final Set<String>? _symbols;
-  @override
-  Set<String>? get symbols {
-    final value = _symbols;
-    if (value == null) return null;
-    if (_symbols is EqualUnmodifiableSetView) return _symbols;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(value);
-  }
-
-  @override
-  String toString() {
-    return 'Message(role: $role, content: $content, symbols: $symbols)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$MessageImpl &&
-            (identical(other.role, role) || other.role == role) &&
-            (identical(other.content, content) || other.content == content) &&
-            const DeepCollectionEquality().equals(other._symbols, _symbols));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, role, content,
-      const DeepCollectionEquality().hash(_symbols));
-
-  /// Create a copy of Message
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$MessageImplCopyWith<_$MessageImpl> get copyWith =>
-      __$$MessageImplCopyWithImpl<_$MessageImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MessageImplToJson(
-      this,
-    );
-  }
+@override final  String role;
+@override final  String content;
+ final  Set<String>? _symbols;
+@override Set<String>? get symbols {
+  final value = _symbols;
+  if (value == null) return null;
+  if (_symbols is EqualUnmodifiableSetView) return _symbols;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableSetView(value);
 }
 
-abstract class _Message implements Message {
-  factory _Message(
-      {required final String role,
-      required final String content,
-      final Set<String>? symbols}) = _$MessageImpl;
 
-  factory _Message.fromJson(Map<String, dynamic> json) = _$MessageImpl.fromJson;
+/// Create a copy of Message
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$MessageCopyWith<_Message> get copyWith => __$MessageCopyWithImpl<_Message>(this, _$identity);
 
-  @override
-  String get role;
-  @override
-  String get content;
-  @override
-  Set<String>? get symbols;
-
-  /// Create a copy of Message
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MessageImplCopyWith<_$MessageImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$MessageToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Message&&(identical(other.role, role) || other.role == role)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other._symbols, _symbols));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,role,content,const DeepCollectionEquality().hash(_symbols));
+
+@override
+String toString() {
+  return 'Message(role: $role, content: $content, symbols: $symbols)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
+  factory _$MessageCopyWith(_Message value, $Res Function(_Message) _then) = __$MessageCopyWithImpl;
+@override @useResult
+$Res call({
+ String role, String content, Set<String>? symbols
+});
+
+
+
+
+}
+/// @nodoc
+class __$MessageCopyWithImpl<$Res>
+    implements _$MessageCopyWith<$Res> {
+  __$MessageCopyWithImpl(this._self, this._then);
+
+  final _Message _self;
+  final $Res Function(_Message) _then;
+
+/// Create a copy of Message
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? role = null,Object? content = null,Object? symbols = freezed,}) {
+  return _then(_Message(
+role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String,symbols: freezed == symbols ? _self._symbols : symbols // ignore: cast_nullable_to_non_nullable
+as Set<String>?,
+  ));
+}
+
+
+}
+
+// dart format on

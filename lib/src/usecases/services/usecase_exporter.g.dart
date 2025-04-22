@@ -17,9 +17,10 @@ String _$useCaseExporterHash() => r'3722f6fabde6282463991b97a05526d96c0f5018';
 final useCaseExporterProvider = AutoDisposeProvider<UseCaseExporter>.internal(
   useCaseExporter,
   name: r'useCaseExporterProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$useCaseExporterHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$useCaseExporterHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

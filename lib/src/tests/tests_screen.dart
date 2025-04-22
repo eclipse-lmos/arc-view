@@ -18,6 +18,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smiles/smiles.dart';
 
+final currentTestGroupProvider = StateProvider((ref) => 0);
+
 ///
 /// Main screen for managing testing.
 ///
@@ -55,10 +57,7 @@ class TestsScreen extends ConsumerWidget {
               right: 16,
               child: Card(
                 child: [
-                  Icon(
-                    Icons.warning,
-                    color: Colors.amber[900],
-                  ),
+                  Icon(Icons.warning, color: Colors.amber[900]),
                   HGap.small(),
                   'At least one Agent must be connected to run Tests.'.txt,
                 ].row(min: true).padByUnits(1, 2, 1, 2),
@@ -74,22 +73,26 @@ class TestsScreen extends ConsumerWidget {
 To create a new Test Case, simply goto the [Chat](#/chat) interface, 
 
 create a conversation and then click the "New Test" button.
-                  '''
-                      .markDown(context)
-                      .padByUnits(2, 3, 2, 3),
+                  '''.markDown(context).padByUnits(2, 3, 2, 3),
                 ),
               DefaultTabController(
                 length: testGroups.length,
+                initialIndex: ref.read(currentTestGroupProvider),
                 child: Column(
                   children: [
                     HGap.small(),
                     TabBar(
                       isScrollable: true,
                       tabAlignment: TabAlignment.start,
+                      onTap: (index) {
+                        ref.read(currentTestGroupProvider.notifier).state =
+                            index;
+                      },
                       tabs: [
                         for (final group in testGroups.entries)
-                          Tab(text: group.key ?? "Unknown")
-                              .padByUnits(0, 2, 0, 2),
+                          Tab(
+                            text: group.key ?? "Unknown",
+                          ).padByUnits(0, 2, 0, 2),
                       ],
                     ).padByUnits(0, 0, 0, 1),
                     TabBarView(
@@ -98,7 +101,7 @@ create a conversation and then click the "New Test" button.
                           TestsTable(
                             group: group.key ?? "Unknown",
                             testCases: group.value,
-                          )
+                          ),
                       ],
                     ).expand(),
                   ],

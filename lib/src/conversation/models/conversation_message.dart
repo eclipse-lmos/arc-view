@@ -12,7 +12,7 @@ part 'conversation_message.g.dart';
 enum MessageType { user, bot }
 
 @freezed
-class ConversationMessage with _$ConversationMessage {
+sealed class ConversationMessage with _$ConversationMessage {
   factory ConversationMessage({
     required MessageType type,
     required String conversationId,
@@ -32,7 +32,7 @@ class ConversationMessage with _$ConversationMessage {
 }
 
 @freezed
-class BinaryData with _$BinaryData {
+sealed class BinaryData with _$BinaryData {
   factory BinaryData({
     String? dataAsBase64,
     required String mimeType,

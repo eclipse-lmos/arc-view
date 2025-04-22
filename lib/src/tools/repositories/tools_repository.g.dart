@@ -13,9 +13,10 @@ String _$toolsRepositoryHash() => r'e5a60213b7491e0272f64c3804fb542b0eebde0a';
 final toolsRepositoryProvider = AutoDisposeProvider<ToolsRepository>.internal(
   toolsRepository,
   name: r'toolsRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$toolsRepositoryHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$toolsRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

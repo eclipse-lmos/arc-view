@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+import 'package:arc_view/src/core/dialog_header.dart';
 import 'package:arc_view/src/core/secondary_button.dart';
 import 'package:arc_view/src/tools/models/test_tool.dart';
 import 'package:arc_view/src/tools/notifiers/tools_notifier.dart';
@@ -40,7 +41,7 @@ class _NewToolDialogState extends State<NewToolDialog> {
                 ?.map(
                   (e) => (
                     TextEditingController(text: e.name),
-                    TextEditingController(text: e.description)
+                    TextEditingController(text: e.description),
                   ),
                 )
                 .toList() ??
@@ -53,9 +54,9 @@ class _NewToolDialogState extends State<NewToolDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: (widget.tool != null)
-          ? 'Edit Test Tool'.txt
-          : 'Add New Test Tool'.txt,
+      title: DialogHeader(
+        (widget.tool != null) ? 'Edit Test Tool' : 'Add New Test Tool',
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -73,40 +74,29 @@ class _NewToolDialogState extends State<NewToolDialog> {
           ),
           TextField(
             controller: _descriptionController,
-            decoration: InputDecoration(
-              hintText: 'Tool Description',
-            ),
+            decoration: InputDecoration(hintText: 'Tool Description'),
           ),
           VGap.small(),
           'Add Parameter'.onPressed(() {
             setState(() {
-              _params.add((
-                TextEditingController(),
-                TextEditingController(),
-              ));
+              _params.add((TextEditingController(), TextEditingController()));
             });
           }).toRight(),
           for (var i = 0; i < _params.length; i++)
             [
               TextField(
                 controller: _params[i].$1,
-                decoration: InputDecoration(
-                  hintText: 'Parameter Name',
-                ),
+                decoration: InputDecoration(hintText: 'Parameter Name'),
               ).size(width: 200),
               HGap.small(),
               TextField(
                 controller: _params[i].$2,
-                decoration: InputDecoration(
-                  hintText: 'Parameter Description',
-                ),
+                decoration: InputDecoration(hintText: 'Parameter Description'),
               ).expand(),
               HGap.small(),
               TextField(
                 enabled: false,
-                decoration: InputDecoration(
-                  hintText: 'String',
-                ),
+                decoration: InputDecoration(hintText: 'String'),
               ).size(width: 100),
               HGap.small(),
               SecondaryButton(
@@ -117,15 +107,15 @@ class _NewToolDialogState extends State<NewToolDialog> {
                     _params.remove(_params[i]);
                   });
                 },
-              )
+              ),
             ].row(),
           VGap.small(),
           ColoredBox(
             color: context.colorScheme.surface,
             child: TextField(
               controller: _valueController,
-              maxLines: 32,
-              minLines: 16,
+              maxLines: 18,
+              minLines: 12,
             ).padByUnits(1, 1, 1, 1),
           ),
         ],
@@ -136,57 +126,70 @@ class _NewToolDialogState extends State<NewToolDialog> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         Consumer(
-          builder: (context, ref, child) => TextButton(
-            child: 'OK'.txt,
-            onPressed: () {
-              if (_nameController.text.isEmpty) return;
-              if (_descriptionController.text.isEmpty) return;
-              if (_titleController.text.isEmpty) return;
-              if (_valueController.text.isEmpty) return;
+          builder:
+              (context, ref, child) => TextButton(
+                child: 'OK'.txt,
+                onPressed: () {
+                  if (_nameController.text.isEmpty) return;
+                  if (_descriptionController.text.isEmpty) return;
+                  if (_titleController.text.isEmpty) return;
+                  if (_valueController.text.isEmpty) return;
 
-              if (widget.tool != null) {
-                ref.read(toolsNotifierProvider.notifier).updateTool(
-                      widget.tool!.copyWith(
-                        name: _nameController.text,
-                        title: _titleController.text,
-                        description: _descriptionController.text,
-                        value: _valueController.text,
-                        parameters: _params
-                            .where((e) =>
-                                e.$1.text.isNotEmpty && e.$2.text.isNotEmpty)
-                            .map(
-                              (e) => TestToolParameter(
-                                  name: e.$1.text,
-                                  description: e.$2.text,
-                                  type: 'string'),
-                            )
-                            .toList(),
-                      ),
-                    );
-                Navigator.of(context).pop();
-                return;
-              }
+                  if (widget.tool != null) {
+                    ref
+                        .read(toolsNotifierProvider.notifier)
+                        .updateTool(
+                          widget.tool!.copyWith(
+                            name: _nameController.text,
+                            title: _titleController.text,
+                            description: _descriptionController.text,
+                            value: _valueController.text,
+                            parameters:
+                                _params
+                                    .where(
+                                      (e) =>
+                                          e.$1.text.isNotEmpty &&
+                                          e.$2.text.isNotEmpty,
+                                    )
+                                    .map(
+                                      (e) => TestToolParameter(
+                                        name: e.$1.text,
+                                        description: e.$2.text,
+                                        type: 'string',
+                                      ),
+                                    )
+                                    .toList(),
+                          ),
+                        );
+                    Navigator.of(context).pop();
+                    return;
+                  }
 
-              ref.read(toolsNotifierProvider.notifier).newTool(
-                    TestTool(
-                      id: '${_nameController.text}-${DateTime.now().millisecondsSinceEpoch.toString()}',
-                      name: _nameController.text,
-                      title: _titleController.text,
-                      description: _descriptionController.text,
-                      value: _valueController.text,
-                      parameters: _params
-                          .map(
-                            (e) => TestToolParameter(
-                                name: e.$1.text,
-                                description: e.$2.text,
-                                type: 'string'),
-                          )
-                          .toList(),
-                    ),
-                  );
-              Navigator.of(context).pop();
-            },
-          ),
+                  ref
+                      .read(toolsNotifierProvider.notifier)
+                      .newTool(
+                        TestTool(
+                          id:
+                              '${_nameController.text}-${DateTime.now().millisecondsSinceEpoch.toString()}',
+                          name: _nameController.text,
+                          title: _titleController.text,
+                          description: _descriptionController.text,
+                          value: _valueController.text,
+                          parameters:
+                              _params
+                                  .map(
+                                    (e) => TestToolParameter(
+                                      name: e.$1.text,
+                                      description: e.$2.text,
+                                      type: 'string',
+                                    ),
+                                  )
+                                  .toList(),
+                        ),
+                      );
+                  Navigator.of(context).pop();
+                },
+              ),
         ),
       ],
     );

@@ -17,14 +17,15 @@ String _$promptHistoryNotifierHash() =>
 @ProviderFor(PromptHistoryNotifier)
 final promptHistoryNotifierProvider =
     AsyncNotifierProvider<PromptHistoryNotifier, List<String>>.internal(
-  PromptHistoryNotifier.new,
-  name: r'promptHistoryNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$promptHistoryNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      PromptHistoryNotifier.new,
+      name: r'promptHistoryNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$promptHistoryNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$PromptHistoryNotifier = AsyncNotifier<List<String>>;
 // ignore_for_file: type=lint

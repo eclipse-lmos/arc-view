@@ -28,29 +28,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, _) {
-      final conversation = ref.read(conversationsNotifierProvider).current;
-      const JsonEncoder encoder = JsonEncoder.withIndent('  ');
+    return Consumer(
+      builder: (context, ref, _) {
+        final conversation = ref.read(conversationsNotifierProvider).current;
+        const JsonEncoder encoder = JsonEncoder.withIndent('  ');
 
-      return Scaffold(
-        appBar: AppBarTitle('Settings'),
-        floatingActionButton: Consumer(builder: (context, ref, _) {
-          final changed = ref.watchSettingsChanged();
+        return Scaffold(
+          appBar: AppBarTitle('Settings'),
+          floatingActionButton: Consumer(
+            builder: (context, ref, _) {
+              final changed = ref.watchSettingsChanged();
 
-          return 'Save'.onButtonPressed(() {
-            if (!_formKey.currentState!.validate()) return;
-            _formKey.currentState!.save();
-            ref.commitSettings();
-          }, disabled: !changed);
-        }),
-        body: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
+              return 'Save'.onButtonPressed(() {
+                if (!_formKey.currentState!.validate()) return;
+                _formKey.currentState!.save();
+                ref.commitSettings();
+              }, disabled: !changed);
+            },
+          ),
+          body: Form(
+            key: _formKey,
+            child: ListView(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
                       icon: Icon(
                         Icons.dark_mode,
                         size: 16,
@@ -58,68 +61,72 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       onPressed: () {
                         ref.read(themeNotifierProvider.notifier).toggle();
-                      }).pad(8, 8, 8, 8),
-                  '3.0.0'.txt.pad(8, 8, 8, 8),
-                  'Licenses'.onPressed(() {
-                    showLicensePage(context: context);
-                  }).pad(8, 8, 8, 8),
-                ],
-              ),
-              // Row(
-              //   crossAxisAlignment: CrossAxisAlignment.start,
-              //    children: [
-              //    Card(
-              //         child: const AddressBar().padByUnits(1, 1, 1, 1),
-              //       ).padByUnits(1, 1, 0, 1),
-              //   Card(
-              //         child: EnvWrap()
-              //           .padByUnits(1, 1, 1, 1)
-              //           .percentOfScreen(width: 0.4),
-              //       ).padByUnits(1, 1, 0, 1),
-              // ],
-              //   ),
-              VGap.small(),
-              Card(
-                elevation: 4,
-                child: [
-                  SectionTitle(text: 'Set the context for outgoing requests')
-                      .padByUnits(3, 1, 1, 2)
-                      .toLeft(),
-                  ContextField(
-                    'User Context',
-                    encoder.convert(conversation.userContext.toJson()),
-                    onChanged: (value) {
-                      ref
-                          .read(settingsNotifierProvider.notifier)
-                          .updateChanged();
-                    },
-                    onSave: (value) {
-                      ref
-                          .read(settingsNotifierProvider.notifier)
-                          .updateUserContext(value);
-                    },
-                  ).padding(16),
-                  const VGap(),
-                  ContextField(
-                    'System Context',
-                    encoder.convert(conversation.systemContext.toJson()),
-                    onChanged: (value) {
-                      ref
-                          .read(settingsNotifierProvider.notifier)
-                          .updateChanged();
-                    },
-                    onSave: (value) {
-                      ref
-                          .read(settingsNotifierProvider.notifier)
-                          .updateSystemContext(value);
-                    },
-                  ).padding(16)
-                ].column(),
-              ).padByUnits(1, 1, 1, 1),
-            ],
-          ).padByUnits(1, 1, 1, 1),
-        ),
-      );
-    });
+                      },
+                    ).pad(8, 8, 8, 8),
+                    '3.0.0'.txt.pad(8, 8, 8, 8),
+                    'Licenses'
+                        .onPressed(() {
+                          showLicensePage(context: context);
+                        })
+                        .pad(8, 8, 8, 8),
+                  ],
+                ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //    children: [
+                //    Card(
+                //         child: const AddressBar().padByUnits(1, 1, 1, 1),
+                //       ).padByUnits(1, 1, 0, 1),
+                //   Card(
+                //         child: EnvWrap()
+                //           .padByUnits(1, 1, 1, 1)
+                //           .percentOfScreen(width: 0.4),
+                //       ).padByUnits(1, 1, 0, 1),
+                // ],
+                //   ),
+                VGap.small(),
+                Card(
+                  child:
+                      [
+                        SectionTitle(
+                          text: 'Set the context for outgoing requests',
+                        ).padByUnits(3, 1, 1, 2).toLeft(),
+                        ContextField(
+                          'User Context',
+                          encoder.convert(conversation.userContext.toJson()),
+                          onChanged: (value) {
+                            ref
+                                .read(settingsNotifierProvider.notifier)
+                                .updateChanged();
+                          },
+                          onSave: (value) {
+                            ref
+                                .read(settingsNotifierProvider.notifier)
+                                .updateUserContext(value);
+                          },
+                        ).padding(16),
+                        const VGap(),
+                        ContextField(
+                          'System Context',
+                          encoder.convert(conversation.systemContext.toJson()),
+                          onChanged: (value) {
+                            ref
+                                .read(settingsNotifierProvider.notifier)
+                                .updateChanged();
+                          },
+                          onSave: (value) {
+                            ref
+                                .read(settingsNotifierProvider.notifier)
+                                .updateSystemContext(value);
+                          },
+                        ).padding(16),
+                      ].column(),
+                ).padByUnits(1, 1, 1, 1).percentOfScreen(height: 0.8),
+              ],
+            ).padByUnits(1, 1, 1, 1),
+          ),
+        );
+      },
+    );
   }
 }

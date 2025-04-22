@@ -16,14 +16,15 @@ String _$testCasesNotifierHash() => r'40dcdf571dfcaaf1d0a50b9c0e9df093d2d4294f';
 @ProviderFor(TestCasesNotifier)
 final testCasesNotifierProvider =
     NotifierProvider<TestCasesNotifier, TestCases>.internal(
-  TestCasesNotifier.new,
-  name: r'testCasesNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$testCasesNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      TestCasesNotifier.new,
+      name: r'testCasesNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$testCasesNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$TestCasesNotifier = Notifier<TestCases>;
 // ignore_for_file: type=lint

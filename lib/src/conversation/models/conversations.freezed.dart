@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,166 +10,146 @@ part of 'conversations.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$Conversations {
-  List<Conversation> get conversations => throw _privateConstructorUsedError;
-  Conversation get current => throw _privateConstructorUsedError;
 
-  /// Create a copy of Conversations
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ConversationsCopyWith<Conversations> get copyWith =>
-      throw _privateConstructorUsedError;
+ List<Conversation> get conversations; Conversation get current;
+/// Create a copy of Conversations
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ConversationsCopyWith<Conversations> get copyWith => _$ConversationsCopyWithImpl<Conversations>(this as Conversations, _$identity);
+
+
+
+
+
+@override
+String toString() {
+  return 'Conversations(conversations: $conversations, current: $current)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $ConversationsCopyWith<$Res> {
-  factory $ConversationsCopyWith(
-          Conversations value, $Res Function(Conversations) then) =
-      _$ConversationsCopyWithImpl<$Res, Conversations>;
-  @useResult
-  $Res call({List<Conversation> conversations, Conversation current});
+abstract mixin class $ConversationsCopyWith<$Res>  {
+  factory $ConversationsCopyWith(Conversations value, $Res Function(Conversations) _then) = _$ConversationsCopyWithImpl;
+@useResult
+$Res call({
+ List<Conversation> conversations, Conversation current
+});
 
-  $ConversationCopyWith<$Res> get current;
+
+$ConversationCopyWith<$Res> get current;
+
 }
-
 /// @nodoc
-class _$ConversationsCopyWithImpl<$Res, $Val extends Conversations>
+class _$ConversationsCopyWithImpl<$Res>
     implements $ConversationsCopyWith<$Res> {
-  _$ConversationsCopyWithImpl(this._value, this._then);
+  _$ConversationsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Conversations _self;
+  final $Res Function(Conversations) _then;
 
-  /// Create a copy of Conversations
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? conversations = null,
-    Object? current = null,
-  }) {
-    return _then(_value.copyWith(
-      conversations: null == conversations
-          ? _value.conversations
-          : conversations // ignore: cast_nullable_to_non_nullable
-              as List<Conversation>,
-      current: null == current
-          ? _value.current
-          : current // ignore: cast_nullable_to_non_nullable
-              as Conversation,
-    ) as $Val);
-  }
-
-  /// Create a copy of Conversations
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ConversationCopyWith<$Res> get current {
-    return $ConversationCopyWith<$Res>(_value.current, (value) {
-      return _then(_value.copyWith(current: value) as $Val);
-    });
-  }
+/// Create a copy of Conversations
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? conversations = null,Object? current = null,}) {
+  return _then(_self.copyWith(
+conversations: null == conversations ? _self.conversations : conversations // ignore: cast_nullable_to_non_nullable
+as List<Conversation>,current: null == current ? _self.current : current // ignore: cast_nullable_to_non_nullable
+as Conversation,
+  ));
+}
+/// Create a copy of Conversations
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ConversationCopyWith<$Res> get current {
+  
+  return $ConversationCopyWith<$Res>(_self.current, (value) {
+    return _then(_self.copyWith(current: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$ConversationsImplCopyWith<$Res>
-    implements $ConversationsCopyWith<$Res> {
-  factory _$$ConversationsImplCopyWith(
-          _$ConversationsImpl value, $Res Function(_$ConversationsImpl) then) =
-      __$$ConversationsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({List<Conversation> conversations, Conversation current});
-
-  @override
-  $ConversationCopyWith<$Res> get current;
-}
-
-/// @nodoc
-class __$$ConversationsImplCopyWithImpl<$Res>
-    extends _$ConversationsCopyWithImpl<$Res, _$ConversationsImpl>
-    implements _$$ConversationsImplCopyWith<$Res> {
-  __$$ConversationsImplCopyWithImpl(
-      _$ConversationsImpl _value, $Res Function(_$ConversationsImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Conversations
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? conversations = null,
-    Object? current = null,
-  }) {
-    return _then(_$ConversationsImpl(
-      conversations: null == conversations
-          ? _value._conversations
-          : conversations // ignore: cast_nullable_to_non_nullable
-              as List<Conversation>,
-      current: null == current
-          ? _value.current
-          : current // ignore: cast_nullable_to_non_nullable
-              as Conversation,
-    ));
-  }
-}
 
 /// @nodoc
 
-class _$ConversationsImpl extends _Conversations {
-  _$ConversationsImpl(
-      {required final List<Conversation> conversations, required this.current})
-      : _conversations = conversations,
-        super._();
 
-  final List<Conversation> _conversations;
-  @override
-  List<Conversation> get conversations {
-    if (_conversations is EqualUnmodifiableListView) return _conversations;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_conversations);
-  }
+class _Conversations extends Conversations {
+   _Conversations({required final  List<Conversation> conversations, required this.current}): _conversations = conversations,super._();
+  
 
-  @override
-  final Conversation current;
-
-  @override
-  String toString() {
-    return 'Conversations(conversations: $conversations, current: $current)';
-  }
-
-  /// Create a copy of Conversations
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ConversationsImplCopyWith<_$ConversationsImpl> get copyWith =>
-      __$$ConversationsImplCopyWithImpl<_$ConversationsImpl>(this, _$identity);
+ final  List<Conversation> _conversations;
+@override List<Conversation> get conversations {
+  if (_conversations is EqualUnmodifiableListView) return _conversations;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_conversations);
 }
 
-abstract class _Conversations extends Conversations {
-  factory _Conversations(
-      {required final List<Conversation> conversations,
-      required final Conversation current}) = _$ConversationsImpl;
-  _Conversations._() : super._();
+@override final  Conversation current;
 
-  @override
-  List<Conversation> get conversations;
-  @override
-  Conversation get current;
+/// Create a copy of Conversations
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ConversationsCopyWith<_Conversations> get copyWith => __$ConversationsCopyWithImpl<_Conversations>(this, _$identity);
 
-  /// Create a copy of Conversations
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ConversationsImplCopyWith<_$ConversationsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+
+
+
+
+@override
+String toString() {
+  return 'Conversations(conversations: $conversations, current: $current)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ConversationsCopyWith<$Res> implements $ConversationsCopyWith<$Res> {
+  factory _$ConversationsCopyWith(_Conversations value, $Res Function(_Conversations) _then) = __$ConversationsCopyWithImpl;
+@override @useResult
+$Res call({
+ List<Conversation> conversations, Conversation current
+});
+
+
+@override $ConversationCopyWith<$Res> get current;
+
+}
+/// @nodoc
+class __$ConversationsCopyWithImpl<$Res>
+    implements _$ConversationsCopyWith<$Res> {
+  __$ConversationsCopyWithImpl(this._self, this._then);
+
+  final _Conversations _self;
+  final $Res Function(_Conversations) _then;
+
+/// Create a copy of Conversations
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? conversations = null,Object? current = null,}) {
+  return _then(_Conversations(
+conversations: null == conversations ? _self._conversations : conversations // ignore: cast_nullable_to_non_nullable
+as List<Conversation>,current: null == current ? _self.current : current // ignore: cast_nullable_to_non_nullable
+as Conversation,
+  ));
+}
+
+/// Create a copy of Conversations
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ConversationCopyWith<$Res> get current {
+  
+  return $ConversationCopyWith<$Res>(_self.current, (value) {
+    return _then(_self.copyWith(current: value));
+  });
+}
+}
+
+// dart format on

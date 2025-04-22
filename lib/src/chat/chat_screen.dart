@@ -52,13 +52,15 @@ class _ChatScreenState extends State<ChatScreen> {
                 const ToolBar(),
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: bigScreen
-                      ? MainAxisAlignment.spaceBetween
-                      : MainAxisAlignment.center,
+                  mainAxisAlignment:
+                      bigScreen
+                          ? MainAxisAlignment.spaceBetween
+                          : MainAxisAlignment.center,
                   children: [
                     if (bigScreen) const HGap.small(),
-                    const ChatPanel()
-                        .percentOfScreen(width: bigScreen ? 0.6 : 0.8),
+                    const ChatPanel().percentOfScreen(
+                      width: bigScreen ? 0.6 : 0.8,
+                    ),
                     if (bigScreen) const RightPanel(width: 400),
                   ],
                 ).expand(),

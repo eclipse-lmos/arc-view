@@ -13,14 +13,15 @@ String _$agentClientNotifierHash() =>
 @ProviderFor(AgentClientNotifier)
 final agentClientNotifierProvider =
     NotifierProvider<AgentClientNotifier, OneAIClient>.internal(
-  AgentClientNotifier.new,
-  name: r'agentClientNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$agentClientNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      AgentClientNotifier.new,
+      name: r'agentClientNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$agentClientNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$AgentClientNotifier = Notifier<OneAIClient>;
 // ignore_for_file: type=lint

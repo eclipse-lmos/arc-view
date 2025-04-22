@@ -7,7 +7,7 @@ part of 'event_filters_notifier.dart';
 // **************************************************************************
 
 String _$eventFiltersNotifierHash() =>
-    r'c805f50988e201324d8284e78acab2dc3d434a3b';
+    r'c9d4c25734a6871bba8123e8c68be9ea5369c9c7';
 
 ///
 /// Provides active filters for the events.
@@ -17,14 +17,15 @@ String _$eventFiltersNotifierHash() =>
 @ProviderFor(EventFiltersNotifier)
 final eventFiltersNotifierProvider =
     NotifierProvider<EventFiltersNotifier, List<EventFilter>>.internal(
-  EventFiltersNotifier.new,
-  name: r'eventFiltersNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$eventFiltersNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      EventFiltersNotifier.new,
+      name: r'eventFiltersNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$eventFiltersNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$EventFiltersNotifier = Notifier<List<EventFilter>>;
 // ignore_for_file: type=lint

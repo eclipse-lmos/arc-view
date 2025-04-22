@@ -12,14 +12,15 @@ String _$testCasesExporterHash() => r'ab734c81624d82335a24d3544a4d930b98c86e62';
 @ProviderFor(testCasesExporter)
 final testCasesExporterProvider =
     AutoDisposeProvider<TestCasesExporter>.internal(
-  testCasesExporter,
-  name: r'testCasesExporterProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$testCasesExporterHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      testCasesExporter,
+      name: r'testCasesExporterProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$testCasesExporterHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

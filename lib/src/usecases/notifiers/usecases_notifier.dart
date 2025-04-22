@@ -4,11 +4,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:arc_view/src/usecases/models/use_case_group.dart';
 import 'package:arc_view/src/usecases/models/use_cases.dart';
+import 'package:arc_view/src/usecases/notifiers/selected_usecase_group_notifier.dart';
 import 'package:arc_view/src/usecases/repositories/usecase_repository.dart';
 import 'package:arc_view/src/usecases/usecase_template.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'usecases_notifier.g.dart';
@@ -20,8 +25,33 @@ part 'usecases_notifier.g.dart';
 class UseCasesNotifier extends _$UseCasesNotifier {
   @override
   Future<UseCases> build() async {
-    final useCaseRepository = ref.read(useCaseRepositoryProvider);
-    return UseCases(selected: 0, cases: useCaseRepository.fetch());
+    final useCaseGroup = ref.watch(selectedUseCaseGroupNotifierProvider);
+    if (personalUseCaseGroupId == useCaseGroup) {
+      final useCaseRepository = ref.read(useCaseRepositoryProvider);
+      return UseCases(selected: 0, cases: useCaseRepository.fetch());
+    }
+    try {
+      final url = Uri.parse('http://localhost:8090/usecases');
+      final response = await http.get(url);
+      final json = jsonDecode(response.body)['cases'] as List<dynamic>;
+      Future.delayed(5.seconds);
+      return UseCases(
+        selected: 0,
+        cases:
+            json
+                .map(
+                  (it) => UseCase(
+                    name: it['name'],
+                    createdAt: DateTime.parse(it['createdAt']),
+                    content: it['content'],
+                  ),
+                )
+                .toList(),
+      );
+    } catch (ex) {
+      // endpoint not supported.
+    }
+    return UseCases(selected: 0, cases: []);
   }
 
   save() {
@@ -50,13 +80,15 @@ class UseCasesNotifier extends _$UseCasesNotifier {
       id: '$name-${DateTime.now().millisecondsSinceEpoch}',
       description: description ?? '',
       tags: tags ?? [],
-      name: name.isEmpty
-          ? 'usecases'
-          : name
-              .replaceAll(' ', '_')
-              .replaceAll(useCaseNameInvalidCharacters, ''),
+      name:
+          name.isEmpty
+              ? 'usecases'
+              : name
+                  .replaceAll(' ', '_')
+                  .replaceAll(useCaseNameInvalidCharacters, ''),
       createdAt: DateTime.now(),
       content: content ?? useCaseTemplate,
+      version: _getVersion(content),
     );
     _update([newUseCase, ...useCases.cases]);
   }
@@ -80,11 +112,15 @@ class UseCasesNotifier extends _$UseCasesNotifier {
     final selected = useCases.getById(id);
     if (selected == null) return;
 
-    final updatedUseCase =
-        selected.copyWith(content: '$content\n${selected.content}');
-    _update(useCases.cases.map((e) {
-      return e == selected ? updatedUseCase : e;
-    }).toList());
+    final updatedUseCase = selected.copyWith(
+      content: '$content\n${selected.content}',
+      version: _getVersion(content),
+    );
+    _update(
+      useCases.cases.map((e) {
+        return e == selected ? updatedUseCase : e;
+      }).toList(),
+    );
   }
 
   addUseCase(UseCase newUseCase) {
@@ -96,9 +132,15 @@ class UseCasesNotifier extends _$UseCasesNotifier {
   updateUseCase(UseCase updatedUseCase) {
     final useCases = state.valueOrNull;
     if (useCases == null) return;
-    _update(useCases.cases.map((e) {
-      return e.id == updatedUseCase.id ? updatedUseCase : e;
-    }).toList());
+    _update(
+      useCases.cases.map((e) {
+        return e.id == updatedUseCase.id
+            ? updatedUseCase.copyWith(
+              version: _getVersion(updatedUseCase.content),
+            )
+            : e;
+      }).toList(),
+    );
   }
 
   updateUseCaseById(String id, String text) {
@@ -107,32 +149,44 @@ class UseCasesNotifier extends _$UseCasesNotifier {
     final selected = useCases.getById(id);
     if (selected == null) return;
 
-    final updatedUseCase = selected.copyWith(content: text);
-    _update(useCases.cases.map((e) {
-      return e == selected ? updatedUseCase : e;
-    }).toList());
+    final updatedUseCase = selected.copyWith(
+      content: text,
+      version: _getVersion(text),
+    );
+    _update(
+      useCases.cases.map((e) {
+        return e == selected ? updatedUseCase : e;
+      }).toList(),
+    );
   }
 
   _update(List<UseCase> updatedCases) {
     final useCases = state.valueOrNull;
     if (useCases == null) return;
-    final selected = useCases.selected >= updatedCases.length
-        ? max(0, updatedCases.length - 1)
-        : useCases.selected;
-    state = AsyncData(useCases.copyWith(
-      cases: updatedCases,
-      selected: selected,
-    ));
+    final selected =
+        useCases.selected >= updatedCases.length
+            ? max(0, updatedCases.length - 1)
+            : useCases.selected;
+    state = AsyncData(
+      useCases.copyWith(cases: updatedCases, selected: selected),
+    );
     save();
   }
 
   void sortByName({required bool ascending}) {
     final useCases = state.valueOrNull;
     if (useCases == null) return;
-    final sorted = useCases.cases.toList()
-      ..sort((a, b) {
-        return ascending ? a.name.compareTo(b.name) : b.name.compareTo(a.name);
-      });
+    final sorted =
+        useCases.cases.toList()..sort((a, b) {
+          return ascending
+              ? a.name.compareTo(b.name)
+              : b.name.compareTo(a.name);
+        });
     state = AsyncData(useCases.copyWith(cases: sorted));
   }
+
+  String _getVersion(String? content) =>
+      content == null
+          ? ''
+          : UseCase.useCaseVersionRegex.firstMatch(content)?.group(1) ?? '';
 }

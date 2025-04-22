@@ -13,14 +13,15 @@ String _$conversationExporterHash() =>
 @ProviderFor(conversationExporter)
 final conversationExporterProvider =
     AutoDisposeProvider<ConversationExporter>.internal(
-  conversationExporter,
-  name: r'conversationExporterProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$conversationExporterHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      conversationExporter,
+      name: r'conversationExporterProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$conversationExporterHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

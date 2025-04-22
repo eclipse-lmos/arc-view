@@ -31,86 +31,98 @@ class _UsecaseOverviewPanelState extends State<UsecaseOverviewPanel> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Consumer(builder: (context, ref, _) {
-      final selectedCase = ref.watch(useCasesNotifierProvider
-          .select((u) => u.valueOrNull?.getById(widget.useCaseId)));
-      if (selectedCase == null) return ''.txt;
+    return Consumer(
+      builder: (context, ref, _) {
+        final selectedCase = ref.watch(
+          useCasesNotifierProvider.select(
+            (u) => u.valueOrNull?.getById(widget.useCaseId),
+          ),
+        );
+        if (selectedCase == null) return ''.txt;
+        final sections = selectedCase.sections;
+        final sectionKeys = sections.map((s) => GlobalKey()).toList();
 
-      final sections = selectedCase.splitContent();
-      final sectionKeys = sections.map((s) => GlobalKey()).toList();
-
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          UseCaseSectionList(
-            useCaseId: widget.useCaseId,
-            sections: sections,
-            onSelect: (i, _) {
-              Scrollable.ensureVisible(sectionKeys[i].currentContext!);
-            },
-          ).size(width: 420),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                for (var i = 0; i < sections.length; i++)
-                  Stack(
-                    key: sectionKeys[i],
-                    children: [
-                      Card(
-                        margin: const EdgeInsets.all(8),
-                        child: MarkdownBody(
-                          styleSheet:
-                              MarkdownStyleSheet.fromTheme(theme).copyWith(
-                            horizontalRuleDecoration: BoxDecoration(
-                              color: Colors.transparent,
-                            ),
-                          ),
-                          data: sections[i].$2,
-                          onTapLink: (text, href, title) {
-                            if (href != null) launchUrlString(href);
-                          },
-                        ).padByUnits(2, 2, 6, 2),
-                      ),
-                      Positioned(
-                        right: 8,
-                        bottom: 8,
-                        child: [
-                          SecondaryButton(
-                            icon: Icons.edit,
-                            description: 'Edit Use Case',
-                            onPressed: () {
-                              showEditUseCaseDialog(
-                                context,
-                                i,
-                                sections,
-                                ref,
-                                widget.useCaseId,
-                              );
-                            },
-                          ),
-                          SecondaryButton(
-                            icon: Icons.delete,
-                            confirming: true,
-                            description: 'Delete Use Case',
-                            onPressed: () {
-                              _deleteUseCase(
-                                sections,
-                                i,
-                                ref,
-                                widget.useCaseId,
-                              );
-                            },
-                          ),
-                        ].row(min: true),
-                      )
-                    ],
-                  )
-              ],
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            UseCaseSectionList(
+              useCaseId: widget.useCaseId,
+              sections: sections,
+              onSelect: (i, _) {
+                Scrollable.ensureVisible(sectionKeys[i].currentContext!);
+              },
+            ).percentOfScreen(width: 0.25),
+            Container(
+              width: 1,
+              color: context.colorScheme.onSurface.withValues(alpha: 0.2),
             ),
-          ).expand()
-        ],
-      );
-    });
+            HGap(),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  for (var i = 0; i < sections.length; i++)
+                    Stack(
+                      key: sectionKeys[i],
+                      children: [
+                        Card(
+                          margin: const EdgeInsets.all(8),
+                          child: MarkdownBody(
+                            styleSheet: MarkdownStyleSheet.fromTheme(
+                              theme,
+                            ).copyWith(
+                              horizontalRuleDecoration: BoxDecoration(
+                                color: Colors.transparent,
+                              ),
+                            ),
+                            data: sections[i].$2,
+                            onTapLink: (text, href, title) {
+                              if (href != null) launchUrlString(href);
+                            },
+                          ).padByUnits(2, 2, 6, 2),
+                        ),
+                        Positioned(
+                          right: 8,
+                          bottom: 8,
+                          child: [
+                            if (selectedCase.readOnly != true)
+                              SecondaryButton(
+                                icon: Icons.edit,
+                                description: 'Edit Use Case',
+                                onPressed: () {
+                                  showEditUseCaseDialog(
+                                    context,
+                                    i,
+                                    sections,
+                                    ref,
+                                    widget.useCaseId,
+                                  );
+                                },
+                              ),
+                            if (selectedCase.readOnly != true)
+                              SecondaryButton(
+                                icon: Icons.delete,
+                                confirming: true,
+                                description: 'Delete Use Case',
+                                onPressed: () {
+                                  _deleteUseCase(
+                                    sections,
+                                    i,
+                                    ref,
+                                    widget.useCaseId,
+                                  );
+                                },
+                              ),
+                          ].row(min: true),
+                        ),
+                      ],
+                    ),
+                ],
+              ),
+            ).expand(),
+          ],
+        );
+      },
+    );
   }
 
   _deleteUseCase(

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,446 +10,310 @@ part of 'use_cases.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-UseCases _$UseCasesFromJson(Map<String, dynamic> json) {
-  return _UseCases.fromJson(json);
-}
 
 /// @nodoc
 mixin _$UseCases {
-  List<UseCase> get cases => throw _privateConstructorUsedError;
-  int get selected => throw _privateConstructorUsedError;
+
+ List<UseCase> get cases; int get selected;
+/// Create a copy of UseCases
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UseCasesCopyWith<UseCases> get copyWith => _$UseCasesCopyWithImpl<UseCases>(this as UseCases, _$identity);
 
   /// Serializes this UseCases to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of UseCases
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $UseCasesCopyWith<UseCases> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UseCases&&const DeepCollectionEquality().equals(other.cases, cases)&&(identical(other.selected, selected) || other.selected == selected));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(cases),selected);
+
+@override
+String toString() {
+  return 'UseCases(cases: $cases, selected: $selected)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $UseCasesCopyWith<$Res> {
-  factory $UseCasesCopyWith(UseCases value, $Res Function(UseCases) then) =
-      _$UseCasesCopyWithImpl<$Res, UseCases>;
-  @useResult
-  $Res call({List<UseCase> cases, int selected});
-}
+abstract mixin class $UseCasesCopyWith<$Res>  {
+  factory $UseCasesCopyWith(UseCases value, $Res Function(UseCases) _then) = _$UseCasesCopyWithImpl;
+@useResult
+$Res call({
+ List<UseCase> cases, int selected
+});
 
+
+
+
+}
 /// @nodoc
-class _$UseCasesCopyWithImpl<$Res, $Val extends UseCases>
+class _$UseCasesCopyWithImpl<$Res>
     implements $UseCasesCopyWith<$Res> {
-  _$UseCasesCopyWithImpl(this._value, this._then);
+  _$UseCasesCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final UseCases _self;
+  final $Res Function(UseCases) _then;
 
-  /// Create a copy of UseCases
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? cases = null,
-    Object? selected = null,
-  }) {
-    return _then(_value.copyWith(
-      cases: null == cases
-          ? _value.cases
-          : cases // ignore: cast_nullable_to_non_nullable
-              as List<UseCase>,
-      selected: null == selected
-          ? _value.selected
-          : selected // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
+/// Create a copy of UseCases
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? cases = null,Object? selected = null,}) {
+  return _then(_self.copyWith(
+cases: null == cases ? _self.cases : cases // ignore: cast_nullable_to_non_nullable
+as List<UseCase>,selected: null == selected ? _self.selected : selected // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
 }
 
-/// @nodoc
-abstract class _$$UseCasesImplCopyWith<$Res>
-    implements $UseCasesCopyWith<$Res> {
-  factory _$$UseCasesImplCopyWith(
-          _$UseCasesImpl value, $Res Function(_$UseCasesImpl) then) =
-      __$$UseCasesImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({List<UseCase> cases, int selected});
 }
 
-/// @nodoc
-class __$$UseCasesImplCopyWithImpl<$Res>
-    extends _$UseCasesCopyWithImpl<$Res, _$UseCasesImpl>
-    implements _$$UseCasesImplCopyWith<$Res> {
-  __$$UseCasesImplCopyWithImpl(
-      _$UseCasesImpl _value, $Res Function(_$UseCasesImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of UseCases
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? cases = null,
-    Object? selected = null,
-  }) {
-    return _then(_$UseCasesImpl(
-      cases: null == cases
-          ? _value._cases
-          : cases // ignore: cast_nullable_to_non_nullable
-              as List<UseCase>,
-      selected: null == selected
-          ? _value.selected
-          : selected // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$UseCasesImpl extends _UseCases {
-  _$UseCasesImpl({required final List<UseCase> cases, required this.selected})
-      : _cases = cases,
-        super._();
 
-  factory _$UseCasesImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UseCasesImplFromJson(json);
+class _UseCases extends UseCases {
+   _UseCases({required final  List<UseCase> cases, required this.selected}): _cases = cases,super._();
+  factory _UseCases.fromJson(Map<String, dynamic> json) => _$UseCasesFromJson(json);
 
-  final List<UseCase> _cases;
-  @override
-  List<UseCase> get cases {
-    if (_cases is EqualUnmodifiableListView) return _cases;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_cases);
-  }
-
-  @override
-  final int selected;
-
-  @override
-  String toString() {
-    return 'UseCases(cases: $cases, selected: $selected)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UseCasesImpl &&
-            const DeepCollectionEquality().equals(other._cases, _cases) &&
-            (identical(other.selected, selected) ||
-                other.selected == selected));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_cases), selected);
-
-  /// Create a copy of UseCases
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UseCasesImplCopyWith<_$UseCasesImpl> get copyWith =>
-      __$$UseCasesImplCopyWithImpl<_$UseCasesImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$UseCasesImplToJson(
-      this,
-    );
-  }
+ final  List<UseCase> _cases;
+@override List<UseCase> get cases {
+  if (_cases is EqualUnmodifiableListView) return _cases;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_cases);
 }
 
-abstract class _UseCases extends UseCases {
-  factory _UseCases(
-      {required final List<UseCase> cases,
-      required final int selected}) = _$UseCasesImpl;
-  _UseCases._() : super._();
+@override final  int selected;
 
-  factory _UseCases.fromJson(Map<String, dynamic> json) =
-      _$UseCasesImpl.fromJson;
+/// Create a copy of UseCases
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UseCasesCopyWith<_UseCases> get copyWith => __$UseCasesCopyWithImpl<_UseCases>(this, _$identity);
 
-  @override
-  List<UseCase> get cases;
-  @override
-  int get selected;
-
-  /// Create a copy of UseCases
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UseCasesImplCopyWith<_$UseCasesImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$UseCasesToJson(this, );
 }
 
-UseCase _$UseCaseFromJson(Map<String, dynamic> json) {
-  return _UseCase.fromJson(json);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UseCases&&const DeepCollectionEquality().equals(other._cases, _cases)&&(identical(other.selected, selected) || other.selected == selected));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_cases),selected);
+
+@override
+String toString() {
+  return 'UseCases(cases: $cases, selected: $selected)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UseCasesCopyWith<$Res> implements $UseCasesCopyWith<$Res> {
+  factory _$UseCasesCopyWith(_UseCases value, $Res Function(_UseCases) _then) = __$UseCasesCopyWithImpl;
+@override @useResult
+$Res call({
+ List<UseCase> cases, int selected
+});
+
+
+
+
+}
+/// @nodoc
+class __$UseCasesCopyWithImpl<$Res>
+    implements _$UseCasesCopyWith<$Res> {
+  __$UseCasesCopyWithImpl(this._self, this._then);
+
+  final _UseCases _self;
+  final $Res Function(_UseCases) _then;
+
+/// Create a copy of UseCases
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? cases = null,Object? selected = null,}) {
+  return _then(_UseCases(
+cases: null == cases ? _self._cases : cases // ignore: cast_nullable_to_non_nullable
+as List<UseCase>,selected: null == selected ? _self.selected : selected // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$UseCase {
-  String get name => throw _privateConstructorUsedError;
-  String? get id => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  String get content => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
-  List<String>? get tags => throw _privateConstructorUsedError;
+
+ List<(String, String)> get sections; String get name; String? get id; DateTime get createdAt; String get content; String? get description; List<String>? get tags; String? get version; bool? get readOnly;
+/// Create a copy of UseCase
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UseCaseCopyWith<UseCase> get copyWith => _$UseCaseCopyWithImpl<UseCase>(this as UseCase, _$identity);
 
   /// Serializes this UseCase to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of UseCase
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $UseCaseCopyWith<UseCase> get copyWith => throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UseCase&&const DeepCollectionEquality().equals(other.sections, sections)&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.content, content) || other.content == content)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.tags, tags)&&(identical(other.version, version) || other.version == version)&&(identical(other.readOnly, readOnly) || other.readOnly == readOnly));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(sections),name,id,createdAt,content,description,const DeepCollectionEquality().hash(tags),version,readOnly);
+
+@override
+String toString() {
+  return 'UseCase(sections: $sections, name: $name, id: $id, createdAt: $createdAt, content: $content, description: $description, tags: $tags, version: $version, readOnly: $readOnly)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $UseCaseCopyWith<$Res> {
-  factory $UseCaseCopyWith(UseCase value, $Res Function(UseCase) then) =
-      _$UseCaseCopyWithImpl<$Res, UseCase>;
-  @useResult
-  $Res call(
-      {String name,
-      String? id,
-      DateTime createdAt,
-      String content,
-      String? description,
-      List<String>? tags});
-}
+abstract mixin class $UseCaseCopyWith<$Res>  {
+  factory $UseCaseCopyWith(UseCase value, $Res Function(UseCase) _then) = _$UseCaseCopyWithImpl;
+@useResult
+$Res call({
+ String name, String? id, DateTime createdAt, String content, String? description, List<String>? tags, String? version, bool? readOnly
+});
 
+
+
+
+}
 /// @nodoc
-class _$UseCaseCopyWithImpl<$Res, $Val extends UseCase>
+class _$UseCaseCopyWithImpl<$Res>
     implements $UseCaseCopyWith<$Res> {
-  _$UseCaseCopyWithImpl(this._value, this._then);
+  _$UseCaseCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final UseCase _self;
+  final $Res Function(UseCase) _then;
 
-  /// Create a copy of UseCase
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? id = freezed,
-    Object? createdAt = null,
-    Object? content = null,
-    Object? description = freezed,
-    Object? tags = freezed,
-  }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      tags: freezed == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-    ) as $Val);
-  }
+/// Create a copy of UseCase
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? id = freezed,Object? createdAt = null,Object? content = null,Object? description = freezed,Object? tags = freezed,Object? version = freezed,Object? readOnly = freezed,}) {
+  return _then(_self.copyWith(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,tags: freezed == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
+as List<String>?,version: freezed == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
+as String?,readOnly: freezed == readOnly ? _self.readOnly : readOnly // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$UseCaseImplCopyWith<$Res> implements $UseCaseCopyWith<$Res> {
-  factory _$$UseCaseImplCopyWith(
-          _$UseCaseImpl value, $Res Function(_$UseCaseImpl) then) =
-      __$$UseCaseImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String name,
-      String? id,
-      DateTime createdAt,
-      String content,
-      String? description,
-      List<String>? tags});
 }
 
-/// @nodoc
-class __$$UseCaseImplCopyWithImpl<$Res>
-    extends _$UseCaseCopyWithImpl<$Res, _$UseCaseImpl>
-    implements _$$UseCaseImplCopyWith<$Res> {
-  __$$UseCaseImplCopyWithImpl(
-      _$UseCaseImpl _value, $Res Function(_$UseCaseImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of UseCase
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? id = freezed,
-    Object? createdAt = null,
-    Object? content = null,
-    Object? description = freezed,
-    Object? tags = freezed,
-  }) {
-    return _then(_$UseCaseImpl(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      tags: freezed == tags
-          ? _value._tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$UseCaseImpl extends _UseCase {
-  _$UseCaseImpl(
-      {required this.name,
-      this.id,
-      required this.createdAt,
-      required this.content,
-      this.description,
-      final List<String>? tags})
-      : _tags = tags,
-        super._();
 
-  factory _$UseCaseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UseCaseImplFromJson(json);
+class _UseCase extends UseCase {
+   _UseCase({required this.name, this.id, required this.createdAt, required this.content, this.description, final  List<String>? tags, this.version, this.readOnly}): _tags = tags,super._();
+  factory _UseCase.fromJson(Map<String, dynamic> json) => _$UseCaseFromJson(json);
 
-  @override
-  final String name;
-  @override
-  final String? id;
-  @override
-  final DateTime createdAt;
-  @override
-  final String content;
-  @override
-  final String? description;
-  final List<String>? _tags;
-  @override
-  List<String>? get tags {
-    final value = _tags;
-    if (value == null) return null;
-    if (_tags is EqualUnmodifiableListView) return _tags;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  String toString() {
-    return 'UseCase(name: $name, id: $id, createdAt: $createdAt, content: $content, description: $description, tags: $tags)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UseCaseImpl &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.content, content) || other.content == content) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            const DeepCollectionEquality().equals(other._tags, _tags));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, name, id, createdAt, content,
-      description, const DeepCollectionEquality().hash(_tags));
-
-  /// Create a copy of UseCase
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UseCaseImplCopyWith<_$UseCaseImpl> get copyWith =>
-      __$$UseCaseImplCopyWithImpl<_$UseCaseImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$UseCaseImplToJson(
-      this,
-    );
-  }
+@override final  String name;
+@override final  String? id;
+@override final  DateTime createdAt;
+@override final  String content;
+@override final  String? description;
+ final  List<String>? _tags;
+@override List<String>? get tags {
+  final value = _tags;
+  if (value == null) return null;
+  if (_tags is EqualUnmodifiableListView) return _tags;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
-abstract class _UseCase extends UseCase {
-  factory _UseCase(
-      {required final String name,
-      final String? id,
-      required final DateTime createdAt,
-      required final String content,
-      final String? description,
-      final List<String>? tags}) = _$UseCaseImpl;
-  _UseCase._() : super._();
+@override final  String? version;
+@override final  bool? readOnly;
 
-  factory _UseCase.fromJson(Map<String, dynamic> json) = _$UseCaseImpl.fromJson;
+/// Create a copy of UseCase
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UseCaseCopyWith<_UseCase> get copyWith => __$UseCaseCopyWithImpl<_UseCase>(this, _$identity);
 
-  @override
-  String get name;
-  @override
-  String? get id;
-  @override
-  DateTime get createdAt;
-  @override
-  String get content;
-  @override
-  String? get description;
-  @override
-  List<String>? get tags;
-
-  /// Create a copy of UseCase
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UseCaseImplCopyWith<_$UseCaseImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$UseCaseToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UseCase&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.content, content) || other.content == content)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._tags, _tags)&&(identical(other.version, version) || other.version == version)&&(identical(other.readOnly, readOnly) || other.readOnly == readOnly));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,name,id,createdAt,content,description,const DeepCollectionEquality().hash(_tags),version,readOnly);
+
+@override
+String toString() {
+  return 'UseCase(name: $name, id: $id, createdAt: $createdAt, content: $content, description: $description, tags: $tags, version: $version, readOnly: $readOnly)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UseCaseCopyWith<$Res> implements $UseCaseCopyWith<$Res> {
+  factory _$UseCaseCopyWith(_UseCase value, $Res Function(_UseCase) _then) = __$UseCaseCopyWithImpl;
+@override @useResult
+$Res call({
+ String name, String? id, DateTime createdAt, String content, String? description, List<String>? tags, String? version, bool? readOnly
+});
+
+
+
+
+}
+/// @nodoc
+class __$UseCaseCopyWithImpl<$Res>
+    implements _$UseCaseCopyWith<$Res> {
+  __$UseCaseCopyWithImpl(this._self, this._then);
+
+  final _UseCase _self;
+  final $Res Function(_UseCase) _then;
+
+/// Create a copy of UseCase
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? id = freezed,Object? createdAt = null,Object? content = null,Object? description = freezed,Object? tags = freezed,Object? version = freezed,Object? readOnly = freezed,}) {
+  return _then(_UseCase(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,tags: freezed == tags ? _self._tags : tags // ignore: cast_nullable_to_non_nullable
+as List<String>?,version: freezed == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
+as String?,readOnly: freezed == readOnly ? _self.readOnly : readOnly // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
+}
+
+
+}
+
+// dart format on

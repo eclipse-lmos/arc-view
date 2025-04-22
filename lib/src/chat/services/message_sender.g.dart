@@ -13,9 +13,10 @@ String _$messageSenderHash() => r'f8b7e4cce90d2491c3e9665ebee14134e8565e9d';
 final messageSenderProvider = AutoDisposeProvider<MessageSender>.internal(
   messageSender,
   name: r'messageSenderProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$messageSenderHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$messageSenderHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

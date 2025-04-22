@@ -12,14 +12,15 @@ String _$agentUrlNotifierHash() => r'963379a85c681ca7e36244495a97270b98ad1d08';
 @ProviderFor(AgentUrlNotifier)
 final agentUrlNotifierProvider =
     AutoDisposeNotifierProvider<AgentUrlNotifier, AgentUrlData>.internal(
-  AgentUrlNotifier.new,
-  name: r'agentUrlNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$agentUrlNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      AgentUrlNotifier.new,
+      name: r'agentUrlNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$agentUrlNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$AgentUrlNotifier = AutoDisposeNotifier<AgentUrlData>;
 // ignore_for_file: type=lint

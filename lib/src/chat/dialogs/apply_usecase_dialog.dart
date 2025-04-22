@@ -19,17 +19,18 @@ class ApplyUsecaseDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
-      title: [
-        'Apply Use Cases'.txt,
-        Spacer(),
-        SecondaryButton(
-          icon: Icons.close,
-          description: 'Close Dialog',
-          onPressed: () {
-            context.pop();
-          },
-        )
-      ].row(),
+      title:
+          [
+            'Apply Use Cases'.txt,
+            Spacer(),
+            SecondaryButton(
+              icon: Icons.close,
+              description: 'Close Dialog',
+              onPressed: () {
+                context.pop();
+              },
+            ),
+          ].row(),
       content: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -40,7 +41,7 @@ class ApplyUsecaseDialog extends ConsumerWidget {
           _buildList(context, ref)?.expand() ??
               'No use cases defined'.small.padByUnits(4, 0, 0, 0),
         ],
-      ).size(height: 300, width: 400),
+      ).size(height: 300, width: 600),
     );
   }
 
@@ -60,10 +61,11 @@ class ApplyUsecaseDialog extends ConsumerWidget {
               contentPadding: EdgeInsets.all(0),
               leading: Icon(Icons.circle_outlined, size: 12),
               title: useCases.cases[index].name.txt,
-              subtitle: DateFormat.Hm()
-                  .add_yMd()
-                  .format(useCases.cases[index].createdAt)
-                  .small,
+              subtitle:
+                  DateFormat.Hm()
+                      .add_yMd()
+                      .format(useCases.cases[index].createdAt)
+                      .small,
               onTap: () {
                 ref
                     .read(selectedUsecaseNotifierProvider.notifier)

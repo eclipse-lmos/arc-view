@@ -17,14 +17,15 @@ String _$selectedUsecaseNotifierHash() =>
 @ProviderFor(SelectedUsecaseNotifier)
 final selectedUsecaseNotifierProvider =
     NotifierProvider<SelectedUsecaseNotifier, UseCase?>.internal(
-  SelectedUsecaseNotifier.new,
-  name: r'selectedUsecaseNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$selectedUsecaseNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      SelectedUsecaseNotifier.new,
+      name: r'selectedUsecaseNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$selectedUsecaseNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$SelectedUsecaseNotifier = Notifier<UseCase?>;
 // ignore_for_file: type=lint

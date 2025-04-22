@@ -11,7 +11,7 @@ part 'test_case.freezed.dart';
 part 'test_case.g.dart';
 
 @freezed
-class TestCase with _$TestCase {
+sealed class TestCase with _$TestCase {
   factory TestCase({
     required String name,
     String? id,

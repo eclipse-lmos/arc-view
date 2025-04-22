@@ -26,20 +26,26 @@ class TestRunsNotifier extends _$TestRunsNotifier {
     return {};
   }
 
+  clearGroup(String group) {
+    state.remove(group);
+  }
+
   Future<bool> runTestCase(
     TestCase testCase, {
     UseCase? useCase,
     Set<TestTool>? tools,
   }) async {
     final cid = 'testrun-cid-${DateTime.now().millisecondsSinceEpoch}';
-    final result =
-        await ref.read(conversationsNotifierProvider.notifier).replay(
-              replay: testCase.expected,
-              conversationId: cid,
-              useCase: useCase,
-              addExpectedMessage: true,
-            );
-    var failed = result.messages
+    final result = await ref
+        .read(conversationsNotifierProvider.notifier)
+        .replay(
+          replay: testCase.expected,
+          conversationId: cid,
+          useCase: useCase,
+          addExpectedMessage: true,
+        );
+    var failed =
+        result.messages
             .map((message) => message.symbols?.contains('NOT_EXPECTED') == true)
             .toSet()
             .contains(true) ==
@@ -55,7 +61,7 @@ class TestRunsNotifier extends _$TestRunsNotifier {
     final groupRuns = (state[group] ?? {});
     state = {
       ...state,
-      group: {...groupRuns, testCase.ensureId(): testRun}
+      group: {...groupRuns, testCase.ensureId(): testRun},
     };
     _log.fine('Test run result: ${!failed}');
     return !failed;
@@ -66,7 +72,9 @@ class TestRunsNotifier extends _$TestRunsNotifier {
 /// Find a test run by conversation id.
 ///
 TestRun? findByConversationId(
-    String conversationId, Map<String, Map<String, TestRun>> testRuns) {
+  String conversationId,
+  Map<String, Map<String, TestRun>> testRuns,
+) {
   for (final runGroup in testRuns.values) {
     for (final runs in runGroup.values) {
       if (runs.conversation.conversationId == conversationId) {

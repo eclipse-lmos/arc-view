@@ -52,7 +52,6 @@ class _MainLayoutState extends State<MainLayout> {
       child: Row(
         children: [
           NavigationRail(
-            elevation: 6,
             selectedIndex: widget.index,
             onDestinationSelected: (int index) {
               switch (index) {

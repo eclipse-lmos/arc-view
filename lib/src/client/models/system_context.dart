@@ -12,7 +12,7 @@ part 'system_context.g.dart';
 typedef SystemContextEntry = ({String key, String value});
 
 @freezed
-class SystemContext with _$SystemContext {
+sealed class SystemContext with _$SystemContext {
   factory SystemContext({required List<SystemContextEntry> entries}) =
       _SystemContext;
 

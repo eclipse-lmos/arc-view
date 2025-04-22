@@ -19,48 +19,58 @@ class TestsToolBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final conversation =
-        ref.watch(conversationsNotifierProvider.select((c) => c.current));
-    final testCase = ref.watch(testCasesNotifierProvider
-        .select((t) => t.getTestCase(conversation.conversationId)));
+    final conversation = ref.watch(
+      conversationsNotifierProvider.select((c) => c.current),
+    );
+    final testCase = ref.watch(
+      testCasesNotifierProvider.select(
+        (t) => t.getTestCase(conversation.conversationId),
+      ),
+    );
 
     return [
       if (testCase != null)
         Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: [
-            HGap.small(),
-            TestStatusLabel(testName: testCase.name),
-            SecondaryButton(
-              description: 'Run Test',
-              icon: Icons.play_circle,
-              onPressed: () async {
-                final successful = await ref.runTestCaseWithUseCases(testCase);
-                if (!context.mounted) return;
-                ref.read(notificationNotifierProvider.notifier).notify(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child:
+              [
+                HGap.small(),
+                TestStatusLabel(testName: testCase.name),
+                SecondaryButton(
+                  description: 'Run Test',
+                  icon: Icons.play_circle,
+                  onPressed: () async {
+                    final successful = await ref.runTestCaseWithUseCases(
+                      testCase,
+                    );
+                    if (!context.mounted) return;
+                    context.notify(
                       successful
                           ? 'Test ${testCase.name} ran successfully. [Tests](#/tests)'
                           : 'Test ${testCase.name} failed. [Tests](#/tests)',
                     );
-              },
-            )
-          ].row(),
+                  },
+                ),
+              ].row(),
         ),
       HGap(),
       if (testCase == null)
         Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: [
-            Icon(
-              Icons.science,
-              size: 16,
-              color: Theme.of(context).colorScheme.onSurface,
-            ).padByUnits(0, 0, 0, 1),
-            NewTestCaseButton(),
-          ].row(),
-        )
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child:
+              [
+                Icon(
+                  Icons.science,
+                  size: 16,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ).padByUnits(0, 0, 0, 1),
+                NewTestCaseButton(),
+              ].row(),
+        ),
     ].row(min: true);
   }
 }

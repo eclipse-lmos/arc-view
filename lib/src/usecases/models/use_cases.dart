@@ -14,11 +14,9 @@ final useCaseNameInvalidCharacters = RegExp(r'[^a-zA-Z0-9_-]');
 
 /// A collection of use cases where one use case can be selected.
 @freezed
-class UseCases with _$UseCases {
-  factory UseCases({
-    required List<UseCase> cases,
-    required int selected,
-  }) = _UseCases;
+sealed class UseCases with _$UseCases {
+  factory UseCases({required List<UseCase> cases, required int selected}) =
+      _UseCases;
 
   UseCases._();
 
@@ -33,7 +31,7 @@ class UseCases with _$UseCases {
 }
 
 @freezed
-class UseCase with _$UseCase {
+sealed class UseCase with _$UseCase {
   factory UseCase({
     required String name,
     String? id,
@@ -41,11 +39,22 @@ class UseCase with _$UseCase {
     required String content,
     String? description,
     List<String>? tags,
+    String? version,
+    bool? readOnly,
   }) = _UseCase;
 
-  UseCase._();
+  UseCase._() {
+    sections.clear();
+    sections.addAll(
+      splitContent().where((s) => !s.$2.contains('<Version:')).toList(),
+    );
+  }
 
   static final useCaseSplitRegex = RegExp(r'(?=###\s*UseCase\s*:\s*)');
+  static final useCaseVersionRegex = RegExp(r'<Version:(.*)>');
+
+  @override
+  final List<(String, String)> sections = [];
 
   List<(String, String)> splitContent() {
     if (content.trim().isEmpty) return [];

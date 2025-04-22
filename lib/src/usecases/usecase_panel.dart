@@ -39,129 +39,138 @@ class _UseCasePanelState extends State<UseCasePanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, child) {
-      final selectedCase = ref.watch(useCasesNotifierProvider
-          .select((u) => u.valueOrNull?.getById(widget.useCaseId)));
-
-      if (_textController.text != selectedCase?.content) {
-        _textController.text = selectedCase?.content ?? '';
-      }
-
-      if (selectedCase == null) {
-        return 'Add new Use Cases. These are stored locally.'.small.center();
-      }
-
-      final searchTerm = ref.watch(searchNotifierProvider)?.nullIfEmpty();
-      List<int> findLines = [];
-
-      _textController.clearHighlights();
-      if (searchTerm != null) {
-        _textController.highlightText(
-          searchTerm,
-          context.colorScheme.secondary,
-        );
-        findLines = _findLines(searchTerm);
-      }
-      _textController.colorText(useCaseSyntax);
-
-      return Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              if (!_showSource)
-                SectionTitle(text: 'Overview').padByUnits(0, 0, 0, 2),
-              Spacer(),
-              if (_showSource && findLines.isNotEmpty) ...[
-                SecondaryButton(
-                  icon: Icons.clear,
-                  description: 'Clear Search',
-                  onPressed: () {
-                    ref.read(searchNotifierProvider.notifier).clear();
-                  },
-                ),
-                SecondaryButton(
-                  icon: Icons.arrow_back_rounded,
-                  description: 'First last occurrence',
-                  onPressed: () {
-                    for (var i = findLines.length - 1; i >= 0; i--) {
-                      final targetOffset = (findLines[i] * 20) - 20.0;
-                      if (targetOffset < _scrollController.offset) {
-                        _scrollController.jumpTo(targetOffset);
-                        break;
-                      }
-                    }
-                  },
-                ),
-                SecondaryButton(
-                  icon: Icons.arrow_forward_rounded,
-                  description: 'First next occurrence',
-                  onPressed: () {
-                    for (var i = 0; i < findLines.length; i++) {
-                      final targetOffset = (findLines[i] * 20) - 20.0;
-                      if (targetOffset > _scrollController.offset + 40) {
-                        _scrollController.jumpTo(targetOffset);
-                        break;
-                      }
-                    }
-                  },
-                )
-              ],
-              if (_showSource && searchTerm != null)
-                'Found: ${findLines.length}'.txt.padByUnits(0, 2, 0, 0),
-              if (_showSource) SearchPanel().size(width: 300),
-              SecondaryButton(
-                icon: Icons.add,
-                description: 'Add Use Case',
-                onPressed: () {
-                  showAddUseCaseDialog(widget.useCaseId, context, ref);
-                },
-              ),
-              SecondaryButton(
-                icon: _showSource ? Icons.code : Icons.edit,
-                description: 'Show Source',
-                onPressed: () {
-                  setState(() {
-                    if (_showSource) _saveText(_textController.text, ref, true);
-                    _showSource = !_showSource;
-                    ref.watch(searchNotifierProvider.notifier).clear();
-                  });
-                },
-              ),
-              SecondaryButton(
-                icon: Icons.download,
-                description: 'Export Use Case',
-                onPressed: () {
-                  ref.read(useCaseExporterProvider).export(selectedCase);
-                },
-              ),
-              CopyToClipboardButton(textProvider: () => _textController.text),
-              HGap.small(),
-            ],
+    return Consumer(
+      builder: (context, ref, child) {
+        final selectedCase = ref.watch(
+          useCasesNotifierProvider.select(
+            (u) => u.valueOrNull?.getById(widget.useCaseId),
           ),
-          _showSource
-              ? Card(
-                  margin: const EdgeInsets.all(8),
-                  child: TextField(
-                    controller: _textController,
-                    scrollController: _scrollController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.all(8),
-                    ),
-                    onChanged: (text) {
-                      _saveText(text, ref);
+        );
+
+        if (_textController.text != selectedCase?.content) {
+          _textController.text = selectedCase?.content ?? '';
+        }
+
+        if (selectedCase == null) {
+          return 'Add new Use Cases. These are stored locally.'.small.center();
+        }
+
+        final searchTerm = ref.watch(searchNotifierProvider)?.nullIfEmpty();
+        List<int> findLines = [];
+
+        _textController.clearHighlights();
+        if (searchTerm != null) {
+          _textController.highlightText(
+            searchTerm,
+            context.colorScheme.secondary,
+          );
+          findLines = _findLines(searchTerm);
+        }
+        _textController.colorText(useCaseSyntax);
+
+        return Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (!_showSource)
+                  SectionTitle(
+                    text: 'Overview (${selectedCase.sections.length})',
+                  ).padByUnits(0, 0, 0, 2),
+                Spacer(),
+                if (_showSource && findLines.isNotEmpty) ...[
+                  SecondaryButton(
+                    icon: Icons.clear,
+                    description: 'Clear Search',
+                    onPressed: () {
+                      ref.read(searchNotifierProvider.notifier).clear();
                     },
-                    maxLines: null,
-                    expands: true,
-                    keyboardType: TextInputType.multiline,
                   ),
+                  SecondaryButton(
+                    icon: Icons.arrow_back_rounded,
+                    description: 'First last occurrence',
+                    onPressed: () {
+                      for (var i = findLines.length - 1; i >= 0; i--) {
+                        final targetOffset = (findLines[i] * 20) - 20.0;
+                        if (targetOffset < _scrollController.offset) {
+                          _scrollController.jumpTo(targetOffset);
+                          break;
+                        }
+                      }
+                    },
+                  ),
+                  SecondaryButton(
+                    icon: Icons.arrow_forward_rounded,
+                    description: 'First next occurrence',
+                    onPressed: () {
+                      for (var i = 0; i < findLines.length; i++) {
+                        final targetOffset = (findLines[i] * 20) - 20.0;
+                        if (targetOffset > _scrollController.offset + 40) {
+                          _scrollController.jumpTo(targetOffset);
+                          break;
+                        }
+                      }
+                    },
+                  ),
+                ],
+                if (_showSource && searchTerm != null)
+                  'Found: ${findLines.length}'.txt.padByUnits(0, 2, 0, 0),
+                if (_showSource) SearchPanel().size(width: 300),
+                if (selectedCase.readOnly != true)
+                  SecondaryButton(
+                    icon: Icons.add,
+                    description: 'Add Use Case',
+                    onPressed: () {
+                      showAddUseCaseDialog(widget.useCaseId, context, ref);
+                    },
+                  ),
+                if (selectedCase.readOnly != true)
+                  SecondaryButton(
+                    icon: _showSource ? Icons.code : Icons.edit,
+                    description: 'Show Source',
+                    onPressed: () {
+                      setState(() {
+                        if (_showSource)
+                          _saveText(_textController.text, ref, true);
+                        _showSource = !_showSource;
+                        ref.watch(searchNotifierProvider.notifier).clear();
+                      });
+                    },
+                  ),
+                SecondaryButton(
+                  icon: Icons.download,
+                  description: 'Export Use Case',
+                  onPressed: () {
+                    ref.read(useCaseExporterProvider).export(selectedCase);
+                  },
+                ),
+                CopyToClipboardButton(textProvider: () => _textController.text),
+                HGap.small(),
+              ],
+            ),
+            VGap.units(2),
+            Divider(height: 1),
+            _showSource
+                ? TextField(
+                  controller: _textController,
+                  scrollController: _scrollController,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: const EdgeInsets.all(8),
+                  ),
+                  onChanged: (text) {
+                    _saveText(text, ref);
+                  },
+                  maxLines: null,
+                  expands: true,
+                  keyboardType: TextInputType.multiline,
                 ).expand()
-              : UsecaseOverviewPanel(useCaseId: widget.useCaseId).expand(),
-        ],
-      );
-    });
+                : UsecaseOverviewPanel(useCaseId: widget.useCaseId).expand(),
+          ],
+        );
+      },
+    );
   }
 
   _saveText(String text, WidgetRef ref, [bool force = false]) {

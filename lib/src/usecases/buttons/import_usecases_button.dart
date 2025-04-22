@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'package:arc_view/src/usecases/notifiers/selected_usecase_group_notifier.dart';
 import 'package:arc_view/src/usecases/services/usecase_importer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,6 +17,9 @@ class ImportUseCasesButton extends ConsumerWidget {
     return IconButton(
       icon: Icon(Icons.upload),
       onPressed: () {
+        ref
+            .read(selectedUseCaseGroupNotifierProvider.notifier)
+            .selectPersonal();
         ref.read(useCaseImporterProvider).importUseCases();
       },
     );

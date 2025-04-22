@@ -12,14 +12,15 @@ String _$useCaseRepositoryHash() => r'6979a5eba63be4629880c6a9835b505047ea283f';
 @ProviderFor(useCaseRepository)
 final useCaseRepositoryProvider =
     AutoDisposeProvider<UseCaseRepository>.internal(
-  useCaseRepository,
-  name: r'useCaseRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$useCaseRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      useCaseRepository,
+      name: r'useCaseRepositoryProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$useCaseRepositoryHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

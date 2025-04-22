@@ -11,7 +11,7 @@ part 'test_cases.freezed.dart';
 part 'test_cases.g.dart';
 
 @freezed
-class TestCases with _$TestCases {
+sealed class TestCases with _$TestCases {
   factory TestCases({required List<TestCase> testCases}) = _TestCases;
 
   const TestCases._();

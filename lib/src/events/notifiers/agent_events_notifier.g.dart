@@ -13,14 +13,15 @@ String _$agentEventsNotifierHash() =>
 @ProviderFor(AgentEventsNotifier)
 final agentEventsNotifierProvider =
     NotifierProvider<AgentEventsNotifier, List<AgentEvent>>.internal(
-  AgentEventsNotifier.new,
-  name: r'agentEventsNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$agentEventsNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      AgentEventsNotifier.new,
+      name: r'agentEventsNotifierProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$agentEventsNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$AgentEventsNotifier = Notifier<List<AgentEvent>>;
 // ignore_for_file: type=lint
