@@ -40,7 +40,7 @@ class NotificationNotifier extends _$NotificationNotifier {
 extension NotificationNotifierX on BuildContext {
   notify(String message) {
     final snackBar = SnackBar(
-      content: message.markDown(this),
+      content: message.markDown(),
       backgroundColor: colorScheme.primaryContainer,
     );
     ScaffoldMessenger.of(this).showSnackBar(snackBar);

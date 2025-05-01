@@ -55,60 +55,66 @@ class _MainLayoutState extends State<MainLayout> {
             selectedIndex: widget.index,
             onDestinationSelected: (int index) {
               switch (index) {
+                //  case 0:
+                //    GoRouter.of(context).go('/');
+                //    break;
                 case 0:
-                  GoRouter.of(context).go('/');
-                  break;
-                case 1:
                   GoRouter.of(context).go('/chat');
                   break;
-                case 2:
+                case 1:
                   GoRouter.of(context).go('/usecases');
                   break;
-                case 3:
+                case 2:
                   GoRouter.of(context).go('/tests');
                   break;
-                case 4:
+                case 3:
                   GoRouter.of(context).go('/charts');
                   break;
-                case 5:
+                case 4:
                   GoRouter.of(context).go('/settings');
                   break;
               }
             },
-            trailing: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const SizedBox(height: 20),
-                Consumer(
-                  builder: (context, ref, child) {
-                    final oidcEnabled = Config.get("openid.enabled", defaultValue: false);
-                    if (!oidcEnabled) return SizedBox.shrink();
-                    return IconButton(
-                        icon: _isLoading
-                            ? CircularProgressIndicator()
-                            : Icon(Icons.logout, color: Colors.red),
-                        onPressed: () => _handleLogout(context, ref));
-                  },
-                ),
-                const SizedBox(height: 10),
-                InkWell(
-                  onTap: () {
-                    launchUrlString('https://eclipse.dev/lmos/');
-                  },
-                  child: SvgPicture.asset(
-                    'assets/lmos.svg',
-                    semanticsLabel: 'Lmos Logo',
-                    width: 30,
-                  ).padByUnits(0, 0, 2, 0),
-                )
-              ],
-            ).expand(),
+            trailing:
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const SizedBox(height: 20),
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final oidcEnabled = Config.get(
+                          "openid.enabled",
+                          defaultValue: false,
+                        );
+                        if (!oidcEnabled) return SizedBox.shrink();
+                        return IconButton(
+                          icon:
+                              _isLoading
+                                  ? CircularProgressIndicator()
+                                  : Icon(Icons.logout, color: Colors.red),
+                          onPressed: () => _handleLogout(context, ref),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    InkWell(
+                      onTap: () {
+                        launchUrlString('https://eclipse.dev/lmos/');
+                      },
+                      child: SvgPicture.asset(
+                        'assets/lmos.svg',
+                        semanticsLabel: 'Lmos Logo',
+                        width: 30,
+                      ).padByUnits(0, 0, 2, 0),
+                    ),
+                  ],
+                ).expand(),
             minWidth: 60,
             destinations: [
-              NavigationRailDestination(
-                icon: Icon(Icons.home, size: 16),
-                label: SmallText('Home'),
-              ),
+              //   NavigationRailDestination(
+              //     icon: Icon(Icons.home, size: 16),
+              //      label: SmallText('Home'),
+              //  ),
               NavigationRailDestination(
                 icon: Icon(Icons.chat_outlined, size: 16),
                 label: SmallText('Chat'),
@@ -131,15 +137,7 @@ class _MainLayoutState extends State<MainLayout> {
               ),
             ],
           ),
-          Expanded(
-            child: Material(
-              child: Stack(
-                children: [
-                  widget.child,
-                ],
-              ),
-            ),
-          ),
+          Expanded(child: Material(child: Stack(children: [widget.child]))),
         ],
       ),
     );

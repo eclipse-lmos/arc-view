@@ -7,7 +7,7 @@ part of 'usecase_groups_notifier.dart';
 // **************************************************************************
 
 String _$useCaseGroupsNotifierHash() =>
-    r'384aaf4e5224268fdb7ffa8179f416fa0d93f592';
+    r'831cda9ffb56d0e1587c56c1d8b8c9ea1ff716e2';
 
 ///
 /// Manages the creation and editing of Use Cases files.

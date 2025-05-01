@@ -12,6 +12,7 @@ _UseCaseGroup _$UseCaseGroupFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       primary: json['primary'] as bool,
       description: json['description'] as String,
+      color: (json['color'] as num).toInt(),
     );
 
 Map<String, dynamic> _$UseCaseGroupToJson(_UseCaseGroup instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$UseCaseGroupToJson(_UseCaseGroup instance) =>
       'name': instance.name,
       'primary': instance.primary,
       'description': instance.description,
+      'color': instance.color,
     };

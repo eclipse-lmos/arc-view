@@ -27,17 +27,17 @@ class NewTestCaseButton extends ConsumerWidget {
         showDialog(
           context: context,
           builder:
-              (context) => TestDialog(
+              (_) => TestDialog(
                 title: 'New Test Case',
                 onConfirm: (details) {
+                  context.notify(
+                    'Test ${details.name} added. Goto [Tests](#/tests) to view.',
+                  );
                   ref.storeConversationAsTest(
                     details.name,
                     conversation: currentConversation,
                     description: details.description,
                     group: details.group,
-                  );
-                  context.notify(
-                    'Test ${details.name} added. Goto [Tests](#/tests) to view.',
                   );
                 },
               ),

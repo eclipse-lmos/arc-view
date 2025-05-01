@@ -9,6 +9,7 @@ import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart'
 import 'package:arc_view/src/core/secondary_button.dart';
 import 'package:arc_view/src/layout/notifiers/notification_notifier.dart';
 import 'package:arc_view/src/tests/completion_chart.dart';
+import 'package:arc_view/src/tests/dialogs/test_run_dialog.dart';
 import 'package:arc_view/src/tests/models/test_case.dart';
 import 'package:arc_view/src/tests/models/test_run.dart';
 import 'package:arc_view/src/tests/notifiers/test_cases_notifier.dart';
@@ -207,10 +208,10 @@ class TestsTable extends ConsumerWidget {
       DateFormat.Hm().add_yMd().format(lastRun.startedAt).txt,
       HGap(),
       "Open".onPressed(() {
-        ref
-            .read(conversationsNotifierProvider.notifier)
-            .updateConversation(lastRun.conversation);
-        context.go("/chat");
+        showDialog(
+          context: context,
+          builder: (_) => TestRunDialog(testRun: lastRun),
+        );
       }),
     ].row(min: true);
   }

@@ -5,6 +5,7 @@
  */
 
 import 'package:arc_view/src/usecases/models/use_case_group.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'usecase_groups_notifier.g.dart';
@@ -22,6 +23,7 @@ class UseCaseGroupsNotifier extends _$UseCaseGroupsNotifier {
         name: 'Personal',
         description: 'Local storage',
         primary: true,
+        color: (Colors.blue[900] ?? Colors.blue).toARGB32(),
       ),
     ];
   }

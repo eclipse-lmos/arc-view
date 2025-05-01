@@ -17,15 +17,10 @@ class UseCaseGroupButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedGroupId = ref.watch(selectedUseCaseGroupNotifierProvider);
     return Container(
-      color:
-          group.id == selectedGroupId
-              ? context.colorScheme.primaryContainer
-              : context.colorScheme.secondaryContainer,
       width: 200,
       child: Material(
-        color: Colors.transparent,
+        color: Color(group.color),
         child: InkWell(
           onTap: () {
             ref
@@ -33,8 +28,8 @@ class UseCaseGroupButton extends ConsumerWidget {
                 .setSelected(group.id);
           },
           child: ListTile(
-            title: group.name.txt,
-            subtitle: group.description.txt,
+            title: group.name.style(color: Colors.white),
+            subtitle: group.description.style(color: Colors.white),
             dense: true,
           ),
         ),

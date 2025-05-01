@@ -32,7 +32,7 @@ final GlobalKey<NavigatorState> _mainNavigatorKey = GlobalKey<NavigatorState>(
 /// Main Routing
 GoRouter createRouter(WidgetRef ref) {
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: '/chat',
     debugLogDiagnostics: true,
     //enable for testing and see logs
     navigatorKey: _rootNavigatorKey,
@@ -47,18 +47,16 @@ GoRouter createRouter(WidgetRef ref) {
         navigatorKey: _mainNavigatorKey,
         builder: (context, state, child) {
           final index = switch (state.matchedLocation) {
-            '/' => 0,
-            '/chat' => 1,
-            '/usecases' => 2,
-            '/tests' => 3,
-            '/charts' => 4,
-            '/settings' => 5,
+            '/chat' => 0,
+            '/usecases' => 1,
+            '/tests' => 2,
+            '/charts' => 3,
+            '/settings' => 4,
             _ => 0,
           };
           return MainLayout(index: index, child: child);
         },
         routes: [
-          GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
           GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
           GoRoute(
             path: '/chat',

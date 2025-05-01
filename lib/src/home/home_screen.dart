@@ -18,27 +18,27 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: [
-      VGap.medium(),
-      GradientText(
-        'Welcome to the Arc View!',
-        style: TextStyle(fontSize: 40.0),
-        colors: [
-          Colors.purple,
-          context.colorScheme.primary,
-        ],
-      ).center(),
-      'What magic should we create today?'.txt.padByUnits(2, 2, 2, 2),
-      VGap.small(),
-      Card(
-        child: MarkdownBody(
-          styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
-            code: TextStyle(fontSize: 12),
-            p: TextStyle(fontSize: 12),
-          ),
-          selectable: true,
-          fitContent: true,
-          data: '''
+      body:
+          [
+            VGap.medium(),
+            GradientText(
+              'Welcome to the Arc View!',
+              style: TextStyle(fontSize: 40.0),
+              colors: [Colors.purple, context.colorScheme.primary],
+            ).center(),
+            'What magic should we create today?'.txt.padByUnits(2, 2, 2, 2),
+            VGap.small(),
+            Card(
+              child: MarkdownBody(
+                styleSheet: MarkdownStyleSheet.fromTheme(
+                  Theme.of(context),
+                ).copyWith(
+                  code: TextStyle(fontSize: 12),
+                  p: TextStyle(fontSize: 12),
+                ),
+                selectable: true,
+                fitContent: true,
+                data: '''
 This is a tool for communicating and testing your Arc Agents.
 \\
 \\
@@ -49,14 +49,14 @@ Please let me know what you think. It is open source and contributions are welco
 Check out https://github.com/eclipse-lmos/arc-view
 
                ''',
-          onTapLink: (text, href, title) {
-            if (href != null) launchUrlString(href);
-          },
-        ).padByUnits(2, 2, 2, 2),
-      ).size(width: 700),
-      VGap.small(),
-      Card(
-        child: '''
+                onTapLink: (text, href, title) {
+                  if (href != null) launchUrlString(href);
+                },
+              ).padByUnits(2, 2, 2, 2),
+            ).size(width: 700),
+            VGap.small(),
+            Card(
+              child: '''
 **Simply** start your Agents in a web application and connect to them using the Arc View.
 \\
 \\
@@ -67,34 +67,31 @@ Or checkout the Spring Quickstart project:
 
 https://github.com/eclipse-lmos/arc-spring-init.
 
-    '''
-            .markDown(context)
-            .padByUnits(2, 2, 2, 2),
-      ).size(width: 700),
-      VGap.small(),
-      Card(
-        child: '''Be sure to enable CORS in `application.yml`:
+    '''.markDown().padByUnits(2, 2, 2, 2),
+            ).size(width: 700),
+            VGap.small(),
+            Card(
+              child: '''Be sure to enable CORS in `application.yml`:
          
 
     arc:
       cors:
         enabled: true
 
-    '''
-            .markDown(context)
-            .padByUnits(2, 2, 2, 2),
-      ).size(width: 700),
-      VGap.small(),
-      'Go to Chat'.onButtonPressed(() {
-        context.go('/chat');
-      }).center(),
-      Spacer(),
-      [
-        'Powered by'.txt,
-        'Eclipse LMOS'.onPressed(() {
-          launchUrlString('https://eclipse.dev/lmos/');
-        }),
-      ].row(min: true).padByUnits(0, 0, 2, 0)
-    ].column());
+    '''.markDown().padByUnits(2, 2, 2, 2),
+            ).size(width: 700),
+            VGap.small(),
+            'Go to Chat'.onButtonPressed(() {
+              context.go('/chat');
+            }).center(),
+            Spacer(),
+            [
+              'Powered by'.txt,
+              'Eclipse LMOS'.onPressed(() {
+                launchUrlString('https://eclipse.dev/lmos/');
+              }),
+            ].row(min: true).padByUnits(0, 0, 2, 0),
+          ].column(),
+    );
   }
 }

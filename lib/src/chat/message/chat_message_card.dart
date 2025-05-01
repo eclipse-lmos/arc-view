@@ -13,9 +13,10 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:smiles/smiles.dart';
 
 class ChatMessageCard extends StatelessWidget {
-  const ChatMessageCard({super.key, required this.chatMessage});
+  const ChatMessageCard({super.key, required this.chatMessage, this.editMode});
 
   final ConversationMessage chatMessage;
+  final bool? editMode;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +31,9 @@ class ChatMessageCard extends StatelessWidget {
             right: 0,
             child: Row(
               children: [
-                EditMessageButton(chatMessage),
+                if (editMode != false) EditMessageButton(chatMessage),
                 CopyToClipBoardButton(chatMessage.content),
-                RerunMessageButton(chatMessage.content)
+                if (editMode != false) RerunMessageButton(chatMessage.content),
               ],
             ),
           ),

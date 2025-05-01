@@ -65,20 +65,22 @@ class SmallLinkedText extends StatelessWidget {
 }
 
 extension MarkDownExtension on String {
-  Widget markDown(BuildContext context) => MarkdownBody(
-        styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
-          code: TextStyle(fontSize: 12),
-          p: TextStyle(fontSize: 12),
+  Widget markDown() => Builder(
+    builder:
+        (BuildContext context) => MarkdownBody(
+          styleSheet: MarkdownStyleSheet.fromTheme(
+            Theme.of(context),
+          ).copyWith(code: TextStyle(fontSize: 12), p: TextStyle(fontSize: 12)),
+          selectable: true,
+          fitContent: true,
+          data: this,
+          onTapLink: (text, href, title) {
+            if (href?.startsWith('#') == true) {
+              context.go(href!.substringAfter('#'));
+              return;
+            }
+            if (href != null) launchUrlString(href);
+          },
         ),
-        selectable: true,
-        fitContent: true,
-        data: this,
-        onTapLink: (text, href, title) {
-          if (href?.startsWith('#') == true) {
-            context.go(href!.substringAfter('#'));
-            return;
-          }
-          if (href != null) launchUrlString(href);
-        },
-      );
+  );
 }

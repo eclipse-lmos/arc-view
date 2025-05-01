@@ -21,6 +21,7 @@ sealed class UseCaseGroup with _$UseCaseGroup {
     required String name,
     required bool primary,
     required String description,
+    required int color,
   }) = _UseCaseGroup;
 
   UseCaseGroup._();

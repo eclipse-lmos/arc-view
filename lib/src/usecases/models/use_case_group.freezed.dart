@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UseCaseGroup {
 
- String get id; String get name; bool get primary; String get description;
+ String get id; String get name; bool get primary; String get description; int get color;
 /// Create a copy of UseCaseGroup
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $UseCaseGroupCopyWith<UseCaseGroup> get copyWith => _$UseCaseGroupCopyWithImpl<U
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UseCaseGroup&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.primary, primary) || other.primary == primary)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UseCaseGroup&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.primary, primary) || other.primary == primary)&&(identical(other.description, description) || other.description == description)&&(identical(other.color, color) || other.color == color));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,primary,description);
+int get hashCode => Object.hash(runtimeType,id,name,primary,description,color);
 
 @override
 String toString() {
-  return 'UseCaseGroup(id: $id, name: $name, primary: $primary, description: $description)';
+  return 'UseCaseGroup(id: $id, name: $name, primary: $primary, description: $description, color: $color)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $UseCaseGroupCopyWith<$Res>  {
   factory $UseCaseGroupCopyWith(UseCaseGroup value, $Res Function(UseCaseGroup) _then) = _$UseCaseGroupCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, bool primary, String description
+ String id, String name, bool primary, String description, int color
 });
 
 
@@ -66,13 +66,14 @@ class _$UseCaseGroupCopyWithImpl<$Res>
 
 /// Create a copy of UseCaseGroup
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? primary = null,Object? description = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? primary = null,Object? description = null,Object? color = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,primary: null == primary ? _self.primary : primary // ignore: cast_nullable_to_non_nullable
 as bool,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -83,13 +84,14 @@ as String,
 @JsonSerializable()
 
 class _UseCaseGroup extends UseCaseGroup {
-   _UseCaseGroup({required this.id, required this.name, required this.primary, required this.description}): super._();
+   _UseCaseGroup({required this.id, required this.name, required this.primary, required this.description, required this.color}): super._();
   factory _UseCaseGroup.fromJson(Map<String, dynamic> json) => _$UseCaseGroupFromJson(json);
 
 @override final  String id;
 @override final  String name;
 @override final  bool primary;
 @override final  String description;
+@override final  int color;
 
 /// Create a copy of UseCaseGroup
 /// with the given fields replaced by the non-null parameter values.
@@ -104,16 +106,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UseCaseGroup&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.primary, primary) || other.primary == primary)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UseCaseGroup&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.primary, primary) || other.primary == primary)&&(identical(other.description, description) || other.description == description)&&(identical(other.color, color) || other.color == color));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,primary,description);
+int get hashCode => Object.hash(runtimeType,id,name,primary,description,color);
 
 @override
 String toString() {
-  return 'UseCaseGroup(id: $id, name: $name, primary: $primary, description: $description)';
+  return 'UseCaseGroup(id: $id, name: $name, primary: $primary, description: $description, color: $color)';
 }
 
 
@@ -124,7 +126,7 @@ abstract mixin class _$UseCaseGroupCopyWith<$Res> implements $UseCaseGroupCopyWi
   factory _$UseCaseGroupCopyWith(_UseCaseGroup value, $Res Function(_UseCaseGroup) _then) = __$UseCaseGroupCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, bool primary, String description
+ String id, String name, bool primary, String description, int color
 });
 
 
@@ -141,13 +143,14 @@ class __$UseCaseGroupCopyWithImpl<$Res>
 
 /// Create a copy of UseCaseGroup
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? primary = null,Object? description = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? primary = null,Object? description = null,Object? color = null,}) {
   return _then(_UseCaseGroup(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,primary: null == primary ? _self.primary : primary // ignore: cast_nullable_to_non_nullable
 as bool,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

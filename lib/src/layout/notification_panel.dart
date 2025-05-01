@@ -26,12 +26,9 @@ class NotificationPanel extends ConsumerWidget {
       color: context.colorScheme.secondaryContainer,
       child: Row(
         children: [
-          Icon(
-            Icons.info,
-            color: context.colorScheme.primary,
-          ),
+          Icon(Icons.info, color: context.colorScheme.primary),
           HGap.small(),
-          message.markDown(context)
+          message.markDown(),
         ],
       ).padByUnits(1, 2, 1, 2),
     ).animate().moveY(begin: -100);

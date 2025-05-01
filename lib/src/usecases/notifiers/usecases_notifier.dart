@@ -4,16 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import 'dart:convert';
 import 'dart:math';
 
+import 'package:arc_view/src/usecases/client/usecase_client.dart';
 import 'package:arc_view/src/usecases/models/use_case_group.dart';
 import 'package:arc_view/src/usecases/models/use_cases.dart';
 import 'package:arc_view/src/usecases/notifiers/selected_usecase_group_notifier.dart';
 import 'package:arc_view/src/usecases/repositories/usecase_repository.dart';
 import 'package:arc_view/src/usecases/usecase_template.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'usecases_notifier.g.dart';
@@ -31,23 +29,9 @@ class UseCasesNotifier extends _$UseCasesNotifier {
       return UseCases(selected: 0, cases: useCaseRepository.fetch());
     }
     try {
-      final url = Uri.parse('http://localhost:8090/usecases');
-      final response = await http.get(url);
-      final json = jsonDecode(response.body)['cases'] as List<dynamic>;
-      Future.delayed(5.seconds);
-      return UseCases(
-        selected: 0,
-        cases:
-            json
-                .map(
-                  (it) => UseCase(
-                    name: it['name'],
-                    createdAt: DateTime.parse(it['createdAt']),
-                    content: it['content'],
-                  ),
-                )
-                .toList(),
-      );
+      final client = UseCaseClient();
+      final usecases = await client.getUseCases();
+      return UseCases(selected: 0, cases: usecases);
     } catch (ex) {
       // endpoint not supported.
     }
