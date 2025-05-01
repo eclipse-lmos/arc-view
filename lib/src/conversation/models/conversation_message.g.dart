@@ -19,11 +19,13 @@ _ConversationMessage _$ConversationMessageFromJson(Map<String, dynamic> json) =>
       agent: json['agent'] as String?,
       symbols:
           (json['symbols'] as List<dynamic>?)?.map((e) => e as String).toSet(),
+      id: json['id'] as String?,
     );
 
 Map<String, dynamic> _$ConversationMessageToJson(
   _ConversationMessage instance,
 ) => <String, dynamic>{
+  'id': instance.id,
   'type': _$MessageTypeEnumMap[instance.type]!,
   'conversationId': instance.conversationId,
   'content': instance.content,

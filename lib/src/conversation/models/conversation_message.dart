@@ -21,9 +21,14 @@ sealed class ConversationMessage with _$ConversationMessage {
     double? responseTime,
     String? agent,
     Set<String>? symbols,
+    String? id,
   }) = _ConversationMessage;
 
-  const ConversationMessage._();
+  ConversationMessage._({String? id})
+    : id = id ?? '${DateTime.now().millisecondsSinceEpoch}';
+
+  @override
+  final String id;
 
   isBinary() => binaryData != null && binaryData!.isNotEmpty && content.isEmpty;
 
