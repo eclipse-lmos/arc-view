@@ -9,6 +9,7 @@ import 'dart:convert';
 import 'package:arc_view/src/core/text.dart';
 import 'package:arc_view/src/events/event_filter_panel.dart';
 import 'package:arc_view/src/events/event_row_item.dart';
+import 'package:arc_view/src/events/messages_view.dart';
 import 'package:arc_view/src/events/models/event_filter.dart';
 import 'package:arc_view/src/events/notifiers/agent_events_notifier.dart';
 import 'package:arc_view/src/events/notifiers/event_filters_notifier.dart';
@@ -32,16 +33,20 @@ class EventsList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isFilterDrawerOpen = ref.watch(filterDrawerProvider);
     final eventFilters = ref.watch(eventFiltersNotifierProvider);
-    final events = ref.watch(agentEventsNotifierProvider
-        .select((events) => eventFilters.applyFilters(events)));
+    final events = ref.watch(
+      agentEventsNotifierProvider.select(
+        (events) => eventFilters.applyFilters(events),
+      ),
+    );
 
     return Stack(
       alignment: Alignment.topLeft,
       children: [
         if (!isFilterDrawerOpen)
           Positioned.fill(
-              child: events.isEmpty
-                  ? Column(
+            child:
+                events.isEmpty
+                    ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         'No events'.small,
@@ -50,47 +55,63 @@ class EventsList extends ConsumerWidget {
                           tip: 'Open Help page in a browser',
                           onPressed: () {
                             launchUrlString(
-                                'https://eclipse.dev/lmos/docs/arc/spring/graphql#event-subscriptions');
+                              'https://eclipse.dev/lmos/docs/arc/spring/graphql#event-subscriptions',
+                            );
                           },
                         ),
                       ],
                     )
-                  : Column(children: [
-                      Expanded(
-                        child: ListView.builder(
-                          padding: const EdgeInsets.all(16),
-                          itemCount: events.length,
-                          itemBuilder: (context, index) {
-                            final event = events[index];
-                            final json = jsonDecode(event.payload)
-                                as Map<String, dynamic>;
-                            final contextLabel = _getEventLabel(json);
+                    : Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            padding: const EdgeInsets.all(16),
+                            itemCount: events.length,
+                            itemBuilder: (context, index) {
+                              final event = events[index];
+                              final json =
+                                  jsonDecode(event.payload)
+                                      as Map<String, dynamic>;
+                              final contextLabel = _getEventLabel(json);
 
-                            return ExpansionTile(
-                              expandedAlignment: Alignment.topLeft,
-                              childrenPadding:
-                                  const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                              title: EventRowItem(event: event, json: json),
-                              subtitle: [
-                                SmallText(contextLabel),
-                                Spacer(),
-                                SmallText(json['duration'] != null
-                                    ? '${(json['duration'] as double?)?.toStringAsPrecision(3)} seconds'
-                                    : ''),
-                              ].row(),
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children:
-                                      _transformEvent(event.type, context, json)
-                                          .toList(),
+                              return ExpansionTile(
+                                expandedAlignment: Alignment.topLeft,
+                                childrenPadding: const EdgeInsets.fromLTRB(
+                                  16,
+                                  0,
+                                  16,
+                                  16,
                                 ),
-                              ],
-                            );
-                          },
+                                title: EventRowItem(event: event, json: json),
+                                subtitle:
+                                    [
+                                      SmallText(contextLabel),
+                                      Spacer(),
+                                      SmallText(
+                                        json['duration'] != null
+                                            ? '${(json['duration'] as double?)?.toStringAsPrecision(3)} seconds'
+                                            : '',
+                                      ),
+                                    ].row(),
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children:
+                                        _transformEvent(
+                                          event.type,
+                                          context,
+                                          json,
+                                        ).toList(),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
                         ),
-                      )
-                    ])),
+                      ],
+                    ),
+          ),
         if (isFilterDrawerOpen)
           Positioned.fill(
             child: EventFilterPanel().animate().moveX(begin: -350),
@@ -110,53 +131,76 @@ class EventsList extends ConsumerWidget {
   List<Widget> _transformEvent(String type, BuildContext context, json) {
     return switch (type) {
       'AgentFinishedEvent' => [
-          SmallText('Name: ${json['agent']['name']}'),
-          SmallText('FlowBreak: ${json['flowBreak']}'),
-          SmallText('Tools: ${json['tools']}'),
-        ],
+        SmallText('Name: ${json['agent']['name']}'),
+        SmallText('FlowBreak: ${json['flowBreak']}'),
+        SmallText('Tools: ${json['tools']}'),
+      ],
       'AgentLoadedEvent' => [
-          SmallText('ErrorMessage: ${json['errorMessage']}'),
-        ],
+        SmallText('ErrorMessage: ${json['errorMessage']}'),
+      ],
       'FilterExecutedEvent' => [
-          SmallText('Name: ${json['name']}'),
-          SmallText('Event: $type'),
-        ],
+        SmallText('Name: ${json['name']}'),
+        SmallText('Event: $type'),
+      ],
       'DataAddedEvent' => [
-          SmallText('Event: $type'),
-          SmallText('Name: ${json['name']}'),
-          SmallText('Data: ${json['data']}'),
-        ],
+        SmallText('Event: $type'),
+        SmallText('Name: ${json['name']}'),
+        SmallText('Data: ${json['data']}'),
+      ],
       'FunctionLoadedEvent' => [
-          SmallText('ErrorMessage: ${json['errorMessage']}'),
-        ],
+        SmallText('ErrorMessage: ${json['errorMessage']}'),
+      ],
       'LLMFinishedEvent' => [
-          SmallText('Model: ${json['model']}'),
-          SmallText('TotalTokens: ${json['totalTokens']}'),
-          SmallText('PromptTokens: ${json['promptTokens']}'),
-          SmallText('CompletionTokens: ${json['completionTokens']}'),
-          SmallText('FinishReasons: ${json['finishReasons']}'),
-          SmallText('FunctionCallCount: ${json['functionCallCount']}'),
-          [
-            SmallText('System Prompt:'),
-            SmallLinkedText('Click to open', tip: 'Open System prompt',
-                onPressed: () {
+        SmallText('Model: ${json['model']}'),
+        SmallText('TotalTokens: ${json['totalTokens']}'),
+        SmallText('PromptTokens: ${json['promptTokens']}'),
+        SmallText('CompletionTokens: ${json['completionTokens']}'),
+        SmallText('FinishReasons: ${json['finishReasons']}'),
+        SmallText('FunctionCallCount: ${json['functionCallCount']}'),
+        [
+          SmallText('System Prompt:'),
+          SmallLinkedText(
+            'Click to open',
+            tip: 'Open System prompt',
+            onPressed: () {
               showDialog(
-                  context: context,
-                  builder: (_) => PromptView(json['messages'][0]['content']));
-            })
-          ].row(min: true),
-          SmallText('Content: ${_tryGetContent(json)}'),
-        ],
+                context: context,
+                builder: (_) => PromptView(json['messages'][0]['content']),
+              );
+            },
+          ),
+        ].row(min: true),
+        [
+          SmallText('Messages:'),
+          SmallLinkedText(
+            'Click to open',
+            tip: 'Open System prompt',
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder:
+                    (_) => MessagesView(
+                      json['messages']
+                          .skip(1)
+                          .map((m) => m['content'].toString())
+                          .toList(),
+                    ),
+              );
+            },
+          ),
+        ].row(min: true),
+        SmallText('Output: ${_tryGetContent(json)}'),
+      ],
       'LLMFunctionCalledEvent' => [
-          SmallText('Event: $type'),
-          SmallText('Name: ${json['name']}'),
-          SmallText('Params: ${json['param']}'),
-          SmallText('Result: ${_tryGetValue(json)}')
-        ],
+        SmallText('Event: $type'),
+        SmallText('Name: ${json['name']}'),
+        SmallText('Params: ${json['param']}'),
+        SmallText('Result: ${_tryGetValue(json)}'),
+      ],
       'UseCaseEvent' => [
-          SmallText('Event: $type'),
-          SmallText('Name: ${json['name']}'),
-        ],
+        SmallText('Event: $type'),
+        SmallText('Name: ${json['name']}'),
+      ],
       _ => [SmallText(json.toString())],
     };
   }

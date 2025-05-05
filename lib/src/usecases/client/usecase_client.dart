@@ -22,12 +22,12 @@ class UseCaseClient {
       );
       final response = await http.post(
         url,
-        headers: {'API-Key': '324329-AHJKSH-9832asj-00987'},
       );
       final json = jsonDecode(response.body)['cases'] as List<dynamic>;
       return json
           .map(
-            (it) => UseCase(
+            (it) =>
+            UseCase(
               id: it['id'],
               name: it['name'],
               version: '1.0.0',
@@ -35,7 +35,7 @@ class UseCaseClient {
               content: it['content'],
               readOnly: true,
             ),
-          )
+      )
           .toList();
     } catch (ex) {
       // endpoint not supported.

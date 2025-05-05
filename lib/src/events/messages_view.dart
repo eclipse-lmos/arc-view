@@ -4,30 +4,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import 'package:arc_view/src/core/secondary_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:smiles/smiles.dart';
 
-class PromptView extends StatelessWidget {
-  const PromptView(this.prompt, {super.key});
+class MessagesView extends StatelessWidget {
+  const MessagesView(this.messages, {super.key});
 
-  final String prompt;
+  final List<dynamic> messages;
 
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
       title: Row(
         children: [
-          'System Prompt'.txt,
-          SecondaryButton(
-            description: 'Copy text',
-            onPressed: () {
-              Clipboard.setData(ClipboardData(text: prompt));
-            },
-            icon: Icons.copy,
-          ),
-          Spacer(),
+          'Messages'.txt.expand(),
           IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -36,7 +26,14 @@ class PromptView extends StatelessWidget {
           ),
         ],
       ),
-      children: [prompt.txt.padByUnits(3, 3, 3, 3)],
+      children:
+          messages
+              .map(
+                (m) => Card(
+                  child: m.toString().txt.padByUnits(2, 2, 2, 2),
+                ).padByUnits(1, 1, 1, 1),
+              )
+              .toList(),
     );
   }
 }
