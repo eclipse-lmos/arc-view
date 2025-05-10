@@ -25,23 +25,25 @@ class EventsPanel extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(children: [
-                SecondaryButton(
-                  description: 'Show Charts',
-                  onPressed: () {
-                    context.push("/charts");
-                  },
-                  icon: Icons.bar_chart,
-                ),
-                SecondaryButton(
-                  description: 'Filter Events',
-                  icon: Icons.filter_alt,
-                  onPressed: () {
-                    ref.read(filterDrawerProvider.notifier).state =
-                        !ref.read(filterDrawerProvider);
-                  },
-                ),
-              ]),
+              Row(
+                children: [
+                  SecondaryButton(
+                    description: 'Show Charts',
+                    onPressed: () {
+                      context.push("/charts");
+                    },
+                    icon: Icons.bar_chart,
+                  ),
+                  SecondaryButton(
+                    description: 'Filter Events',
+                    icon: Icons.filter_alt,
+                    onPressed: () {
+                      ref.read(filterDrawerProvider.notifier).state =
+                          !ref.read(filterDrawerProvider);
+                    },
+                  ),
+                ],
+              ),
               SecondaryButton(
                 description: 'Reset Events',
                 onPressed: () {
@@ -51,7 +53,7 @@ class EventsPanel extends ConsumerWidget {
               ),
             ],
           ),
-          EventsList().expand()
+          EventsList().expand(),
         ],
       ),
     );

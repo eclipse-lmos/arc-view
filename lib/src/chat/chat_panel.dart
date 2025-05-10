@@ -5,7 +5,6 @@
  */
 
 import 'package:arc_view/src/audio/record_button.dart';
-import 'package:arc_view/src/chat/buttons/new_conversation_button.dart';
 import 'package:arc_view/src/chat/buttons/send_message_button.dart';
 import 'package:arc_view/src/chat/buttons/show_previous_prompts_button.dart';
 import 'package:arc_view/src/chat/chat_field.dart';
@@ -56,18 +55,18 @@ class _ChatPanelState extends State<ChatPanel> {
               Card(
                 elevation: 6,
                 margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                child: Row(
-                  children: [
-                    NewConversationButton(),
-                    PreviousPromptButton(),
-                    _chatField(ref),
-                    SendMessageButton(onPressed: () => _send(ref)),
-                  ],
-                ).padding(),
+                child:
+                    Row(
+                      children: [
+                        PreviousPromptButton(),
+                        _chatField(ref),
+                        SendMessageButton(onPressed: () => _send(ref)),
+                      ],
+                    ).padding(),
               ).expand(),
               if (features.isNotEmpty) const HGap.small(),
               if (features.isNotEmpty)
-                Card(child: const RecordButton().padding())
+                Card(child: const RecordButton().padding()),
             ].row(min: true),
           ],
         );
@@ -76,14 +75,16 @@ class _ChatPanelState extends State<ChatPanel> {
   }
 
   _chatField(WidgetRef ref) => Expanded(
-        child: Consumer(builder: (ctx, ref, child) {
-          _textController.text = ref.watch(currentPromptNotifierProvider);
-          return ChatField(
-            controller: _textController,
-            onSubmitted: (_) => _send(ref),
-          ).padding();
-        }),
-      );
+    child: Consumer(
+      builder: (ctx, ref, child) {
+        _textController.text = ref.watch(currentPromptNotifierProvider);
+        return ChatField(
+          controller: _textController,
+          onSubmitted: (_) => _send(ref),
+        ).padding();
+      },
+    ),
+  );
 
   _send(WidgetRef ref) {
     ref.read(messageSenderProvider).sendUserMessage(_textController.text);

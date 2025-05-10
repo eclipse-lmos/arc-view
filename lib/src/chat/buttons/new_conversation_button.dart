@@ -15,12 +15,29 @@ class NewConversationButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return IconButton(
-      icon: Icon(Icons.add, color: context.colorScheme.onSurface),
-      onPressed: () {
-        ref.read(conversationsNotifierProvider.notifier).newConversation();
-        ref.read(currentPromptNotifierProvider.notifier).clear();
-      },
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: context.colorScheme.surfaceContainer,
+            ),
+            onPressed: () {
+              ref
+                  .read(conversationsNotifierProvider.notifier)
+                  .newConversation();
+              ref.read(currentPromptNotifierProvider.notifier).clear();
+            },
+            child:
+                [
+                  Icon(Icons.edit, color: context.colorScheme.onSurface),
+                  'New Chat'.small.padding(14),
+                ].row(),
+          ),
+        ],
+      ),
     ).tip('New Conversation');
   }
 }

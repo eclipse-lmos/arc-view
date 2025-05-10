@@ -16,8 +16,8 @@ class SectionTitle extends StatelessWidget {
     final color = context.colorScheme.onSurface;
     return [
       Container(
-        width: 10,
-        height: 10,
+        width: 6,
+        height: 6,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: context.colorScheme.secondary,

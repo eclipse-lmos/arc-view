@@ -12,7 +12,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'agents_notifier.g.dart';
 
-typedef Agents = ({String? activated, List<String> names});
+typedef Agents = ({String? activated, List<AgentDetails> names});
+typedef AgentDetails = ({String name, Uri url});
 
 @riverpod
 class AgentsNotifier extends _$AgentsNotifier {
@@ -20,25 +21,32 @@ class AgentsNotifier extends _$AgentsNotifier {
   Future<Agents> build() async {
     final client = ref.watch(agentClientNotifierProvider);
     final agents = await client.getAgents();
+    final List<AgentDetails> agentDetails =
+        agents.map((a) => (name: a, url: client.agentUrl.url)).toList();
     final activated = client.agentUrl.agent;
-    return (activated: activated, names: agents);
+    return (activated: activated, names: agentDetails);
   }
 
-  setActivated(String activated, List<String> names) {
-    state = AsyncData((activated: activated, names: names));
+  setActivated(String activated, List<AgentDetails> agentDetails) {
+    state = AsyncData((activated: activated, names: agentDetails));
     ref.read(agentUrlNotifierProvider.notifier).setAgent(activated);
   }
 
   Future<Agents> checkUrl(String url) async {
     try {
       final agentUrl = Uri.parse(url);
-      final client = OneAIClient(
-          (url: agentUrl, agent: null, secure: agentUrl.isScheme('https')));
+      final client = OneAIClient((
+        url: agentUrl,
+        agent: null,
+        secure: agentUrl.isScheme('https'),
+      ));
       final agents = await client.getAgents();
+      final List<AgentDetails> agentDetails =
+          agents.map((a) => (name: a, url: client.agentUrl.url)).toList();
       client.close();
-      return (activated: null, names: agents);
+      return (activated: null, names: agentDetails);
     } catch (_) {
-      return (activated: null, names: <String>[]);
+      return (activated: null, names: <AgentDetails>[]);
     }
   }
 
@@ -49,8 +57,8 @@ class AgentsNotifier extends _$AgentsNotifier {
 
 /// Extensions for the AgentsNotifier.
 extension AgentsNotifierExtension on WidgetRef {
-  activateAgent(String activated, List<String> names) {
-    read(agentsNotifierProvider.notifier).setActivated(activated, names);
+  activateAgent(String activated, List<AgentDetails> agentDetails) {
+    read(agentsNotifierProvider.notifier).setActivated(activated, agentDetails);
   }
 
   refreshAgents() {

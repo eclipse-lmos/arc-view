@@ -24,11 +24,13 @@ class EventFiltersNotifier extends _$EventFiltersNotifier {
   List<EventFilter> build() {
     // Update Agent Names
     ref.listen(agentsNotifierProvider, (_, agents) {
-      final agentNames = agents.valueOrNull?.names ?? [];
+      final List<AgentDetails> agentNames = agents.valueOrNull?.names ?? [];
       state =
           state.map((f) {
             if (f.label == 'Agent') {
-              return f.copyWith(options: agentNames);
+              return f.copyWith(
+                options: agentNames.map((a) => a.name).toList(),
+              );
             }
             return f;
           }).toList();

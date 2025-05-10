@@ -5,6 +5,7 @@
  */
 
 import 'package:arc_view/src/chat/buttons/login_user_button.dart';
+import 'package:arc_view/src/chat/buttons/new_conversation_button.dart';
 import 'package:arc_view/src/chat/notifiers/selected_usecase_notifier.dart';
 import 'package:arc_view/src/client/notifiers/agents_notifier.dart';
 import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart';
@@ -111,6 +112,7 @@ class ChatToolBar extends ConsumerWidget {
           ],
         ),
       ),
+      NewConversationButton(),
     ].row();
   }
 

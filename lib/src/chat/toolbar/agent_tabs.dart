@@ -6,6 +6,7 @@
 
 import 'package:arc_view/src/client/notifiers/agents_notifier.dart';
 import 'package:arc_view/src/core/secondary_button.dart';
+import 'package:arc_view/src/skills/dialogs/agent_card_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smiles/smiles.dart';
@@ -30,17 +31,31 @@ class AgentTabs extends ConsumerWidget {
               .pad(4, 8, 4, 8),
         if (agents != null)
           for (var e in agents.names)
-            ((e == agents.activated)
-                ? Container(
+            [
+              ((e.name == agents.activated)
+                  ? Container(
                     decoration: BoxDecoration(
-                      color:
-                          context.colorScheme.primaryContainer.withOpacity(0.5),
+                      color: context.colorScheme.primaryContainer.withOpacity(
+                        0.5,
+                      ),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: e.txt.pad(4, 8, 4, 8))
-                : e.onPressed(() {
-                    ref.activateAgent(e, agents.names);
-                  }))
+                    child: e.name.txt.pad(4, 8, 4, 8),
+                  )
+                  : e.name.onPressed(() {
+                    ref.activateAgent(e.name, agents.names);
+                  })),
+              SecondaryButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AgentCardDialog(agentUrl: e.url),
+                  );
+                },
+                icon: Icons.account_box_sharp,
+                description: 'Display Agent Card',
+              ),
+            ].row(min: true),
       ],
     );
   }

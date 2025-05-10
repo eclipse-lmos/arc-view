@@ -69,7 +69,7 @@ class _EditAgentUrlState extends State<EditAgentUrl> {
                       .checkUrl(_textController.text)
                       .then((agentData) {
                         setState(() {
-                          agents = agentData.names;
+                          agents = agentData.names.map((a) => a.name).toList();
                           loadingAgents = false;
                         });
                       });
