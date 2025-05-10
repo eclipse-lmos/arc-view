@@ -6,8 +6,13 @@
 
 import 'dart:convert';
 
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
+
+part 'agent_card_retriever.freezed.dart';
+
+part 'agent_card_retriever.g.dart';
 
 class AgentCardRetriever {
   final _log = Logger('AgentCardRetriever');
@@ -27,72 +32,32 @@ class AgentCardRetriever {
   }
 }
 
-class AgentCard {
-  AgentCard({
-    required this.name,
-    required this.version,
-    required this.description,
-    required this.skills,
-  });
+@freezed
+sealed class AgentCard with _$AgentCard {
+  factory AgentCard({
+    required String name,
+    required String version,
+    required String description,
+    required List<Skill>? skills,
+    required List<String>? defaultInputModes,
+    required List<String>? defaultOutputModes,
+  }) = _AgentCard;
 
-  final String name;
-  final String description;
-  final String version;
-  final List<Skill> skills;
-
-  factory AgentCard.fromJson(Map<String, dynamic> data) {
-    final name = data['name'] ?? '';
-    final description = data['description'] ?? '';
-    final version = data['version'] ?? '';
-    final skills = data['skills'] as List<dynamic>?;
-    return AgentCard(
-      name: name,
-      version: version,
-      skills:
-          skills
-              ?.map((skill) => Skill.fromJson(skill as Map<String, dynamic>))
-              .toList() ??
-          [],
-      description: description,
-    );
-  }
+  factory AgentCard.fromJson(Map<String, dynamic> json) =>
+      _$AgentCardFromJson(json);
 }
 
-class Skill {
-  Skill({
-    required this.name,
-    required this.id,
-    required this.description,
-    required this.tags,
-    required this.inputModes,
-    required this.outputModes,
-    required this.examples,
-  });
+@freezed
+sealed class Skill with _$Skill {
+  factory Skill({
+    required String name,
+    required String id,
+    required String description,
+    required List<String>? tags,
+    required List<String>? inputModes,
+    required List<String>? outputModes,
+    required List<String>? examples,
+  }) = _Skill;
 
-  final String name;
-  final String description;
-  final String id;
-  final List<String> tags;
-  final List<String> inputModes;
-  final List<String> outputModes;
-  final List<String> examples;
-
-  factory Skill.fromJson(Map<String, dynamic> data) {
-    final name = data['name'];
-    final description = data['description'];
-    final id = data['id'];
-    final tags = data['tags'];
-    final inputModes = data['inputModes'];
-    final outputModes = data['outputModes'];
-    final examples = data['examples'];
-    return Skill(
-      name: name,
-      id: id,
-      description: description,
-      tags: tags,
-      inputModes: inputModes,
-      outputModes: outputModes,
-      examples: examples,
-    );
-  }
+  factory Skill.fromJson(Map<String, dynamic> json) => _$SkillFromJson(json);
 }

@@ -7,7 +7,7 @@ part of 'event_filters_notifier.dart';
 // **************************************************************************
 
 String _$eventFiltersNotifierHash() =>
-    r'c9d4c25734a6871bba8123e8c68be9ea5369c9c7';
+    r'ec2a62d87f2d8edb40e3bbfcc897b88caeec06f6';
 
 ///
 /// Provides active filters for the events.

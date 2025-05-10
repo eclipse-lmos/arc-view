@@ -6,7 +6,7 @@ part of 'agents_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$agentsNotifierHash() => r'ef8ab0e5441cb309f1d77aac1d8490fdf52319ab';
+String _$agentsNotifierHash() => r'5f100c6a3c224329554925c41e9ee0c0200c7c9d';
 
 /// See also [AgentsNotifier].
 @ProviderFor(AgentsNotifier)
