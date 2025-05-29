@@ -5,7 +5,6 @@
  */
 
 import 'package:arc_view/src/authentication/util/auth_util.dart';
-import 'package:arc_view/src/core/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -48,10 +47,14 @@ class _MainLayoutState extends State<MainLayout> {
 
   @override
   Widget build(BuildContext context) {
+    final bigScreen = false; //MediaQuery.sizeOf(context).width > 1100;
     return SafeArea(
       child: Row(
         children: [
           NavigationRail(
+            extended: bigScreen,
+            elevation: 4,
+            leading: bigScreen ? 'Arc View'.h3 : null,
             selectedIndex: widget.index,
             onDestinationSelected: (int index) {
               switch (index) {
@@ -109,7 +112,7 @@ class _MainLayoutState extends State<MainLayout> {
                     ),
                   ],
                 ).expand(),
-            minWidth: 60,
+
             destinations: [
               //   NavigationRailDestination(
               //     icon: Icon(Icons.home, size: 16),
@@ -117,26 +120,27 @@ class _MainLayoutState extends State<MainLayout> {
               //  ),
               NavigationRailDestination(
                 icon: Icon(Icons.chat_outlined, size: 16),
-                label: SmallText('Chat'),
+                label: Text('Chat'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.book_rounded, size: 16),
-                label: SmallText('Use Cases'),
+                label: Text('Use Cases'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.science, size: 16),
-                label: SmallText('Tests'),
+                label: Text('Tests'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.bar_chart_sharp, size: 16),
-                label: SmallText('Charts'),
+                label: Text('Charts'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.settings, size: 16),
-                label: SmallText('Settings'),
+                label: Text('Settings'),
               ),
             ],
           ),
+          // VerticalDivider(thickness: 1, width: 1),
           Expanded(child: Material(child: Stack(children: [widget.child]))),
         ],
       ),

@@ -10,12 +10,18 @@ import 'package:arc_view/src/usecases/buttons/import_usecases_button.dart';
 import 'package:arc_view/src/usecases/buttons/usecase_group_button.dart';
 import 'package:arc_view/src/usecases/notifiers/usecase_groups_notifier.dart';
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
+import 'package:arc_view/src/usecases/search/search_usecases_panel.dart';
 import 'package:arc_view/src/usecases/usecase_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smiles/smiles.dart';
 
-final useCaseFilterProvider = StateProvider((ref) => "");
+///
+/// UseCaseFilter.
+///
+typedef UseCaseFilter = ({String? tag, String? name});
+
+final useCaseFilterProvider = StateProvider<UseCaseFilter?>((ref) => null);
 
 ///
 /// Main screen for managing UseCases.
@@ -63,14 +69,19 @@ class UseCasesScreen extends StatelessWidget {
                       cases.expand((u) => u.tags ?? <String>[]).toSet();
                   final currentFilter = ref.watch(useCaseFilterProvider);
                   return <Widget>[
+                    if (cases.isNotEmpty)
+                      SearchUseCasesPanel().percentOfScreen(width: 0.2),
                     for (final t in tags)
-                      t.onButtonPressed(disabled: currentFilter == t, () {
-                        ref.read(useCaseFilterProvider.notifier).state = t;
+                      t.onButtonPressed(disabled: currentFilter?.tag == t, () {
+                        ref.read(useCaseFilterProvider.notifier).state = (
+                          tag: t,
+                          name: currentFilter?.name,
+                        );
                       }),
-                    'Clear Filter $currentFilter'.onButtonPressed(
-                      disabled: tags.isEmpty || currentFilter.isEmpty,
+                    'Clear Filter'.onButtonPressed(
+                      disabled: tags.isEmpty || currentFilter == null,
                       () {
-                        ref.read(useCaseFilterProvider.notifier).state = "";
+                        ref.read(useCaseFilterProvider.notifier).state = null;
                       },
                     ),
                   ].wrap(spacing: 8);

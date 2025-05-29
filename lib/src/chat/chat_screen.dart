@@ -61,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     const ChatPanel().percentOfScreen(
                       width: bigScreen ? 0.6 : 0.8,
                     ),
-                    if (bigScreen) const RightPanel(width: 400),
+                    if (bigScreen) const RightPanel(width: 380),
                   ],
                 ).expand(),
               ],

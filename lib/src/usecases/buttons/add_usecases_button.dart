@@ -34,7 +34,7 @@ class AddUseCasesButton extends ConsumerWidget {
           (context) => UseCaseDialog(
             title: 'New UseCases File',
             onConfirm: (details) {
-              ref.read(useCaseFilterProvider.notifier).state = "";
+              ref.read(useCaseFilterProvider.notifier).state = null;
               ref
                   .read(useCasesNotifierProvider.notifier)
                   .newUseCase(

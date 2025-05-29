@@ -39,9 +39,14 @@ class UseCaseTable extends ConsumerWidget {
       return 'No Use Cases at the moment'.txt.center();
     }
 
-    if (useCaseFilter.isNotEmpty) {
+    if (useCaseFilter != null) {
       cases =
-          cases.where((u) => u.tags?.contains(useCaseFilter) == true).toList();
+          cases.where((u) {
+            return (useCaseFilter.tag == null ||
+                    u.tags?.contains(useCaseFilter.tag) == true) &&
+                (useCaseFilter.name == null ||
+                    u.name.contains(useCaseFilter.name!));
+          }).toList();
     }
 
     return Column(

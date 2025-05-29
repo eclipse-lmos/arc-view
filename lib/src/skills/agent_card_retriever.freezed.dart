@@ -85,7 +85,7 @@ as List<String>?,
 @JsonSerializable()
 
 class _AgentCard implements AgentCard {
-   _AgentCard({required this.name, required this.version, required this.description, required final  List<Skill>? skills, required final  List<String>? defaultInputModes, required final  List<String>? defaultOutputModes}): _skills = skills,_defaultInputModes = defaultInputModes,_defaultOutputModes = defaultOutputModes;
+   _AgentCard({required this.name, required this.version, required this.description, final  List<Skill>? skills, final  List<String>? defaultInputModes, final  List<String>? defaultOutputModes}): _skills = skills,_defaultInputModes = defaultInputModes,_defaultOutputModes = defaultOutputModes;
   factory _AgentCard.fromJson(Map<String, dynamic> json) => _$AgentCardFromJson(json);
 
 @override final  String name;
@@ -258,7 +258,7 @@ as List<String>?,
 @JsonSerializable()
 
 class _Skill implements Skill {
-   _Skill({required this.name, required this.id, required this.description, required final  List<String>? tags, required final  List<String>? inputModes, required final  List<String>? outputModes, required final  List<String>? examples}): _tags = tags,_inputModes = inputModes,_outputModes = outputModes,_examples = examples;
+   _Skill({required this.name, required this.id, required this.description, final  List<String>? tags, final  List<String>? inputModes, final  List<String>? outputModes, final  List<String>? examples}): _tags = tags,_inputModes = inputModes,_outputModes = outputModes,_examples = examples;
   factory _Skill.fromJson(Map<String, dynamic> json) => _$SkillFromJson(json);
 
 @override final  String name;

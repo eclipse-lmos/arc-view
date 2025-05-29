@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'package:arc_view/src/client/a2a_client.dart';
 import 'package:arc_view/src/client/notifiers/agent_url_notifier.dart';
 import 'package:arc_view/src/client/oneai_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -16,6 +17,7 @@ class AgentClientNotifier extends _$AgentClientNotifier {
   OneAIClient build() {
     final agentUrl = ref.watch(agentUrlNotifierProvider);
     final client = OneAIClient(agentUrl);
+    // final client = A2aClient(agentUrl);
     ref.onDispose(() => client.close());
     return client;
   }

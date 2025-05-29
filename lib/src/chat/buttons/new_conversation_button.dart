@@ -22,7 +22,8 @@ class NewConversationButton extends ConsumerWidget {
         children: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: context.colorScheme.surfaceContainer,
+              backgroundColor: context.colorScheme.secondaryContainer,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             ),
             onPressed: () {
               ref
@@ -32,8 +33,18 @@ class NewConversationButton extends ConsumerWidget {
             },
             child:
                 [
-                  Icon(Icons.edit, color: context.colorScheme.onSurface),
-                  'New Chat'.small.padding(14),
+                  Icon(
+                    Icons.edit,
+                    color: context.colorScheme.onSecondaryContainer,
+                  ),
+                  'New Chat'
+                      .style(
+                        color: context.colorScheme.onSecondaryContainer,
+                        size:
+                            Theme.of(context).textTheme.bodySmall?.fontSize ??
+                            14,
+                      )
+                      .padding(14),
                 ].row(),
           ),
         ],

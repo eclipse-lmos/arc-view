@@ -81,14 +81,19 @@ class AgentCardDialog extends StatelessWidget {
                     text: 'Skills (${agentCard.skills?.length ?? 0})',
                   ),
                   VGap.small(),
-                  for (var skill in agentCard.skills ?? <Skill>[])
+                  for (var skill in (agentCard.skills ?? <Skill>[]))
                     Card(
                       color: context.colorScheme.surface,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          skill.name.h3.padByUnits(1, 2, 1, 2),
-                          skill.description.txt.padByUnits(1, 2, 1, 2),
+                          skill.name.toString().h3.padByUnits(1, 2, 1, 2),
+                          skill.description.toString().txt.padByUnits(
+                            1,
+                            2,
+                            1,
+                            2,
+                          ),
                           Row(
                             children: [
                               Icon(
@@ -103,7 +108,7 @@ class AgentCardDialog extends StatelessWidget {
                           Wrap(
                             spacing: 8,
                             children: [
-                              for (var tag in (skill.tags ?? []))
+                              for (var tag in (skill.tags ?? <String>[]))
                                 Chip(
                                   padding: const EdgeInsets.all(0),
                                   label: tag.toString().txt,
@@ -136,7 +141,8 @@ class AgentCardDialog extends StatelessWidget {
                                 'Output: ${skill.outputModes?.join(",")}'.txt,
                               ],
                             ).padByUnits(1, 2, 1, 2),
-                          if (skill.examples != null)
+                          if (skill.examples != null &&
+                              skill.examples?.isNotEmpty == true)
                             Row(
                               children: [
                                 Icon(
@@ -148,14 +154,14 @@ class AgentCardDialog extends StatelessWidget {
                                 'Examples'.txt,
                               ],
                             ).padByUnits(1, 2, 1, 2),
-                          for (var example in skill.examples ?? [])
+                          for (var example in skill.examples ?? <String>[])
                             '- $example'.txt.padByUnits(0, 2, 1, 2),
                           VGap.small(),
                         ],
                       ),
                     ).expand(),
                 ],
-              ).size(height: 600, width: 500);
+              ).size(height: 600, width: 600);
             },
           ),
         );

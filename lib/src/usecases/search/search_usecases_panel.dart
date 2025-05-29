@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import 'package:arc_view/src/usecases/search/notifiers/search_notifier.dart';
+import 'package:arc_view/src/usecases/usecases_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smiles/smiles.dart';
@@ -12,20 +12,20 @@ import 'package:smiles/smiles.dart';
 ///
 /// Search Panel
 ///
-class SearchPanel extends ConsumerStatefulWidget {
-  const SearchPanel({super.key});
+class SearchUseCasesPanel extends ConsumerStatefulWidget {
+  const SearchUseCasesPanel({super.key});
 
   @override
-  SearchPanelState createState() => SearchPanelState();
+  SearchUseCasesPanelState createState() => SearchUseCasesPanelState();
 }
 
-class SearchPanelState extends ConsumerState<SearchPanel> {
+class SearchUseCasesPanelState extends ConsumerState<SearchUseCasesPanel> {
   final _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final cleared = ref.watch(searchNotifierProvider.select((e) => e == null));
+    final cleared = ref.watch(useCaseFilterProvider.select((e) => e == null));
 
     if (cleared) {
       _textController.clear();
@@ -37,10 +37,18 @@ class SearchPanelState extends ConsumerState<SearchPanel> {
       constraints: BoxConstraints(maxHeight: 80),
       padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.all(4)),
       onSubmitted: (text) {
-        ref.read(searchNotifierProvider.notifier).search(text);
+        final filter = ref.read(useCaseFilterProvider);
+        ref.read(useCaseFilterProvider.notifier).state = (
+          tag: filter?.tag,
+          name: text,
+        );
       },
-      onTap: () {
-        ref.read(searchNotifierProvider.notifier).search(_textController.text);
+      onChanged: (_) {
+        final filter = ref.read(useCaseFilterProvider);
+        ref.read(useCaseFilterProvider.notifier).state = (
+          tag: filter?.tag,
+          name: _textController.text,
+        );
       },
       leading: const Icon(Icons.search, size: 20).padByUnits(0, 1, 0, 1),
     );

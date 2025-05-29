@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 
 part 'agent_card_retriever.freezed.dart';
-
 part 'agent_card_retriever.g.dart';
 
 class AgentCardRetriever {
@@ -25,10 +24,16 @@ class AgentCardRetriever {
       path: '/.well-known/agent.json',
     );
     _log.finer('Getting AgentCard: $url');
-    final response = await http.get(url);
-    _log.finer(response.body);
-    final parsedJson = jsonDecode(response.body);
-    return AgentCard.fromJson(parsedJson);
+    try {
+      final response = await http.get(url);
+      _log.finer(response.body);
+      final parsedJson = jsonDecode(response.body);
+      _log.finer(parsedJson);
+      return AgentCard.fromJson(parsedJson);
+    } catch (e) {
+      _log.severe('Error retrieving agent card: $e');
+      rethrow;
+    }
   }
 }
 
@@ -38,9 +43,9 @@ sealed class AgentCard with _$AgentCard {
     required String name,
     required String version,
     required String description,
-    required List<Skill>? skills,
-    required List<String>? defaultInputModes,
-    required List<String>? defaultOutputModes,
+    List<Skill>? skills,
+    List<String>? defaultInputModes,
+    List<String>? defaultOutputModes,
   }) = _AgentCard;
 
   factory AgentCard.fromJson(Map<String, dynamic> json) =>
@@ -53,10 +58,10 @@ sealed class Skill with _$Skill {
     required String name,
     required String id,
     required String description,
-    required List<String>? tags,
-    required List<String>? inputModes,
-    required List<String>? outputModes,
-    required List<String>? examples,
+    List<String>? tags,
+    List<String>? inputModes,
+    List<String>? outputModes,
+    List<String>? examples,
   }) = _Skill;
 
   factory Skill.fromJson(Map<String, dynamic> json) => _$SkillFromJson(json);

@@ -49,7 +49,7 @@ abstract mixin class $SystemContextCopyWith<$Res>  {
   factory $SystemContextCopyWith(SystemContext value, $Res Function(SystemContext) _then) = _$SystemContextCopyWithImpl;
 @useResult
 $Res call({
- List<({String key, String value})> entries
+ List<SystemContextEntry> entries
 });
 
 
@@ -68,8 +68,8 @@ class _$SystemContextCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? entries = null,}) {
   return _then(_self.copyWith(
-entries: null == entries ? _self.entries! : entries // ignore: cast_nullable_to_non_nullable
-as List<({String key, String value})>,
+entries: null == entries ? _self.entries : entries // ignore: cast_nullable_to_non_nullable
+as List<SystemContextEntry>,
   ));
 }
 
@@ -80,11 +80,11 @@ as List<({String key, String value})>,
 @JsonSerializable()
 
 class _SystemContext implements SystemContext {
-   _SystemContext({required final  List<({String key, String value})> entries}): _entries = entries;
+   _SystemContext({required final  List<SystemContextEntry> entries}): _entries = entries;
   factory _SystemContext.fromJson(Map<String, dynamic> json) => _$SystemContextFromJson(json);
 
- final  List<({String key, String value})> _entries;
-@override List<({String key, String value})> get entries {
+ final  List<SystemContextEntry> _entries;
+@override List<SystemContextEntry> get entries {
   if (_entries is EqualUnmodifiableListView) return _entries;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_entries);
@@ -124,7 +124,7 @@ abstract mixin class _$SystemContextCopyWith<$Res> implements $SystemContextCopy
   factory _$SystemContextCopyWith(_SystemContext value, $Res Function(_SystemContext) _then) = __$SystemContextCopyWithImpl;
 @override @useResult
 $Res call({
- List<({String key, String value})> entries
+ List<SystemContextEntry> entries
 });
 
 
@@ -144,7 +144,7 @@ class __$SystemContextCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? entries = null,}) {
   return _then(_SystemContext(
 entries: null == entries ? _self._entries : entries // ignore: cast_nullable_to_non_nullable
-as List<({String key, String value})>,
+as List<SystemContextEntry>,
   ));
 }
 

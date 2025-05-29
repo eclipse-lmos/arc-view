@@ -6,6 +6,7 @@
 
 import 'dart:async';
 
+import 'package:arc_view/src/chat/notifiers/selected_usecase_notifier.dart';
 import 'package:arc_view/src/core/secondary_button.dart';
 import 'package:arc_view/src/core/section_title.dart';
 import 'package:arc_view/src/usecases/buttons/copy_to_clipboard_button.dart';
@@ -20,6 +21,7 @@ import 'package:arc_view/src/usecases/usecase_syntax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smiles/smiles.dart';
 
 class UseCasePanel extends StatefulWidget {
@@ -146,6 +148,16 @@ class _UseCasePanelState extends State<UseCasePanel> {
                   },
                 ),
                 CopyToClipboardButton(textProvider: () => _textController.text),
+                SecondaryButton(
+                  icon: Icons.open_in_new,
+                  description: 'Apply Use Case',
+                  onPressed: () {
+                    ref
+                        .read(selectedUsecaseNotifierProvider.notifier)
+                        .setSelected(selectedCase);
+                    context.go('/chat');
+                  },
+                ),
                 HGap.small(),
               ],
             ),

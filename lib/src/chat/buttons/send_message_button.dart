@@ -16,10 +16,13 @@ class SendMessageButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return 'Send'.onButtonPressed(
-        disabled: _agentAvailable(ref) == false,
-        onPressed,
-        tooltip: 'Send the current message');
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: context.colorScheme.primaryContainer,
+      ),
+      onPressed: _agentAvailable(ref) == false ? null : onPressed,
+      child: 'Send'.style(color: context.colorScheme.onPrimaryContainer),
+    ).tip('Send the current message');
   }
 
   _agentAvailable(WidgetRef ref) {
