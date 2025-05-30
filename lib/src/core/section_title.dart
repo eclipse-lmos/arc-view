@@ -13,18 +13,20 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = context.colorScheme.onSurface;
     return [
-      Container(
-        width: 6,
-        height: 6,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
+      Icon(
+        Icons.add_circle_outline,
+        size: 12,
+        color: context.colorScheme.secondary,
+      ),
+      HGap(),
+      Text(
+        text,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
           color: context.colorScheme.secondary,
         ),
       ),
-      HGap.units(2),
-      text.style(color: color),
     ].row(min: true);
   }
 }
