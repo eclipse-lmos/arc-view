@@ -52,6 +52,7 @@ class _MainLayoutState extends State<MainLayout> {
       child: Row(
         children: [
           NavigationRail(
+            labelType: NavigationRailLabelType.all,
             extended: bigScreen,
             elevation: 4,
             leading: bigScreen ? 'Arc View'.h3 : null,
@@ -68,12 +69,15 @@ class _MainLayoutState extends State<MainLayout> {
                   GoRouter.of(context).go('/usecases');
                   break;
                 case 2:
-                  GoRouter.of(context).go('/tests');
+                  GoRouter.of(context).go('/tools');
                   break;
                 case 3:
-                  GoRouter.of(context).go('/charts');
+                  GoRouter.of(context).go('/tests');
                   break;
                 case 4:
+                  GoRouter.of(context).go('/charts');
+                  break;
+                case 5:
                   GoRouter.of(context).go('/settings');
                   break;
               }
@@ -127,6 +131,10 @@ class _MainLayoutState extends State<MainLayout> {
                 label: Text('Use Cases'),
               ),
               NavigationRailDestination(
+                icon: Icon(Icons.auto_fix_high, size: 16),
+                label: Text('Tools'),
+              ),
+              NavigationRailDestination(
                 icon: Icon(Icons.science, size: 16),
                 label: Text('Tests'),
               ),
@@ -140,7 +148,7 @@ class _MainLayoutState extends State<MainLayout> {
               ),
             ],
           ),
-          // VerticalDivider(thickness: 1, width: 1),
+          VerticalDivider(thickness: 1, width: 1),
           Expanded(child: Material(child: Stack(children: [widget.child]))),
         ],
       ),

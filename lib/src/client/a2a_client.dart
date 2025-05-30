@@ -9,6 +9,7 @@ import 'dart:convert';
 import 'package:arc_view/src/client/models/message.dart';
 import 'package:arc_view/src/client/models/message_result.dart';
 import 'package:arc_view/src/client/models/send_task.dart';
+import 'package:arc_view/src/client/models/tool.dart';
 import 'package:arc_view/src/client/notifiers/agent_stream_client_notifier.dart';
 import 'package:arc_view/src/conversation/models/conversation.dart';
 import 'package:arc_view/src/events/models/agent_events.dart';
@@ -106,5 +107,10 @@ class A2aClient implements OneAIClient {
       );
     });
     // return sub;
+  }
+
+  @override
+  Future<List<Tool>> getTools() {
+    return Future.value([]);
   }
 }

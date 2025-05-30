@@ -7,8 +7,10 @@
 import 'package:arc_view/src/client/graphql/agent_query.dart';
 import 'package:arc_view/src/client/graphql/agent_subscription.dart';
 import 'package:arc_view/src/client/graphql/event_subscription.dart';
+import 'package:arc_view/src/client/graphql/tool_query.dart';
 import 'package:arc_view/src/client/models/message.dart';
 import 'package:arc_view/src/client/models/message_result.dart';
+import 'package:arc_view/src/client/models/tool.dart';
 import 'package:arc_view/src/client/notifiers/agent_stream_client_notifier.dart';
 import 'package:arc_view/src/conversation/models/conversation.dart';
 import 'package:arc_view/src/conversation/models/conversation_message.dart';
@@ -25,14 +27,24 @@ class OneAIClient {
   final _symbolRegex = RegExp(r'<(.+)>', multiLine: true);
 
   Future<List<String>> getAgents() async {
-    final result = await _client.query(QueryOptions(
-      document: agentQuery(),
-      fetchPolicy: FetchPolicy.noCache,
-    ));
+    final result = await _client.query(
+      QueryOptions(document: agentQuery(), fetchPolicy: FetchPolicy.noCache),
+    );
     _log.fine('Agents: $result');
     if (result.hasException) return List.empty();
     return (result.data!['agent']['names'] as List)
         .map((e) => e.toString())
+        .toList();
+  }
+
+  Future<List<Tool>> getTools() async {
+    final result = await _client.query(
+      QueryOptions(document: toolQuery(), fetchPolicy: FetchPolicy.noCache),
+    );
+    _log.fine('Tools: $result');
+    if (result.hasException) return List.empty();
+    return (result.data!['tool']['tools'] as List)
+        .map((e) => Tool.fromJson(e))
         .toList();
   }
 
@@ -48,19 +60,20 @@ class OneAIClient {
           if (agentUrl.agent != null) 'agent': agentUrl.agent,
           'conversationId': conversation.conversationId,
           'userContext': conversation.userContext.toJson(),
-          'systemContext': conversation.systemContext.entries
-              .map((e) => {
-                    'key': e.key,
-                    'value': e.value,
-                  })
-              .toList(),
-          'messages': conversation.messages
-              .map((e) => {
-                    'content': e.content,
-                    'role': e.type == MessageType.user ? 'user' : 'assistant',
-                    'format': 'text',
-                  })
-              .toList(),
+          'systemContext':
+              conversation.systemContext.entries
+                  .map((e) => {'key': e.key, 'value': e.value})
+                  .toList(),
+          'messages':
+              conversation.messages
+                  .map(
+                    (e) => {
+                      'content': e.content,
+                      'role': e.type == MessageType.user ? 'user' : 'assistant',
+                      'format': 'text',
+                    },
+                  )
+                  .toList(),
         },
       ),
     );
@@ -71,7 +84,7 @@ class OneAIClient {
           messages: List.empty(),
           responseTime: -1.0,
           agent: agent,
-          error: e.exception.toString()
+          error: e.exception.toString(),
         );
       }
       final data = e.data!['agent'];
@@ -80,14 +93,16 @@ class OneAIClient {
       final List<Message> messages = [];
       for (final m in data['messages']) {
         String content = m['content'];
-        final symbols = _symbolRegex
-            .allMatches(content)
-            .map((s) => s.group(1) ?? '')
-            .toSet();
+        final symbols =
+            _symbolRegex
+                .allMatches(content)
+                .map((s) => s.group(1) ?? '')
+                .toSet();
         // content = content.replaceAll(_symbolRegex, '').trim();
         content = content.trim();
         messages.add(
-            Message(content: content, role: 'assistant', symbols: symbols));
+          Message(content: content, role: 'assistant', symbols: symbols),
+        );
       }
 
       return (
@@ -102,9 +117,7 @@ class OneAIClient {
   Stream<AgentEvent?> listenToEvents() {
     _log.fine('Subscribing to events...');
     final subscription = _client.subscribe(
-      SubscriptionOptions(
-        document: eventSubscription(),
-      ),
+      SubscriptionOptions(document: eventSubscription()),
     );
     return subscription.map((e) {
       if (e.hasException) return null;
@@ -135,7 +148,10 @@ class OneAIClient {
       ),
     );
     Link link = Link.split(
-        (request) => request.isSubscription, websocketLink, httpLink);
+      (request) => request.isSubscription,
+      websocketLink,
+      httpLink,
+    );
     return GraphQLClient(cache: GraphQLCache(), link: link);
   }
 }

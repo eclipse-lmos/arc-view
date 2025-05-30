@@ -4,96 +4,130 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import 'package:arc_view/src/core/secondary_button.dart';
-import 'package:arc_view/src/core/section_title.dart';
-import 'package:arc_view/src/tools/add_tool_button.dart';
-import 'package:arc_view/src/tools/notifiers/selected_tool_notifier.dart';
-import 'package:arc_view/src/tools/notifiers/tools_notifier.dart';
+import 'package:arc_view/src/client/notifiers/agent_client_notifier.dart';
+import 'package:arc_view/src/core/app_bar_title.dart';
+import 'package:arc_view/src/tools/dialogs/show_schema_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smiles/smiles.dart';
 
 ///
-/// Main screen for managing test functions.
+/// Main screen for tools/functions.
 ///
-class ToolsScreen extends StatelessWidget {
+
+class ToolsScreen extends ConsumerWidget {
   const ToolsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final client = ref.watch(agentClientNotifierProvider);
+
     return Scaffold(
-      appBar: AppBar(title: 'Test Functions'.txt),
-      floatingActionButton: AddToolButton(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Card(
-            child:
-                'Defines your test functions here. They will be automatically added to your Agent.'
-                    .txt
-                    .padByUnits(2, 2, 2, 2),
-          ).padByUnits(2, 2, 2, 1),
-          SectionTitle(text: 'Tools').padByUnits(2, 2, 2, 2),
-          Row(
+      appBar: AppBarTitle('Tools'),
+      body: FutureBuilder(
+        future: client.getTools(),
+        builder: (context, snapshot) {
+          final tools = snapshot.data ?? [];
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          if (snapshot.hasError || tools.isEmpty) {
+            return Center(child: 'Tools cannot be loaded for this Agent.'.txt);
+          }
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Card(
-                child: Consumer(builder: (context, ref, child) {
-                  final tools = ref.watch(toolsNotifierProvider);
-                  final selected = ref.watch(selectedToolNotifierProvider);
-                  return ListView.builder(
-                    itemCount: tools.length,
-                    itemBuilder: (context, index) {
-                      final tool = tools[index];
-                      return ListTile(
-                        leading: selected.contains(tool.id)
-                            ? SecondaryButton(
-                                color: context.colorScheme.primary,
-                                icon: Icons.check,
-                                description: 'DeSelect Tool',
-                                onPressed: () {
-                                  ref
-                                      .read(
-                                          selectedToolNotifierProvider.notifier)
-                                      .deselect(tool);
-                                },
-                              )
-                            : SecondaryButton(
-                                icon: Icons.check_box_outline_blank,
-                                description: 'Select Tool',
-                                onPressed: () {
-                                  ref
-                                      .read(
-                                          selectedToolNotifierProvider.notifier)
-                                      .select(tool);
-                                },
-                              ),
-                        title: tool.name.txt,
-                        subtitle: tool.description.txt,
-                        trailing: SecondaryButton(
-                          description: 'Delete Tool',
-                          icon: Icons.delete,
-                          onPressed: () {
-                            ref
-                                .read(toolsNotifierProvider.notifier)
-                                .removeTool(tool);
-                          },
-                        ),
-                      );
-                    },
-                  );
-                }),
-              ).padByUnits(1, 1, 1, 1).max(width: 380),
-              Card(
-                child: Consumer(
-                  builder: (context, ref, child) {
-                    final tools = ref.watch(toolsNotifierProvider);
-                    return 'hi'.txt;
-                  },
-                ),
-              ).expand(),
+              'The following Tools are available.'.txt.padByUnits(2, 1, 2, 1),
+              Wrap(
+                children: [
+                  for (final tool in tools)
+                    Card(
+                      elevation: 2,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            tool.name,
+                            style: TextStyle(
+                              color: context.colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Divider(),
+                          VGap(),
+                          tool.description.txt.size(height: 40),
+                          VGap.small(),
+                          VGap(),
+                          Text(
+                            'Parameters',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: context.colorScheme.secondary,
+                            ),
+                          ),
+                          Divider(),
+                          VGap(),
+                          SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                for (final param in tool.parameters)
+                                  RichText(
+                                    text: TextSpan(
+                                      text: '- ${param.name}',
+                                      style: DefaultTextStyle.of(
+                                        context,
+                                      ).style.copyWith(
+                                        color: context.colorScheme.secondary,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text: ' (${param.type}): ',
+                                          style: DefaultTextStyle.of(
+                                            context,
+                                          ).style.copyWith(
+                                            fontStyle: FontStyle.normal,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: param.description,
+                                          style: DefaultTextStyle.of(
+                                            context,
+                                          ).style.copyWith(
+                                            fontStyle: FontStyle.normal,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ).size(height: 100),
+                          Spacer(),
+                          ElevatedButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (_) => ShowSchemaDialog(tool: tool),
+                              );
+                            },
+                            child: 'Show Schema'.txt,
+                          ).toRight(),
+                        ],
+                      ).padByUnits(2, 2, 2, 2),
+                    ).size(width: 460, height: 340),
+                ],
+              ),
             ],
-          ).expand(),
-        ],
+          ).padByUnits(0, 3, 0, 3);
+        },
       ),
     );
   }

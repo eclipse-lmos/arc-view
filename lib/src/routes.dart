@@ -11,6 +11,7 @@ import 'package:arc_view/src/layout/main_layout.dart';
 import 'package:arc_view/src/metrics/charts_screen.dart';
 import 'package:arc_view/src/settings/settings_screen.dart';
 import 'package:arc_view/src/tests/tests_screen.dart';
+import 'package:arc_view/src/tools/tools_screen.dart';
 import 'package:arc_view/src/usecases/edit_usecases_screen.dart';
 import 'package:arc_view/src/usecases/usecases_screen.dart';
 import 'package:flutter/material.dart';
@@ -49,9 +50,10 @@ GoRouter createRouter(WidgetRef ref) {
           final index = switch (state.matchedLocation) {
             '/chat' => 0,
             '/usecases' => 1,
-            '/tests' => 2,
-            '/charts' => 3,
-            '/settings' => 4,
+            '/tools' => 2,
+            '/tests' => 3,
+            '/charts' => 4,
+            '/settings' => 5,
             _ => 0,
           };
           return MainLayout(index: index, child: child);
@@ -65,6 +67,10 @@ GoRouter createRouter(WidgetRef ref) {
           GoRoute(
             path: '/settings',
             builder: (context, state) => const SettingsScreen(),
+          ),
+          GoRoute(
+            path: '/tools',
+            builder: (context, state) => const ToolsScreen(),
           ),
           GoRoute(
             path: '/usecases',
