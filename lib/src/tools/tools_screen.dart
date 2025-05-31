@@ -27,12 +27,18 @@ class ToolsScreen extends ConsumerWidget {
     final client = ref.watch(agentClientNotifierProvider);
 
     return Scaffold(
-      appBar: AppBarTitle('Tools'),
+      appBar: AppBarPanel(
+        Column(
+          children: [
+            'Tools'.h1,
+            'The following Tools are available.'.txt.padByUnits(2, 1, 2, 1),
+            SearchToolsPanel().percentOfScreen(width: 0.4).center(),
+          ],
+        ),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          'The following Tools are available.'.txt.padByUnits(2, 1, 2, 1),
-          SearchToolsPanel().percentOfScreen(width: 0.4).center(),
           VGap.small(),
           FutureBuilder(
             future: client.getTools(),

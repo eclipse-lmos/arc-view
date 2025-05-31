@@ -10,10 +10,19 @@ import 'package:smiles/smiles.dart';
 
 PreferredSizeWidget AppBarTitle(String title) {
   return AppBar(
-      title: title.h1
-          .toLeft()
-          .padByUnits(2, 1, 1, 2)
-          .animate()
-          .moveY(begin: -30)
-          .fadeIn());
+    title:
+        title.h1
+            .toLeft()
+            .padByUnits(2, 1, 1, 2)
+            .animate()
+            .moveY(begin: -30)
+            .fadeIn(),
+  );
+}
+
+PreferredSizeWidget AppBarPanel(Widget title) {
+  return AppBar(
+    title: title.padByUnits(2, 1, 1, 2).animate().moveY(begin: -30).fadeIn(),
+    toolbarHeight: 180,
+  );
 }
