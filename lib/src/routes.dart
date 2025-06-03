@@ -11,6 +11,7 @@ import 'package:arc_view/src/layout/main_layout.dart';
 import 'package:arc_view/src/metrics/charts_screen.dart';
 import 'package:arc_view/src/settings/settings_screen.dart';
 import 'package:arc_view/src/tests/tests_screen.dart';
+import 'package:arc_view/src/tools/tool_screen.dart';
 import 'package:arc_view/src/tools/tools_screen.dart';
 import 'package:arc_view/src/usecases/edit_usecases_screen.dart';
 import 'package:arc_view/src/usecases/usecases_screen.dart';
@@ -93,6 +94,12 @@ GoRouter createRouter(WidgetRef ref) {
             builder:
                 (context, state) =>
                     EditUseCasesScreen(useCaseId: state.pathParameters['id']!),
+          ),
+          GoRoute(
+            path: '/tool/:toolId',
+            builder:
+                (context, state) =>
+                    ToolScreen(toolId: state.pathParameters['toolId'] ?? ''),
           ),
         ],
       ),

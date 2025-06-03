@@ -113,4 +113,9 @@ class A2aClient implements OneAIClient {
   Future<List<Tool>> getTools() {
     return Future.value([]);
   }
+
+  @override
+  Future<String> executeTool(String name, Map<String, dynamic> parameters) {
+    return Future.value("");
+  }
 }

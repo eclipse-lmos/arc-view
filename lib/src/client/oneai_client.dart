@@ -4,9 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'dart:convert';
+
 import 'package:arc_view/src/client/graphql/agent_query.dart';
 import 'package:arc_view/src/client/graphql/agent_subscription.dart';
 import 'package:arc_view/src/client/graphql/event_subscription.dart';
+import 'package:arc_view/src/client/graphql/tool_mutation.dart';
 import 'package:arc_view/src/client/graphql/tool_query.dart';
 import 'package:arc_view/src/client/models/message.dart';
 import 'package:arc_view/src/client/models/message_result.dart';
@@ -46,6 +49,23 @@ class OneAIClient {
     return (result.data!['tool']['tools'] as List)
         .map((e) => Tool.fromJson(e))
         .toList();
+  }
+
+  Future<String> executeTool(
+    String name,
+    Map<String, dynamic> parameters,
+  ) async {
+    final result = await _client.mutate(
+      MutationOptions(
+        document: toolMutation(),
+        fetchPolicy: FetchPolicy.noCache,
+        variables: {'name': name, 'parameters': jsonEncode(parameters)},
+      ),
+    );
+    _log.fine('Executing Tool: $result');
+    return (result.data!['tool']['result'] as String?) ??
+        (result.data!['tool']['error'] as String?) ??
+        '';
   }
 
   Stream<MessageResult> sendMessage(Conversation conversation) {

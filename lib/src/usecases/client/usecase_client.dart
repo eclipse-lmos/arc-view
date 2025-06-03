@@ -17,17 +17,12 @@ class UseCaseClient {
 
   Future<List<UseCase>> getUseCases() async {
     try {
-      final url = Uri.parse(
-        'https://ia-platform-playground-agent.dev.oneai.yo-digital.com/usecases',
-      );
-      final response = await http.post(
-        url,
-      );
+      final url = Uri.parse('https://localhost:8080/usecases');
+      final response = await http.post(url);
       final json = jsonDecode(response.body)['cases'] as List<dynamic>;
       return json
           .map(
-            (it) =>
-            UseCase(
+            (it) => UseCase(
               id: it['id'],
               name: it['name'],
               version: '1.0.0',
@@ -35,7 +30,7 @@ class UseCaseClient {
               content: it['content'],
               readOnly: true,
             ),
-      )
+          )
           .toList();
     } catch (ex) {
       // endpoint not supported.

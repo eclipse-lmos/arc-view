@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import 'package:arc_view/src/client/notifiers/agent_client_notifier.dart';
 import 'package:arc_view/src/core/app_bar_title.dart';
 import 'package:arc_view/src/core/section_title.dart';
 import 'package:arc_view/src/tools/dialogs/show_schema_dialog.dart';
+import 'package:arc_view/src/tools/notifiers/remote_tools_notifier.dart';
 import 'package:arc_view/src/tools/search_tools_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smiles/smiles.dart';
 
 ///
@@ -24,8 +25,6 @@ class ToolsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final client = ref.watch(agentClientNotifierProvider);
-
     return Scaffold(
       appBar: AppBarPanel(
         Column(
@@ -40,24 +39,24 @@ class ToolsScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           VGap.small(),
-          FutureBuilder(
-            future: client.getTools(),
-            builder: (context, snapshot) {
-              final tools = snapshot.data ?? [];
+          Consumer(
+            builder: (context, ref, _) {
+              final tools = ref.watch(remoteToolsNotifierProvider);
 
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (tools.isLoading) {
                 return Center(child: CircularProgressIndicator());
               }
 
-              if (snapshot.hasError || tools.isEmpty) {
+              if (tools.hasError || tools.value?.isNotEmpty != true) {
                 return Center(
                   child: 'Tools cannot be loaded for this Agent.'.txt,
                 );
               }
+
               return Consumer(
                 builder: (context, ref, _) {
                   final filter = ref.watch(toolFilterProvider);
-                  final filteredTools = tools.toList();
+                  final filteredTools = tools.value!.toList();
 
                   // Apply filter if provided
                   if (filter != null) {
@@ -137,16 +136,28 @@ class ToolsScreen extends ConsumerWidget {
                                   ),
                                 ),
                                 Spacer(),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder:
-                                          (_) => ShowSchemaDialog(tool: tool),
-                                    );
-                                  },
-                                  child: 'Show Schema'.txt,
-                                ).toRight(),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder:
+                                              (_) =>
+                                                  ShowSchemaDialog(tool: tool),
+                                        );
+                                      },
+                                      child: 'Show Schema'.txt,
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        context.push('/tool/${tool.name}');
+                                      },
+                                      child: 'Test'.txt,
+                                    ),
+                                  ],
+                                ),
                               ],
                             ).padByUnits(2, 2, 2, 2),
                           ).size(width: 460, height: 320),
