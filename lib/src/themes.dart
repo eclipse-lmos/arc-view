@@ -19,6 +19,9 @@ final darkTheme = ThemeData(
     primaryContainer: Colors.purple,
     secondaryContainer: Colors.blue[900],
   ),
+  dialogTheme: DialogThemeData(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+  ),
   dataTableTheme: DataTableThemeData(headingRowHeight: 36),
   textTheme: TextTheme(
     bodySmall: TextStyle(fontSize: 10.0, color: Colors.white.withOpacity(0.6)),

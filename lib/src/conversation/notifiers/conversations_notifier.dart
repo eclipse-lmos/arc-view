@@ -27,6 +27,7 @@ part 'conversations_notifier.g.dart';
 @Riverpod(keepAlive: true)
 class ConversationsNotifier extends _$ConversationsNotifier {
   final _log = Logger('ConversationNotifier');
+  final _useCaseRegExp = RegExp(r'<USE_CASE:(.*?)>');
 
   @override
   Conversations build() => _build();
@@ -256,14 +257,23 @@ class ConversationsNotifier extends _$ConversationsNotifier {
         ),
         _ => ConversationMessage(
           type: MessageType.bot,
-          content: message.content,
+          content: message.content.replaceAll(_useCaseRegExp, ''),
           conversationId: conversation.conversationId,
           responseTime: value.responseTime,
           agent: value.agent,
           symbols: message.symbols,
+          useCase: _extractUseCaseId(message.content),
         ),
       };
     }).toList();
+  }
+
+  _extractUseCaseId(String content) {
+    final match = _useCaseRegExp.firstMatch(content);
+    if (match != null && match.groupCount > 0) {
+      return match.group(1);
+    }
+    return null;
   }
 
   newConversation({String? conversationId}) {

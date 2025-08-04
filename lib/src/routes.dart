@@ -19,11 +19,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'authentication/login_screen.dart';
-import 'authentication/notifier/token_notifier.dart';
-import 'authentication/splash_screen.dart';
-import 'authentication/util/auth_util.dart';
-
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
 );
@@ -40,9 +35,9 @@ GoRouter createRouter(WidgetRef ref) {
     navigatorKey: _rootNavigatorKey,
     routes: [
       // 1. Splash route
-      GoRoute(path: '/splash', builder: (context, state) => SplashScreen()),
+      // GoRoute(path: '/splash', builder: (context, state) => SplashScreen()),
       // 2. Login route (outside the shell)
-      GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
+      // GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
 
       // 3. The ShellRoute for your main layout & tabs
       ShellRoute(
@@ -106,19 +101,19 @@ GoRouter createRouter(WidgetRef ref) {
     ],
     // 4. Global redirect logic
     redirect: (context, state) {
-      final tokenNotifier = ref.watch(tokenNotifierProvider.notifier);
-      final hasValidToken = tokenNotifier.hasValidToken;
-      final isSplash = state.uri.path == '/splash';
-      final isLogin = state.uri.path == '/login';
-      if (mandatoryLoggedInEnabled()) {
-        if (isSplash) return hasValidToken ? '/' : '/login';
-        //No valid then go to login screen
-        if (!hasValidToken && !isLogin) return '/login';
-        //already login then redirect to home
-        if (hasValidToken && isLogin) return '/';
-        //No redirection required
-        return null;
-      }
+      //final tokenNotifier = ref.watch(tokenNotifierProvider.notifier);
+      //final hasValidToken = tokenNotifier.hasValidToken;
+      //final isSplash = state.uri.path == '/splash';
+      //final isLogin = state.uri.path == '/login';
+      //if (mandatoryLoggedInEnabled()) {
+      //  if (isSplash) return hasValidToken ? '/' : '/login';
+      //No valid then go to login screen
+      // if (!hasValidToken && !isLogin) return '/login';
+      //already login then redirect to home
+      //  if (hasValidToken && isLogin) return '/';
+      //No redirection required
+      // return null;
+      //}
       return null;
     },
   );

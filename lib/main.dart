@@ -5,7 +5,6 @@
  */
 
 import 'package:arc_view/src/app.dart';
-import 'package:arc_view/src/config_loader.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,7 +33,7 @@ Future<void> main() async {
     yield LicenseEntryWithLineBreaks(['Arc View'], apache2);
   });
   //app configuration
-  await Config.loadConfig();
+  // await Config.loadConfig();
   runApp(const ProviderScope(child: MessagingApp()));
 }
 

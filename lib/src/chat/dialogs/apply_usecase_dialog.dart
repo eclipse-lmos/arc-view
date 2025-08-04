@@ -5,7 +5,7 @@
  */
 
 import 'package:arc_view/src/chat/notifiers/selected_usecase_notifier.dart';
-import 'package:arc_view/src/core/secondary_button.dart';
+import 'package:arc_view/src/core/dialog_header.dart';
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,19 +19,9 @@ class ApplyUsecaseDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
-      title:
-          [
-            'Apply Use Cases'.txt,
-            Spacer(),
-            SecondaryButton(
-              icon: Icons.close,
-              description: 'Close Dialog',
-              onPressed: () {
-                context.pop();
-              },
-            ),
-          ].row(),
+      title: DialogHeader('Apply Use Cases'),
       content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
           'Send custom use cases to Agents (The Agent must support the feature).'
@@ -39,7 +29,7 @@ class ApplyUsecaseDialog extends ConsumerWidget {
               .padByUnits(0, 0, 1, 0),
           Divider(),
           _buildList(context, ref)?.expand() ??
-              'No use cases defined'.small.padByUnits(4, 0, 0, 0),
+              'No use cases defined'.small.padByUnits(4, 0, 0, 0).expand(),
         ],
       ).size(height: 300, width: 600),
     );

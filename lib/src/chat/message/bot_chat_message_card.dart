@@ -4,14 +4,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import 'package:arc_view/src/chat/message/copy_to_clipboard_button.dart';
+import 'package:arc_view/src/chat/message/use_case_dialog.dart';
+import 'package:arc_view/src/chat/notifiers/selected_usecase_notifier.dart';
 import 'package:arc_view/src/conversation/models/conversation_message.dart';
 import 'package:arc_view/src/conversation/services/conversation_colors.dart';
+import 'package:arc_view/src/core/dialog_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:markdown/markdown.dart' as md;
 import 'package:smiles/smiles.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:markdown/markdown.dart' as md;
 
 class BotChatMessageCard extends StatelessWidget {
   const BotChatMessageCard({super.key, required this.message});
@@ -20,6 +24,45 @@ class BotChatMessageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return message.useCase != null
+        ? Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildUseCase(context, message.useCase!),
+            _buildMessage(context),
+          ],
+        )
+        : _buildMessage(context);
+  }
+
+  _buildUseCase(BuildContext context, String useCase) {
+    return Consumer(
+      builder:
+          (context, ref, _) => ElevatedButton(
+            child: 'Use Case: ${message.useCase}'.style(size: 12),
+            onPressed: () {
+              final uc = ref.read(selectedUsecaseNotifierProvider);
+              if (uc != null) {
+                showDialog(
+                  context: context,
+                  builder: (_) => UseCaseDialog(uc, name: message.useCase!),
+                );
+              } else {
+                showDialog(
+                  context: context,
+                  builder:
+                      (_) => AlertDialog(
+                        title: DialogHeader('Missing Use Case'),
+                        content: 'No use case found!'.txt,
+                      ),
+                );
+              }
+            },
+          ).padByUnits(0, 0, 0, 1),
+    );
+  }
+
+  Widget _buildMessage(BuildContext context) {
     final theme = Theme.of(context);
     return Card(
       elevation: 6,
@@ -46,8 +89,9 @@ class BotChatMessageCard extends StatelessWidget {
               if (href != null) launchUrlString(href);
             },
             styleSheet: MarkdownStyleSheet.fromTheme(theme).copyWith(
-              code:
-                  TextStyle(fontFamily: theme.textTheme.bodyMedium?.fontFamily),
+              code: TextStyle(
+                fontFamily: theme.textTheme.bodyMedium?.fontFamily,
+              ),
               codeblockDecoration: BoxDecoration(
                 color: theme.colorScheme.onSurface.withOpacity(0.2),
                 // Background for code blocks
@@ -56,9 +100,7 @@ class BotChatMessageCard extends StatelessWidget {
               ),
               codeblockPadding: const EdgeInsets.all(8),
             ),
-            builders: {
-              'code': MarkDownCodeBuilder(),
-            },
+            builders: {'code': MarkDownCodeBuilder()},
           ).padByUnits(3, 2, 6, 2),
           Positioned(
             bottom: 0,
@@ -92,7 +134,7 @@ class MarkDownCodeBuilder extends MarkdownElementBuilder {
 
     return Builder(
       builder: (context) {
-        if(!hasMultipleLines) {
+        if (!hasMultipleLines) {
           return Text(codeContent);
         }
         return Container(
@@ -122,10 +164,7 @@ class MarkDownCodeBuilder extends MarkdownElementBuilder {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
-                              isCopied ? Icons.check : Icons.copy,
-                              size: 20,
-                            ),
+                            Icon(isCopied ? Icons.check : Icons.copy, size: 20),
                             const SizedBox(width: 5),
                             Text(
                               isCopied ? 'Copied' : 'Copy',
@@ -140,9 +179,7 @@ class MarkDownCodeBuilder extends MarkdownElementBuilder {
               const SizedBox(height: 8), // Space between the button and code
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal, // Enable horizontal scroll
-                child: SelectableText(
-                  codeContent,
-                ),
+                child: SelectableText(codeContent),
               ),
             ],
           ),

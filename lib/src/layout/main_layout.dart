@@ -13,7 +13,6 @@ import 'package:smiles/smiles.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../authentication/service/desktop_oidc_service.dart';
-import '../config_loader.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key, required this.child, required this.index});
@@ -87,22 +86,22 @@ class _MainLayoutState extends State<MainLayout> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     const SizedBox(height: 20),
-                    Consumer(
-                      builder: (context, ref, child) {
-                        final oidcEnabled = Config.get(
-                          "openid.enabled",
-                          defaultValue: false,
-                        );
-                        if (!oidcEnabled) return SizedBox.shrink();
-                        return IconButton(
-                          icon:
-                              _isLoading
-                                  ? CircularProgressIndicator()
-                                  : Icon(Icons.logout, color: Colors.red),
-                          onPressed: () => _handleLogout(context, ref),
-                        );
-                      },
-                    ),
+                    //  Consumer(
+                    //    builder: (context, ref, child) {
+                    //               final oidcEnabled = Config.get(
+                    //                "openid.enabled",
+                    //                defaultValue: false,
+                    //              );
+                    //            if (!oidcEnabled) return SizedBox.shrink();
+                    //            return IconButton(
+                    //                icon:
+                    //                    _isLoading
+                    //                      ? CircularProgressIndicator()
+                    //                      : Icon(Icons.logout, color: Colors.red),
+                    //                onPressed: () => _handleLogout(context, ref),
+                    //              );
+                    //          },
+                    //      ),
                     const SizedBox(height: 10),
                     InkWell(
                       onTap: () {

@@ -36,7 +36,12 @@ class PromptView extends StatelessWidget {
           ),
         ],
       ),
-      children: [prompt.txt.padByUnits(3, 3, 3, 3)],
+      children: [
+        ColoredBox(
+          color: context.colorScheme.surface,
+          child: prompt.txt.padByUnits(3, 3, 3, 3),
+        ).padByUnits(2, 2, 2, 2),
+      ],
     );
   }
 }

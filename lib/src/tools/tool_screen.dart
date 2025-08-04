@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'package:arc_view/src/core/text.dart';
 import 'package:arc_view/src/tools/notifiers/remote_tools_notifier.dart';
 import 'package:arc_view/src/tools/notifiers/tool_execution_notifier.dart';
 import 'package:flutter/material.dart';
@@ -114,7 +115,7 @@ class _ToolScreenState extends State<ToolScreen> {
                             builder: (context, ref, child) {
                               return ref
                                   .watch(toolExecutionNotifierProvider)
-                                  .txt;
+                                  .markDown();
                             },
                           ).padByUnits(2, 2, 2, 2),
                         ),
