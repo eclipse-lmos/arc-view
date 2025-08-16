@@ -24,15 +24,32 @@ class BotChatMessageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return message.useCase != null
+    return message.useCase != null || message.toolCalls != null
         ? Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildUseCase(context, message.useCase!),
+            if (message.useCase != null)
+              _buildUseCase(context, message.useCase!),
             _buildMessage(context),
+            if (message.toolCalls != null)
+              _buildToolCalls(context, message.toolCalls!),
           ],
         )
         : _buildMessage(context);
+  }
+
+  _buildToolCalls(BuildContext context, List<String> toolCalls) {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        for (var tool in toolCalls)
+          Chip(
+            padding: const EdgeInsets.all(0),
+            label: '@$tool'.style(size: 12),
+          ),
+      ],
+    ).padByUnits(0, 2, 0, 1).max(width: 600);
   }
 
   _buildUseCase(BuildContext context, String useCase) {

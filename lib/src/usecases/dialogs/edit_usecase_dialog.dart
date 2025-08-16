@@ -32,29 +32,33 @@ class _EditUseCaseDialogState extends State<EditUseCaseDialog> {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, ref, _) => AlertDialog(
-        title: Text('Edit Use Case'),
-        content: TextField(
-          controller: _textController..text = widget.content,
-          minLines: 20,
-          maxLines: null,
-        ).min(width: 560, height: 0),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('Cancel'),
+      builder:
+          (context, ref, _) => AlertDialog(
+            title: Text('Edit Use Case'),
+            content: ColoredBox(
+              color: context.colorScheme.surface,
+              child: TextField(
+                controller: _textController..text = widget.content,
+                minLines: 20,
+                maxLines: null,
+              ).min(width: 560, height: 0).padByUnits(2, 2, 2, 2),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  widget.onSave(_textController.text);
+                  Navigator.of(context).pop();
+                },
+                child: Text('Save'),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              widget.onSave(_textController.text);
-              Navigator.of(context).pop();
-            },
-            child: Text('Save'),
-          ),
-        ],
-      ),
     );
   }
 
@@ -74,12 +78,13 @@ showAddUseCaseDialog(String useCaseId, BuildContext context, WidgetRef ref) {
     context: context,
     builder: (context) {
       return EditUseCaseDialog(
-          content: addUseCaseTemplate,
-          onSave: (text) {
-            ref
-                .read(useCasesNotifierProvider.notifier)
-                .addUseCaseChapter(useCaseId, text);
-          });
+        content: addUseCaseTemplate,
+        onSave: (text) {
+          ref
+              .read(useCasesNotifierProvider.notifier)
+              .addUseCaseChapter(useCaseId, text);
+        },
+      );
     },
   );
 }
@@ -95,10 +100,11 @@ showEditUseCaseDialog(
     context: context,
     builder: (context) {
       return EditUseCaseDialog(
-          content: useCases[selected].$2,
-          onSave: (text) {
-            _saveUseCase(text, useCases, selected, ref, useCaseId);
-          });
+        content: useCases[selected].$2,
+        onSave: (text) {
+          _saveUseCase(text, useCases, selected, ref, useCaseId);
+        },
+      );
     },
   );
 }

@@ -105,6 +105,8 @@ class OneAIClient {
           responseTime: -1.0,
           agent: agent,
           error: e.exception.toString(),
+          context: {},
+          toolCalls: [],
         );
       }
       final data = e.data!['agent'];
@@ -127,6 +129,13 @@ class OneAIClient {
 
       return (
         messages: messages,
+        toolCalls: [
+          for (var entry in data['toolCalls'] ?? []) entry['name'].toString(),
+        ],
+        context: {
+          for (var entry in data['context'])
+            entry['key']: entry['value'].toString(),
+        },
         responseTime: data['responseTime'],
         agent: agent,
         error: null,

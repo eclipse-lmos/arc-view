@@ -262,7 +262,8 @@ class ConversationsNotifier extends _$ConversationsNotifier {
           responseTime: value.responseTime,
           agent: value.agent,
           symbols: message.symbols,
-          useCase: _extractUseCaseId(message.content),
+          useCase: value.context['useCase'],
+          toolCalls: value.toolCalls,
         ),
       };
     }).toList();

@@ -9,9 +9,12 @@ import 'package:arc_view/src/client/models/message.dart';
 ///
 /// The message returned by the Agent server.
 ///
-typedef MessageResult = ({
-  List<Message> messages,
-  double? responseTime,
-  String agent,
-  String? error
-});
+typedef MessageResult =
+    ({
+      List<Message> messages,
+      double? responseTime,
+      String agent,
+      String? error,
+      List<String> toolCalls,
+      Map<String, String> context,
+    });

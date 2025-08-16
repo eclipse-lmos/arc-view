@@ -80,6 +80,8 @@ class A2aClient implements OneAIClient {
       responseTime: -1.0,
       error: null,
       agent: 'test',
+      toolCalls: [], // TODO
+      context: {}, // TODO
     );
   }
 

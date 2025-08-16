@@ -27,6 +27,13 @@ agentSubscription() {
       messages {
         content
       }
+      context {
+         key
+         value
+      }
+      toolCalls {
+         name 
+      }
     }
 }
   ''');

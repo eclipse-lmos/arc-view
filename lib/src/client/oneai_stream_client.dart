@@ -43,24 +43,25 @@ class OneAIStreamClient {
       "payload": {
         "conversationContext": {
           "conversationId": conversation.conversationId,
-          "anonymizationEntities": []
+          "anonymizationEntities": [],
         },
-        "systemContext": conversation.systemContext.entries
-            .map((e) => {
-                  'key': e.key,
-                  'value': e.value,
-                })
-            .toList(),
+        "systemContext":
+            conversation.systemContext.entries
+                .map((e) => {'key': e.key, 'value': e.value})
+                .toList(),
         "userContext": conversation.userContext.toJson(),
-        "messages": conversation.messages
-            .map((e) => {
-                  'content': e.content,
-                  'role': e.type == MessageType.user ? 'user' : 'assistant',
-                  'format': 'text',
-                  'binaryData': e.binaryData
-                })
-            .toList(),
-      }
+        "messages":
+            conversation.messages
+                .map(
+                  (e) => {
+                    'content': e.content,
+                    'role': e.type == MessageType.user ? 'user' : 'assistant',
+                    'format': 'text',
+                    'binaryData': e.binaryData,
+                  },
+                )
+                .toList(),
+      },
     };
     channel.sink.add(jsonEncode(payload));
     data.listen((d) {
@@ -77,10 +78,12 @@ class OneAIStreamClient {
         _log.fine('Received message: $message');
         final agentResult = AgentResult.fromJson(jsonDecode(message));
         return (
+          context: {}, // TODO
           messages: agentResult.messages,
           responseTime: agentResult.responseTime,
           agent: agent,
-          error: null
+          toolCalls: [], // TODO
+          error: null,
         );
       } else {
         _log.fine('Received binary message');
@@ -98,7 +101,9 @@ class OneAIStreamClient {
         messages: List.empty(),
         responseTime: -1,
         agent: agent,
-        error: null
+        error: null,
+        context: {},
+        toolCalls: [],
       );
     });
   }

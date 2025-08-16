@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ConversationMessage {
 
- String get id; MessageType get type; String get conversationId; String get content; List<BinaryData>? get binaryData; double? get responseTime; String? get agent; String? get useCase; Set<String>? get symbols;
+ String get id; MessageType get type; String get conversationId; String get content; List<BinaryData>? get binaryData; double? get responseTime; String? get agent; String? get useCase; Set<String>? get symbols; List<String>? get toolCalls;
 /// Create a copy of ConversationMessage
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $ConversationMessageCopyWith<ConversationMessage> get copyWith => _$Conversation
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConversationMessage&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.conversationId, conversationId) || other.conversationId == conversationId)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other.binaryData, binaryData)&&(identical(other.responseTime, responseTime) || other.responseTime == responseTime)&&(identical(other.agent, agent) || other.agent == agent)&&(identical(other.useCase, useCase) || other.useCase == useCase)&&const DeepCollectionEquality().equals(other.symbols, symbols));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConversationMessage&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.conversationId, conversationId) || other.conversationId == conversationId)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other.binaryData, binaryData)&&(identical(other.responseTime, responseTime) || other.responseTime == responseTime)&&(identical(other.agent, agent) || other.agent == agent)&&(identical(other.useCase, useCase) || other.useCase == useCase)&&const DeepCollectionEquality().equals(other.symbols, symbols)&&const DeepCollectionEquality().equals(other.toolCalls, toolCalls));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,type,conversationId,content,const DeepCollectionEquality().hash(binaryData),responseTime,agent,useCase,const DeepCollectionEquality().hash(symbols));
+int get hashCode => Object.hash(runtimeType,id,type,conversationId,content,const DeepCollectionEquality().hash(binaryData),responseTime,agent,useCase,const DeepCollectionEquality().hash(symbols),const DeepCollectionEquality().hash(toolCalls));
 
 @override
 String toString() {
-  return 'ConversationMessage(id: $id, type: $type, conversationId: $conversationId, content: $content, binaryData: $binaryData, responseTime: $responseTime, agent: $agent, useCase: $useCase, symbols: $symbols)';
+  return 'ConversationMessage(id: $id, type: $type, conversationId: $conversationId, content: $content, binaryData: $binaryData, responseTime: $responseTime, agent: $agent, useCase: $useCase, symbols: $symbols, toolCalls: $toolCalls)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $ConversationMessageCopyWith<$Res>  {
   factory $ConversationMessageCopyWith(ConversationMessage value, $Res Function(ConversationMessage) _then) = _$ConversationMessageCopyWithImpl;
 @useResult
 $Res call({
- MessageType type, String conversationId, String content, List<BinaryData>? binaryData, double? responseTime, String? agent, String? useCase, Set<String>? symbols, String? id
+ MessageType type, String conversationId, String content, List<BinaryData>? binaryData, double? responseTime, String? agent, String? useCase, Set<String>? symbols, List<String>? toolCalls, String? id
 });
 
 
@@ -66,7 +66,7 @@ class _$ConversationMessageCopyWithImpl<$Res>
 
 /// Create a copy of ConversationMessage
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? conversationId = null,Object? content = null,Object? binaryData = freezed,Object? responseTime = freezed,Object? agent = freezed,Object? useCase = freezed,Object? symbols = freezed,Object? id = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? conversationId = null,Object? content = null,Object? binaryData = freezed,Object? responseTime = freezed,Object? agent = freezed,Object? useCase = freezed,Object? symbols = freezed,Object? toolCalls = freezed,Object? id = freezed,}) {
   return _then(_self.copyWith(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as MessageType,conversationId: null == conversationId ? _self.conversationId : conversationId // ignore: cast_nullable_to_non_nullable
@@ -76,7 +76,8 @@ as List<BinaryData>?,responseTime: freezed == responseTime ? _self.responseTime 
 as double?,agent: freezed == agent ? _self.agent : agent // ignore: cast_nullable_to_non_nullable
 as String?,useCase: freezed == useCase ? _self.useCase : useCase // ignore: cast_nullable_to_non_nullable
 as String?,symbols: freezed == symbols ? _self.symbols : symbols // ignore: cast_nullable_to_non_nullable
-as Set<String>?,id: freezed == id ? _self.id! : id // ignore: cast_nullable_to_non_nullable
+as Set<String>?,toolCalls: freezed == toolCalls ? _self.toolCalls : toolCalls // ignore: cast_nullable_to_non_nullable
+as List<String>?,id: freezed == id ? _self.id! : id // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -88,7 +89,7 @@ as String?,
 @JsonSerializable()
 
 class _ConversationMessage extends ConversationMessage {
-   _ConversationMessage({required this.type, required this.conversationId, required this.content, final  List<BinaryData>? binaryData, this.responseTime, this.agent, this.useCase, final  Set<String>? symbols, final  String? id}): _binaryData = binaryData,_symbols = symbols,super._(id: id);
+   _ConversationMessage({required this.type, required this.conversationId, required this.content, final  List<BinaryData>? binaryData, this.responseTime, this.agent, this.useCase, final  Set<String>? symbols, final  List<String>? toolCalls, final  String? id}): _binaryData = binaryData,_symbols = symbols,_toolCalls = toolCalls,super._(id: id);
   factory _ConversationMessage.fromJson(Map<String, dynamic> json) => _$ConversationMessageFromJson(json);
 
 @override final  MessageType type;
@@ -115,6 +116,15 @@ class _ConversationMessage extends ConversationMessage {
   return EqualUnmodifiableSetView(value);
 }
 
+ final  List<String>? _toolCalls;
+@override List<String>? get toolCalls {
+  final value = _toolCalls;
+  if (value == null) return null;
+  if (_toolCalls is EqualUnmodifiableListView) return _toolCalls;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
 
 /// Create a copy of ConversationMessage
 /// with the given fields replaced by the non-null parameter values.
@@ -129,16 +139,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConversationMessage&&(identical(other.type, type) || other.type == type)&&(identical(other.conversationId, conversationId) || other.conversationId == conversationId)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other._binaryData, _binaryData)&&(identical(other.responseTime, responseTime) || other.responseTime == responseTime)&&(identical(other.agent, agent) || other.agent == agent)&&(identical(other.useCase, useCase) || other.useCase == useCase)&&const DeepCollectionEquality().equals(other._symbols, _symbols)&&(identical(other.id, id) || other.id == id));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConversationMessage&&(identical(other.type, type) || other.type == type)&&(identical(other.conversationId, conversationId) || other.conversationId == conversationId)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other._binaryData, _binaryData)&&(identical(other.responseTime, responseTime) || other.responseTime == responseTime)&&(identical(other.agent, agent) || other.agent == agent)&&(identical(other.useCase, useCase) || other.useCase == useCase)&&const DeepCollectionEquality().equals(other._symbols, _symbols)&&const DeepCollectionEquality().equals(other._toolCalls, _toolCalls)&&(identical(other.id, id) || other.id == id));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,type,conversationId,content,const DeepCollectionEquality().hash(_binaryData),responseTime,agent,useCase,const DeepCollectionEquality().hash(_symbols),id);
+int get hashCode => Object.hash(runtimeType,type,conversationId,content,const DeepCollectionEquality().hash(_binaryData),responseTime,agent,useCase,const DeepCollectionEquality().hash(_symbols),const DeepCollectionEquality().hash(_toolCalls),id);
 
 @override
 String toString() {
-  return 'ConversationMessage(type: $type, conversationId: $conversationId, content: $content, binaryData: $binaryData, responseTime: $responseTime, agent: $agent, useCase: $useCase, symbols: $symbols, id: $id)';
+  return 'ConversationMessage(type: $type, conversationId: $conversationId, content: $content, binaryData: $binaryData, responseTime: $responseTime, agent: $agent, useCase: $useCase, symbols: $symbols, toolCalls: $toolCalls, id: $id)';
 }
 
 
@@ -149,7 +159,7 @@ abstract mixin class _$ConversationMessageCopyWith<$Res> implements $Conversatio
   factory _$ConversationMessageCopyWith(_ConversationMessage value, $Res Function(_ConversationMessage) _then) = __$ConversationMessageCopyWithImpl;
 @override @useResult
 $Res call({
- MessageType type, String conversationId, String content, List<BinaryData>? binaryData, double? responseTime, String? agent, String? useCase, Set<String>? symbols, String? id
+ MessageType type, String conversationId, String content, List<BinaryData>? binaryData, double? responseTime, String? agent, String? useCase, Set<String>? symbols, List<String>? toolCalls, String? id
 });
 
 
@@ -166,7 +176,7 @@ class __$ConversationMessageCopyWithImpl<$Res>
 
 /// Create a copy of ConversationMessage
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? conversationId = null,Object? content = null,Object? binaryData = freezed,Object? responseTime = freezed,Object? agent = freezed,Object? useCase = freezed,Object? symbols = freezed,Object? id = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? conversationId = null,Object? content = null,Object? binaryData = freezed,Object? responseTime = freezed,Object? agent = freezed,Object? useCase = freezed,Object? symbols = freezed,Object? toolCalls = freezed,Object? id = freezed,}) {
   return _then(_ConversationMessage(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as MessageType,conversationId: null == conversationId ? _self.conversationId : conversationId // ignore: cast_nullable_to_non_nullable
@@ -176,7 +186,8 @@ as List<BinaryData>?,responseTime: freezed == responseTime ? _self.responseTime 
 as double?,agent: freezed == agent ? _self.agent : agent // ignore: cast_nullable_to_non_nullable
 as String?,useCase: freezed == useCase ? _self.useCase : useCase // ignore: cast_nullable_to_non_nullable
 as String?,symbols: freezed == symbols ? _self._symbols : symbols // ignore: cast_nullable_to_non_nullable
-as Set<String>?,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as Set<String>?,toolCalls: freezed == toolCalls ? _self._toolCalls : toolCalls // ignore: cast_nullable_to_non_nullable
+as List<String>?,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

@@ -22,6 +22,7 @@ sealed class ConversationMessage with _$ConversationMessage {
     String? agent,
     String? useCase,
     Set<String>? symbols,
+    List<String>? toolCalls,
     String? id,
   }) = _ConversationMessage;
 
