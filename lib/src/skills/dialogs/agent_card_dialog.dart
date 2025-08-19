@@ -21,7 +21,12 @@ class AgentCardDialog extends StatelessWidget {
     return Consumer(
       builder: (context, ref, _) {
         return AlertDialog(
-          title: DialogHeader('Agent Card'),
+          title: DialogHeader(
+            'Agent Card',
+            subtitle: 'Displays the capabilities of the Agent',
+          ),
+          titlePadding: const EdgeInsets.all(0),
+          // contentPadding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
           content: FutureBuilder<AgentCard>(
             future: AgentCardRetriever().getAgentCard(agentUrl),
             builder: (context, snapshot) {

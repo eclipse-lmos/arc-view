@@ -19,7 +19,12 @@ class ApplyUsecaseDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
-      title: DialogHeader('Apply Use Cases'),
+      title: DialogHeader(
+        'Apply Use Cases',
+        subtitle: 'Select a use case to apply',
+      ),
+      titlePadding: const EdgeInsets.all(0),
+      // contentPadding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,

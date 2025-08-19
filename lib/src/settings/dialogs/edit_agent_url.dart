@@ -6,12 +6,11 @@
 
 import 'package:arc_view/src/client/notifiers/agent_url_notifier.dart';
 import 'package:arc_view/src/client/notifiers/agents_notifier.dart';
-import 'package:arc_view/src/core/secondary_button.dart';
+import 'package:arc_view/src/core/dialog_header.dart';
 import 'package:arc_view/src/settings/notifiers/env_notifier.dart';
 import 'package:arc_view/src/usecases/search/syntax_text_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:smiles/smiles.dart';
 
 class EditAgentUrl extends StatefulWidget {
@@ -37,18 +36,11 @@ class _EditAgentUrlState extends State<EditAgentUrl> {
 
         return AlertDialog(
           shape: BeveledRectangleBorder(),
-          title:
-              [
-                Text('Connect To Agent'),
-                Spacer(),
-                SecondaryButton(
-                  icon: Icons.close,
-                  description: 'Close Dialog',
-                  onPressed: () {
-                    context.pop();
-                  },
-                ),
-              ].row(),
+          title: DialogHeader(
+            'Connect To Agent',
+            subtitle: 'Connect to a local or remote Agent',
+          ),
+          titlePadding: const EdgeInsets.all(0),
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -69,7 +69,14 @@ class BotChatMessageCard extends StatelessWidget {
                   context: context,
                   builder:
                       (_) => AlertDialog(
-                        title: DialogHeader('Missing Use Case'),
+                        title: DialogHeader('Missing Use Case', subtitle: ''),
+                        titlePadding: const EdgeInsets.all(0),
+                        contentPadding: const EdgeInsets.fromLTRB(
+                          24,
+                          0,
+                          24,
+                          24,
+                        ),
                         content: 'No use case found!'.txt,
                       ),
                 );

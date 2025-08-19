@@ -20,7 +20,11 @@ class UseCaseDialog extends StatelessWidget {
 
     return AlertDialog(
       contentPadding: const EdgeInsets.all(0),
-      title: DialogHeader('UseCase: ${useCase.name}'),
+      title: DialogHeader(
+        'UseCase: ${useCase.name}',
+        subtitle: useCase.description ?? '',
+      ),
+      titlePadding: const EdgeInsets.all(0),
       content: ColoredBox(
         color: context.colorScheme.surface,
         child: content.txt.padByUnits(2, 2, 2, 2),

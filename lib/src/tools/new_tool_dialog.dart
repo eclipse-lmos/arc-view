@@ -56,7 +56,9 @@ class _NewToolDialogState extends State<NewToolDialog> {
     return AlertDialog(
       title: DialogHeader(
         (widget.tool != null) ? 'Edit Test Tool' : 'Add New Test Tool',
+        subtitle: 'Simulate a tool for testing purposes',
       ),
+      titlePadding: const EdgeInsets.all(0),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

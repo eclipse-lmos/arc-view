@@ -17,6 +17,7 @@ import 'package:arc_view/src/usecases/search/search_panel.dart';
 import 'package:arc_view/src/usecases/search/syntax_text_controller.dart';
 import 'package:arc_view/src/usecases/services/usecase_exporter.dart';
 import 'package:arc_view/src/usecases/usecase_overview_panel.dart';
+import 'package:arc_view/src/usecases/usecase_section_list.dart';
 import 'package:arc_view/src/usecases/usecase_syntax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -80,6 +81,10 @@ class _UseCasePanelState extends State<UseCasePanel> {
                   SectionTitle(
                     text: 'Overview (${selectedCase.sections.length})',
                   ).padByUnits(0, 0, 0, 2),
+                HGap(),
+                HGap(),
+                HGap(),
+                if (!_showSource) _SearchPanel().size(width: 300),
                 Spacer(),
                 if (_showSource && findLines.isNotEmpty) ...[
                   SecondaryButton(
@@ -215,6 +220,50 @@ class _UseCasePanelState extends State<UseCasePanel> {
   @override
   void dispose() {
     _debounce?.cancel();
+    _textController.dispose();
+    super.dispose();
+  }
+}
+
+///
+/// Search Panel
+///
+///
+
+class _SearchPanel extends ConsumerStatefulWidget {
+  const _SearchPanel({super.key});
+
+  @override
+  SearchToolsPanelState createState() => SearchToolsPanelState();
+}
+
+class SearchToolsPanelState extends ConsumerState<_SearchPanel> {
+  final _textController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cleared = ref.watch(overviewFilterProvider.select((e) => e == null));
+
+    if (cleared) {
+      _textController.clear();
+    }
+
+    return SearchBar(
+      controller: _textController,
+      textStyle: WidgetStatePropertyAll<TextStyle>(theme.textTheme.bodyMedium!),
+      constraints: BoxConstraints(maxHeight: 80),
+      padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.all(4)),
+      onChanged: (text) {
+        final state = text.trim().isEmpty ? null : text;
+        ref.read(overviewFilterProvider.notifier).state = state;
+      },
+      leading: const Icon(Icons.search, size: 20).padByUnits(0, 1, 0, 1),
+    );
+  }
+
+  @override
+  void dispose() {
     _textController.dispose();
     super.dispose();
   }

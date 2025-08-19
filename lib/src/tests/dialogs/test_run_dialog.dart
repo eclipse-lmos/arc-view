@@ -28,7 +28,12 @@ class TestRunDialogState extends State<TestRunDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: DialogHeader('TestCase: ${widget.testRun.testCase.name}'),
+      title: DialogHeader(
+        'TestCase: ${widget.testRun.testCase.name}',
+        subtitle: '',
+      ),
+      titlePadding: const EdgeInsets.all(0),
+      // contentPadding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
       content: Column(
         children: [
           const Divider(),

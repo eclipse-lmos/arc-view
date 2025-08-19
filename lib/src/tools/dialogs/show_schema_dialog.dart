@@ -21,7 +21,9 @@ class ShowSchemaDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
-      title: DialogHeader('Tool: ${tool.name}'),
+      title: DialogHeader('Tool: ${tool.name}', subtitle: ''),
+      titlePadding: const EdgeInsets.all(0),
+      // contentPadding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
       content: ColoredBox(
         color: context.colorScheme.surface,
         child: InputDecorator(

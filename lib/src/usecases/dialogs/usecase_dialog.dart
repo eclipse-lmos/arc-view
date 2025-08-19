@@ -50,7 +50,12 @@ class UseCaseDialogState extends State<UseCaseDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: DialogHeader(widget.title),
+      title: DialogHeader(
+        widget.title,
+        subtitle: 'Provide the details of the UseCase.',
+      ),
+      titlePadding: const EdgeInsets.all(0),
+      // contentPadding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

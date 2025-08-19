@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'package:arc_view/src/core/dialog_header.dart';
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
 import 'package:arc_view/src/usecases/search/syntax_text_controller.dart';
 import 'package:arc_view/src/usecases/usecase_syntax.dart';
@@ -34,7 +35,11 @@ class _EditUseCaseDialogState extends State<EditUseCaseDialog> {
     return Consumer(
       builder:
           (context, ref, _) => AlertDialog(
-            title: Text('Edit Use Case'),
+            title: DialogHeader(
+              'Edit Use Case',
+              subtitle: 'Update the Use Case.',
+            ),
+            titlePadding: const EdgeInsets.all(0),
             content: ColoredBox(
               color: context.colorScheme.surface,
               child: TextField(

@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smiles/smiles.dart';
 
+final overviewFilterProvider = StateProvider<String?>((ref) => null);
+
 class UseCaseSectionList extends ConsumerWidget {
   const UseCaseSectionList({
     super.key,
@@ -29,17 +31,29 @@ class UseCaseSectionList extends ConsumerWidget {
     final selectedCase = ref.watch(
       useCasesNotifierProvider.select((u) => u.valueOrNull?.getById(useCaseId)),
     );
+    final filter = ref.watch(overviewFilterProvider);
+    final filteredSections = sections.toList();
+
+    // Apply filter if provided
+    if (filter != null) {
+      filteredSections.retainWhere(
+        (uc) => uc.$1.toLowerCase().contains(filter.toLowerCase()),
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         VGap(),
         ListView.builder(
-          itemCount: sections.length,
+          itemCount: filteredSections.length,
           itemBuilder:
               (context, i) => HoverableListTile(
-                title: '> ${sections[i].$1.substringAfter(':').trim()}'.txt,
+                title:
+                    '> ${filteredSections[i].$1.substringAfter(':').trim()}'
+                        .txt,
                 onTap: () {
-                  onSelect(i, sections[i].$1);
+                  onSelect(i, filteredSections[i].$1);
                 },
                 buttons: [
                   if (selectedCase?.readOnly != true)
@@ -50,7 +64,7 @@ class UseCaseSectionList extends ConsumerWidget {
                         showEditUseCaseDialog(
                           context,
                           i,
-                          sections,
+                          filteredSections,
                           ref,
                           useCaseId,
                         );
@@ -62,7 +76,7 @@ class UseCaseSectionList extends ConsumerWidget {
                       confirming: true,
                       description: 'Delete Use Case',
                       onPressed: () {
-                        _deleteUseCase(sections, i, ref, useCaseId);
+                        _deleteUseCase(filteredSections, i, ref, useCaseId);
                       },
                     ),
                 ],
