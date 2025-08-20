@@ -15,6 +15,6 @@ typedef MessageResult =
       double? responseTime,
       String agent,
       String? error,
-      List<String> toolCalls,
+      List<String>? toolCalls,
       Map<String, String> context,
     });

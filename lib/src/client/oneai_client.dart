@@ -133,7 +133,7 @@ class OneAIClient {
           for (var entry in data['toolCalls'] ?? []) entry['name'].toString(),
         ],
         context: {
-          for (var entry in data['context'])
+          for (var entry in data['context'] ?? [])
             entry['key']: entry['value'].toString(),
         },
         responseTime: data['responseTime'],
