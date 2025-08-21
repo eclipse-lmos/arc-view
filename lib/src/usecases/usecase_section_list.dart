@@ -12,7 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smiles/smiles.dart';
 
-final overviewFilterProvider = StateProvider<String?>((ref) => null);
+final overviewFilterProvider = StateProvider.autoDispose<String?>(
+  (ref) => null,
+);
 
 class UseCaseSectionList extends ConsumerWidget {
   const UseCaseSectionList({
