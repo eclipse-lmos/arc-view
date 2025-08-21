@@ -39,7 +39,15 @@ class _UsecaseOverviewPanelState extends State<UsecaseOverviewPanel> {
           ),
         );
         if (selectedCase == null) return ''.txt;
-        final sections = selectedCase.sections;
+        final filter = ref.watch(overviewFilterProvider);
+        final sections = selectedCase.sections.toList();
+
+        // Apply filter if provided
+        if (filter != null) {
+          sections.retainWhere(
+            (uc) => uc.$1.toLowerCase().contains(filter.toLowerCase()),
+          );
+        }
         final sectionKeys = sections.map((s) => GlobalKey()).toList();
 
         return Row(

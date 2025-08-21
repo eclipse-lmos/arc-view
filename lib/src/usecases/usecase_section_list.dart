@@ -31,29 +31,18 @@ class UseCaseSectionList extends ConsumerWidget {
     final selectedCase = ref.watch(
       useCasesNotifierProvider.select((u) => u.valueOrNull?.getById(useCaseId)),
     );
-    final filter = ref.watch(overviewFilterProvider);
-    final filteredSections = sections.toList();
-
-    // Apply filter if provided
-    if (filter != null) {
-      filteredSections.retainWhere(
-        (uc) => uc.$1.toLowerCase().contains(filter.toLowerCase()),
-      );
-    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         VGap(),
         ListView.builder(
-          itemCount: filteredSections.length,
+          itemCount: sections.length,
           itemBuilder:
               (context, i) => HoverableListTile(
-                title:
-                    '> ${filteredSections[i].$1.substringAfter(':').trim()}'
-                        .txt,
+                title: '> ${sections[i].$1.substringAfter(':').trim()}'.txt,
                 onTap: () {
-                  onSelect(i, filteredSections[i].$1);
+                  onSelect(i, sections[i].$1);
                 },
                 buttons: [
                   if (selectedCase?.readOnly != true)
@@ -64,7 +53,7 @@ class UseCaseSectionList extends ConsumerWidget {
                         showEditUseCaseDialog(
                           context,
                           i,
-                          filteredSections,
+                          sections,
                           ref,
                           useCaseId,
                         );
@@ -76,7 +65,7 @@ class UseCaseSectionList extends ConsumerWidget {
                       confirming: true,
                       description: 'Delete Use Case',
                       onPressed: () {
-                        _deleteUseCase(filteredSections, i, ref, useCaseId);
+                        _deleteUseCase(sections, i, ref, useCaseId);
                       },
                     ),
                 ],
