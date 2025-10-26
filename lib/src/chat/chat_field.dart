@@ -29,7 +29,7 @@ class ChatField extends ConsumerWidget {
   }
 
   _agentAvailable(WidgetRef ref) {
-    final agents = ref.watch(agentsNotifierProvider);
+    final agents = ref.watch(agentsProvider);
     return agents.hasValue && agents.value?.names.isNotEmpty == true;
   }
 }

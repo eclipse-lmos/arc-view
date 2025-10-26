@@ -15,8 +15,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'events_to_metrics_converter.g.dart';
 
 @riverpod
-EventsToMetricsConverter eventsToMetricsConverter(
-    EventsToMetricsConverterRef ref) {
+EventsToMetricsConverter eventsToMetricsConverter(ref) {
   return EventsToMetricsConverter();
 }
 
@@ -27,10 +26,13 @@ class EventsToMetricsConverter {
   }
 
   List<Metrics> _convert(List<AgentEvent> events) {
-    final filteredEvents =
-        events.where((e) => e.conversationId?.isNotEmpty == true);
-    Map<String, List<AgentEvent>> groupedEvents =
-        groupBy(filteredEvents, (e) => e.conversationId ?? '');
+    final filteredEvents = events.where(
+      (e) => e.conversationId?.isNotEmpty == true,
+    );
+    Map<String, List<AgentEvent>> groupedEvents = groupBy(
+      filteredEvents,
+      (e) => e.conversationId ?? '',
+    );
 
     return groupedEvents.keys.map((key) {
       final conversationId = key.toString();
@@ -39,8 +41,11 @@ class EventsToMetricsConverter {
 
       for (var i = events.length - 1; i >= 0; i--) {
         final event = events[i];
-        final plots =
-            _transformEvent(event.type, jsonDecode(event.payload), allPlots);
+        final plots = _transformEvent(
+          event.type,
+          jsonDecode(event.payload),
+          allPlots,
+        );
         for (var entry in plots.entries) {
           allPlots[entry.key] =
               (allPlots[entry.key]?..add(entry.value)) ?? [entry.value];
@@ -56,33 +61,43 @@ class EventsToMetricsConverter {
   }
 
   Map<PlotType, Plot> _transformEvent(
-      String type, dynamic json, Map<PlotType, List<Plot>> allPlots) {
+    String type,
+    dynamic json,
+    Map<PlotType, List<Plot>> allPlots,
+  ) {
     return switch (type) {
       'AgentFinishedEvent' => {
-          PlotType.agentDuration: Plot(
-              x: allPlots[PlotType.agentDuration]?.length.toDouble() ?? 0,
-              y: json['duration'].toDouble()),
-          PlotType.agentBreaks: Plot(
-              x: allPlots[PlotType.agentBreaks]?.length.toDouble() ?? 0,
-              y: json['flowBreak'] ? 1.0 : 0.0),
-        },
+        PlotType.agentDuration: Plot(
+          x: allPlots[PlotType.agentDuration]?.length.toDouble() ?? 0,
+          y: json['duration'].toDouble(),
+        ),
+        PlotType.agentBreaks: Plot(
+          x: allPlots[PlotType.agentBreaks]?.length.toDouble() ?? 0,
+          y: json['flowBreak'] ? 1.0 : 0.0,
+        ),
+      },
       'LLMFinishedEvent' => {
-          PlotType.llmTotalTokens: Plot(
-              x: allPlots[PlotType.llmTotalTokens]?.length.toDouble() ?? 0,
-              y: json['totalTokens'].toDouble()),
-          PlotType.llmFunctionCalls: Plot(
-              x: allPlots[PlotType.llmFunctionCalls]?.length.toDouble() ?? 0,
-              y: json['functionCallCount'].toDouble()),
-          PlotType.llmPromptTokens: Plot(
-              x: allPlots[PlotType.llmPromptTokens]?.length.toDouble() ?? 0,
-              y: json['promptTokens'].toDouble()),
-          PlotType.llmCompletionTokens: Plot(
-              x: allPlots[PlotType.llmCompletionTokens]?.length.toDouble() ?? 0,
-              y: json['completionTokens'].toDouble()),
-          PlotType.llmDuration: Plot(
-              x: allPlots[PlotType.llmDuration]?.length.toDouble() ?? 0,
-              y: json['duration'].toDouble()),
-        },
+        PlotType.llmTotalTokens: Plot(
+          x: allPlots[PlotType.llmTotalTokens]?.length.toDouble() ?? 0,
+          y: json['totalTokens'].toDouble(),
+        ),
+        PlotType.llmFunctionCalls: Plot(
+          x: allPlots[PlotType.llmFunctionCalls]?.length.toDouble() ?? 0,
+          y: json['functionCallCount'].toDouble(),
+        ),
+        PlotType.llmPromptTokens: Plot(
+          x: allPlots[PlotType.llmPromptTokens]?.length.toDouble() ?? 0,
+          y: json['promptTokens'].toDouble(),
+        ),
+        PlotType.llmCompletionTokens: Plot(
+          x: allPlots[PlotType.llmCompletionTokens]?.length.toDouble() ?? 0,
+          y: json['completionTokens'].toDouble(),
+        ),
+        PlotType.llmDuration: Plot(
+          x: allPlots[PlotType.llmDuration]?.length.toDouble() ?? 0,
+          y: json['duration'].toDouble(),
+        ),
+      },
       _ => {},
     };
   }

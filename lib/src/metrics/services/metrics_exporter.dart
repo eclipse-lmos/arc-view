@@ -14,7 +14,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'metrics_exporter.g.dart';
 
 @riverpod
-MetricsExporter metricsExporter(MetricsExporterRef ref) {
+MetricsExporter metricsExporter(ref) {
   return MetricsExporter();
 }
 

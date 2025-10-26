@@ -16,6 +16,7 @@ import "package:collection/collection.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:smiles/smiles.dart';
 
 final currentTestGroupProvider = StateProvider((ref) => 0);
@@ -28,7 +29,7 @@ class TestsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final testCases = ref.watch(testCasesNotifierProvider);
+    final testCases = ref.watch(testCasesProvider);
     final testGroups = groupBy(testCases.testCases, (e) => e.group);
 
     return Scaffold(
@@ -69,11 +70,14 @@ class TestsScreen extends ConsumerWidget {
             children: [
               if (testGroups.isEmpty)
                 Card(
-                  child: '''
+                  child:
+                      '''
 To create a new Test Case, simply goto the [Chat](#/chat) interface, 
 
 create a conversation and then click the "New Test" button.
-                  '''.markDown().padByUnits(2, 3, 2, 3),
+                  '''
+                          .markDown()
+                          .padByUnits(2, 3, 2, 3),
                 ),
               DefaultTabController(
                 length: testGroups.length,
@@ -120,7 +124,7 @@ create a conversation and then click the "New Test" button.
   }
 
   _agentAvailable(WidgetRef ref) {
-    final agents = ref.watch(agentsNotifierProvider);
+    final agents = ref.watch(agentsProvider);
     return agents.hasValue && agents.value?.names.isNotEmpty == true;
   }
 }

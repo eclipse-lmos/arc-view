@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'package:arc_view/src/chat/notifiers/selected_usecase_notifier.dart';
 import 'package:arc_view/src/tools/models/test_tool.dart';
 import 'package:arc_view/src/tools/notifiers/tools_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -17,10 +18,20 @@ part 'selected_tool_notifier.g.dart';
 class SelectedToolNotifier extends _$SelectedToolNotifier {
   @override
   Set<TestTool> build() {
-    ref.listen(toolsNotifierProvider, (_, tools) {
+    ref.listen(toolsProvider, (_, tools) {
       if (state.isNotEmpty) {
         state = tools.where((t) => isSelected(t)).toSet();
       }
+    });
+    ref.listen(selectedUsecaseProvider, (_, useCase) {
+      if (useCase == null) {
+        state = {};
+        return;
+      }
+      final testTools = ref
+          .read(toolsProvider)
+          .where((t) => useCase.tools.contains('@${t.name}()'));
+      state = {...state, ...testTools};
     });
     return {};
   }

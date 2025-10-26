@@ -20,24 +20,26 @@ class AddressBar extends StatefulWidget {
 class _AddressBarState extends State<AddressBar> {
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, child) {
-      final agentClient = ref.watch(agentClientNotifierProvider);
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SectionTitle(text: 'Agent Url').padByUnits(1, 1, 1, 1),
-          Row(
-            children: [
-              Row(
-                children: [
-                  'Selected Agent Url: '.txt,
-                  agentClient.agentUrl.url.toString().txt,
-                ],
-              ).padByUnits(1, 2, 1, 1),
-            ],
-          ),
-        ],
-      );
-    });
+    return Consumer(
+      builder: (context, ref, child) {
+        final agentClient = ref.watch(agentClientProvider);
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SectionTitle(text: 'Agent Url').padByUnits(1, 1, 1, 1),
+            Row(
+              children: [
+                Row(
+                  children: [
+                    'Selected Agent Url: '.txt,
+                    agentClient.agentUrl.url.toString().txt,
+                  ],
+                ).padByUnits(1, 2, 1, 1),
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 }

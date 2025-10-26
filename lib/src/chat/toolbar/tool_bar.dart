@@ -16,7 +16,7 @@ class ToolBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final agentUrl = ref.watch(agentUrlNotifierProvider);
+    final agentUrl = ref.watch(agentUrlProvider);
     final textColor = context.colorScheme.onSurface.withOpacity(0.5);
     return Row(
       children: [

@@ -41,7 +41,7 @@ class ApplyUsecaseDialog extends ConsumerWidget {
   }
 
   Widget? _buildList(BuildContext context, WidgetRef ref) {
-    final useCases = ref.watch(useCasesNotifierProvider).valueOrNull;
+    final useCases = ref.watch(useCasesProvider).value;
     if (useCases == null || useCases.cases.isEmpty) {
       return null;
     }
@@ -56,14 +56,13 @@ class ApplyUsecaseDialog extends ConsumerWidget {
               contentPadding: EdgeInsets.all(0),
               leading: Icon(Icons.circle_outlined, size: 12),
               title: useCases.cases[index].name.txt,
-              subtitle:
-                  DateFormat.Hm()
-                      .add_yMd()
-                      .format(useCases.cases[index].createdAt)
-                      .small,
+              subtitle: DateFormat.Hm()
+                  .add_yMd()
+                  .format(useCases.cases[index].createdAt)
+                  .small,
               onTap: () {
                 ref
-                    .read(selectedUsecaseNotifierProvider.notifier)
+                    .read(selectedUsecaseProvider.notifier)
                     .setSelected(useCases.cases[index]);
                 context.pop();
               },

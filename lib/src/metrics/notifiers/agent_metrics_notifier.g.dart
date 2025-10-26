@@ -6,23 +6,51 @@ part of 'agent_metrics_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$agentMetricsNotifierHash() =>
-    r'b3d2b449f6c2226d791cc0d70c9b0fe62bb89ffb';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [AgentMetricsNotifier].
 @ProviderFor(AgentMetricsNotifier)
-final agentMetricsNotifierProvider =
-    AsyncNotifierProvider<AgentMetricsNotifier, List<Metrics>>.internal(
-      AgentMetricsNotifier.new,
-      name: r'agentMetricsNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$agentMetricsNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const agentMetricsProvider = AgentMetricsNotifierProvider._();
 
-typedef _$AgentMetricsNotifier = AsyncNotifier<List<Metrics>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class AgentMetricsNotifierProvider
+    extends $AsyncNotifierProvider<AgentMetricsNotifier, List<Metrics>> {
+  const AgentMetricsNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'agentMetricsProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$agentMetricsNotifierHash();
+
+  @$internal
+  @override
+  AgentMetricsNotifier create() => AgentMetricsNotifier();
+}
+
+String _$agentMetricsNotifierHash() =>
+    r'b8e217a2f6deecb859fa245823ed658781c71d97';
+
+abstract class _$AgentMetricsNotifier extends $AsyncNotifier<List<Metrics>> {
+  FutureOr<List<Metrics>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<List<Metrics>>, List<Metrics>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<List<Metrics>>, List<Metrics>>,
+              AsyncValue<List<Metrics>>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

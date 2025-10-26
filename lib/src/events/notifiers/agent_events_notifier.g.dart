@@ -6,23 +6,59 @@ part of 'agent_events_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$agentEventsNotifierHash() =>
-    r'0235c78cc4a55cb0f2de3cb0b70b2ee85724b35a';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [AgentEventsNotifier].
 @ProviderFor(AgentEventsNotifier)
-final agentEventsNotifierProvider =
-    NotifierProvider<AgentEventsNotifier, List<AgentEvent>>.internal(
-      AgentEventsNotifier.new,
-      name: r'agentEventsNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$agentEventsNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const agentEventsProvider = AgentEventsNotifierProvider._();
 
-typedef _$AgentEventsNotifier = Notifier<List<AgentEvent>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class AgentEventsNotifierProvider
+    extends $NotifierProvider<AgentEventsNotifier, List<AgentEvent>> {
+  const AgentEventsNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'agentEventsProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$agentEventsNotifierHash();
+
+  @$internal
+  @override
+  AgentEventsNotifier create() => AgentEventsNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<AgentEvent> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<AgentEvent>>(value),
+    );
+  }
+}
+
+String _$agentEventsNotifierHash() =>
+    r'5b340f9bd29f8a0558d0708919fa6e9439e785b6';
+
+abstract class _$AgentEventsNotifier extends $Notifier<List<AgentEvent>> {
+  List<AgentEvent> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<List<AgentEvent>, List<AgentEvent>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<AgentEvent>, List<AgentEvent>>,
+              List<AgentEvent>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

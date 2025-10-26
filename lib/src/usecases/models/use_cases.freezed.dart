@@ -1,6 +1,5 @@
-// dart format width=80
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -76,6 +75,130 @@ as int,
 
 }
 
+
+/// Adds pattern-matching-related methods to [UseCases].
+extension UseCasesPatterns on UseCases {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _UseCases value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _UseCases() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UseCases value)  $default,){
+final _that = this;
+switch (_that) {
+case _UseCases():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UseCases value)?  $default,){
+final _that = this;
+switch (_that) {
+case _UseCases() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<UseCase> cases,  int selected)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _UseCases() when $default != null:
+return $default(_that.cases,_that.selected);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<UseCase> cases,  int selected)  $default,) {final _that = this;
+switch (_that) {
+case _UseCases():
+return $default(_that.cases,_that.selected);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<UseCase> cases,  int selected)?  $default,) {final _that = this;
+switch (_that) {
+case _UseCases() when $default != null:
+return $default(_that.cases,_that.selected);case _:
+  return null;
+
+}
+}
+
+}
 
 /// @nodoc
 @JsonSerializable()
@@ -158,7 +281,7 @@ as int,
 /// @nodoc
 mixin _$UseCase {
 
- List<(String, String)> get sections; String get name; String? get id; DateTime get createdAt; String get content; String? get description; List<String>? get tags; String? get version; bool? get readOnly;
+ List<(String, String)> get sections; Set<String> get conditionals; Set<String> get tools; String get name; String? get id; DateTime get createdAt; String get content; String? get description; List<String>? get tags; String? get version; bool? get readOnly; bool? get valid;
 /// Create a copy of UseCase
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -171,16 +294,16 @@ $UseCaseCopyWith<UseCase> get copyWith => _$UseCaseCopyWithImpl<UseCase>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UseCase&&const DeepCollectionEquality().equals(other.sections, sections)&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.content, content) || other.content == content)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.tags, tags)&&(identical(other.version, version) || other.version == version)&&(identical(other.readOnly, readOnly) || other.readOnly == readOnly));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UseCase&&const DeepCollectionEquality().equals(other.sections, sections)&&const DeepCollectionEquality().equals(other.conditionals, conditionals)&&const DeepCollectionEquality().equals(other.tools, tools)&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.content, content) || other.content == content)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.tags, tags)&&(identical(other.version, version) || other.version == version)&&(identical(other.readOnly, readOnly) || other.readOnly == readOnly)&&(identical(other.valid, valid) || other.valid == valid));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(sections),name,id,createdAt,content,description,const DeepCollectionEquality().hash(tags),version,readOnly);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(sections),const DeepCollectionEquality().hash(conditionals),const DeepCollectionEquality().hash(tools),name,id,createdAt,content,description,const DeepCollectionEquality().hash(tags),version,readOnly,valid);
 
 @override
 String toString() {
-  return 'UseCase(sections: $sections, name: $name, id: $id, createdAt: $createdAt, content: $content, description: $description, tags: $tags, version: $version, readOnly: $readOnly)';
+  return 'UseCase(sections: $sections, conditionals: $conditionals, tools: $tools, name: $name, id: $id, createdAt: $createdAt, content: $content, description: $description, tags: $tags, version: $version, readOnly: $readOnly, valid: $valid)';
 }
 
 
@@ -191,7 +314,7 @@ abstract mixin class $UseCaseCopyWith<$Res>  {
   factory $UseCaseCopyWith(UseCase value, $Res Function(UseCase) _then) = _$UseCaseCopyWithImpl;
 @useResult
 $Res call({
- String name, String? id, DateTime createdAt, String content, String? description, List<String>? tags, String? version, bool? readOnly
+ String name, String? id, DateTime createdAt, String content, String? description, List<String>? tags, String? version, bool? readOnly, bool? valid
 });
 
 
@@ -208,7 +331,7 @@ class _$UseCaseCopyWithImpl<$Res>
 
 /// Create a copy of UseCase
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? id = freezed,Object? createdAt = null,Object? content = null,Object? description = freezed,Object? tags = freezed,Object? version = freezed,Object? readOnly = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? id = freezed,Object? createdAt = null,Object? content = null,Object? description = freezed,Object? tags = freezed,Object? version = freezed,Object? readOnly = freezed,Object? valid = freezed,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
@@ -218,6 +341,7 @@ as String,description: freezed == description ? _self.description : description 
 as String?,tags: freezed == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
 as List<String>?,version: freezed == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as String?,readOnly: freezed == readOnly ? _self.readOnly : readOnly // ignore: cast_nullable_to_non_nullable
+as bool?,valid: freezed == valid ? _self.valid : valid // ignore: cast_nullable_to_non_nullable
 as bool?,
   ));
 }
@@ -225,11 +349,135 @@ as bool?,
 }
 
 
+/// Adds pattern-matching-related methods to [UseCase].
+extension UseCasePatterns on UseCase {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _UseCase value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _UseCase() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UseCase value)  $default,){
+final _that = this;
+switch (_that) {
+case _UseCase():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UseCase value)?  $default,){
+final _that = this;
+switch (_that) {
+case _UseCase() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String? id,  DateTime createdAt,  String content,  String? description,  List<String>? tags,  String? version,  bool? readOnly,  bool? valid)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _UseCase() when $default != null:
+return $default(_that.name,_that.id,_that.createdAt,_that.content,_that.description,_that.tags,_that.version,_that.readOnly,_that.valid);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String? id,  DateTime createdAt,  String content,  String? description,  List<String>? tags,  String? version,  bool? readOnly,  bool? valid)  $default,) {final _that = this;
+switch (_that) {
+case _UseCase():
+return $default(_that.name,_that.id,_that.createdAt,_that.content,_that.description,_that.tags,_that.version,_that.readOnly,_that.valid);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String? id,  DateTime createdAt,  String content,  String? description,  List<String>? tags,  String? version,  bool? readOnly,  bool? valid)?  $default,) {final _that = this;
+switch (_that) {
+case _UseCase() when $default != null:
+return $default(_that.name,_that.id,_that.createdAt,_that.content,_that.description,_that.tags,_that.version,_that.readOnly,_that.valid);case _:
+  return null;
+
+}
+}
+
+}
+
 /// @nodoc
 @JsonSerializable()
 
 class _UseCase extends UseCase {
-   _UseCase({required this.name, this.id, required this.createdAt, required this.content, this.description, final  List<String>? tags, this.version, this.readOnly}): _tags = tags,super._();
+   _UseCase({required this.name, this.id, required this.createdAt, required this.content, this.description, final  List<String>? tags, this.version, this.readOnly, this.valid}): _tags = tags,super._();
   factory _UseCase.fromJson(Map<String, dynamic> json) => _$UseCaseFromJson(json);
 
 @override final  String name;
@@ -248,6 +496,7 @@ class _UseCase extends UseCase {
 
 @override final  String? version;
 @override final  bool? readOnly;
+@override final  bool? valid;
 
 /// Create a copy of UseCase
 /// with the given fields replaced by the non-null parameter values.
@@ -262,16 +511,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UseCase&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.content, content) || other.content == content)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._tags, _tags)&&(identical(other.version, version) || other.version == version)&&(identical(other.readOnly, readOnly) || other.readOnly == readOnly));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UseCase&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.content, content) || other.content == content)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._tags, _tags)&&(identical(other.version, version) || other.version == version)&&(identical(other.readOnly, readOnly) || other.readOnly == readOnly)&&(identical(other.valid, valid) || other.valid == valid));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,id,createdAt,content,description,const DeepCollectionEquality().hash(_tags),version,readOnly);
+int get hashCode => Object.hash(runtimeType,name,id,createdAt,content,description,const DeepCollectionEquality().hash(_tags),version,readOnly,valid);
 
 @override
 String toString() {
-  return 'UseCase(name: $name, id: $id, createdAt: $createdAt, content: $content, description: $description, tags: $tags, version: $version, readOnly: $readOnly)';
+  return 'UseCase(name: $name, id: $id, createdAt: $createdAt, content: $content, description: $description, tags: $tags, version: $version, readOnly: $readOnly, valid: $valid)';
 }
 
 
@@ -282,7 +531,7 @@ abstract mixin class _$UseCaseCopyWith<$Res> implements $UseCaseCopyWith<$Res> {
   factory _$UseCaseCopyWith(_UseCase value, $Res Function(_UseCase) _then) = __$UseCaseCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String? id, DateTime createdAt, String content, String? description, List<String>? tags, String? version, bool? readOnly
+ String name, String? id, DateTime createdAt, String content, String? description, List<String>? tags, String? version, bool? readOnly, bool? valid
 });
 
 
@@ -299,7 +548,7 @@ class __$UseCaseCopyWithImpl<$Res>
 
 /// Create a copy of UseCase
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? id = freezed,Object? createdAt = null,Object? content = null,Object? description = freezed,Object? tags = freezed,Object? version = freezed,Object? readOnly = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? id = freezed,Object? createdAt = null,Object? content = null,Object? description = freezed,Object? tags = freezed,Object? version = freezed,Object? readOnly = freezed,Object? valid = freezed,}) {
   return _then(_UseCase(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
@@ -309,6 +558,7 @@ as String,description: freezed == description ? _self.description : description 
 as String?,tags: freezed == tags ? _self._tags : tags // ignore: cast_nullable_to_non_nullable
 as List<String>?,version: freezed == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as String?,readOnly: freezed == readOnly ? _self.readOnly : readOnly // ignore: cast_nullable_to_non_nullable
+as bool?,valid: freezed == valid ? _self.valid : valid // ignore: cast_nullable_to_non_nullable
 as bool?,
   ));
 }

@@ -7,10 +7,9 @@ part of 'use_cases.dart';
 // **************************************************************************
 
 _UseCases _$UseCasesFromJson(Map<String, dynamic> json) => _UseCases(
-  cases:
-      (json['cases'] as List<dynamic>)
-          .map((e) => UseCase.fromJson(e as Map<String, dynamic>))
-          .toList(),
+  cases: (json['cases'] as List<dynamic>)
+      .map((e) => UseCase.fromJson(e as Map<String, dynamic>))
+      .toList(),
   selected: (json['selected'] as num).toInt(),
 );
 
@@ -28,6 +27,7 @@ _UseCase _$UseCaseFromJson(Map<String, dynamic> json) => _UseCase(
   tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
   version: json['version'] as String?,
   readOnly: json['readOnly'] as bool?,
+  valid: json['valid'] as bool?,
 );
 
 Map<String, dynamic> _$UseCaseToJson(_UseCase instance) => <String, dynamic>{
@@ -39,4 +39,5 @@ Map<String, dynamic> _$UseCaseToJson(_UseCase instance) => <String, dynamic>{
   'tags': instance.tags,
   'version': instance.version,
   'readOnly': instance.readOnly,
+  'valid': instance.valid,
 };

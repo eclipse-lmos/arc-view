@@ -19,9 +19,7 @@ class AddUseCasesButton extends ConsumerWidget {
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () {
-        ref
-            .read(selectedUseCaseGroupNotifierProvider.notifier)
-            .selectPersonal();
+        ref.read(selectedUseCaseGroupProvider.notifier).selectPersonal();
         _newUseCase(context, ref);
       },
     );
@@ -30,20 +28,19 @@ class AddUseCasesButton extends ConsumerWidget {
   _newUseCase(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
-      builder:
-          (context) => UseCaseDialog(
-            title: 'New UseCases File',
-            onConfirm: (details) {
-              ref.read(useCaseFilterProvider.notifier).state = null;
-              ref
-                  .read(useCasesNotifierProvider.notifier)
-                  .newUseCase(
-                    details.name,
-                    description: details.description,
-                    tags: details.tags,
-                  );
-            },
-          ),
+      builder: (context) => UseCaseDialog(
+        title: 'New UseCases File',
+        onConfirm: (details) {
+          ref.read(useCaseFilterProvider.notifier).state = null;
+          ref
+              .read(useCasesProvider.notifier)
+              .newUseCase(
+                details.name,
+                description: details.description,
+                tags: details.tags,
+              );
+        },
+      ),
     );
   }
 }

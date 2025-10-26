@@ -40,16 +40,18 @@ class TestCasesNotifier extends _$TestCasesNotifier {
     String? group,
   }) {
     if (conversation.messages.isEmpty) return;
-    state = state.copyWith(testCases: [
-      ...state.testCases,
-      TestCase(
-        name: name.isEmpty ? 'Test ${state.testCases.length + 1}' : name,
-        createdAt: DateTime.now(),
-        description: description,
-        group: group,
-        expected: conversation.copyWith(name: 'Test: $name'),
-      ),
-    ]);
+    state = state.copyWith(
+      testCases: [
+        ...state.testCases,
+        TestCase(
+          name: name.isEmpty ? 'Test ${state.testCases.length + 1}' : name,
+          createdAt: DateTime.now(),
+          description: description,
+          group: group,
+          expected: conversation.copyWith(name: 'Test: $name'),
+        ),
+      ],
+    );
     ref.read(testCasesRepositoryProvider).save(state);
   }
 
@@ -72,17 +74,15 @@ class TestCasesNotifier extends _$TestCasesNotifier {
 
 extension TestCasesNotifierExtension on WidgetRef {
   Future<bool> runTestCaseWithUseCases(TestCase testCase) {
-    final useCases = read(selectedUsecaseNotifierProvider);
-    final selectedTools = read(selectedToolNotifierProvider);
-    return read(testRunsNotifierProvider.notifier).runTestCase(
-      testCase,
-      useCase: useCases,
-      tools: selectedTools,
-    );
+    final useCases = read(selectedUsecaseProvider);
+    final selectedTools = read(selectedToolProvider);
+    return read(
+      testRunsProvider.notifier,
+    ).runTestCase(testCase, useCase: useCases, tools: selectedTools);
   }
 
   deleteTestCase(TestCase testCase) {
-    read(testCasesNotifierProvider.notifier).deleteTestCase(testCase);
+    read(testCasesProvider.notifier).deleteTestCase(testCase);
   }
 
   storeConversationAsTest(
@@ -91,9 +91,9 @@ extension TestCasesNotifierExtension on WidgetRef {
     String? group,
     Conversation? conversation,
   }) {
-    read(testCasesNotifierProvider.notifier).storeConversationAsTest(
+    read(testCasesProvider.notifier).storeConversationAsTest(
       name,
-      conversation ?? read(conversationsNotifierProvider).current,
+      conversation ?? read(conversationsProvider).current,
       description: description,
       group: group,
     );
@@ -105,8 +105,9 @@ extension TestCasesNotifierExtension on WidgetRef {
 ///
 showTestNotification(BuildContext context, bool successful) {
   final snackBar = SnackBar(
-    backgroundColor:
-        successful ? Colors.green[900] : Theme.of(context).colorScheme.error,
+    backgroundColor: successful
+        ? Colors.green[900]
+        : Theme.of(context).colorScheme.error,
     content: successful
         ? [Icon(Icons.check_circle), HGap(), 'Test passed'.txt].row(min: true)
         : [Icon(Icons.dangerous), HGap(), 'Test failed'.txt].row(min: true),

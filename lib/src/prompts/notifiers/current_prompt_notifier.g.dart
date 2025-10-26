@@ -6,23 +6,59 @@ part of 'current_prompt_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentPromptNotifierHash() =>
-    r'c2c7c3393fea992130d39206fc6e070490d54fa2';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [CurrentPromptNotifier].
 @ProviderFor(CurrentPromptNotifier)
-final currentPromptNotifierProvider =
-    AutoDisposeNotifierProvider<CurrentPromptNotifier, String>.internal(
-      CurrentPromptNotifier.new,
-      name: r'currentPromptNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$currentPromptNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const currentPromptProvider = CurrentPromptNotifierProvider._();
 
-typedef _$CurrentPromptNotifier = AutoDisposeNotifier<String>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class CurrentPromptNotifierProvider
+    extends $NotifierProvider<CurrentPromptNotifier, String> {
+  const CurrentPromptNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'currentPromptProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$currentPromptNotifierHash();
+
+  @$internal
+  @override
+  CurrentPromptNotifier create() => CurrentPromptNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String>(value),
+    );
+  }
+}
+
+String _$currentPromptNotifierHash() =>
+    r'9eef6fe65f9645a801f6bbd0d50e550684f92187';
+
+abstract class _$CurrentPromptNotifier extends $Notifier<String> {
+  String build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<String, String>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<String, String>,
+              String,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

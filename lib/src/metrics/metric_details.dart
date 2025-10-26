@@ -18,15 +18,15 @@ class MetricDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metrics = ref.watch(agentMetricsNotifierProvider).valueOrNull;
+    final metrics = ref.watch(agentMetricsProvider).value;
     if (metrics == null || metrics.isEmpty) {
       return const SizedBox();
     }
-    final selectMetricNotifier =
-        ref.read(agentMetricsNotifierProvider.notifier);
+    final selectMetricNotifier = ref.read(agentMetricsProvider.notifier);
     // Check if all metrics are selected
-    final allSelected = metrics
-        .every((m) => selectMetricNotifier.selectedMetrics.contains(m.name));
+    final allSelected = metrics.every(
+      (m) => selectMetricNotifier.selectedMetrics.contains(m.name),
+    );
 
     return Wrap(
       spacing: 8,
@@ -46,7 +46,9 @@ class MetricDetails extends ConsumerWidget {
                 value: allSelected,
                 onChanged: (isSelected) {
                   selectMetricNotifier.toggleAllMetrics(
-                      isSelected ?? false, metrics);
+                    isSelected ?? false,
+                    metrics,
+                  );
                 },
               ),
               const HGap.units(2),
@@ -55,53 +57,56 @@ class MetricDetails extends ConsumerWidget {
           ),
         ),
         // Metrics list
-        ...metrics.map((m) => Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: context.colorScheme.surfaceContainer,
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value:
-                        selectMetricNotifier.selectedMetrics.contains(m.name),
-                    onChanged: (isSelected) {
-                      selectMetricNotifier.toggleMetric(
-                          m.name, isSelected ?? false);
-                    },
-                  ),
-                  const HGap.units(2),
-                  Container(color: Color(m.color), width: 10, height: 10),
-                  const HGap.units(2),
-                  m.name.txt,
+        ...metrics.map(
+          (m) => Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: context.colorScheme.surfaceContainer,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Checkbox(
+                  value: selectMetricNotifier.selectedMetrics.contains(m.name),
+                  onChanged: (isSelected) {
+                    selectMetricNotifier.toggleMetric(
+                      m.name,
+                      isSelected ?? false,
+                    );
+                  },
+                ),
+                const HGap.units(2),
+                Container(color: Color(m.color), width: 10, height: 10),
+                const HGap.units(2),
+                m.name.txt,
+                SecondaryButton(
+                  description: 'Edit Metric Name',
+                  icon: Icons.edit,
+                  onPressed: () {
+                    _editName(context, ref, m);
+                  },
+                ),
+                SecondaryButton(
+                  description: 'Export Metrics',
+                  icon: Icons.download,
+                  onPressed: () {
+                    ref.read(metricsExporterProvider).export(m);
+                  },
+                ),
+                if (m.conversationId != null)
                   SecondaryButton(
-                    description: 'Edit Metric Name',
-                    icon: Icons.edit,
+                    description: 'Delete Metric',
+                    icon: Icons.delete,
                     onPressed: () {
-                      _editName(context, ref, m);
+                      ref
+                          .read(agentMetricsProvider.notifier)
+                          .remove(m.conversationId!);
                     },
                   ),
-                  SecondaryButton(
-                    description: 'Export Metrics',
-                    icon: Icons.download,
-                    onPressed: () {
-                      ref.read(metricsExporterProvider).export(m);
-                    },
-                  ),
-                  if (m.conversationId != null)
-                    SecondaryButton(
-                      description: 'Delete Metric',
-                      icon: Icons.delete,
-                      onPressed: () {
-                        ref
-                            .read(agentMetricsNotifierProvider.notifier)
-                            .remove(m.conversationId!);
-                      },
-                    ),
-                ],
-              ),
-            ))
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -116,7 +121,7 @@ class MetricDetails extends ConsumerWidget {
           final conversationId = metrics.conversationId;
           if (conversationId == null) return;
           ref
-              .read(agentMetricsNotifierProvider.notifier)
+              .read(agentMetricsProvider.notifier)
               .editName(conversationId, newName);
         },
       ),

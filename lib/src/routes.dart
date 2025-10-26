@@ -86,22 +86,20 @@ GoRouter createRouter(WidgetRef ref) {
           ),
           GoRoute(
             path: '/edit_usecase/:id',
-            builder:
-                (context, state) =>
-                    EditUseCasesScreen(useCaseId: state.pathParameters['id']!),
+            builder: (context, state) =>
+                EditUseCasesScreen(useCaseId: state.pathParameters['id']!),
           ),
           GoRoute(
             path: '/tool/:toolId',
-            builder:
-                (context, state) =>
-                    ToolScreen(toolId: state.pathParameters['toolId'] ?? ''),
+            builder: (context, state) =>
+                ToolScreen(toolId: state.pathParameters['toolId'] ?? ''),
           ),
         ],
       ),
     ],
     // 4. Global redirect logic
     redirect: (context, state) {
-      //final tokenNotifier = ref.watch(tokenNotifierProvider.notifier);
+      //final tokenNotifier = ref.watch(tokenProvider);
       //final hasValidToken = tokenNotifier.hasValidToken;
       //final isSplash = state.uri.path == '/splash';
       //final isLogin = state.uri.path == '/login';

@@ -9,14 +9,13 @@ import 'dart:convert';
 import 'package:arc_view/src/tests/models/test_cases.dart';
 import 'package:arc_view/src/tests/notifiers/test_cases_notifier.dart';
 import 'package:file_selector/file_selector.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'testcases_importer.g.dart';
 
 @riverpod
 TestCasesImporter testCasesImporter(Ref ref) {
-  return TestCasesImporter(ref.watch(testCasesNotifierProvider.notifier));
+  return TestCasesImporter(ref.watch(testCasesProvider.notifier));
 }
 
 class TestCasesImporter {

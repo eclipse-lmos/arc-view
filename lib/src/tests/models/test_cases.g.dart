@@ -7,10 +7,9 @@ part of 'test_cases.dart';
 // **************************************************************************
 
 _TestCases _$TestCasesFromJson(Map<String, dynamic> json) => _TestCases(
-  testCases:
-      (json['testCases'] as List<dynamic>)
-          .map((e) => TestCase.fromJson(e as Map<String, dynamic>))
-          .toList(),
+  testCases: (json['testCases'] as List<dynamic>)
+      .map((e) => TestCase.fromJson(e as Map<String, dynamic>))
+      .toList(),
 );
 
 Map<String, dynamic> _$TestCasesToJson(_TestCases instance) =>

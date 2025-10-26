@@ -16,7 +16,7 @@ class NotificationPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final message = ref.watch(notificationNotifierProvider);
+    final message = ref.watch(notificationProvider);
 
     if (message == null) {
       return const SizedBox.shrink();

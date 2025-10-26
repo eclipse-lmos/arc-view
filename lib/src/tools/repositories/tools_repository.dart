@@ -8,6 +8,7 @@ import 'dart:convert';
 
 import 'package:arc_view/main.dart';
 import 'package:arc_view/src/tools/models/test_tool.dart';
+import 'package:arc_view/src/tools/repositories/example_tools.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,10 +30,16 @@ class ToolsRepository {
   final SharedPreferences _preferences;
 
   List<TestTool> fetch() {
-    final tools = _preferences.getStringList('testTools')?.map((e) {
-      return TestTool.fromJson(jsonDecode(e));
-    }).toList();
-    return tools ?? List.empty();
+    final tools =
+        _preferences.getStringList('testTools')?.map((e) {
+          return TestTool.fromJson(jsonDecode(e));
+        }).toList();
+    return tools ?? _setupTestTools();
+  }
+
+  List<TestTool> _setupTestTools() {
+    save(exampleTools);
+    return exampleTools;
   }
 
   save(List<TestTool> tools) {

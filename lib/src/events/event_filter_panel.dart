@@ -22,7 +22,7 @@ class EventFilterPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final options = ref.watch(eventFiltersNotifierProvider);
+    final options = ref.watch(eventFiltersProvider);
 
     return Column(
       children: [
@@ -40,9 +40,7 @@ class EventFilterPanel extends ConsumerWidget {
             SecondaryButton(
               description: 'Clear filters',
               onPressed: () {
-                ref
-                    .read(eventFiltersNotifierProvider.notifier)
-                    .clearSelection();
+                ref.read(eventFiltersProvider.notifier).clearSelection();
               },
               icon: Icons.filter_alt_off,
             ),

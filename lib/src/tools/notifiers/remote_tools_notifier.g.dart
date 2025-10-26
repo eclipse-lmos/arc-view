@@ -6,27 +6,64 @@ part of 'remote_tools_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$remoteToolsNotifierHash() =>
-    r'a7884f41a9452e242b8945de80764b23f32ed6d7';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+///
+/// Provides access to the tools provided by the agent.
+///
+
+@ProviderFor(RemoteToolsNotifier)
+const remoteToolsProvider = RemoteToolsNotifierProvider._();
 
 ///
 /// Provides access to the tools provided by the agent.
 ///
-///
-/// Copied from [RemoteToolsNotifier].
-@ProviderFor(RemoteToolsNotifier)
-final remoteToolsNotifierProvider =
-    AutoDisposeAsyncNotifierProvider<RemoteToolsNotifier, List<Tool>>.internal(
-      RemoteToolsNotifier.new,
-      name: r'remoteToolsNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$remoteToolsNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+final class RemoteToolsNotifierProvider
+    extends $AsyncNotifierProvider<RemoteToolsNotifier, List<Tool>> {
+  ///
+  /// Provides access to the tools provided by the agent.
+  ///
+  const RemoteToolsNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'remoteToolsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-typedef _$RemoteToolsNotifier = AutoDisposeAsyncNotifier<List<Tool>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+  @override
+  String debugGetCreateSourceHash() => _$remoteToolsNotifierHash();
+
+  @$internal
+  @override
+  RemoteToolsNotifier create() => RemoteToolsNotifier();
+}
+
+String _$remoteToolsNotifierHash() =>
+    r'a1a965103197f6f10b2204ea201ff61d3f8b3262';
+
+///
+/// Provides access to the tools provided by the agent.
+///
+
+abstract class _$RemoteToolsNotifier extends $AsyncNotifier<List<Tool>> {
+  FutureOr<List<Tool>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<List<Tool>>, List<Tool>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<List<Tool>>, List<Tool>>,
+              AsyncValue<List<Tool>>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

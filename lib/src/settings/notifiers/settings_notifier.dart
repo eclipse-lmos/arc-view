@@ -39,7 +39,7 @@ class SettingsNotifier extends _$SettingsNotifier {
   }
 
   commit() {
-    final conversation = ref.read(conversationsNotifierProvider).current;
+    final conversation = ref.read(conversationsProvider).current;
 
     final updatedConversation = conversation.copyWith(
       userContext: state.newUserContext == null
@@ -52,17 +52,17 @@ class SettingsNotifier extends _$SettingsNotifier {
 
     state = state.copyWith(changed: false);
     ref
-        .read(conversationsNotifierProvider.notifier)
+        .read(conversationsProvider.notifier)
         .updateConversation(updatedConversation);
   }
 }
 
 extension SettingsRef on WidgetRef {
   commitSettings() {
-    read(settingsNotifierProvider.notifier).commit();
+    read(settingsProvider.notifier).commit();
   }
 
   bool watchSettingsChanged() {
-    return watch(settingsNotifierProvider.select((s) => s.changed));
+    return watch(settingsProvider.select((s) => s.changed));
   }
 }

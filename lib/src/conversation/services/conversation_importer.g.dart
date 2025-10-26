@@ -6,25 +6,53 @@ part of 'conversation_importer.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$conversationImporterHash() =>
-    r'5515374fbed4b96d0005f075a1eb8b7305c6c0e9';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [conversationImporter].
 @ProviderFor(conversationImporter)
-final conversationImporterProvider =
-    AutoDisposeProvider<ConversationImporter>.internal(
-      conversationImporter,
-      name: r'conversationImporterProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$conversationImporterHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const conversationImporterProvider = ConversationImporterProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ConversationImporterRef = AutoDisposeProviderRef<ConversationImporter>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class ConversationImporterProvider
+    extends
+        $FunctionalProvider<
+          ConversationImporter,
+          ConversationImporter,
+          ConversationImporter
+        >
+    with $Provider<ConversationImporter> {
+  const ConversationImporterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'conversationImporterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$conversationImporterHash();
+
+  @$internal
+  @override
+  $ProviderElement<ConversationImporter> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ConversationImporter create(Ref ref) {
+    return conversationImporter(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ConversationImporter value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ConversationImporter>(value),
+    );
+  }
+}
+
+String _$conversationImporterHash() =>
+    r'2f1ce467d77a9fb1585140b5ba5551cd8cbf3166';

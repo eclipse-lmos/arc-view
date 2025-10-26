@@ -6,27 +6,72 @@ part of 'event_filters_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$eventFiltersNotifierHash() =>
-    r'ec2a62d87f2d8edb40e3bbfcc897b88caeec06f6';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+///
+/// Provides active filters for the events.
+///
+
+@ProviderFor(EventFiltersNotifier)
+const eventFiltersProvider = EventFiltersNotifierProvider._();
 
 ///
 /// Provides active filters for the events.
 ///
-///
-/// Copied from [EventFiltersNotifier].
-@ProviderFor(EventFiltersNotifier)
-final eventFiltersNotifierProvider =
-    NotifierProvider<EventFiltersNotifier, List<EventFilter>>.internal(
-      EventFiltersNotifier.new,
-      name: r'eventFiltersNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$eventFiltersNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+final class EventFiltersNotifierProvider
+    extends $NotifierProvider<EventFiltersNotifier, List<EventFilter>> {
+  ///
+  /// Provides active filters for the events.
+  ///
+  const EventFiltersNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'eventFiltersProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-typedef _$EventFiltersNotifier = Notifier<List<EventFilter>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+  @override
+  String debugGetCreateSourceHash() => _$eventFiltersNotifierHash();
+
+  @$internal
+  @override
+  EventFiltersNotifier create() => EventFiltersNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<EventFilter> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<EventFilter>>(value),
+    );
+  }
+}
+
+String _$eventFiltersNotifierHash() =>
+    r'fd27cf0594baba3ad3b36324abf0d34a17fef592';
+
+///
+/// Provides active filters for the events.
+///
+
+abstract class _$EventFiltersNotifier extends $Notifier<List<EventFilter>> {
+  List<EventFilter> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<List<EventFilter>, List<EventFilter>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<EventFilter>, List<EventFilter>>,
+              List<EventFilter>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

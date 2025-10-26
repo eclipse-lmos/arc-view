@@ -37,7 +37,7 @@ class TestRunsNotifier extends _$TestRunsNotifier {
   }) async {
     final cid = 'testrun-cid-${DateTime.now().millisecondsSinceEpoch}';
     final result = await ref
-        .read(conversationsNotifierProvider.notifier)
+        .read(conversationsProvider.notifier)
         .replay(
           replay: testCase.expected,
           conversationId: cid,

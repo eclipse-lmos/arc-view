@@ -17,9 +17,7 @@ class ImportUseCasesButton extends ConsumerWidget {
     return IconButton(
       icon: Icon(Icons.upload),
       onPressed: () {
-        ref
-            .read(selectedUseCaseGroupNotifierProvider.notifier)
-            .selectPersonal();
+        ref.read(selectedUseCaseGroupProvider.notifier).selectPersonal();
         ref.read(useCaseImporterProvider).importUseCases();
       },
     );

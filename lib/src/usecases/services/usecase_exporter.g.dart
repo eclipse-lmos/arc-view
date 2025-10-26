@@ -6,27 +6,57 @@ part of 'usecase_exporter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$useCaseExporterHash() => r'3722f6fabde6282463991b97a05526d96c0f5018';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+///
+/// Exports a use case file.
+///
+
+@ProviderFor(useCaseExporter)
+const useCaseExporterProvider = UseCaseExporterProvider._();
 
 ///
 /// Exports a use case file.
 ///
-///
-/// Copied from [useCaseExporter].
-@ProviderFor(useCaseExporter)
-final useCaseExporterProvider = AutoDisposeProvider<UseCaseExporter>.internal(
-  useCaseExporter,
-  name: r'useCaseExporterProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$useCaseExporterHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef UseCaseExporterRef = AutoDisposeProviderRef<UseCaseExporter>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class UseCaseExporterProvider
+    extends
+        $FunctionalProvider<UseCaseExporter, UseCaseExporter, UseCaseExporter>
+    with $Provider<UseCaseExporter> {
+  ///
+  /// Exports a use case file.
+  ///
+  const UseCaseExporterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'useCaseExporterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$useCaseExporterHash();
+
+  @$internal
+  @override
+  $ProviderElement<UseCaseExporter> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  UseCaseExporter create(Ref ref) {
+    return useCaseExporter(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UseCaseExporter value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UseCaseExporter>(value),
+    );
+  }
+}
+
+String _$useCaseExporterHash() => r'3722f6fabde6282463991b97a05526d96c0f5018';

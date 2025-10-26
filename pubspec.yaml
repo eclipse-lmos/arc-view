@@ -23,7 +23,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 0.2.0+1
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.9.2
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -38,10 +38,10 @@ dependencies:
   intl: ^0.20.2
   state_notifier: ^1.0.0
   go_router: ^14.8.1
-  flutter_riverpod: ^2.6.1
+  flutter_riverpod: ^3.0.3
   flutter_state_notifier: ^1.0.0
-  riverpod_annotation: ^2.6.1
-  freezed_annotation: ^3.0.0
+  riverpod_annotation: ^3.0.3
+  freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
   flutter_animate: ^4.5.2
   shared_preferences: ^2.5.2
@@ -67,9 +67,9 @@ dependencies:
   url_launcher: ^6.3.1
   simple_gradient_text: ^1.3.0
   flutter_svg: ^2.0.17
-  record: ^5.2.0
+  #record: ^5.2.0
   web_socket_channel: ^3.0.1
-  audioplayers: ^6.1.0
+  #audioplayers: ^6.1.0
   flutter_client_sse:
     git:
       url: https://github.com/pratikbaid3/flutter_client_sse
@@ -81,9 +81,9 @@ dev_dependencies:
     sdk: flutter
 
   build_runner: ^2.4.15
-  riverpod_generator: ^2.6.5
-  freezed: ^3.0.6
-  json_serializable: ^6.9.4
+  riverpod_generator: ^3.0.3
+  freezed: ^3.2.3
+  json_serializable: ^6.11.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -91,7 +91,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-  riverpod_lint: ^2.6.5
+  riverpod_lint: ^3.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

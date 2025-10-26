@@ -18,7 +18,6 @@ import 'package:arc_view/src/conversation/models/conversation_message.dart';
 import 'package:arc_view/src/conversation/models/conversations.dart';
 import 'package:arc_view/src/tools/models/test_tool.dart';
 import 'package:arc_view/src/usecases/models/use_cases.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -142,10 +141,9 @@ class ConversationsNotifier extends _$ConversationsNotifier {
     newConversation(conversationId: conversationId);
     for (final (index, msg) in conversation.messages.indexed) {
       if (msg.type == MessageType.bot) continue;
-      final expectedMessage =
-          addExpectedMessage == true
-              ? conversation.messages.elementAtOrNull(index + 1)?.content
-              : null;
+      final expectedMessage = addExpectedMessage == true
+          ? conversation.messages.elementAtOrNull(index + 1)?.content
+          : null;
       result = await sendUserMessage(
         msg.content,
         useCase: useCase,
@@ -166,11 +164,10 @@ class ConversationsNotifier extends _$ConversationsNotifier {
       (element) => element.conversationId == oldMessage.conversationId,
     );
     final updatedConversation = conversation.copyWith(
-      messages:
-          conversation.messages.map((msg) {
-            if (msg == oldMessage) return newMessage;
-            return msg;
-          }).toList(),
+      messages: conversation.messages.map((msg) {
+        if (msg == oldMessage) return newMessage;
+        return msg;
+      }).toList(),
     );
 
     updateConversation(updatedConversation);
@@ -188,7 +185,7 @@ class ConversationsNotifier extends _$ConversationsNotifier {
 
     _log.fine('Sending message: $updatedConversation');
     ref
-        .read(agentClientNotifierProvider)
+        .read(agentClientProvider)
         .sendMessage(
           updatedConversation
               .addUseCase(useCase)
@@ -298,7 +295,7 @@ class ConversationsNotifier extends _$ConversationsNotifier {
 extension ConversationsNotifierExtension on Ref {
   Conversation addBotResponse(MessageResult value, Conversation conversation) {
     return read(
-      conversationsNotifierProvider.notifier,
+      conversationsProvider.notifier,
     ).addBotResponse(value, conversation);
   }
 
@@ -308,11 +305,11 @@ extension ConversationsNotifierExtension on Ref {
     bool? streamAudio,
   }) {
     return read(
-      conversationsNotifierProvider.notifier,
+      conversationsProvider.notifier,
     ).addUserRequest(msg, conversation, streamAudio: streamAudio);
   }
 
   Conversation currentConversation() {
-    return read(conversationsNotifierProvider).current;
+    return read(conversationsProvider).current;
   }
 }

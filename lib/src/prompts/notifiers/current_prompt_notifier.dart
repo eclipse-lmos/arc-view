@@ -25,7 +25,7 @@ class CurrentPromptNotifier extends _$CurrentPromptNotifier {
   }
 
   rotate() {
-    final history = ref.read(promptHistoryNotifierProvider).valueOrNull;
+    final history = ref.read(promptHistoryProvider).value;
     if (history == null || history.isEmpty) return;
 
     if (_promptIndex < 0) {

@@ -6,24 +6,52 @@ part of 'usecase_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$useCaseRepositoryHash() => r'6979a5eba63be4629880c6a9835b505047ea283f';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [useCaseRepository].
 @ProviderFor(useCaseRepository)
-final useCaseRepositoryProvider =
-    AutoDisposeProvider<UseCaseRepository>.internal(
-      useCaseRepository,
-      name: r'useCaseRepositoryProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$useCaseRepositoryHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const useCaseRepositoryProvider = UseCaseRepositoryProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef UseCaseRepositoryRef = AutoDisposeProviderRef<UseCaseRepository>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class UseCaseRepositoryProvider
+    extends
+        $FunctionalProvider<
+          UseCaseRepository,
+          UseCaseRepository,
+          UseCaseRepository
+        >
+    with $Provider<UseCaseRepository> {
+  const UseCaseRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'useCaseRepositoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$useCaseRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<UseCaseRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  UseCaseRepository create(Ref ref) {
+    return useCaseRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UseCaseRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UseCaseRepository>(value),
+    );
+  }
+}
+
+String _$useCaseRepositoryHash() => r'6979a5eba63be4629880c6a9835b505047ea283f';

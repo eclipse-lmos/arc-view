@@ -14,6 +14,7 @@ import 'package:arc_view/src/usecases/search/search_usecases_panel.dart';
 import 'package:arc_view/src/usecases/usecase_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:smiles/smiles.dart';
 
 ///
@@ -32,7 +33,7 @@ class UseCasesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarTitle('Use Cases'),
+      appBar: AppBarTitle('ADL Agent Definition Language'),
       floatingActionButton: [
         ImportUseCasesButton(),
         HGap.small(),
@@ -46,8 +47,7 @@ class UseCasesScreen extends StatelessWidget {
           VGap.small(),
           Consumer(
             builder: (context, ref, _) {
-              final groups =
-                  ref.watch(useCaseGroupsNotifierProvider).valueOrNull ?? [];
+              final groups = ref.watch(useCaseGroupsProvider).value ?? [];
               return Row(
                 spacing: 16,
                 children: [
@@ -62,11 +62,10 @@ class UseCasesScreen extends StatelessWidget {
             children: [
               Consumer(
                 builder: (context, ref, _) {
-                  final cases =
-                      ref.watch(useCasesNotifierProvider).valueOrNull?.cases ??
-                      [];
-                  Set<String> tags =
-                      cases.expand((u) => u.tags ?? <String>[]).toSet();
+                  final cases = ref.watch(useCasesProvider).value?.cases ?? [];
+                  Set<String> tags = cases
+                      .expand((u) => u.tags ?? <String>[])
+                      .toSet();
                   final currentFilter = ref.watch(useCaseFilterProvider);
                   return <Widget>[
                     if (cases.isNotEmpty)

@@ -15,7 +15,7 @@ part 'agent_client_notifier.g.dart';
 class AgentClientNotifier extends _$AgentClientNotifier {
   @override
   OneAIClient build() {
-    final agentUrl = ref.watch(agentUrlNotifierProvider);
+    final agentUrl = ref.watch(agentUrlProvider);
     final client = OneAIClient(agentUrl);
     // final client = A2aClient(agentUrl);
     ref.onDispose(() => client.close());

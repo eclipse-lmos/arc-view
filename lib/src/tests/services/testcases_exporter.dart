@@ -17,7 +17,7 @@ part 'testcases_exporter.g.dart';
 
 @riverpod
 TestCasesExporter testCasesExporter(Ref ref) {
-  return TestCasesExporter(ref.watch(testCasesNotifierProvider));
+  return TestCasesExporter(ref.watch(testCasesProvider));
 }
 
 class TestCasesExporter {
@@ -29,9 +29,7 @@ class TestCasesExporter {
     const String fileName = 'testCases.json';
     final result = await getSaveLocation(suggestedName: fileName);
     if (result == null) return;
-    final Uint8List fileData = utf8.encode(
-      jsonEncode(testCases.toJson()),
-    );
+    final Uint8List fileData = utf8.encode(jsonEncode(testCases.toJson()));
     final XFile textFile = XFile.fromData(
       fileData,
       mimeType: 'application/json',

@@ -6,27 +6,72 @@ part of 'tool_execution_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$toolExecutionNotifierHash() =>
-    r'5c70763fbe95309c66f6fdd4bc7c34c40f7b9d9c';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+///
+/// Provides access to the tools provided by the agent.
+///
+
+@ProviderFor(ToolExecutionNotifier)
+const toolExecutionProvider = ToolExecutionNotifierProvider._();
 
 ///
 /// Provides access to the tools provided by the agent.
 ///
-///
-/// Copied from [ToolExecutionNotifier].
-@ProviderFor(ToolExecutionNotifier)
-final toolExecutionNotifierProvider =
-    AutoDisposeNotifierProvider<ToolExecutionNotifier, String>.internal(
-      ToolExecutionNotifier.new,
-      name: r'toolExecutionNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$toolExecutionNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+final class ToolExecutionNotifierProvider
+    extends $NotifierProvider<ToolExecutionNotifier, String> {
+  ///
+  /// Provides access to the tools provided by the agent.
+  ///
+  const ToolExecutionNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'toolExecutionProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-typedef _$ToolExecutionNotifier = AutoDisposeNotifier<String>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+  @override
+  String debugGetCreateSourceHash() => _$toolExecutionNotifierHash();
+
+  @$internal
+  @override
+  ToolExecutionNotifier create() => ToolExecutionNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String>(value),
+    );
+  }
+}
+
+String _$toolExecutionNotifierHash() =>
+    r'9c877d30680819bb4843d8b5cece6e78d7487e4a';
+
+///
+/// Provides access to the tools provided by the agent.
+///
+
+abstract class _$ToolExecutionNotifier extends $Notifier<String> {
+  String build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<String, String>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<String, String>,
+              String,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

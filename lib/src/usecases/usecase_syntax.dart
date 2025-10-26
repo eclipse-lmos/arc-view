@@ -17,4 +17,6 @@ const useCaseSyntax = {
   'AGENT_HANDOVER': Colors.pink,
   'RESOLVED': Colors.pink,
   '<.*>': Colors.green,
+  '\\[.*\\]': Colors.deepPurpleAccent,
+  '@\\w+\\(\\)': Colors.lightBlue,
 };

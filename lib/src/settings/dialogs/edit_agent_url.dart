@@ -31,8 +31,8 @@ class _EditAgentUrlState extends State<EditAgentUrl> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final env = ref.watch(envNotifierProvider);
-        final agentUrl = ref.watch(agentUrlNotifierProvider);
+        final env = ref.watch(envProvider);
+        final agentUrl = ref.watch(agentUrlProvider);
 
         return AlertDialog(
           shape: BeveledRectangleBorder(),
@@ -57,7 +57,7 @@ class _EditAgentUrlState extends State<EditAgentUrl> {
                     loadingAgents = true;
                   });
                   ref
-                      .read(agentsNotifierProvider.notifier)
+                      .read(agentsProvider.notifier)
                       .checkUrl(_textController.text)
                       .then((agentData) {
                         setState(() {
@@ -66,10 +66,9 @@ class _EditAgentUrlState extends State<EditAgentUrl> {
                         });
                       });
                 },
-                dropdownMenuEntries:
-                    env
-                        .map((e) => DropdownMenuEntry(value: e, label: e))
-                        .toList(),
+                dropdownMenuEntries: env
+                    .map((e) => DropdownMenuEntry(value: e, label: e))
+                    .toList(),
               ),
               VGap.small(),
               'Discovered Agents'.txt.padByUnits(0, 0, 0, 0),
@@ -80,17 +79,16 @@ class _EditAgentUrlState extends State<EditAgentUrl> {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 width: double.infinity,
-                child:
-                    loadingAgents
-                        ? Center(child: 'Loading Agents...'.txt)
-                        : (agents.isNotEmpty
-                            ? Wrap(
+                child: loadingAgents
+                    ? Center(child: 'Loading Agents...'.txt)
+                    : (agents.isNotEmpty
+                          ? Wrap(
                               spacing: 8,
                               children: [
                                 for (final a in agents) Chip(label: a.txt),
                               ],
                             ).padding()
-                            : Center(child: 'No Agents found'.txt)),
+                          : Center(child: 'No Agents found'.txt)),
               ).expand(),
               VGap.small(),
               'Warning: Safari cannot connect to local Agents.'.small,
@@ -107,7 +105,7 @@ class _EditAgentUrlState extends State<EditAgentUrl> {
               onPressed: () {
                 ref.addEnv(_textController.text);
                 ref
-                    .read(agentUrlNotifierProvider.notifier)
+                    .read(agentUrlProvider.notifier)
                     .setUrl(_textController.text);
                 widget.onSave(_textController.text);
                 Navigator.of(context).pop();

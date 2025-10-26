@@ -21,8 +21,7 @@ class TestCasesPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tests =
-        ref.watch(testCasesNotifierProvider.select((e) => e.testCases));
+    final tests = ref.watch(testCasesProvider.select((e) => e.testCases));
 
     return Card(
       margin: const EdgeInsets.all(0),
@@ -30,15 +29,17 @@ class TestCasesPanel extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Row(children: [
-              SecondaryButton(
-                description: 'Import Test Cases',
-                icon: Icons.upload,
-                onPressed: () {
-                  ref.read(testCasesImporterProvider).load();
-                },
-              ),
-            ]),
+            Row(
+              children: [
+                SecondaryButton(
+                  description: 'Import Test Cases',
+                  icon: Icons.upload,
+                  onPressed: () {
+                    ref.read(testCasesImporterProvider).load();
+                  },
+                ),
+              ],
+            ),
             SecondaryButton(
               description: 'Download Test Cases',
               enabled: tests.isNotEmpty,
@@ -59,8 +60,9 @@ class TestCasesPanel extends ConsumerWidget {
                       description: 'Play test',
                       icon: Icons.play_arrow,
                       onPressed: () async {
-                        final successful =
-                            await ref.runTestCaseWithUseCases(tests[index]);
+                        final successful = await ref.runTestCaseWithUseCases(
+                          tests[index],
+                        );
                         if (!context.mounted) return;
                         showTestNotification(context, successful);
                       },
@@ -74,7 +76,8 @@ class TestCasesPanel extends ConsumerWidget {
                         tests[index].lastRunSuccess!
                             ? 'Success'.style(color: Colors.green[700])
                             : 'Failed'.style(
-                                color: Theme.of(context).colorScheme.error),
+                                color: Theme.of(context).colorScheme.error,
+                              ),
                     ].row(),
                     trailing: SecondaryButton(
                       description: 'Delete test',
@@ -85,7 +88,8 @@ class TestCasesPanel extends ConsumerWidget {
                       },
                     ),
                   );
-                }).expand()
+                },
+              ).expand(),
       ].column(),
     );
   }

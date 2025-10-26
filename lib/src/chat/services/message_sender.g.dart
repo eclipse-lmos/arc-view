@@ -6,23 +6,46 @@ part of 'message_sender.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$messageSenderHash() => r'f8b7e4cce90d2491c3e9665ebee14134e8565e9d';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [messageSender].
 @ProviderFor(messageSender)
-final messageSenderProvider = AutoDisposeProvider<MessageSender>.internal(
-  messageSender,
-  name: r'messageSenderProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$messageSenderHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const messageSenderProvider = MessageSenderProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef MessageSenderRef = AutoDisposeProviderRef<MessageSender>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class MessageSenderProvider
+    extends $FunctionalProvider<MessageSender, MessageSender, MessageSender>
+    with $Provider<MessageSender> {
+  const MessageSenderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'messageSenderProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$messageSenderHash();
+
+  @$internal
+  @override
+  $ProviderElement<MessageSender> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  MessageSender create(Ref ref) {
+    return messageSender(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(MessageSender value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<MessageSender>(value),
+    );
+  }
+}
+
+String _$messageSenderHash() => r'f8b7e4cce90d2491c3e9665ebee14134e8565e9d';

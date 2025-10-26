@@ -16,7 +16,7 @@ class AgentTabs extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final agents = ref.watch(agentsNotifierProvider).valueOrNull;
+    final agents = ref.watch(agentsProvider).value;
 
     return Row(
       children: [
@@ -34,17 +34,17 @@ class AgentTabs extends ConsumerWidget {
             [
               ((e.name == agents.activated)
                   ? Container(
-                    decoration: BoxDecoration(
-                      color: context.colorScheme.primaryContainer.withOpacity(
-                        0.5,
+                      decoration: BoxDecoration(
+                        color: context.colorScheme.primaryContainer.withOpacity(
+                          0.5,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: e.name.txt.pad(4, 8, 4, 8),
-                  )
+                      child: e.name.txt.pad(4, 8, 4, 8),
+                    )
                   : e.name.onPressed(() {
-                    ref.activateAgent(e.name, agents.names);
-                  })),
+                      ref.activateAgent(e.name, agents.names);
+                    })),
               SecondaryButton(
                 onPressed: () {
                   showDialog(

@@ -17,27 +17,30 @@ class AgentMetricsNotifier extends _$AgentMetricsNotifier {
 
   @override
   Future<List<Metrics>> build() async {
-    final events = ref.watch(agentEventsNotifierProvider);
+    final events = ref.watch(agentEventsProvider);
     final converter = ref.read(eventsToMetricsConverterProvider);
     final newMetrics = await converter.convert(events);
     if (!state.hasValue) {
-      _selectedMetrics = newMetrics.map((m) => m.name).toList(); // Default select all
+      _selectedMetrics = newMetrics
+          .map((m) => m.name)
+          .toList(); // Default select all
       return newMetrics;
     }
     return [
       ...newMetrics.map((m) => m.copyWith(name: _getName(m))),
-      ...state.valueOrNull!
-          .where((e) => !_contains(newMetrics, e.conversationId))
+      ...state.value!.where((e) => !_contains(newMetrics, e.conversationId)),
     ];
   }
 
   String _getName(Metrics metrics) {
     if (metrics.conversationId == null) return metrics.name;
-    final previousMetrics = state.valueOrNull;
+    final previousMetrics = state.value;
     if (previousMetrics == null) return metrics.name;
     return previousMetrics
-        .firstWhere((m) => m.conversationId == metrics.conversationId,
-            orElse: () => metrics)
+        .firstWhere(
+          (m) => m.conversationId == metrics.conversationId,
+          orElse: () => metrics,
+        )
         .name;
   }
 
@@ -46,24 +49,26 @@ class AgentMetricsNotifier extends _$AgentMetricsNotifier {
   }
 
   editName(String conversationId, String newName) {
-    final oldState = state.valueOrNull;
+    final oldState = state.value;
     if (oldState == null) return;
 
-    state = AsyncData(oldState.map((m) {
-      if (m.conversationId == conversationId) {
-        // Update the selected metrics to reflect the name change
-        if (_selectedMetrics.contains(m.name)) {
-          _selectedMetrics.remove(m.name);
-          _selectedMetrics.add(newName);
+    state = AsyncData(
+      oldState.map((m) {
+        if (m.conversationId == conversationId) {
+          // Update the selected metrics to reflect the name change
+          if (_selectedMetrics.contains(m.name)) {
+            _selectedMetrics.remove(m.name);
+            _selectedMetrics.add(newName);
+          }
+          return m.copyWith(name: newName);
         }
-        return m.copyWith(name: newName);
-      }
-      return m;
-    }).toList());
+        return m;
+      }).toList(),
+    );
   }
 
   add(Metrics metrics) {
-    final oldState = state.valueOrNull;
+    final oldState = state.value;
     if (oldState == null) return;
     state = AsyncData([...oldState, metrics]);
     // By default, add the new metric to the selected metrics
@@ -71,13 +76,18 @@ class AgentMetricsNotifier extends _$AgentMetricsNotifier {
   }
 
   remove(String conversationId) {
-    final oldState = state.valueOrNull;
+    final oldState = state.value;
     if (oldState == null) return;
-    state = AsyncData(
-        [...oldState.where((e) => e.conversationId != conversationId)]);
+    state = AsyncData([
+      ...oldState.where((e) => e.conversationId != conversationId),
+    ]);
     // Remove from selected metrics as well
-    _selectedMetrics.removeWhere((name) =>
-        oldState.any((metric) => metric.name == name && metric.conversationId == conversationId));
+    _selectedMetrics.removeWhere(
+      (name) => oldState.any(
+        (metric) =>
+            metric.name == name && metric.conversationId == conversationId,
+      ),
+    );
   }
 
   // Manage selected metrics
@@ -90,7 +100,7 @@ class AgentMetricsNotifier extends _$AgentMetricsNotifier {
       _selectedMetrics = [];
     }
     // Trigger UI updates
-    state = AsyncData([...state.valueOrNull ?? []]);
+    state = AsyncData([...state.value ?? []]);
   }
 
   void toggleMetric(String metricName, bool isSelected) {
@@ -102,6 +112,6 @@ class AgentMetricsNotifier extends _$AgentMetricsNotifier {
       _selectedMetrics.remove(metricName);
     }
     // Trigger UI updates
-    state = AsyncData([...state.valueOrNull ?? []]);
+    state = AsyncData([...state.value ?? []]);
   }
 }

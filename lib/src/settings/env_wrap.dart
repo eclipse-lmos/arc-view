@@ -14,15 +14,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smiles/smiles.dart';
 
 class EnvWrap extends StatelessWidget {
-  const EnvWrap({
-    super.key,
-  });
+  const EnvWrap({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final active = ref.watch(agentUrlNotifierProvider.select((a) => a.url));
+        final active = ref.watch(agentUrlProvider.select((a) => a.url));
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,20 +45,22 @@ class EnvWrap extends StatelessWidget {
                     );
                   },
                 ).toLeft(),
-                ...ref.watch(envNotifierProvider).map((env) {
+                ...ref.watch(envProvider).map((env) {
                   return [
                     if (active.toString() != env)
                       SecondaryButton(
-                          icon: Icons.check_box_outline_blank_sharp,
-                          description: 'Set $env as active',
-                          onPressed: () {
-                            ref
-                                .read(agentUrlNotifierProvider.notifier)
-                                .setUrl(env);
-                          }),
+                        icon: Icons.check_box_outline_blank_sharp,
+                        description: 'Set $env as active',
+                        onPressed: () {
+                          ref.read(agentUrlProvider.notifier).setUrl(env);
+                        },
+                      ),
                     if (active.toString() == env)
-                      Icon(Icons.check, size: 16, color: Colors.green)
-                          .padding(),
+                      Icon(
+                        Icons.check,
+                        size: 16,
+                        color: Colors.green,
+                      ).padding(),
                     env.txt,
                     SecondaryButton(
                       icon: Icons.clear,
@@ -68,9 +68,9 @@ class EnvWrap extends StatelessWidget {
                       onPressed: () {
                         ref.removeEnv(env);
                       },
-                    )
+                    ),
                   ].row(min: true);
-                })
+                }),
               ],
             ).padByUnits(0, 0, 0, 1),
           ],

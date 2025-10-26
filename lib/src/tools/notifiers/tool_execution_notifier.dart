@@ -20,7 +20,7 @@ class ToolExecutionNotifier extends _$ToolExecutionNotifier {
   }
 
   executeTool(String name, Map<String, dynamic> parameters) async {
-    final client = ref.read(agentClientNotifierProvider);
+    final client = ref.read(agentClientProvider);
     state = await client.executeTool(name, parameters);
   }
 }

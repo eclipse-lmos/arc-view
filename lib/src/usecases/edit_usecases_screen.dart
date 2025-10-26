@@ -21,7 +21,7 @@ class EditUseCasesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedCase = ref.watch(
-      useCasesNotifierProvider.select((u) => u.valueOrNull?.getById(useCaseId)),
+      useCasesProvider.select((u) => u.value?.getById(useCaseId)),
     );
 
     return Scaffold(

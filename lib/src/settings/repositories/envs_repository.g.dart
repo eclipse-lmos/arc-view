@@ -6,23 +6,46 @@ part of 'envs_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$envsRepositoryHash() => r'3f6a551ff8c0213c608eb1e7c2eb950af078e09f';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [envsRepository].
 @ProviderFor(envsRepository)
-final envsRepositoryProvider = AutoDisposeProvider<EnvsRepository>.internal(
-  envsRepository,
-  name: r'envsRepositoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$envsRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const envsRepositoryProvider = EnvsRepositoryProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef EnvsRepositoryRef = AutoDisposeProviderRef<EnvsRepository>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class EnvsRepositoryProvider
+    extends $FunctionalProvider<EnvsRepository, EnvsRepository, EnvsRepository>
+    with $Provider<EnvsRepository> {
+  const EnvsRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'envsRepositoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$envsRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<EnvsRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  EnvsRepository create(Ref ref) {
+    return envsRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(EnvsRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<EnvsRepository>(value),
+    );
+  }
+}
+
+String _$envsRepositoryHash() => r'3f6a551ff8c0213c608eb1e7c2eb950af078e09f';

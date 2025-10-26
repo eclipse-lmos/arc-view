@@ -26,26 +26,18 @@ class NewConversationButton extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             ),
             onPressed: () {
-              ref
-                  .read(conversationsNotifierProvider.notifier)
-                  .newConversation();
-              ref.read(currentPromptNotifierProvider.notifier).clear();
+              ref.read(conversationsProvider.notifier).newConversation();
+              ref.read(currentPromptProvider.notifier).clear();
             },
-            child:
-                [
-                  Icon(
-                    Icons.edit,
+            child: [
+              Icon(Icons.edit, color: context.colorScheme.onSecondaryContainer),
+              'New Chat'
+                  .style(
                     color: context.colorScheme.onSecondaryContainer,
-                  ),
-                  'New Chat'
-                      .style(
-                        color: context.colorScheme.onSecondaryContainer,
-                        size:
-                            Theme.of(context).textTheme.bodySmall?.fontSize ??
-                            14,
-                      )
-                      .padding(14),
-                ].row(),
+                    size: Theme.of(context).textTheme.bodySmall?.fontSize ?? 14,
+                  )
+                  .padding(14),
+            ].row(),
           ),
         ],
       ),

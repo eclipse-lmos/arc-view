@@ -22,7 +22,7 @@ class MessagingApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ref.watch(themeNotifierProvider),
+      themeMode: ref.watch(themeProvider),
     );
   }
 }

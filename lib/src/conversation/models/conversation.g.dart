@@ -8,12 +8,9 @@ part of 'conversation.dart';
 
 _Conversation _$ConversationFromJson(Map<String, dynamic> json) =>
     _Conversation(
-      messages:
-          (json['messages'] as List<dynamic>)
-              .map(
-                (e) => ConversationMessage.fromJson(e as Map<String, dynamic>),
-              )
-              .toList(),
+      messages: (json['messages'] as List<dynamic>)
+          .map((e) => ConversationMessage.fromJson(e as Map<String, dynamic>))
+          .toList(),
       userContext: UserContext.fromJson(
         json['userContext'] as Map<String, dynamic>,
       ),

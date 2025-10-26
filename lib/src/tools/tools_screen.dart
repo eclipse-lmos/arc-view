@@ -11,6 +11,7 @@ import 'package:arc_view/src/tools/notifiers/remote_tools_notifier.dart';
 import 'package:arc_view/src/tools/search_tools_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smiles/smiles.dart';
 
@@ -41,7 +42,7 @@ class ToolsScreen extends ConsumerWidget {
           VGap.small(),
           Consumer(
             builder: (context, ref, _) {
-              final tools = ref.watch(remoteToolsNotifierProvider);
+              final tools = ref.watch(remoteToolsProvider);
 
               if (tools.isLoading) {
                 return Center(child: CircularProgressIndicator());
@@ -105,29 +106,34 @@ class ToolsScreen extends ConsumerWidget {
                                         RichText(
                                           text: TextSpan(
                                             text: '- ${param.name}',
-                                            style: DefaultTextStyle.of(
-                                              context,
-                                            ).style.copyWith(
-                                              color:
-                                                  context.colorScheme.secondary,
-                                              fontStyle: FontStyle.italic,
-                                            ),
+                                            style: DefaultTextStyle.of(context)
+                                                .style
+                                                .copyWith(
+                                                  color: context
+                                                      .colorScheme
+                                                      .secondary,
+                                                  fontStyle: FontStyle.italic,
+                                                ),
                                             children: [
                                               TextSpan(
                                                 text: ' (${param.type}): ',
-                                                style: DefaultTextStyle.of(
-                                                  context,
-                                                ).style.copyWith(
-                                                  fontStyle: FontStyle.normal,
-                                                ),
+                                                style:
+                                                    DefaultTextStyle.of(
+                                                      context,
+                                                    ).style.copyWith(
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                    ),
                                               ),
                                               TextSpan(
                                                 text: param.description,
-                                                style: DefaultTextStyle.of(
-                                                  context,
-                                                ).style.copyWith(
-                                                  fontStyle: FontStyle.normal,
-                                                ),
+                                                style:
+                                                    DefaultTextStyle.of(
+                                                      context,
+                                                    ).style.copyWith(
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -143,9 +149,8 @@ class ToolsScreen extends ConsumerWidget {
                                       onPressed: () {
                                         showDialog(
                                           context: context,
-                                          builder:
-                                              (_) =>
-                                                  ShowSchemaDialog(tool: tool),
+                                          builder: (_) =>
+                                              ShowSchemaDialog(tool: tool),
                                         );
                                       },
                                       child: 'Show Schema'.txt,

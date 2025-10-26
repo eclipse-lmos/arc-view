@@ -29,6 +29,6 @@ class HistoryRepository {
 }
 
 @riverpod
-HistoryRepository historyRepository(HistoryRepositoryRef ref) {
+HistoryRepository historyRepository(ref) {
   return HistoryRepository(ref.watch(sharedPreferencesProvider));
 }

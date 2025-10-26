@@ -6,27 +6,72 @@ part of 'selected_tool_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$selectedToolNotifierHash() =>
-    r'8e35255f95f96cd523317ab94bd9084a799d7df2';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+///
+/// Holds the use case that has been selected and is sent to the Agent.
+///
+
+@ProviderFor(SelectedToolNotifier)
+const selectedToolProvider = SelectedToolNotifierProvider._();
 
 ///
 /// Holds the use case that has been selected and is sent to the Agent.
 ///
-///
-/// Copied from [SelectedToolNotifier].
-@ProviderFor(SelectedToolNotifier)
-final selectedToolNotifierProvider =
-    NotifierProvider<SelectedToolNotifier, Set<TestTool>>.internal(
-      SelectedToolNotifier.new,
-      name: r'selectedToolNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$selectedToolNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+final class SelectedToolNotifierProvider
+    extends $NotifierProvider<SelectedToolNotifier, Set<TestTool>> {
+  ///
+  /// Holds the use case that has been selected and is sent to the Agent.
+  ///
+  const SelectedToolNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'selectedToolProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-typedef _$SelectedToolNotifier = Notifier<Set<TestTool>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+  @override
+  String debugGetCreateSourceHash() => _$selectedToolNotifierHash();
+
+  @$internal
+  @override
+  SelectedToolNotifier create() => SelectedToolNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Set<TestTool> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Set<TestTool>>(value),
+    );
+  }
+}
+
+String _$selectedToolNotifierHash() =>
+    r'4add2252aa533b622085906415f9a1a3f19288d8';
+
+///
+/// Holds the use case that has been selected and is sent to the Agent.
+///
+
+abstract class _$SelectedToolNotifier extends $Notifier<Set<TestTool>> {
+  Set<TestTool> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<Set<TestTool>, Set<TestTool>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<Set<TestTool>, Set<TestTool>>,
+              Set<TestTool>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

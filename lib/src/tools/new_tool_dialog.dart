@@ -128,70 +128,65 @@ class _NewToolDialogState extends State<NewToolDialog> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         Consumer(
-          builder:
-              (context, ref, child) => TextButton(
-                child: 'OK'.txt,
-                onPressed: () {
-                  if (_nameController.text.isEmpty) return;
-                  if (_descriptionController.text.isEmpty) return;
-                  if (_titleController.text.isEmpty) return;
-                  if (_valueController.text.isEmpty) return;
+          builder: (context, ref, child) => TextButton(
+            child: 'OK'.txt,
+            onPressed: () {
+              if (_nameController.text.isEmpty) return;
+              if (_descriptionController.text.isEmpty) return;
+              if (_titleController.text.isEmpty) return;
+              if (_valueController.text.isEmpty) return;
 
-                  if (widget.tool != null) {
-                    ref
-                        .read(toolsNotifierProvider.notifier)
-                        .updateTool(
-                          widget.tool!.copyWith(
-                            name: _nameController.text,
-                            title: _titleController.text,
-                            description: _descriptionController.text,
-                            value: _valueController.text,
-                            parameters:
-                                _params
-                                    .where(
-                                      (e) =>
-                                          e.$1.text.isNotEmpty &&
-                                          e.$2.text.isNotEmpty,
-                                    )
-                                    .map(
-                                      (e) => TestToolParameter(
-                                        name: e.$1.text,
-                                        description: e.$2.text,
-                                        type: 'string',
-                                      ),
-                                    )
-                                    .toList(),
-                          ),
-                        );
-                    Navigator.of(context).pop();
-                    return;
-                  }
+              if (widget.tool != null) {
+                ref
+                    .read(toolsProvider.notifier)
+                    .updateTool(
+                      widget.tool!.copyWith(
+                        name: _nameController.text,
+                        title: _titleController.text,
+                        description: _descriptionController.text,
+                        value: _valueController.text,
+                        parameters: _params
+                            .where(
+                              (e) =>
+                                  e.$1.text.isNotEmpty && e.$2.text.isNotEmpty,
+                            )
+                            .map(
+                              (e) => TestToolParameter(
+                                name: e.$1.text,
+                                description: e.$2.text,
+                                type: 'string',
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    );
+                Navigator.of(context).pop();
+                return;
+              }
 
-                  ref
-                      .read(toolsNotifierProvider.notifier)
-                      .newTool(
-                        TestTool(
-                          id:
-                              '${_nameController.text}-${DateTime.now().millisecondsSinceEpoch.toString()}',
-                          name: _nameController.text,
-                          title: _titleController.text,
-                          description: _descriptionController.text,
-                          value: _valueController.text,
-                          parameters:
-                              _params
-                                  .map(
-                                    (e) => TestToolParameter(
-                                      name: e.$1.text,
-                                      description: e.$2.text,
-                                      type: 'string',
-                                    ),
-                                  )
-                                  .toList(),
-                        ),
-                      );
-                  Navigator.of(context).pop();
-                },
-              ),
+              ref
+                  .read(toolsProvider.notifier)
+                  .newTool(
+                    TestTool(
+                      id: '${_nameController.text}-${DateTime.now().millisecondsSinceEpoch.toString()}',
+                      name: _nameController.text,
+                      title: _titleController.text,
+                      description: _descriptionController.text,
+                      value: _valueController.text,
+                      parameters: _params
+                          .map(
+                            (e) => TestToolParameter(
+                              name: e.$1.text,
+                              description: e.$2.text,
+                              type: 'string',
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  );
+              Navigator.of(context).pop();
+            },
+          ),
         ),
       ],
     );

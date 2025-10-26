@@ -36,9 +36,7 @@ class TestsTable extends ConsumerWidget {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final largeScreen = screenWidth > 1400;
     final smallScreen = screenWidth < 1200;
-    final testRuns = ref.watch(
-      testRunsNotifierProvider.select((runs) => runs[group]),
-    );
+    final testRuns = ref.watch(testRunsProvider.select((runs) => runs[group]));
 
     return SingleChildScrollView(
       child: _createTable(
@@ -75,68 +73,59 @@ class TestsTable extends ConsumerWidget {
             ApplyUseCaseButton(),
             Spacer(),
             'Run All'.onButtonPressed(() async {
-              ref.read(testRunsNotifierProvider.notifier).clearGroup(group);
+              ref.read(testRunsProvider.notifier).clearGroup(group);
               for (final testCase in testCases) {
                 ref
-                    .read(notificationNotifierProvider.notifier)
+                    .read(notificationProvider.notifier)
                     .notify('Running ${testCase.name}...');
                 await ref.runTestCaseWithUseCases(testCase);
               }
-              ref
-                  .read(notificationNotifierProvider.notifier)
-                  .notify('Tests finished');
+              ref.read(notificationProvider.notifier).notify('Tests finished');
             }, disabled: !agentsAvailable).padding(),
           ],
         ),
         VGap.small(),
         Card(
-          child:
-              DataTable(
-                showCheckboxColumn: false,
-                headingRowHeight: 40,
-                headingRowColor: WidgetStateColor.resolveWith(
-                  (states) => context.colorScheme.surfaceContainer,
+          child: DataTable(
+            showCheckboxColumn: false,
+            headingRowHeight: 40,
+            headingRowColor: WidgetStateColor.resolveWith(
+              (states) => context.colorScheme.surfaceContainer,
+            ),
+            columns: [
+              DataColumn(
+                numeric: false,
+                label: 'Name'.txt,
+                onSort: (columnIndex, ascending) {
+                  ref
+                      .read(useCasesProvider.notifier)
+                      .sortByName(ascending: ascending);
+                },
+                columnWidth: FixedColumnWidth(_columnSizes[0]),
+              ),
+              DataColumn(
+                label: 'Description'.txt,
+                columnWidth: FlexColumnWidth(),
+              ),
+              DataColumn(
+                label: 'Last Run'.txt,
+                columnWidth: FixedColumnWidth(_columnSizes[1]),
+              ),
+              if (!smallScreen)
+                DataColumn(
+                  label: 'Created At'.txt,
+                  columnWidth: FixedColumnWidth(_columnSizes[2]),
                 ),
-                columns: [
-                  DataColumn(
-                    numeric: false,
-                    label: 'Name'.txt,
-                    onSort: (columnIndex, ascending) {
-                      ref
-                          .read(useCasesNotifierProvider.notifier)
-                          .sortByName(ascending: ascending);
-                    },
-                    columnWidth: FixedColumnWidth(_columnSizes[0]),
-                  ),
-                  DataColumn(
-                    label: 'Description'.txt,
-                    columnWidth: FlexColumnWidth(),
-                  ),
-                  DataColumn(
-                    label: 'Last Run'.txt,
-                    columnWidth: FixedColumnWidth(_columnSizes[1]),
-                  ),
-                  if (!smallScreen)
-                    DataColumn(
-                      label: 'Created At'.txt,
-                      columnWidth: FixedColumnWidth(_columnSizes[2]),
-                    ),
-                  DataColumn(
-                    label: 'Actions'.txt,
-                    columnWidth: FixedColumnWidth(_columnSizes[3]),
-                  ),
-                ],
-                rows: [
-                  for (var i = 0; i < testCases.length; i++)
-                    _createRow(
-                      testCases[i],
-                      testRuns,
-                      context,
-                      smallScreen,
-                      ref,
-                    ),
-                ],
-              ).padding(),
+              DataColumn(
+                label: 'Actions'.txt,
+                columnWidth: FixedColumnWidth(_columnSizes[3]),
+              ),
+            ],
+            rows: [
+              for (var i = 0; i < testCases.length; i++)
+                _createRow(testCases[i], testRuns, context, smallScreen, ref),
+            ],
+          ).padding(),
         ).min(height: 500),
       ],
     );
@@ -154,7 +143,7 @@ class TestsTable extends ConsumerWidget {
       onSelectChanged: (selected) {
         if (selected == true) {
           ref
-              .read(conversationsNotifierProvider.notifier)
+              .read(conversationsProvider.notifier)
               .updateConversation(testCase.expected);
           context.go("/chat");
         }
@@ -186,9 +175,7 @@ class TestsTable extends ConsumerWidget {
               confirming: true,
               description: 'Delete Test Case',
               onPressed: () {
-                ref
-                    .read(testCasesNotifierProvider.notifier)
-                    .deleteTestCase(testCase);
+                ref.read(testCasesProvider.notifier).deleteTestCase(testCase);
               },
             ),
           ].row(),
@@ -217,7 +204,7 @@ class TestsTable extends ConsumerWidget {
   }
 
   _agentAvailable(WidgetRef ref) {
-    final agents = ref.watch(agentsNotifierProvider);
+    final agents = ref.watch(agentsProvider);
     return agents.hasValue && agents.value?.names.isNotEmpty == true;
   }
 }

@@ -20,8 +20,8 @@ class AgentEventsNotifier extends _$AgentEventsNotifier {
 
   @override
   List<AgentEvent> build() {
-    final client = ref.read(agentClientNotifierProvider);
-    ref.listen(agentClientNotifierProvider, (_, client) => _connect(client));
+    final client = ref.read(agentClientProvider);
+    ref.listen(agentClientProvider, (_, client) => _connect(client));
 
     _connect(client);
 
@@ -51,7 +51,7 @@ class AgentEventsNotifier extends _$AgentEventsNotifier {
   addAll(List<AgentEvent> events, String conversationId) {
     state = [
       ...events,
-      ...state.where((e) => e.conversationId != conversationId)
+      ...state.where((e) => e.conversationId != conversationId),
     ];
     if (state.length > 100) {
       state = state.sublist(0, 100);

@@ -15,8 +15,7 @@ class PromptList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final prompts =
-        ref.watch(promptHistoryNotifierProvider).valueOrNull ?? List.empty();
+    final prompts = ref.watch(promptHistoryProvider).value ?? List.empty();
     final colorScheme = Theme.of(context).colorScheme;
     final size = MediaQuery.of(context).size;
 
@@ -25,13 +24,11 @@ class PromptList extends ConsumerWidget {
         children: [
           'Prompts'.txt.expand(),
           IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.close,
-                color: colorScheme.onSurface,
-              )),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.close, color: colorScheme.onSurface),
+          ),
         ],
       ),
       children: [
@@ -50,9 +47,9 @@ class PromptList extends ConsumerWidget {
                 ),
                 title: prompts[index].txt,
                 onTap: () {
-                  ref.read(currentPromptNotifierProvider.notifier).setPrompt(
-                        prompts[index],
-                      );
+                  ref
+                      .read(currentPromptProvider.notifier)
+                      .setPrompt(prompts[index]);
                   Navigator.pop(context);
                 },
                 trailing: IconButton(
@@ -63,7 +60,7 @@ class PromptList extends ConsumerWidget {
                   ),
                   onPressed: () {
                     ref
-                        .read(promptHistoryNotifierProvider.notifier)
+                        .read(promptHistoryProvider.notifier)
                         .remove(prompts[index]);
                   },
                 ),
@@ -78,5 +75,7 @@ class PromptList extends ConsumerWidget {
 
 showPromptList(BuildContext context) {
   showDialog(
-      context: context, builder: (BuildContext context) => const PromptList());
+    context: context,
+    builder: (BuildContext context) => const PromptList(),
+  );
 }

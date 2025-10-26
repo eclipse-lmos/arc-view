@@ -17,7 +17,7 @@ part 'remote_tools_notifier.g.dart';
 class RemoteToolsNotifier extends _$RemoteToolsNotifier {
   @override
   Future<List<Tool>> build() {
-    final client = ref.watch(agentClientNotifierProvider);
+    final client = ref.watch(agentClientProvider);
     return client.getTools();
   }
 }

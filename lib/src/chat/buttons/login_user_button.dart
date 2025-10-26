@@ -28,7 +28,7 @@ class LoginUserButton extends ConsumerWidget {
               padding: const EdgeInsets.all(0),
               value:
                   ref
-                      .read(conversationsNotifierProvider)
+                      .read(conversationsProvider)
                       .current
                       .userContext
                       .userToken !=
@@ -44,14 +44,14 @@ class LoginUserButton extends ConsumerWidget {
   }
 
   _setUserToken(WidgetRef ref, bool on) {
-    final conversation = ref.read(conversationsNotifierProvider).current;
+    final conversation = ref.read(conversationsProvider).current;
     final updatedConversation = conversation.copyWith(
       userContext: conversation.userContext.copyWith(
         userToken: on ? "userToken" : null,
       ),
     );
     ref
-        .read(conversationsNotifierProvider.notifier)
+        .read(conversationsProvider.notifier)
         .updateConversation(updatedConversation);
   }
 }

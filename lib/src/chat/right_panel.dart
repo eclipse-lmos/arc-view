@@ -13,6 +13,7 @@ import 'package:arc_view/src/tools/notifiers/tools_notifier.dart';
 import 'package:arc_view/src/tools/tools_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:smiles/smiles.dart';
 
 import '../events/notifiers/agent_events_notifier.dart';
@@ -33,11 +34,7 @@ class RightPanel extends ConsumerWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           TabBarView(
-            children: [
-              EventsPanel(),
-              ConversationsPanel(),
-              ToolsPanel(),
-            ],
+            children: [EventsPanel(), ConversationsPanel(), ToolsPanel()],
           ).expand(),
           VGap.units(3),
           _SwitchTabs().size(height: 32),
@@ -53,28 +50,37 @@ class _SwitchTabs extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
-        margin: const EdgeInsets.all(0),
-        child: TabBar(
-          dividerHeight: 0,
-          tabs: [
-            Consumer(builder: (context, ref, child) {
-              final eventFilters = ref.watch(eventFiltersNotifierProvider);
-              final eventsCount = ref.watch(agentEventsNotifierProvider.select(
-                  (events) => eventFilters.applyFilters(events).length));
-              return Tab(child: ['Events ($eventsCount)'.txt].row(min: true));
-            }),
-            Consumer(builder: (context, ref, child) {
-              final count = ref.watch(conversationsNotifierProvider
-                  .select((e) => e.conversations.length));
-              return Tab(child: ['Chats ($count)'.txt].row(min: true));
-            }),
-            Consumer(builder: (context, ref, child) {
-              final count = ref.watch(
-                toolsNotifierProvider.select((e) => e.length),
+      margin: const EdgeInsets.all(0),
+      child: TabBar(
+        dividerHeight: 0,
+        tabs: [
+          Consumer(
+            builder: (context, ref, child) {
+              final eventFilters = ref.watch(eventFiltersProvider);
+              final eventsCount = ref.watch(
+                agentEventsProvider.select(
+                  (events) => eventFilters.applyFilters(events).length,
+                ),
               );
+              return Tab(child: ['Events ($eventsCount)'.txt].row(min: true));
+            },
+          ),
+          Consumer(
+            builder: (context, ref, child) {
+              final count = ref.watch(
+                conversationsProvider.select((e) => e.conversations.length),
+              );
+              return Tab(child: ['Chats ($count)'.txt].row(min: true));
+            },
+          ),
+          Consumer(
+            builder: (context, ref, child) {
+              final count = ref.watch(toolsProvider.select((e) => e.length));
               return Tab(child: ['Tools ($count)'.txt].row(min: true));
-            }),
-          ],
-        ));
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

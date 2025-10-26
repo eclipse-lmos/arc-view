@@ -23,7 +23,7 @@ part 'usecases_notifier.g.dart';
 class UseCasesNotifier extends _$UseCasesNotifier {
   @override
   Future<UseCases> build() async {
-    final useCaseGroup = ref.watch(selectedUseCaseGroupNotifierProvider);
+    final useCaseGroup = ref.watch(selectedUseCaseGroupProvider);
     if (personalUseCaseGroupId == useCaseGroup) {
       final useCaseRepository = ref.read(useCaseRepositoryProvider);
       return UseCases(selected: 0, cases: useCaseRepository.fetch());
@@ -39,14 +39,14 @@ class UseCasesNotifier extends _$UseCasesNotifier {
   }
 
   save() {
-    final useCases = state.valueOrNull;
+    final useCases = state.value;
     if (useCases == null) return;
     final useCaseRepository = ref.read(useCaseRepositoryProvider);
     useCaseRepository.save(useCases);
   }
 
   setSelected(UseCase useCase) {
-    final useCases = state.valueOrNull;
+    final useCases = state.value;
     if (useCases == null) return;
     final index = useCases.cases.indexOf(useCase);
     state = AsyncData(useCases.copyWith(selected: index));
@@ -58,18 +58,17 @@ class UseCasesNotifier extends _$UseCasesNotifier {
     String? description,
     List<String>? tags,
   }) {
-    final useCases = state.valueOrNull;
+    final useCases = state.value;
     if (useCases == null) return;
     final newUseCase = UseCase(
       id: '$name-${DateTime.now().millisecondsSinceEpoch}',
       description: description ?? '',
       tags: tags ?? [],
-      name:
-          name.isEmpty
-              ? 'usecases'
-              : name
-                  .replaceAll(' ', '_')
-                  .replaceAll(useCaseNameInvalidCharacters, ''),
+      name: name.isEmpty
+          ? 'usecases'
+          : name
+                .replaceAll(' ', '_')
+                .replaceAll(useCaseNameInvalidCharacters, ''),
       createdAt: DateTime.now(),
       content: content ?? useCaseTemplate,
       version: _getVersion(content),
@@ -78,20 +77,20 @@ class UseCasesNotifier extends _$UseCasesNotifier {
   }
 
   deleteUseCaseAt(int index) {
-    final useCases = state.valueOrNull;
+    final useCases = state.value;
     if (useCases == null) return;
     final toRemove = useCases.cases[index];
     _update(useCases.cases.where((e) => e != toRemove).toList());
   }
 
   deleteUseCase(UseCase toRemove) {
-    final useCases = state.valueOrNull;
+    final useCases = state.value;
     if (useCases == null) return;
     _update(useCases.cases.where((e) => e != toRemove).toList());
   }
 
   addUseCaseChapter(String id, String content) {
-    final useCases = state.valueOrNull;
+    final useCases = state.value;
     if (useCases == null) return;
     final selected = useCases.getById(id);
     if (selected == null) return;
@@ -108,27 +107,27 @@ class UseCasesNotifier extends _$UseCasesNotifier {
   }
 
   addUseCase(UseCase newUseCase) {
-    final useCases = state.valueOrNull;
+    final useCases = state.value;
     if (useCases == null) return;
     _update([newUseCase, ...useCases.cases]);
   }
 
   updateUseCase(UseCase updatedUseCase) {
-    final useCases = state.valueOrNull;
+    final useCases = state.value;
     if (useCases == null) return;
     _update(
       useCases.cases.map((e) {
         return e.id == updatedUseCase.id
             ? updatedUseCase.copyWith(
-              version: _getVersion(updatedUseCase.content),
-            )
+                version: _getVersion(updatedUseCase.content),
+              )
             : e;
       }).toList(),
     );
   }
 
   updateUseCaseById(String id, String text) {
-    final useCases = state.valueOrNull;
+    final useCases = state.value;
     if (useCases == null) return;
     final selected = useCases.getById(id);
     if (selected == null) return;
@@ -145,12 +144,11 @@ class UseCasesNotifier extends _$UseCasesNotifier {
   }
 
   _update(List<UseCase> updatedCases) {
-    final useCases = state.valueOrNull;
+    final useCases = state.value;
     if (useCases == null) return;
-    final selected =
-        useCases.selected >= updatedCases.length
-            ? max(0, updatedCases.length - 1)
-            : useCases.selected;
+    final selected = useCases.selected >= updatedCases.length
+        ? max(0, updatedCases.length - 1)
+        : useCases.selected;
     state = AsyncData(
       useCases.copyWith(cases: updatedCases, selected: selected),
     );
@@ -158,19 +156,16 @@ class UseCasesNotifier extends _$UseCasesNotifier {
   }
 
   void sortByName({required bool ascending}) {
-    final useCases = state.valueOrNull;
+    final useCases = state.value;
     if (useCases == null) return;
-    final sorted =
-        useCases.cases.toList()..sort((a, b) {
-          return ascending
-              ? a.name.compareTo(b.name)
-              : b.name.compareTo(a.name);
-        });
+    final sorted = useCases.cases.toList()
+      ..sort((a, b) {
+        return ascending ? a.name.compareTo(b.name) : b.name.compareTo(a.name);
+      });
     state = AsyncData(useCases.copyWith(cases: sorted));
   }
 
-  String _getVersion(String? content) =>
-      content == null
-          ? ''
-          : UseCase.useCaseVersionRegex.firstMatch(content)?.group(1) ?? '';
+  String _getVersion(String? content) => content == null
+      ? ''
+      : UseCase.useCaseVersionRegex.firstMatch(content)?.group(1) ?? '';
 }

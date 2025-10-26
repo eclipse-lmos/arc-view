@@ -18,10 +18,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'conversation_exporter.g.dart';
 
 @riverpod
-ConversationExporter conversationExporter(ConversationExporterRef ref) {
+ConversationExporter conversationExporter(ref) {
   return ConversationExporter(
-    ref.watch(conversationsNotifierProvider),
-    ref.watch(agentEventsNotifierProvider),
+    ref.watch(conversationsProvider),
+    ref.watch(agentEventsProvider),
   );
 }
 

@@ -38,8 +38,9 @@ class EventsPanel extends ConsumerWidget {
                     description: 'Filter Events',
                     icon: Icons.filter_alt,
                     onPressed: () {
-                      ref.read(filterDrawerProvider.notifier).state =
-                          !ref.read(filterDrawerProvider);
+                      ref.read(filterDrawerProvider.notifier).state = !ref.read(
+                        filterDrawerProvider,
+                      );
                     },
                   ),
                 ],
@@ -47,7 +48,7 @@ class EventsPanel extends ConsumerWidget {
               SecondaryButton(
                 description: 'Reset Events',
                 onPressed: () {
-                  ref.read(agentEventsNotifierProvider.notifier).reset();
+                  ref.read(agentEventsProvider.notifier).reset();
                 },
                 icon: Icons.delete,
               ),

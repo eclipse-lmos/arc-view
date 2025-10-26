@@ -11,10 +11,9 @@ _ConversationExport _$ConversationExportFromJson(Map<String, dynamic> json) =>
       conversation: Conversation.fromJson(
         json['conversation'] as Map<String, dynamic>,
       ),
-      events:
-          (json['events'] as List<dynamic>)
-              .map((e) => AgentEvent.fromJson(e as Map<String, dynamic>))
-              .toList(),
+      events: (json['events'] as List<dynamic>)
+          .map((e) => AgentEvent.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ConversationExportToJson(_ConversationExport instance) =>

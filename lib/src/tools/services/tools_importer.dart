@@ -9,7 +9,6 @@ import 'dart:convert';
 import 'package:arc_view/src/tools/models/test_tool.dart';
 import 'package:arc_view/src/tools/notifiers/tools_notifier.dart';
 import 'package:file_selector/file_selector.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'tools_importer.g.dart';
@@ -19,7 +18,7 @@ part 'tools_importer.g.dart';
 ///
 @riverpod
 ToolsImporter toolsImporter(Ref ref) =>
-    ToolsImporter(ref.watch(toolsNotifierProvider.notifier));
+    ToolsImporter(ref.watch(toolsProvider.notifier));
 
 class ToolsImporter {
   ToolsImporter(this.toolsNotifier);

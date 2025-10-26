@@ -17,7 +17,7 @@ class ApplyUseCaseButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedUseCase = ref.watch(selectedUsecaseNotifierProvider);
+    final selectedUseCase = ref.watch(selectedUsecaseProvider);
 
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -32,16 +32,18 @@ class ApplyUseCaseButton extends ConsumerWidget {
         if (selectedUseCase == null)
           'No Use Case selected'.txt.padByUnits(0, 2, 0, 0),
         if (selectedUseCase != null) ...[
-          selectedUseCase.name.onPressed(() {
-            context.push('/edit_usecase/${selectedUseCase.id}');
-          }).padByUnits(0, 2, 0, 0),
+          selectedUseCase.name
+              .onPressed(() {
+                context.push('/edit_usecase/${selectedUseCase.id}');
+              })
+              .padByUnits(0, 2, 0, 0),
           SecondaryButton(
             description: 'Remove Use Case',
             icon: Icons.close,
             onPressed: () {
-              ref.read(selectedUsecaseNotifierProvider.notifier).remove();
+              ref.read(selectedUsecaseProvider.notifier).remove();
             },
-          )
+          ),
         ],
       ].row(),
     );

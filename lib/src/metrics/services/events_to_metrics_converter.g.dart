@@ -6,26 +6,53 @@ part of 'events_to_metrics_converter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$eventsToMetricsConverterHash() =>
-    r'ccde48b417c8396a4c47c67ab203126faa875fbf';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [eventsToMetricsConverter].
 @ProviderFor(eventsToMetricsConverter)
-final eventsToMetricsConverterProvider =
-    AutoDisposeProvider<EventsToMetricsConverter>.internal(
-      eventsToMetricsConverter,
-      name: r'eventsToMetricsConverterProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$eventsToMetricsConverterHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const eventsToMetricsConverterProvider = EventsToMetricsConverterProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef EventsToMetricsConverterRef =
-    AutoDisposeProviderRef<EventsToMetricsConverter>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class EventsToMetricsConverterProvider
+    extends
+        $FunctionalProvider<
+          EventsToMetricsConverter,
+          EventsToMetricsConverter,
+          EventsToMetricsConverter
+        >
+    with $Provider<EventsToMetricsConverter> {
+  const EventsToMetricsConverterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'eventsToMetricsConverterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$eventsToMetricsConverterHash();
+
+  @$internal
+  @override
+  $ProviderElement<EventsToMetricsConverter> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  EventsToMetricsConverter create(Ref ref) {
+    return eventsToMetricsConverter(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(EventsToMetricsConverter value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<EventsToMetricsConverter>(value),
+    );
+  }
+}
+
+String _$eventsToMetricsConverterHash() =>
+    r'c390b5e0f1c6eb3396012f5e91e407136cbbe758';

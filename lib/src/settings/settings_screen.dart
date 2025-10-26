@@ -30,7 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final conversation = ref.read(conversationsNotifierProvider).current;
+        final conversation = ref.read(conversationsProvider).current;
         const JsonEncoder encoder = JsonEncoder.withIndent('  ');
 
         return Scaffold(
@@ -60,7 +60,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         color: context.colorScheme.onSurface,
                       ),
                       onPressed: () {
-                        ref.read(themeNotifierProvider.notifier).toggle();
+                        ref.read(themeProvider.notifier).toggle();
                       },
                     ).pad(8, 8, 8, 8),
                     '3.0.0'.txt.pad(8, 8, 8, 8),
@@ -86,41 +86,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 //   ),
                 VGap.small(),
                 Card(
-                  child:
-                      [
-                        SectionTitle(
-                          text: 'Set the context for outgoing requests',
-                        ).padByUnits(3, 1, 1, 2).toLeft(),
-                        ContextField(
-                          'User Context',
-                          encoder.convert(conversation.userContext.toJson()),
-                          onChanged: (value) {
-                            ref
-                                .read(settingsNotifierProvider.notifier)
-                                .updateChanged();
-                          },
-                          onSave: (value) {
-                            ref
-                                .read(settingsNotifierProvider.notifier)
-                                .updateUserContext(value);
-                          },
-                        ).padding(16),
-                        const VGap(),
-                        ContextField(
-                          'System Context',
-                          encoder.convert(conversation.systemContext.toJson()),
-                          onChanged: (value) {
-                            ref
-                                .read(settingsNotifierProvider.notifier)
-                                .updateChanged();
-                          },
-                          onSave: (value) {
-                            ref
-                                .read(settingsNotifierProvider.notifier)
-                                .updateSystemContext(value);
-                          },
-                        ).padding(16),
-                      ].column(),
+                  child: [
+                    SectionTitle(
+                      text: 'Set the context for outgoing requests',
+                    ).padByUnits(3, 1, 1, 2).toLeft(),
+                    ContextField(
+                      'User Context',
+                      encoder.convert(conversation.userContext.toJson()),
+                      onChanged: (value) {
+                        ref.read(settingsProvider.notifier).updateChanged();
+                      },
+                      onSave: (value) {
+                        ref
+                            .read(settingsProvider.notifier)
+                            .updateUserContext(value);
+                      },
+                    ).padding(16),
+                    const VGap(),
+                    ContextField(
+                      'System Context',
+                      encoder.convert(conversation.systemContext.toJson()),
+                      onChanged: (value) {
+                        ref.read(settingsProvider.notifier).updateChanged();
+                      },
+                      onSave: (value) {
+                        ref
+                            .read(settingsProvider.notifier)
+                            .updateSystemContext(value);
+                      },
+                    ).padding(16),
+                  ].column(),
                 ).padByUnits(1, 1, 1, 1).percentOfScreen(height: 0.8),
               ],
             ).padByUnits(1, 1, 1, 1),

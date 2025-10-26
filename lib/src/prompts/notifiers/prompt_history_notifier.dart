@@ -20,7 +20,7 @@ class PromptHistoryNotifier extends _$PromptHistoryNotifier {
   }
 
   add(String prompt) {
-    final oldState = state.valueOrNull;
+    final oldState = state.value;
     final List<String> newState;
 
     if (prompt.isEmpty) return;
@@ -37,7 +37,7 @@ class PromptHistoryNotifier extends _$PromptHistoryNotifier {
   }
 
   remove(String prompt) async {
-    final oldState = state.valueOrNull;
+    final oldState = state.value;
 
     if (oldState == null) return;
     final List<String> newState = [];

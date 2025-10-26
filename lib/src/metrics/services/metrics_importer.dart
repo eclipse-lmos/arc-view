@@ -14,8 +14,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'metrics_importer.g.dart';
 
 @riverpod
-MetricsImporter metricsImporter(MetricsImporterRef ref) {
-  return MetricsImporter(ref.watch(agentMetricsNotifierProvider.notifier));
+MetricsImporter metricsImporter(ref) {
+  return MetricsImporter(ref.watch(agentMetricsProvider));
 }
 
 ///

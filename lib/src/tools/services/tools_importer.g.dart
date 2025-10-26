@@ -6,27 +6,56 @@ part of 'tools_importer.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$toolsImporterHash() => r'2afe5f9800da9a1be98dda0ae26c522a56122ca5';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+///
+/// Imports a tool.
+///
+
+@ProviderFor(toolsImporter)
+const toolsImporterProvider = ToolsImporterProvider._();
 
 ///
 /// Imports a tool.
 ///
-///
-/// Copied from [toolsImporter].
-@ProviderFor(toolsImporter)
-final toolsImporterProvider = AutoDisposeProvider<ToolsImporter>.internal(
-  toolsImporter,
-  name: r'toolsImporterProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$toolsImporterHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ToolsImporterRef = AutoDisposeProviderRef<ToolsImporter>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class ToolsImporterProvider
+    extends $FunctionalProvider<ToolsImporter, ToolsImporter, ToolsImporter>
+    with $Provider<ToolsImporter> {
+  ///
+  /// Imports a tool.
+  ///
+  const ToolsImporterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'toolsImporterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$toolsImporterHash();
+
+  @$internal
+  @override
+  $ProviderElement<ToolsImporter> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  ToolsImporter create(Ref ref) {
+    return toolsImporter(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ToolsImporter value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ToolsImporter>(value),
+    );
+  }
+}
+
+String _$toolsImporterHash() => r'b1124610e8c149707bacea2baae92e0b5e8032e1';

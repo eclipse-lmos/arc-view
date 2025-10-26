@@ -15,10 +15,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'conversation_importer.g.dart';
 
 @riverpod
-ConversationImporter conversationImporter(ConversationImporterRef ref) {
+ConversationImporter conversationImporter(ref) {
   return ConversationImporter(
-    ref.watch(conversationsNotifierProvider.notifier),
-    ref.watch(agentEventsNotifierProvider.notifier),
+    ref.watch(conversationsProvider),
+    ref.watch(agentEventsProvider),
   );
 }
 
@@ -36,7 +36,9 @@ class ConversationImporter {
     final conversationExport = ConversationExport.fromJson(jsonDecode(json));
 
     conversationNotifier.updateConversation(conversationExport.conversation);
-    agentEventsNotifier.addAll(conversationExport.events,
-        conversationExport.conversation.conversationId);
+    agentEventsNotifier.addAll(
+      conversationExport.events,
+      conversationExport.conversation.conversationId,
+    );
   }
 }

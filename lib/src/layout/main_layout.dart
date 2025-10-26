@@ -4,15 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import 'package:arc_view/src/authentication/util/auth_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smiles/smiles.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-
-import '../authentication/service/desktop_oidc_service.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key, required this.child, required this.index});
@@ -25,25 +21,6 @@ class MainLayout extends StatefulWidget {
 }
 
 class _MainLayoutState extends State<MainLayout> {
-  bool _isLoading = false;
-
-  Future<void> _handleLogout(BuildContext context, WidgetRef ref) async {
-    setState(() => _isLoading = true);
-    try {
-      final desktopService = ref.read(oidcDesktopServiceProvider);
-      await desktopService.logout();
-      if (!mounted) return;
-    } catch (e) {
-      if (!mounted) return;
-      debugPrint("Logout error: $e");
-    } finally {
-      if (mounted) {
-        setState(() => _isLoading = false);
-        navigateToLogin(context, (value) => setState(() => _isLoading = value));
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final bigScreen = false; //MediaQuery.sizeOf(context).width > 1100;
@@ -127,7 +104,7 @@ class _MainLayoutState extends State<MainLayout> {
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.book_rounded, size: 16),
-                label: Text('Use Cases'),
+                label: Text('ADL'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.auto_fix_high, size: 16),

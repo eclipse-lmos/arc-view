@@ -7,10 +7,9 @@ part of 'message.dart';
 // **************************************************************************
 
 _AgentResult _$AgentResultFromJson(Map<String, dynamic> json) => _AgentResult(
-  messages:
-      (json['messages'] as List<dynamic>)
-          .map((e) => Message.fromJson(e as Map<String, dynamic>))
-          .toList(),
+  messages: (json['messages'] as List<dynamic>)
+      .map((e) => Message.fromJson(e as Map<String, dynamic>))
+      .toList(),
   responseTime: (json['responseTime'] as num).toDouble(),
 );
 

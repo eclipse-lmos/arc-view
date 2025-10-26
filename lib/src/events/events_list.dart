@@ -17,6 +17,7 @@ import 'package:arc_view/src/events/prompt_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:smiles/smiles.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -32,11 +33,9 @@ class EventsList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isFilterDrawerOpen = ref.watch(filterDrawerProvider);
-    final eventFilters = ref.watch(eventFiltersNotifierProvider);
+    final eventFilters = ref.watch(eventFiltersProvider);
     final events = ref.watch(
-      agentEventsNotifierProvider.select(
-        (events) => eventFilters.applyFilters(events),
-      ),
+      agentEventsProvider.select((events) => eventFilters.applyFilters(events)),
     );
 
     return Stack(
@@ -44,73 +43,69 @@ class EventsList extends ConsumerWidget {
       children: [
         if (!isFilterDrawerOpen)
           Positioned.fill(
-            child:
-                events.isEmpty
-                    ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        'No events'.small,
-                        SmallLinkedText(
-                          'Click here for details',
-                          tip: 'Open Help page in a browser',
-                          onPressed: () {
-                            launchUrlString(
-                              'https://eclipse.dev/lmos/docs/arc/spring/graphql#event-subscriptions',
+            child: events.isEmpty
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      'No events'.small,
+                      SmallLinkedText(
+                        'Click here for details',
+                        tip: 'Open Help page in a browser',
+                        onPressed: () {
+                          launchUrlString(
+                            'https://eclipse.dev/lmos/docs/arc/spring/graphql#event-subscriptions',
+                          );
+                        },
+                      ),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.all(16),
+                          itemCount: events.length,
+                          itemBuilder: (context, index) {
+                            final event = events[index];
+                            final json =
+                                jsonDecode(event.payload)
+                                    as Map<String, dynamic>;
+                            final contextLabel = _getEventLabel(json);
+
+                            return ExpansionTile(
+                              expandedAlignment: Alignment.topLeft,
+                              childrenPadding: const EdgeInsets.fromLTRB(
+                                16,
+                                0,
+                                16,
+                                16,
+                              ),
+                              title: EventRowItem(event: event, json: json),
+                              subtitle: [
+                                SmallText(contextLabel),
+                                Spacer(),
+                                SmallText(
+                                  json['duration'] != null
+                                      ? '${(json['duration'] as double?)?.toStringAsPrecision(3)} seconds'
+                                      : '',
+                                ),
+                              ].row(),
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: _transformEvent(
+                                    event.type,
+                                    context,
+                                    json,
+                                  ).toList(),
+                                ),
+                              ],
                             );
                           },
                         ),
-                      ],
-                    )
-                    : Column(
-                      children: [
-                        Expanded(
-                          child: ListView.builder(
-                            padding: const EdgeInsets.all(16),
-                            itemCount: events.length,
-                            itemBuilder: (context, index) {
-                              final event = events[index];
-                              final json =
-                                  jsonDecode(event.payload)
-                                      as Map<String, dynamic>;
-                              final contextLabel = _getEventLabel(json);
-
-                              return ExpansionTile(
-                                expandedAlignment: Alignment.topLeft,
-                                childrenPadding: const EdgeInsets.fromLTRB(
-                                  16,
-                                  0,
-                                  16,
-                                  16,
-                                ),
-                                title: EventRowItem(event: event, json: json),
-                                subtitle:
-                                    [
-                                      SmallText(contextLabel),
-                                      Spacer(),
-                                      SmallText(
-                                        json['duration'] != null
-                                            ? '${(json['duration'] as double?)?.toStringAsPrecision(3)} seconds'
-                                            : '',
-                                      ),
-                                    ].row(),
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children:
-                                        _transformEvent(
-                                          event.type,
-                                          context,
-                                          json,
-                                        ).toList(),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
           ),
         if (isFilterDrawerOpen)
           Positioned.fill(
@@ -178,13 +173,12 @@ class EventsList extends ConsumerWidget {
             onPressed: () {
               showDialog(
                 context: context,
-                builder:
-                    (_) => MessagesView(
-                      json['messages']
-                          .skip(1)
-                          .map((m) => m['content'].toString())
-                          .toList(),
-                    ),
+                builder: (_) => MessagesView(
+                  json['messages']
+                      .skip(1)
+                      .map((m) => m['content'].toString())
+                      .toList(),
+                ),
               );
             },
           ),

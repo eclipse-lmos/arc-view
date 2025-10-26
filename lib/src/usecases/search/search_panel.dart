@@ -25,7 +25,7 @@ class SearchPanelState extends ConsumerState<SearchPanel> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final cleared = ref.watch(searchNotifierProvider.select((e) => e == null));
+    final cleared = ref.watch(searchProvider.select((e) => e == null));
 
     if (cleared) {
       _textController.clear();
@@ -37,10 +37,10 @@ class SearchPanelState extends ConsumerState<SearchPanel> {
       constraints: BoxConstraints(maxHeight: 80),
       padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.all(4)),
       onSubmitted: (text) {
-        ref.read(searchNotifierProvider.notifier).search(text);
+        ref.read(searchProvider.notifier).search(text);
       },
       onTap: () {
-        ref.read(searchNotifierProvider.notifier).search(_textController.text);
+        ref.read(searchProvider.notifier).search(_textController.text);
       },
       leading: const Icon(Icons.search, size: 20).padByUnits(0, 1, 0, 1),
     );

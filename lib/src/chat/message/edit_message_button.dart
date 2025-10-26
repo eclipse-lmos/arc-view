@@ -35,9 +35,11 @@ class EditMessageButton extends ConsumerWidget {
             value: _message.content,
             actionText: 'Update Conversation',
             onConfirm: (newName) {
-              final selectedUseCase = ref.read(selectedUsecaseNotifierProvider);
-              final selectedTools = ref.read(selectedToolNotifierProvider);
-              ref.read(conversationsNotifierProvider.notifier).updateAndReplay(
+              final selectedUseCase = ref.read(selectedUsecaseProvider);
+              final selectedTools = ref.read(selectedToolProvider);
+              ref
+                  .read(conversationsProvider.notifier)
+                  .updateAndReplay(
                     _message,
                     _message.copyWith(content: newName),
                     useCase: selectedUseCase,

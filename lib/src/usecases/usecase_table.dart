@@ -24,8 +24,8 @@ class UseCaseTable extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final useCasesValue = ref.watch(useCasesNotifierProvider);
-    final useCases = useCasesValue.valueOrNull;
+    final useCasesValue = ref.watch(useCasesProvider);
+    final useCases = useCasesValue.value;
     final screenWidth = MediaQuery.sizeOf(context).width;
     final largeScreen = screenWidth > 1400;
     final smallScreen = screenWidth < 1200;
@@ -40,13 +40,12 @@ class UseCaseTable extends ConsumerWidget {
     }
 
     if (useCaseFilter != null) {
-      cases =
-          cases.where((u) {
-            return (useCaseFilter.tag == null ||
-                    u.tags?.contains(useCaseFilter.tag) == true) &&
-                (useCaseFilter.name == null ||
-                    u.name.contains(useCaseFilter.name!));
-          }).toList();
+      cases = cases.where((u) {
+        return (useCaseFilter.tag == null ||
+                u.tags?.contains(useCaseFilter.tag) == true) &&
+            (useCaseFilter.name == null ||
+                u.name.contains(useCaseFilter.name!));
+      }).toList();
     }
 
     return Column(
@@ -64,7 +63,7 @@ class UseCaseTable extends ConsumerWidget {
                 label: 'Name'.txt,
                 onSort: (columnIndex, ascending) {
                   ref
-                      .read(useCasesNotifierProvider.notifier)
+                      .read(useCasesProvider.notifier)
                       .sortByName(ascending: ascending);
                 },
                 columnWidth: FixedColumnWidth(_columnSizes[0]),
@@ -132,25 +131,21 @@ class UseCaseTable extends ConsumerWidget {
                             onPressed: () {
                               showDialog(
                                 context: context,
-                                builder:
-                                    (context) => UseCaseDialog(
-                                      title: 'Edit UseCases Details',
-                                      value: cases[i],
-                                      onConfirm: (details) {
-                                        ref
-                                            .read(
-                                              useCasesNotifierProvider.notifier,
-                                            )
-                                            .updateUseCase(
-                                              cases[i].copyWith(
-                                                name: details.name,
-                                                description:
-                                                    details.description,
-                                                tags: details.tags,
-                                              ),
-                                            );
-                                      },
-                                    ),
+                                builder: (context) => UseCaseDialog(
+                                  title: 'Edit UseCases Details',
+                                  value: cases[i],
+                                  onConfirm: (details) {
+                                    ref
+                                        .read(useCasesProvider.notifier)
+                                        .updateUseCase(
+                                          cases[i].copyWith(
+                                            name: details.name,
+                                            description: details.description,
+                                            tags: details.tags,
+                                          ),
+                                        );
+                                  },
+                                ),
                               );
                             },
                           ),
@@ -161,16 +156,15 @@ class UseCaseTable extends ConsumerWidget {
                             ref.read(useCaseExporterProvider).export(cases[i]);
                           },
                         ),
-                        if (cases[i].readOnly != true)
-                          SecondaryButton(
-                            icon: Icons.copy,
-                            description: 'Duplicate Use Case',
-                            onPressed: () {
-                              ref
-                                  .read(useCasesNotifierProvider.notifier)
-                                  .addUseCase(cases[i].duplicate());
-                            },
-                          ),
+                        SecondaryButton(
+                          icon: Icons.copy,
+                          description: 'Duplicate Use Case',
+                          onPressed: () {
+                            ref
+                                .read(useCasesProvider.notifier)
+                                .addUseCase(cases[i].duplicate());
+                          },
+                        ),
                         if (cases[i].readOnly != true)
                           SecondaryButton(
                             icon: Icons.delete,
@@ -178,7 +172,7 @@ class UseCaseTable extends ConsumerWidget {
                             description: 'Delete Use Case',
                             onPressed: () {
                               ref
-                                  .read(useCasesNotifierProvider.notifier)
+                                  .read(useCasesProvider.notifier)
                                   .deleteUseCase(cases[i]);
                             },
                           ),
@@ -187,7 +181,7 @@ class UseCaseTable extends ConsumerWidget {
                           description: 'Apply Use Case',
                           onPressed: () {
                             ref
-                                .read(selectedUsecaseNotifierProvider.notifier)
+                                .read(selectedUsecaseProvider.notifier)
                                 .setSelected(cases[i]);
                             context.go('/chat');
                           },

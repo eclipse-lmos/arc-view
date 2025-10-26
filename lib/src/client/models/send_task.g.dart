@@ -46,10 +46,9 @@ Map<String, dynamic> _$TaskSendParamsToJson(_TaskSendParams instance) =>
 
 _A2AMessage _$A2AMessageFromJson(Map<String, dynamic> json) => _A2AMessage(
   role: json['role'] as String,
-  parts:
-      (json['parts'] as List<dynamic>)
-          .map((e) => Part.fromJson(e as Map<String, dynamic>))
-          .toList(),
+  parts: (json['parts'] as List<dynamic>)
+      .map((e) => Part.fromJson(e as Map<String, dynamic>))
+      .toList(),
   metadata: (json['metadata'] as Map<String, dynamic>?)?.map(
     (k, e) => MapEntry(k, e as String),
   ),

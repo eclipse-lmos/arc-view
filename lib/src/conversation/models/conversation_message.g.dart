@@ -6,24 +6,25 @@ part of 'conversation_message.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_ConversationMessage _$ConversationMessageFromJson(
-  Map<String, dynamic> json,
-) => _ConversationMessage(
-  type: $enumDecode(_$MessageTypeEnumMap, json['type']),
-  conversationId: json['conversationId'] as String,
-  content: json['content'] as String,
-  binaryData:
-      (json['binaryData'] as List<dynamic>?)
+_ConversationMessage _$ConversationMessageFromJson(Map<String, dynamic> json) =>
+    _ConversationMessage(
+      type: $enumDecode(_$MessageTypeEnumMap, json['type']),
+      conversationId: json['conversationId'] as String,
+      content: json['content'] as String,
+      binaryData: (json['binaryData'] as List<dynamic>?)
           ?.map((e) => BinaryData.fromJson(e as Map<String, dynamic>))
           .toList(),
-  responseTime: (json['responseTime'] as num?)?.toDouble(),
-  agent: json['agent'] as String?,
-  useCase: json['useCase'] as String?,
-  symbols: (json['symbols'] as List<dynamic>?)?.map((e) => e as String).toSet(),
-  toolCalls:
-      (json['toolCalls'] as List<dynamic>?)?.map((e) => e as String).toList(),
-  id: json['id'] as String?,
-);
+      responseTime: (json['responseTime'] as num?)?.toDouble(),
+      agent: json['agent'] as String?,
+      useCase: json['useCase'] as String?,
+      symbols: (json['symbols'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toSet(),
+      toolCalls: (json['toolCalls'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      id: json['id'] as String?,
+    );
 
 Map<String, dynamic> _$ConversationMessageToJson(
   _ConversationMessage instance,

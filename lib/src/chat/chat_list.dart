@@ -20,9 +20,10 @@ class ChatList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final conversation =
-        ref.watch(conversationsNotifierProvider.select((c) => c.current));
-    final testRuns = ref.read(testRunsNotifierProvider);
+    final conversation = ref.watch(
+      conversationsProvider.select((c) => c.current),
+    );
+    final testRuns = ref.read(testRunsProvider);
     final testRun = findByConversationId(conversation.conversationId, testRuns);
     final messageCards = [];
 
@@ -50,18 +51,19 @@ class ChatList extends ConsumerWidget {
   ) {
     return switch (message.type) {
       MessageType.user => ChatMessageCard(chatMessage: message).toLeft(),
-      MessageType.bot => expected != null
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ExpectedChatMessageCard(
-                  message: expected,
-                  success: testRun?.success,
-                ).expand(),
-                BotChatMessageCard(message: message).expand(),
-              ],
-            )
-          : BotChatMessageCard(message: message).toRight(),
+      MessageType.bot =>
+        expected != null
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ExpectedChatMessageCard(
+                    message: expected,
+                    success: testRun?.success,
+                  ).expand(),
+                  BotChatMessageCard(message: message).expand(),
+                ],
+              )
+            : BotChatMessageCard(message: message).toRight(),
     };
   }
 }

@@ -73,18 +73,16 @@ class TestDialogState extends State<TestDialog> {
           ),
           VGap.small(),
           Consumer(
-            builder:
-                (context, ref, _) =>
-                    [
-                      for (final group
-                          in ref
-                              .watch(testCasesNotifierProvider)
-                              .testCases
-                              .map((t) => t.group)
-                              .where((g) => g != null)
-                              .toSet())
-                        group!.onPressed(() => _groupController.text = group),
-                    ].wrap().toLeft(),
+            builder: (context, ref, _) => [
+              for (final group
+                  in ref
+                      .watch(testCasesProvider)
+                      .testCases
+                      .map((t) => t.group)
+                      .where((g) => g != null)
+                      .toSet())
+                group!.onPressed(() => _groupController.text = group),
+            ].wrap().toLeft(),
           ).max(width: 600),
           VGap.small(),
           VGap.small(),
@@ -106,20 +104,18 @@ class TestDialogState extends State<TestDialog> {
         ),
         TextButton(
           child: Text(widget.actionText ?? 'OK'),
-          onPressed:
-              !_valid
-                  ? null
-                  : () {
-                    widget.onConfirm((
-                      name: _textController.text,
-                      description: _descriptionController.text,
-                      group:
-                          _groupController.text.isEmpty
-                              ? 'default'
-                              : _groupController.text,
-                    ));
-                    Navigator.of(context).pop();
-                  },
+          onPressed: !_valid
+              ? null
+              : () {
+                  widget.onConfirm((
+                    name: _textController.text,
+                    description: _descriptionController.text,
+                    group: _groupController.text.isEmpty
+                        ? 'default'
+                        : _groupController.text,
+                  ));
+                  Navigator.of(context).pop();
+                },
         ),
       ],
     );

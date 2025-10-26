@@ -19,8 +19,8 @@ class ToolsPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tools = ref.watch(toolsNotifierProvider);
-    final selected = ref.watch(selectedToolNotifierProvider);
+    final tools = ref.watch(toolsProvider);
+    final selected = ref.watch(selectedToolProvider);
 
     return Card(
       margin: const EdgeInsets.all(0),
@@ -59,75 +59,72 @@ class ToolsPanel extends ConsumerWidget {
           (tools.isEmpty)
               ? Center(child: 'Add a new tool.'.txt).expand()
               : ListView.builder(
-                itemCount: tools.length,
-                itemBuilder: (context, index) {
-                  final tool = tools[index];
-                  return ListTile(
-                    leading:
-                        selected.contains(tool)
-                            ? SecondaryButton(
+                  itemCount: tools.length,
+                  itemBuilder: (context, index) {
+                    final tool = tools[index];
+                    return ListTile(
+                      leading: selected.contains(tool)
+                          ? SecondaryButton(
                               color: context.colorScheme.primary,
                               icon: Icons.check,
                               description: 'DeSelect Tool',
                               onPressed: () {
                                 ref
-                                    .read(selectedToolNotifierProvider.notifier)
+                                    .read(selectedToolProvider.notifier)
                                     .deselect(tool);
                               },
                             )
-                            : SecondaryButton(
+                          : SecondaryButton(
                               icon: Icons.check_box_outline_blank,
                               description: 'Select Tool',
                               onPressed: () {
                                 ref
-                                    .read(selectedToolNotifierProvider.notifier)
+                                    .read(selectedToolProvider.notifier)
                                     .select(tool);
                               },
                             ),
-                    title: tool.title.txt,
-                    subtitle: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [tool.name.txt, tool.description.txt],
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SecondaryButton(
-                          description: 'Edit Tool',
-                          icon: Icons.edit,
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => NewToolDialog(tool: tool),
-                            );
-                          },
-                        ),
-                        HGap(),
-                        SecondaryButton(
-                          description: 'Download Tools',
-                          enabled: tools.isNotEmpty,
-                          onPressed: () {
-                            ref.read(toolsExporterProvider).export(tool);
-                          },
-                          icon: Icons.download,
-                        ),
-                        HGap(),
-                        SecondaryButton(
-                          confirming: true,
-                          description: 'Delete Tool',
-                          icon: Icons.delete,
-                          onPressed: () {
-                            ref
-                                .read(toolsNotifierProvider.notifier)
-                                .removeTool(tool);
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ).expand(),
+                      title: tool.title.txt,
+                      subtitle: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [tool.name.txt, tool.description.txt],
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SecondaryButton(
+                            description: 'Edit Tool',
+                            icon: Icons.edit,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => NewToolDialog(tool: tool),
+                              );
+                            },
+                          ),
+                          HGap(),
+                          SecondaryButton(
+                            description: 'Download Tools',
+                            enabled: tools.isNotEmpty,
+                            onPressed: () {
+                              ref.read(toolsExporterProvider).export(tool);
+                            },
+                            icon: Icons.download,
+                          ),
+                          HGap(),
+                          SecondaryButton(
+                            confirming: true,
+                            description: 'Delete Tool',
+                            icon: Icons.delete,
+                            onPressed: () {
+                              ref.read(toolsProvider.notifier).removeTool(tool);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ).expand(),
         ],
       ),
     );

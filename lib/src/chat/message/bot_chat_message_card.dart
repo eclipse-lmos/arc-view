@@ -26,15 +26,15 @@ class BotChatMessageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return message.useCase != null || message.toolCalls != null
         ? Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (message.useCase != null)
-              _buildUseCase(context, message.useCase!),
-            _buildMessage(context),
-            if (message.toolCalls != null)
-              _buildToolCalls(context, message.toolCalls!),
-          ],
-        )
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (message.useCase != null)
+                _buildUseCase(context, message.useCase!),
+              _buildMessage(context),
+              if (message.toolCalls != null)
+                _buildToolCalls(context, message.toolCalls!),
+            ],
+          )
         : _buildMessage(context);
   }
 
@@ -54,35 +54,31 @@ class BotChatMessageCard extends StatelessWidget {
 
   _buildUseCase(BuildContext context, String useCase) {
     return Consumer(
-      builder:
-          (context, ref, _) => ElevatedButton(
-            child: 'Use Case: ${message.useCase}'.style(size: 12),
-            onPressed: () {
-              final uc = ref.read(selectedUsecaseNotifierProvider);
-              if (uc != null) {
-                showDialog(
-                  context: context,
-                  builder: (_) => UseCaseDialog(uc, name: message.useCase!),
-                );
-              } else {
-                showDialog(
-                  context: context,
-                  builder:
-                      (_) => AlertDialog(
-                        title: DialogHeader('Missing Use Case', subtitle: ''),
-                        titlePadding: const EdgeInsets.all(0),
-                        contentPadding: const EdgeInsets.fromLTRB(
-                          24,
-                          0,
-                          24,
-                          24,
-                        ),
-                        content: 'No use case found!'.txt,
-                      ),
-                );
-              }
-            },
-          ).padByUnits(0, 0, 0, 1),
+      builder: (context, ref, _) => ElevatedButton(
+        child: 'Use Case: ${message.useCase}'.style(size: 12),
+        onPressed: () {
+          final uc = ref.read(selectedUsecaseProvider);
+          if (uc != null) {
+            showDialog(
+              context: context,
+              builder: (_) =>
+                  UseCaseDialog(useCase: uc, name: message.useCase!),
+            );
+          } else {
+            showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                title: DialogHeader('Missing Use Case', subtitle: ''),
+                titlePadding: const EdgeInsets.all(0),
+                contentPadding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+                content:
+                    'No use case found! This will happened when the use cases are hosted within the Agent.'
+                        .txt,
+              ),
+            );
+          }
+        },
+      ).padByUnits(0, 0, 0, 1),
     );
   }
 

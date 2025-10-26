@@ -24,7 +24,7 @@ class UseCaseGroupButton extends ConsumerWidget {
         child: InkWell(
           onTap: () {
             ref
-                .read(selectedUseCaseGroupNotifierProvider.notifier)
+                .read(selectedUseCaseGroupProvider.notifier)
                 .setSelected(group.id);
           },
           child: ListTile(

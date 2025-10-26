@@ -28,10 +28,8 @@ class _ToolScreenState extends State<ToolScreen> {
     return Consumer(
       builder: (context, ref, _) {
         final tool = ref.watch(
-          remoteToolsNotifierProvider.select((tools) {
-            return tools.valueOrNull
-                ?.where((t) => t.name == widget.toolId)
-                .first;
+          remoteToolsProvider.select((tools) {
+            return tools.value?.where((t) => t.name == widget.toolId).first;
           }),
         );
 
@@ -91,7 +89,7 @@ class _ToolScreenState extends State<ToolScreen> {
                         ),
                         onPressed: () {
                           ref
-                              .read(toolExecutionNotifierProvider.notifier)
+                              .read(toolExecutionProvider.notifier)
                               .executeTool(
                                 tool.name,
                                 _textControllers.map(
@@ -114,7 +112,7 @@ class _ToolScreenState extends State<ToolScreen> {
                           child: Consumer(
                             builder: (context, ref, child) {
                               return ref
-                                  .watch(toolExecutionNotifierProvider)
+                                  .watch(toolExecutionProvider)
                                   .markDown();
                             },
                           ).padByUnits(2, 2, 2, 2),

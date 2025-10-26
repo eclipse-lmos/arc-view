@@ -6,27 +6,64 @@ part of 'prompt_history_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$promptHistoryNotifierHash() =>
-    r'f7aeb7a7e6c237e98e1a3d0914afe8e10ca800ea';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+///
+/// Notifier for the prompt history.
+///
+
+@ProviderFor(PromptHistoryNotifier)
+const promptHistoryProvider = PromptHistoryNotifierProvider._();
 
 ///
 /// Notifier for the prompt history.
 ///
-///
-/// Copied from [PromptHistoryNotifier].
-@ProviderFor(PromptHistoryNotifier)
-final promptHistoryNotifierProvider =
-    AsyncNotifierProvider<PromptHistoryNotifier, List<String>>.internal(
-      PromptHistoryNotifier.new,
-      name: r'promptHistoryNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$promptHistoryNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+final class PromptHistoryNotifierProvider
+    extends $AsyncNotifierProvider<PromptHistoryNotifier, List<String>> {
+  ///
+  /// Notifier for the prompt history.
+  ///
+  const PromptHistoryNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'promptHistoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-typedef _$PromptHistoryNotifier = AsyncNotifier<List<String>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+  @override
+  String debugGetCreateSourceHash() => _$promptHistoryNotifierHash();
+
+  @$internal
+  @override
+  PromptHistoryNotifier create() => PromptHistoryNotifier();
+}
+
+String _$promptHistoryNotifierHash() =>
+    r'b5535cd2ba865ba45432514bcb0e8b33fda41c75';
+
+///
+/// Notifier for the prompt history.
+///
+
+abstract class _$PromptHistoryNotifier extends $AsyncNotifier<List<String>> {
+  FutureOr<List<String>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<List<String>>, List<String>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<List<String>>, List<String>>,
+              AsyncValue<List<String>>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

@@ -11,6 +11,7 @@ import 'package:arc_view/src/core/secondary_button.dart';
 import 'package:arc_view/src/core/section_title.dart';
 import 'package:arc_view/src/usecases/buttons/copy_to_clipboard_button.dart';
 import 'package:arc_view/src/usecases/dialogs/edit_usecase_dialog.dart';
+import 'package:arc_view/src/usecases/dialogs/validate_usecase_dialog.dart';
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
 import 'package:arc_view/src/usecases/search/notifiers/search_notifier.dart';
 import 'package:arc_view/src/usecases/search/search_panel.dart';
@@ -45,9 +46,7 @@ class _UseCasePanelState extends State<UseCasePanel> {
     return Consumer(
       builder: (context, ref, child) {
         final selectedCase = ref.watch(
-          useCasesNotifierProvider.select(
-            (u) => u.valueOrNull?.getById(widget.useCaseId),
-          ),
+          useCasesProvider.select((u) => u.value?.getById(widget.useCaseId)),
         );
 
         if (_textController.text != selectedCase?.content) {
@@ -58,7 +57,7 @@ class _UseCasePanelState extends State<UseCasePanel> {
           return 'Add new Use Cases. These are stored locally.'.small.center();
         }
 
-        final searchTerm = ref.watch(searchNotifierProvider)?.nullIfEmpty();
+        final searchTerm = ref.watch(searchProvider)?.nullIfEmpty();
         List<int> findLines = [];
 
         _textController.clearHighlights();
@@ -91,7 +90,7 @@ class _UseCasePanelState extends State<UseCasePanel> {
                     icon: Icons.clear,
                     description: 'Clear Search',
                     onPressed: () {
-                      ref.read(searchNotifierProvider.notifier).clear();
+                      ref.read(searchProvider.notifier).clear();
                     },
                   ),
                   SecondaryButton(
@@ -132,6 +131,13 @@ class _UseCasePanelState extends State<UseCasePanel> {
                       showAddUseCaseDialog(widget.useCaseId, context, ref);
                     },
                   ),
+                SecondaryButton(
+                  icon: Icons.checklist,
+                  description: 'Validate Use Case',
+                  onPressed: () {
+                    showValidateUseCaseDialog(context, selectedCase);
+                  },
+                ),
                 if (selectedCase.readOnly != true)
                   SecondaryButton(
                     icon: _showSource ? Icons.code : Icons.edit,
@@ -141,7 +147,7 @@ class _UseCasePanelState extends State<UseCasePanel> {
                         if (_showSource)
                           _saveText(_textController.text, ref, true);
                         _showSource = !_showSource;
-                        ref.watch(searchNotifierProvider.notifier).clear();
+                        ref.watch(searchProvider.notifier).clear();
                       });
                     },
                   ),
@@ -158,7 +164,7 @@ class _UseCasePanelState extends State<UseCasePanel> {
                   description: 'Apply Use Case',
                   onPressed: () {
                     ref
-                        .read(selectedUsecaseNotifierProvider.notifier)
+                        .read(selectedUsecaseProvider.notifier)
                         .setSelected(selectedCase);
                     context.go('/chat');
                   },
@@ -170,19 +176,19 @@ class _UseCasePanelState extends State<UseCasePanel> {
             Divider(height: 1),
             _showSource
                 ? TextField(
-                  controller: _textController,
-                  scrollController: _scrollController,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: const EdgeInsets.all(8),
-                  ),
-                  onChanged: (text) {
-                    _saveText(text, ref);
-                  },
-                  maxLines: null,
-                  expands: true,
-                  keyboardType: TextInputType.multiline,
-                ).expand()
+                    controller: _textController,
+                    scrollController: _scrollController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.all(8),
+                    ),
+                    onChanged: (text) {
+                      _saveText(text, ref);
+                    },
+                    maxLines: null,
+                    expands: true,
+                    keyboardType: TextInputType.multiline,
+                  ).expand()
                 : UsecaseOverviewPanel(useCaseId: widget.useCaseId).expand(),
           ],
         );
@@ -194,12 +200,12 @@ class _UseCasePanelState extends State<UseCasePanel> {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
     if (force) {
       ref
-          .read(useCasesNotifierProvider.notifier)
+          .read(useCasesProvider.notifier)
           .updateUseCaseById(widget.useCaseId, text);
     } else {
       _debounce = Timer(1300.milliseconds, () {
         ref
-            .read(useCasesNotifierProvider.notifier)
+            .read(useCasesProvider.notifier)
             .updateUseCaseById(widget.useCaseId, text);
       });
     }

@@ -6,23 +6,47 @@ part of 'metrics_importer.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$metricsImporterHash() => r'8d7201cc2cf02c14c39809a7487b5619fe2ea90f';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [metricsImporter].
 @ProviderFor(metricsImporter)
-final metricsImporterProvider = AutoDisposeProvider<MetricsImporter>.internal(
-  metricsImporter,
-  name: r'metricsImporterProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$metricsImporterHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const metricsImporterProvider = MetricsImporterProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef MetricsImporterRef = AutoDisposeProviderRef<MetricsImporter>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class MetricsImporterProvider
+    extends
+        $FunctionalProvider<MetricsImporter, MetricsImporter, MetricsImporter>
+    with $Provider<MetricsImporter> {
+  const MetricsImporterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'metricsImporterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$metricsImporterHash();
+
+  @$internal
+  @override
+  $ProviderElement<MetricsImporter> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  MetricsImporter create(Ref ref) {
+    return metricsImporter(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(MetricsImporter value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<MetricsImporter>(value),
+    );
+  }
+}
+
+String _$metricsImporterHash() => r'244963e43b17dde104a21b26e33e7964fc027096';

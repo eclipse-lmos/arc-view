@@ -34,9 +34,7 @@ class _UsecaseOverviewPanelState extends State<UsecaseOverviewPanel> {
     return Consumer(
       builder: (context, ref, _) {
         final selectedCase = ref.watch(
-          useCasesNotifierProvider.select(
-            (u) => u.valueOrNull?.getById(widget.useCaseId),
-          ),
+          useCasesProvider.select((u) => u.value?.getById(widget.useCaseId)),
         );
         if (selectedCase == null) return ''.txt;
         final filter = ref.watch(overviewFilterProvider);
@@ -68,6 +66,40 @@ class _UsecaseOverviewPanelState extends State<UsecaseOverviewPanel> {
             SingleChildScrollView(
               child: Column(
                 children: [
+                  if (selectedCase.conditionals.isNotEmpty)
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        'Conditionals'.txt.padByUnits(1, 0, 0, 0),
+                        Wrap(
+                          children: [
+                            for (var condition in selectedCase.conditionals)
+                              Chip(
+                                label: condition.txt,
+                                labelStyle: TextStyle(fontSize: 12),
+                              ).padByUnits(0, 0, 0, 1),
+                          ],
+                        ).expand(),
+                      ],
+                    ).padByUnits(2, 2, 1, 2),
+                  if (selectedCase.tools.isNotEmpty)
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        'Tools'.txt.padByUnits(1, 0, 0, 0),
+                        Wrap(
+                          children: [
+                            for (var condition in selectedCase.tools)
+                              Chip(
+                                label: condition.txt,
+                                padding: const EdgeInsets.all(4),
+                                labelStyle: TextStyle(fontSize: 12),
+                              ).padByUnits(1, 0, 0, 1),
+                          ],
+                        ).expand(),
+                      ],
+                    ).padByUnits(2, 2, 1, 2),
+
                   for (var i = 0; i < sections.length; i++)
                     Stack(
                       key: sectionKeys[i],
@@ -75,13 +107,12 @@ class _UsecaseOverviewPanelState extends State<UsecaseOverviewPanel> {
                         Card(
                           margin: const EdgeInsets.all(8),
                           child: MarkdownBody(
-                            styleSheet: MarkdownStyleSheet.fromTheme(
-                              theme,
-                            ).copyWith(
-                              horizontalRuleDecoration: BoxDecoration(
-                                color: Colors.transparent,
-                              ),
-                            ),
+                            styleSheet: MarkdownStyleSheet.fromTheme(theme)
+                                .copyWith(
+                                  horizontalRuleDecoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                  ),
+                                ),
                             data: sections[i].$2,
                             onTapLink: (text, href, title) {
                               if (href != null) launchUrlString(href);
@@ -145,9 +176,7 @@ class _UsecaseOverviewPanelState extends State<UsecaseOverviewPanel> {
         newText += '${sections[i].$2}\n';
       }
     }
-    ref
-        .read(useCasesNotifierProvider.notifier)
-        .updateUseCaseById(useCaseId, newText);
+    ref.read(useCasesProvider.notifier).updateUseCaseById(useCaseId, newText);
   }
 
   @override

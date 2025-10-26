@@ -6,26 +6,71 @@ part of 'tools_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+///
+/// Holds the use case that has been selected and is sent to the Agent.
+///
+
+@ProviderFor(ToolsNotifier)
+const toolsProvider = ToolsNotifierProvider._();
+
+///
+/// Holds the use case that has been selected and is sent to the Agent.
+///
+final class ToolsNotifierProvider
+    extends $NotifierProvider<ToolsNotifier, List<TestTool>> {
+  ///
+  /// Holds the use case that has been selected and is sent to the Agent.
+  ///
+  const ToolsNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'toolsProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$toolsNotifierHash();
+
+  @$internal
+  @override
+  ToolsNotifier create() => ToolsNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<TestTool> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<TestTool>>(value),
+    );
+  }
+}
+
 String _$toolsNotifierHash() => r'b238e40de763896182e7d5e7c88d0cc4e763d788';
 
 ///
 /// Holds the use case that has been selected and is sent to the Agent.
 ///
-///
-/// Copied from [ToolsNotifier].
-@ProviderFor(ToolsNotifier)
-final toolsNotifierProvider =
-    NotifierProvider<ToolsNotifier, List<TestTool>>.internal(
-      ToolsNotifier.new,
-      name: r'toolsNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$toolsNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
 
-typedef _$ToolsNotifier = Notifier<List<TestTool>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$ToolsNotifier extends $Notifier<List<TestTool>> {
+  List<TestTool> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<List<TestTool>, List<TestTool>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<TestTool>, List<TestTool>>,
+              List<TestTool>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

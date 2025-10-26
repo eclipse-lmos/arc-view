@@ -6,7 +6,6 @@
 
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
 import 'package:file_selector/file_selector.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'usecase_importer.g.dart';
@@ -16,7 +15,7 @@ part 'usecase_importer.g.dart';
 ///
 @riverpod
 UseCaseImporter useCaseImporter(Ref ref) =>
-    UseCaseImporter(ref.watch(useCasesNotifierProvider.notifier));
+    UseCaseImporter(ref.watch(useCasesProvider.notifier));
 
 class UseCaseImporter {
   UseCaseImporter(this.useCasesNotifier);

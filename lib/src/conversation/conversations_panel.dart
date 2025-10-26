@@ -17,8 +17,9 @@ class ConversationsPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final conversations =
-        ref.watch(conversationsNotifierProvider.select((e) => e.conversations));
+    final conversations = ref.watch(
+      conversationsProvider.select((e) => e.conversations),
+    );
     return Card(
       margin: const EdgeInsets.all(0),
       child: (conversations.isEmpty)
@@ -30,55 +31,56 @@ class ConversationsPanel extends ConsumerWidget {
                   SecondaryButton(
                     description: 'Delete all conversations',
                     onPressed: () {
-                      ref
-                          .read(conversationsNotifierProvider.notifier)
-                          .deleteAll();
+                      ref.read(conversationsProvider.notifier).deleteAll();
                     },
                     icon: Icons.delete_sweep_rounded,
                   ),
                 ],
               ),
               ListView.builder(
-                  itemCount: conversations.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      onTap: () {
+                itemCount: conversations.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    onTap: () {
+                      ref
+                          .watch(conversationsProvider.notifier)
+                          .updateConversation(conversations[index]);
+                    },
+                    trailing: SecondaryButton(
+                      description: 'Delete conversation',
+                      icon: Icons.delete,
+                      onPressed: () {
                         ref
-                            .watch(conversationsNotifierProvider.notifier)
-                            .updateConversation(conversations[index]);
+                            .read(conversationsProvider.notifier)
+                            .delete(conversations[index]);
                       },
-                      trailing: SecondaryButton(
-                        description: 'Delete conversation',
-                        icon: Icons.delete,
-                        onPressed: () {
-                          ref
-                              .read(conversationsNotifierProvider.notifier)
-                              .delete(conversations[index]);
-                        },
-                      ),
-                      leading: Icon(
-                        Icons.chat,
-                        size: 16,
-                        color: color(conversations[index].conversationId),
-                      ),
-                      title: (conversations[index].name ??
-                              conversations[index]
-                                  .messages
-                                  .elementAtOrNull(0)
-                                  ?.content
-                                  .truncate(20,
-                                      '(${conversations[index].messages.length})') ??
-                              'empty')
-                          .txt,
-                      subtitle: [
-                        DateFormat.Hm()
-                            .format(conversations[index].createdAt)
-                            .small,
-                        Spacer(),
-                        conversations[index].conversationId.small,
-                      ].row(),
-                    );
-                  }).expand()
+                    ),
+                    leading: Icon(
+                      Icons.chat,
+                      size: 16,
+                      color: color(conversations[index].conversationId),
+                    ),
+                    title:
+                        (conversations[index].name ??
+                                conversations[index].messages
+                                    .elementAtOrNull(0)
+                                    ?.content
+                                    .truncate(
+                                      20,
+                                      '(${conversations[index].messages.length})',
+                                    ) ??
+                                'empty')
+                            .txt,
+                    subtitle: [
+                      DateFormat.Hm()
+                          .format(conversations[index].createdAt)
+                          .small,
+                      Spacer(),
+                      conversations[index].conversationId.small,
+                    ].row(),
+                  );
+                },
+              ).expand(),
             ].column(),
     );
   }

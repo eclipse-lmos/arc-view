@@ -4,14 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import 'package:arc_view/src/audio/record_button.dart';
 import 'package:arc_view/src/chat/buttons/send_message_button.dart';
 import 'package:arc_view/src/chat/buttons/show_previous_prompts_button.dart';
 import 'package:arc_view/src/chat/chat_field.dart';
 import 'package:arc_view/src/chat/chat_list.dart';
 import 'package:arc_view/src/chat/services/message_sender.dart';
 import 'package:arc_view/src/chat/toolbar/chat_tool_bar.dart';
-import 'package:arc_view/src/features/notifiers/features_notifier.dart';
 import 'package:arc_view/src/prompts/notifiers/current_prompt_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,7 +44,7 @@ class _ChatPanelState extends State<ChatPanel> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final features = ref.watch(featuresNotifierProvider);
+        // final features = ref.watch(featuresProvider);
         return Column(
           children: [
             const ChatToolBar(),
@@ -55,18 +53,14 @@ class _ChatPanelState extends State<ChatPanel> {
               Card(
                 elevation: 6,
                 margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                child:
-                    Row(
-                      children: [
-                        PreviousPromptButton(),
-                        _chatField(ref),
-                        SendMessageButton(onPressed: () => _send(ref)),
-                      ],
-                    ).padding(),
+                child: Row(
+                  children: [
+                    PreviousPromptButton(),
+                    _chatField(ref),
+                    SendMessageButton(onPressed: () => _send(ref)),
+                  ],
+                ).padding(),
               ).expand(),
-              if (features.isNotEmpty) const HGap.small(),
-              if (features.isNotEmpty)
-                Card(child: const RecordButton().padding()),
             ].row(min: true),
           ],
         );
@@ -77,7 +71,7 @@ class _ChatPanelState extends State<ChatPanel> {
   _chatField(WidgetRef ref) => Expanded(
     child: Consumer(
       builder: (ctx, ref, child) {
-        _textController.text = ref.watch(currentPromptNotifierProvider);
+        _textController.text = ref.watch(currentPromptProvider);
         return ChatField(
           controller: _textController,
           onSubmitted: (_) => _send(ref),

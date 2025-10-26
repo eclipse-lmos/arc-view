@@ -6,23 +6,59 @@ part of 'conversations_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$conversationsNotifierHash() =>
-    r'86d279c762074f068ad40d34b89a253f15e3416f';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [ConversationsNotifier].
 @ProviderFor(ConversationsNotifier)
-final conversationsNotifierProvider =
-    NotifierProvider<ConversationsNotifier, Conversations>.internal(
-      ConversationsNotifier.new,
-      name: r'conversationsNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$conversationsNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const conversationsProvider = ConversationsNotifierProvider._();
 
-typedef _$ConversationsNotifier = Notifier<Conversations>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class ConversationsNotifierProvider
+    extends $NotifierProvider<ConversationsNotifier, Conversations> {
+  const ConversationsNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'conversationsProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$conversationsNotifierHash();
+
+  @$internal
+  @override
+  ConversationsNotifier create() => ConversationsNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Conversations value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Conversations>(value),
+    );
+  }
+}
+
+String _$conversationsNotifierHash() =>
+    r'6d9d8fa2338b527d524a6c7e3b73859e0c53e61a';
+
+abstract class _$ConversationsNotifier extends $Notifier<Conversations> {
+  Conversations build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<Conversations, Conversations>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<Conversations, Conversations>,
+              Conversations,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

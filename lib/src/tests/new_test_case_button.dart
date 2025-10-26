@@ -18,7 +18,7 @@ class NewTestCaseButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentConversation = ref.watch(
-      conversationsNotifierProvider.select((c) => c.current),
+      conversationsProvider.select((c) => c.current),
     );
     return SecondaryButton(
       enabled: currentConversation.messages.isNotEmpty,
@@ -26,21 +26,20 @@ class NewTestCaseButton extends ConsumerWidget {
       onPressed: () async {
         showDialog(
           context: context,
-          builder:
-              (_) => TestDialog(
-                title: 'New Test Case',
-                onConfirm: (details) {
-                  context.notify(
-                    'Test ${details.name} added. Goto [Tests](#/tests) to view.',
-                  );
-                  ref.storeConversationAsTest(
-                    details.name,
-                    conversation: currentConversation,
-                    description: details.description,
-                    group: details.group,
-                  );
-                },
-              ),
+          builder: (_) => TestDialog(
+            title: 'New Test Case',
+            onConfirm: (details) {
+              context.notify(
+                'Test ${details.name} added. Goto [Tests](#/tests) to view.',
+              );
+              ref.storeConversationAsTest(
+                details.name,
+                conversation: currentConversation,
+                description: details.description,
+                group: details.group,
+              );
+            },
+          ),
         );
       },
       icon: Icons.add,

@@ -20,10 +20,10 @@ class TestsToolBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final conversation = ref.watch(
-      conversationsNotifierProvider.select((c) => c.current),
+      conversationsProvider.select((c) => c.current),
     );
     final testCase = ref.watch(
-      testCasesNotifierProvider.select(
+      testCasesProvider.select(
         (t) => t.getTestCase(conversation.conversationId),
       ),
     );
@@ -34,26 +34,23 @@ class TestsToolBar extends ConsumerWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          child:
-              [
-                HGap.small(),
-                TestStatusLabel(testName: testCase.name),
-                SecondaryButton(
-                  description: 'Run Test',
-                  icon: Icons.play_circle,
-                  onPressed: () async {
-                    final successful = await ref.runTestCaseWithUseCases(
-                      testCase,
-                    );
-                    if (!context.mounted) return;
-                    context.notify(
-                      successful
-                          ? 'Test ${testCase.name} ran successfully. [Tests](#/tests)'
-                          : 'Test ${testCase.name} failed. [Tests](#/tests)',
-                    );
-                  },
-                ),
-              ].row(),
+          child: [
+            HGap.small(),
+            TestStatusLabel(testName: testCase.name),
+            SecondaryButton(
+              description: 'Run Test',
+              icon: Icons.play_circle,
+              onPressed: () async {
+                final successful = await ref.runTestCaseWithUseCases(testCase);
+                if (!context.mounted) return;
+                context.notify(
+                  successful
+                      ? 'Test ${testCase.name} ran successfully. [Tests](#/tests)'
+                      : 'Test ${testCase.name} failed. [Tests](#/tests)',
+                );
+              },
+            ),
+          ].row(),
         ),
       HGap(),
       if (testCase == null)
@@ -61,15 +58,14 @@ class TestsToolBar extends ConsumerWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          child:
-              [
-                Icon(
-                  Icons.science,
-                  size: 16,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ).padByUnits(0, 0, 0, 1),
-                NewTestCaseButton(),
-              ].row(),
+          child: [
+            Icon(
+              Icons.science,
+              size: 16,
+              color: Theme.of(context).colorScheme.onSurface,
+            ).padByUnits(0, 0, 0, 1),
+            NewTestCaseButton(),
+          ].row(),
         ),
     ].row(min: true);
   }

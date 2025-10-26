@@ -33,37 +33,33 @@ class _EditUseCaseDialogState extends State<EditUseCaseDialog> {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder:
-          (context, ref, _) => AlertDialog(
-            title: DialogHeader(
-              'Edit Use Case',
-              subtitle: 'Update the Use Case.',
-            ),
-            titlePadding: const EdgeInsets.all(0),
-            content: ColoredBox(
-              color: context.colorScheme.surface,
-              child: TextField(
-                controller: _textController..text = widget.content,
-                minLines: 20,
-                maxLines: null,
-              ).min(width: 560, height: 0).padByUnits(2, 2, 2, 2),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  widget.onSave(_textController.text);
-                  Navigator.of(context).pop();
-                },
-                child: Text('Save'),
-              ),
-            ],
+      builder: (context, ref, _) => AlertDialog(
+        title: DialogHeader('Edit Use Case', subtitle: 'Update the Use Case.'),
+        titlePadding: const EdgeInsets.all(0),
+        content: ColoredBox(
+          color: context.colorScheme.surface,
+          child: TextField(
+            controller: _textController..text = widget.content,
+            minLines: 20,
+            maxLines: null,
+          ).min(width: 560, height: 0).padByUnits(2, 2, 2, 2).max(width: 800),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Cancel'),
           ),
+          TextButton(
+            onPressed: () {
+              widget.onSave(_textController.text);
+              Navigator.of(context).pop();
+            },
+            child: Text('Save'),
+          ),
+        ],
+      ),
     );
   }
 
@@ -86,7 +82,7 @@ showAddUseCaseDialog(String useCaseId, BuildContext context, WidgetRef ref) {
         content: addUseCaseTemplate,
         onSave: (text) {
           ref
-              .read(useCasesNotifierProvider.notifier)
+              .read(useCasesProvider.notifier)
               .addUseCaseChapter(useCaseId, text);
         },
       );
@@ -129,7 +125,5 @@ _saveUseCase(
       newText += '${useCases[i].$2}\n';
     }
   }
-  ref
-      .read(useCasesNotifierProvider.notifier)
-      .updateUseCaseById(useCaseId, newText);
+  ref.read(useCasesProvider.notifier).updateUseCaseById(useCaseId, newText);
 }

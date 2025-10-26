@@ -12,10 +12,9 @@ _TestTool _$TestToolFromJson(Map<String, dynamic> json) => _TestTool(
   id: json['id'] as String,
   description: json['description'] as String,
   value: json['value'] as String,
-  parameters:
-      (json['parameters'] as List<dynamic>?)
-          ?.map((e) => TestToolParameter.fromJson(e as Map<String, dynamic>))
-          .toList(),
+  parameters: (json['parameters'] as List<dynamic>?)
+      ?.map((e) => TestToolParameter.fromJson(e as Map<String, dynamic>))
+      .toList(),
 );
 
 Map<String, dynamic> _$TestToolToJson(_TestTool instance) => <String, dynamic>{

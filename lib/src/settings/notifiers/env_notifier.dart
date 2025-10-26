@@ -28,10 +28,10 @@ class EnvNotifier extends _$EnvNotifier {
 
 extension EnvNotifierRef on WidgetRef {
   addEnv(String env) {
-    read(envNotifierProvider.notifier).addEnv(env);
+    read(envProvider.notifier).addEnv(env);
   }
 
   removeEnv(String env) {
-    read(envNotifierProvider.notifier).removeEnv(env);
+    read(envProvider.notifier).removeEnv(env);
   }
 }

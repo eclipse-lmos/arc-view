@@ -14,10 +14,9 @@ _TestCase _$TestCaseFromJson(Map<String, dynamic> json) => _TestCase(
   description: json['description'] as String?,
   group: json['group'] as String?,
   lastRunSuccess: json['lastRunSuccess'] as bool?,
-  lastRunAt:
-      json['lastRunAt'] == null
-          ? null
-          : DateTime.parse(json['lastRunAt'] as String),
+  lastRunAt: json['lastRunAt'] == null
+      ? null
+      : DateTime.parse(json['lastRunAt'] as String),
 );
 
 Map<String, dynamic> _$TestCaseToJson(_TestCase instance) => <String, dynamic>{

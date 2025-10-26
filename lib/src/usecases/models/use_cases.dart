@@ -41,6 +41,7 @@ sealed class UseCase with _$UseCase {
     List<String>? tags,
     String? version,
     bool? readOnly,
+    bool? valid,
   }) = _UseCase;
 
   UseCase._() {
@@ -48,13 +49,35 @@ sealed class UseCase with _$UseCase {
     sections.addAll(
       splitContent().where((s) => !s.$2.contains('<Version:')).toList(),
     );
+    conditionals.clear();
+    conditionals.addAll(
+      conditionalRegex
+          .allMatches(content)
+          .map((e) => e.group(0) ?? '')
+          .where((e) => e.isNotEmpty),
+    );
+    tools.clear();
+    tools.addAll(
+      toolsRegex
+          .allMatches(content)
+          .map((e) => e.group(0) ?? '')
+          .where((e) => e.isNotEmpty),
+    );
   }
 
   static final useCaseSplitRegex = RegExp(r'(?=###\s*UseCase\s*:\s*)');
   static final useCaseVersionRegex = RegExp(r'<Version:(.*)>');
+  static final conditionalRegex = RegExp(r'<.*?>');
+  static final toolsRegex = RegExp(r'@\w+\(\)');
 
   @override
   final List<(String, String)> sections = [];
+
+  @override
+  final Set<String> conditionals = {};
+
+  @override
+  final Set<String> tools = {};
 
   List<(String, String)> splitContent() {
     if (content.trim().isEmpty) return [];
@@ -71,11 +94,38 @@ sealed class UseCase with _$UseCase {
       name: '$name (copy)',
       id: 'uc-${DateTime.now().millisecondsSinceEpoch}-${generateHash()}',
       createdAt: DateTime.now(),
+      readOnly: false,
     );
   }
 
   String generateHash() {
     return content.hashCode.toRadixString(16);
+  }
+
+  UseCase updateSection(String id, String content) {
+    var updated = false;
+    var updatedSections = sections.map((s) {
+      if (s.$1.contains('UseCase: $id')) {
+        updated = true;
+        return (s.$1, content);
+      }
+      return s;
+    }).toList();
+
+    if (!updated) {
+      updatedSections = [...sections, (' UseCase: $id', content)];
+    }
+
+    return UseCase(
+      id: this.id,
+      name: name,
+      createdAt: createdAt,
+      content: updatedSections.map((s) => s.$2).join('\n'),
+      description: description,
+      tags: tags,
+      version: version,
+      readOnly: readOnly,
+    );
   }
 
   factory UseCase.fromJson(Map<String, dynamic> json) =>

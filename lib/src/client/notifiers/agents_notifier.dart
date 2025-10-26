@@ -19,17 +19,18 @@ typedef AgentDetails = ({String name, Uri url});
 class AgentsNotifier extends _$AgentsNotifier {
   @override
   Future<Agents> build() async {
-    final client = ref.watch(agentClientNotifierProvider);
+    final client = ref.watch(agentClientProvider);
     final agents = await client.getAgents();
-    final List<AgentDetails> agentDetails =
-        agents.map((a) => (name: a, url: client.agentUrl.url)).toList();
+    final List<AgentDetails> agentDetails = agents
+        .map((a) => (name: a, url: client.agentUrl.url))
+        .toList();
     final activated = client.agentUrl.agent;
     return (activated: activated, names: agentDetails);
   }
 
   setActivated(String activated, List<AgentDetails> agentDetails) {
     state = AsyncData((activated: activated, names: agentDetails));
-    ref.read(agentUrlNotifierProvider.notifier).setAgent(activated);
+    ref.read(agentUrlProvider.notifier).setAgent(activated);
   }
 
   Future<Agents> checkUrl(String url) async {
@@ -41,8 +42,9 @@ class AgentsNotifier extends _$AgentsNotifier {
         secure: agentUrl.isScheme('https'),
       ));
       final agents = await client.getAgents();
-      final List<AgentDetails> agentDetails =
-          agents.map((a) => (name: a, url: client.agentUrl.url)).toList();
+      final List<AgentDetails> agentDetails = agents
+          .map((a) => (name: a, url: client.agentUrl.url))
+          .toList();
       client.close();
       return (activated: null, names: agentDetails);
     } catch (_) {
@@ -58,10 +60,10 @@ class AgentsNotifier extends _$AgentsNotifier {
 /// Extensions for the AgentsNotifier.
 extension AgentsNotifierExtension on WidgetRef {
   activateAgent(String activated, List<AgentDetails> agentDetails) {
-    read(agentsNotifierProvider.notifier).setActivated(activated, agentDetails);
+    read(agentsProvider.notifier).setActivated(activated, agentDetails);
   }
 
   refreshAgents() {
-    read(agentsNotifierProvider.notifier).refresh();
+    read(agentsProvider.notifier).refresh();
   }
 }

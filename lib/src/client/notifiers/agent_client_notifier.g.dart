@@ -6,23 +6,59 @@ part of 'agent_client_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$agentClientNotifierHash() =>
-    r'd2ed1cc614fb05faccd418b76649b6f2e32a3f9d';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [AgentClientNotifier].
 @ProviderFor(AgentClientNotifier)
-final agentClientNotifierProvider =
-    NotifierProvider<AgentClientNotifier, OneAIClient>.internal(
-      AgentClientNotifier.new,
-      name: r'agentClientNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$agentClientNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const agentClientProvider = AgentClientNotifierProvider._();
 
-typedef _$AgentClientNotifier = Notifier<OneAIClient>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class AgentClientNotifierProvider
+    extends $NotifierProvider<AgentClientNotifier, OneAIClient> {
+  const AgentClientNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'agentClientProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$agentClientNotifierHash();
+
+  @$internal
+  @override
+  AgentClientNotifier create() => AgentClientNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(OneAIClient value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<OneAIClient>(value),
+    );
+  }
+}
+
+String _$agentClientNotifierHash() =>
+    r'b65f172961f60dcc8332f5786b67019963da542a';
+
+abstract class _$AgentClientNotifier extends $Notifier<OneAIClient> {
+  OneAIClient build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<OneAIClient, OneAIClient>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<OneAIClient, OneAIClient>,
+              OneAIClient,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

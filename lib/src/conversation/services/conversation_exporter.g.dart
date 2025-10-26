@@ -6,25 +6,53 @@ part of 'conversation_exporter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$conversationExporterHash() =>
-    r'c9292a2673cd4429500229d83eb26c2b69584543';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [conversationExporter].
 @ProviderFor(conversationExporter)
-final conversationExporterProvider =
-    AutoDisposeProvider<ConversationExporter>.internal(
-      conversationExporter,
-      name: r'conversationExporterProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$conversationExporterHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const conversationExporterProvider = ConversationExporterProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ConversationExporterRef = AutoDisposeProviderRef<ConversationExporter>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class ConversationExporterProvider
+    extends
+        $FunctionalProvider<
+          ConversationExporter,
+          ConversationExporter,
+          ConversationExporter
+        >
+    with $Provider<ConversationExporter> {
+  const ConversationExporterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'conversationExporterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$conversationExporterHash();
+
+  @$internal
+  @override
+  $ProviderElement<ConversationExporter> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ConversationExporter create(Ref ref) {
+    return conversationExporter(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ConversationExporter value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ConversationExporter>(value),
+    );
+  }
+}
+
+String _$conversationExporterHash() =>
+    r'd8237bfd7eb84034081e1234031413e8d133fa66';

@@ -6,22 +6,50 @@ part of 'agents_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$agentsNotifierHash() => r'5f100c6a3c224329554925c41e9ee0c0200c7c9d';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [AgentsNotifier].
 @ProviderFor(AgentsNotifier)
-final agentsNotifierProvider =
-    AutoDisposeAsyncNotifierProvider<AgentsNotifier, Agents>.internal(
-      AgentsNotifier.new,
-      name: r'agentsNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$agentsNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const agentsProvider = AgentsNotifierProvider._();
 
-typedef _$AgentsNotifier = AutoDisposeAsyncNotifier<Agents>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class AgentsNotifierProvider
+    extends $AsyncNotifierProvider<AgentsNotifier, Agents> {
+  const AgentsNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'agentsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$agentsNotifierHash();
+
+  @$internal
+  @override
+  AgentsNotifier create() => AgentsNotifier();
+}
+
+String _$agentsNotifierHash() => r'45f44972c11d2366927d264ce843f9e9953aebf1';
+
+abstract class _$AgentsNotifier extends $AsyncNotifier<Agents> {
+  FutureOr<Agents> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<Agents>, Agents>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<Agents>, Agents>,
+              AsyncValue<Agents>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
