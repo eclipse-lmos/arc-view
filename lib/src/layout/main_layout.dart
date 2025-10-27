@@ -58,40 +58,39 @@ class _MainLayoutState extends State<MainLayout> {
                   break;
               }
             },
-            trailing:
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const SizedBox(height: 20),
-                    //  Consumer(
-                    //    builder: (context, ref, child) {
-                    //               final oidcEnabled = Config.get(
-                    //                "openid.enabled",
-                    //                defaultValue: false,
-                    //              );
-                    //            if (!oidcEnabled) return SizedBox.shrink();
-                    //            return IconButton(
-                    //                icon:
-                    //                    _isLoading
-                    //                      ? CircularProgressIndicator()
-                    //                      : Icon(Icons.logout, color: Colors.red),
-                    //                onPressed: () => _handleLogout(context, ref),
-                    //              );
-                    //          },
-                    //      ),
-                    const SizedBox(height: 10),
-                    InkWell(
-                      onTap: () {
-                        launchUrlString('https://eclipse.dev/lmos/');
-                      },
-                      child: SvgPicture.asset(
-                        'assets/lmos.svg',
-                        semanticsLabel: 'Lmos Logo',
-                        width: 30,
-                      ).padByUnits(0, 0, 2, 0),
-                    ),
-                  ],
-                ).expand(),
+            trailing: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const SizedBox(height: 20),
+                //  Consumer(
+                //    builder: (context, ref, child) {
+                //               final oidcEnabled = Config.get(
+                //                "openid.enabled",
+                //                defaultValue: false,
+                //              );
+                //            if (!oidcEnabled) return SizedBox.shrink();
+                //            return IconButton(
+                //                icon:
+                //                    _isLoading
+                //                      ? CircularProgressIndicator()
+                //                      : Icon(Icons.logout, color: Colors.red),
+                //                onPressed: () => _handleLogout(context, ref),
+                //              );
+                //          },
+                //      ),
+                const SizedBox(height: 10),
+                InkWell(
+                  onTap: () {
+                    launchUrlString('https://eclipse.dev/lmos/');
+                  },
+                  child: SvgPicture.asset(
+                    'assets/lmos.svg',
+                    semanticsLabel: 'Lmos Logo',
+                    width: 30,
+                  ).padByUnits(0, 0, 2, 0),
+                ),
+              ],
+            ).expand(),
 
             destinations: [
               //   NavigationRailDestination(
@@ -125,7 +124,9 @@ class _MainLayoutState extends State<MainLayout> {
             ],
           ),
           VerticalDivider(thickness: 1, width: 1),
-          Expanded(child: Material(child: Stack(children: [widget.child]))),
+          Expanded(
+            child: Material(child: Stack(children: [widget.child])),
+          ),
         ],
       ),
     );

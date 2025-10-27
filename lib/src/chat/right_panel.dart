@@ -76,7 +76,7 @@ class _SwitchTabs extends ConsumerWidget {
           Consumer(
             builder: (context, ref, child) {
               final count = ref.watch(toolsProvider.select((e) => e.length));
-              return Tab(child: ['Tools ($count)'.txt].row(min: true));
+              return Tab(child: ['Mock Tools ($count)'.txt].row(min: true));
             },
           ),
         ],

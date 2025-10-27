@@ -81,47 +81,20 @@ class UseCaseRepository {
 }
 
 String examplesUseCasesKey = '''
-### UseCase: book_service_appointment_vw
+### UseCase: book_service_appointment
 
 #### Description
-Customer calls to book a service appointment for their Volkswagen vehicle. The agent must collect identifying details, understand the service request, check appointment availability, and confirm the booking. If the desired date is unavailable, the agent offers alternatives or escalates to a human advisor if necessary.
-
-#### Steps
-- Ask who is calling and which vehicle they are referring to.
-- Verify the customer and their vehicle using @verify_customer_vehicle().
-    - If the customer provides a license plate, use it to identify the vehicle.
-    - If they don’t know the license plate, use their phone number or name to look up the record.
-- Confirm the customer's name, and the vehicle make, model, and year.
-- Ask what issue they are experiencing or why they want a service.
-- If the customer provides a preferred date, check if it is available using @check_availability().
-- If the date is available, book the appointment using @book_appointment().
-- If the date is not available, offer the next three available dates using @suggest_alternative_dates().
-- If the customer insists on the unavailable date, escalate to a human advisor using @escalate_to_human().
-- If the customer asks about cost, provide the typical price range using @fetch_typical_service_price().
-- If the car is due for a regular check, suggest adding a general inspection.
-- Confirm the final appointment details (date, time, and location).
-- Send confirmation via SMS and email using @send_confirmation().
-- Ask if the customer would like to receive service progress updates.
+Customer calls to book a service appointment for their Volkswagen vehicle.
 
 #### Solution
-- Greet the customer politely and collect their identifying details (license plate, name, or phone number).
-- Verify the vehicle details and reason for service.
+- Greet the customer politely and collect their identifying details (name, customer_id).
+- Ask the customer for when they would like to schedule the service appointment.
 - Check the desired appointment date using @check_availability().
 - If available, finalize booking via @book_appointment() and confirm details.
 - If unavailable, offer the next three available slots using @suggest_alternative_dates().
-- If the customer insists on the unavailable slot, trigger escalation via @escalate_to_human()!.
 - Provide additional details (duration, cost, optional inspection) as requested.
 - Confirm and send booking confirmation using @send_confirmation().
-- Ask if they wish to receive live updates during service.
-
-[date available] proceed with @book_appointment()
-
-[date not available] go to case #offer_alternative_dates
-
-[customer insists] go to case #escalate_to_human_advisor
-
-#### Alternative Solution
-If the system cannot retrieve availability information (e.g., @check_availability() fails), collect the customer’s preferred date and inform them that a human advisor will confirm availability shortly via @create_follow_up_ticket().
+- Ask if they wish to receive live updates during the service.
 
 #### Fallback Solution
 If the system fails to identify the customer or vehicle after two attempts, escalate directly to a human advisor using @escalate_to_human()!.
@@ -131,22 +104,7 @@ If the system fails to identify the customer or vehicle after two attempts, esca
 - “Can I get my VW serviced next Tuesday?”
 - “My car’s making a strange noise — can you book a check?”
 - “I need a general inspection for my Passat.”
-
-----
-
-### Case: offer_alternative_dates
-Offer the next three available appointment slots using @suggest_alternative_dates().
-Ask which date works best for the customer.
-
-[customer selects date] return to #book_service_appointment_vw to confirm
-
-[none suitable] go to case #escalate_to_human_advisor
-
-----
-
-### Case: escalate_to_human_advisor
-Politely inform the customer that the issue will be handled by a human service advisor.
-Call @escalate_to_human()! to transfer the request.
+- I need an appointment
 
 ----
 
@@ -172,6 +130,24 @@ Customer is requesting to speak to customer service or a real person.
 
 #### Solution
 Reply with 'AGENT_HANDOVER', but only connect them if they agree.
+
+----
+
+### UseCase: customer_escalation
+#### Description
+Customer is insisting on an unavailable slot for a service appointment or is upset and /or showing signs of frustration.
+
+#### Solution
+Reply with 'AGENT_HANDOVER'.
+
+----
+
+### UseCase: customer_wants_live_updates
+#### Description
+Customer would like to receive live updates during the service.
+
+#### Solution
+Activate live updates with @subscribe_to_live_updates().
 
 ----
 

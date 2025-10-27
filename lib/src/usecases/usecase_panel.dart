@@ -132,7 +132,10 @@ class _UseCasePanelState extends State<UseCasePanel> {
                     },
                   ),
                 SecondaryButton(
-                  icon: Icons.checklist,
+                  icon: selectedCase.valid == true
+                      ? Icons.check
+                      : Icons.checklist,
+                  color: selectedCase.valid == true ? Colors.green : null,
                   description: 'Validate Use Case',
                   onPressed: () {
                     showValidateUseCaseDialog(context, selectedCase);
@@ -176,19 +179,19 @@ class _UseCasePanelState extends State<UseCasePanel> {
             Divider(height: 1),
             _showSource
                 ? TextField(
-                    controller: _textController,
-                    scrollController: _scrollController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.all(8),
-                    ),
-                    onChanged: (text) {
-                      _saveText(text, ref);
-                    },
-                    maxLines: null,
-                    expands: true,
-                    keyboardType: TextInputType.multiline,
-                  ).expand()
+              controller: _textController,
+              scrollController: _scrollController,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.all(8),
+              ),
+              onChanged: (text) {
+                _saveText(text, ref);
+              },
+              maxLines: null,
+              expands: true,
+              keyboardType: TextInputType.multiline,
+            ).expand()
                 : UsecaseOverviewPanel(useCaseId: widget.useCaseId).expand(),
           ],
         );
@@ -261,8 +264,12 @@ class SearchToolsPanelState extends ConsumerState<_SearchPanel> {
       constraints: BoxConstraints(maxHeight: 80),
       padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.all(4)),
       onChanged: (text) {
-        final state = text.trim().isEmpty ? null : text;
-        ref.read(overviewFilterProvider.notifier).state = state;
+        final state = text
+            .trim()
+            .isEmpty ? null : text;
+        ref
+            .read(overviewFilterProvider.notifier)
+            .state = state;
       },
       leading: const Icon(Icons.search, size: 20).padByUnits(0, 1, 0, 1),
     );

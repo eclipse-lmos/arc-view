@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:smiles/smiles.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -106,6 +107,10 @@ class BotChatMessageCard extends StatelessWidget {
             fitContent: true,
             data: message.content,
             onTapLink: (text, href, title) {
+              if (href?.startsWith('#') == true) {
+                context.go(href!.substringAfter('#'));
+                return;
+              }
               if (href != null) launchUrlString(href);
             },
             styleSheet: MarkdownStyleSheet.fromTheme(theme).copyWith(

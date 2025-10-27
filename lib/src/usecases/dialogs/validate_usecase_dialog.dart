@@ -6,6 +6,7 @@
 
 import 'package:arc_view/src/core/dialog_header.dart';
 import 'package:arc_view/src/usecases/models/use_cases.dart';
+import 'package:arc_view/src/usecases/notifiers/usecase_parser_notifier.dart';
 import 'package:arc_view/src/usecases/services/usecase_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,9 +26,9 @@ class _ValidateUseCaseDialogState extends State<ValidateUseCaseDialog> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final validationResults = ref
-            .read(useCaseValidatorProvider)
-            .validate(widget.useCase);
+        final validationResults = ref.watch(
+          useCaseParserProvider(widget.useCase),
+        );
 
         return AlertDialog(
           title: DialogHeader(
@@ -35,18 +36,15 @@ class _ValidateUseCaseDialogState extends State<ValidateUseCaseDialog> {
             subtitle: 'Validate the Use Case for potential issues.',
           ),
           titlePadding: const EdgeInsets.all(0),
-          content: FutureBuilder<UseCaseValidationResult>(
-            future: validationResults,
-            builder: (_, data) => ColoredBox(
-              color: context.colorScheme.surface,
-              child:
-                  (!data.hasData
-                          ? 'Loading validation results...'.txt
-                          : _createResult(context, data.data!))
-                      .min(width: 560, height: 0)
-                      .padByUnits(2, 2, 2, 2)
-                      .max(width: 800),
-            ),
+          content: ColoredBox(
+            color: context.colorScheme.surface,
+            child:
+                (!validationResults.hasValue
+                        ? 'Loading validation results...'.txt.padding()
+                        : _createResult(context, validationResults.value!))
+                    .min(width: 560, height: 0)
+                    .padByUnits(2, 2, 2, 2)
+                    .max(width: 800),
           ),
           actions: [
             TextButton(
@@ -65,7 +63,7 @@ class _ValidateUseCaseDialogState extends State<ValidateUseCaseDialog> {
     if (result.errors.isEmpty) {
       return ListTile(
         leading: Icon(Icons.check, color: Colors.green),
-        subtitle: 'No validation errors found.'.txt.padding(),
+        subtitle: 'No validation errors found.'.txt,
         title: 'Validation Successful'.txt,
       );
     }

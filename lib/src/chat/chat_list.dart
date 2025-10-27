@@ -36,6 +36,35 @@ class ChatList extends ConsumerWidget {
       messageCards.add(LoadingChatMessageCard().toRight());
     }
 
+    if (messageCards.isEmpty) {
+      messageCards.add(
+        BotChatMessageCard(
+          message: ConversationMessage(
+            type: MessageType.bot,
+            conversationId: conversation.conversationId,
+            content: ''' 👋 Welcome to the LMOS Agents Studio (Beta): 
+
+Here you can define, test, and refine your agents using the Agent Definition Language (ADL).
+
+Getting started:
+- Go to ADL → create a new ADL (e.g., Appointment Booking) -> [here](#/usecases)
+- Return to Chat → select your ADL, start testing, and iterate.
+- Check Tools → use pre-configured ones or mock new tools.
+- View Events → track execution flow and debug interactions.
+
+Start simple — create one use case, test, and iterate. You can learn ADL in under 15 minutes:
+
+🔗 [Learn ADL](https://eclipse.dev/lmos/docs/arc/adl/adl_learn/)
+
+You can also deploy this in your own environment and connect your models and tools in under 30 minutes:
+
+🔗 [Run / Deploy locally or your env](https://github.com/eclipse-lmos/arc-spring-init)
+''',
+          ),
+        ).toRight(),
+      );
+    }
+
     return ListView.builder(
       shrinkWrap: true,
       reverse: true,

@@ -7,6 +7,7 @@
 import 'package:arc_view/src/chat/notifiers/selected_usecase_notifier.dart';
 import 'package:arc_view/src/core/secondary_button.dart';
 import 'package:arc_view/src/usecases/dialogs/usecase_dialog.dart';
+import 'package:arc_view/src/usecases/dialogs/validate_usecase_dialog.dart';
 import 'package:arc_view/src/usecases/models/use_cases.dart';
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
 import 'package:arc_view/src/usecases/services/usecase_exporter.dart';
@@ -17,7 +18,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:smiles/smiles.dart';
 
-const _columnSizes = <double>[240, 120, 300, 180, 180, 260];
+const _columnSizes = <double>[240, 120, 300, 180, 140, 300];
 
 class UseCaseTable extends ConsumerWidget {
   const UseCaseTable({super.key});
@@ -124,6 +125,22 @@ class UseCaseTable extends ConsumerWidget {
                     if (largeScreen) DataCell(cases[i].generateHash().txt),
                     DataCell(
                       [
+                        SecondaryButton(
+                          icon: cases[i].valid == null
+                              ? Icons.checklist
+                              : (cases[i].valid == true
+                                    ? Icons.check
+                                    : Icons.error_outline),
+                          color: cases[i].valid == null
+                              ? null
+                              : (cases[i].valid == true
+                                    ? Colors.green
+                                    : Colors.red),
+                          description: 'Validate Use Case',
+                          onPressed: () {
+                            showValidateUseCaseDialog(context, cases[i]);
+                          },
+                        ),
                         if (cases[i].readOnly != true)
                           SecondaryButton(
                             icon: Icons.edit,
