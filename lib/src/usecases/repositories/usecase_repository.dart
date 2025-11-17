@@ -48,7 +48,7 @@ class UseCaseRepository {
         }).toList() ??
         List.empty();
 
-    if (!hasExample) {
+    if (!hasExample && false) {
       useCases = [
         ...useCases,
         UseCase(

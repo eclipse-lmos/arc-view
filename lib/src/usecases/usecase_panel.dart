@@ -132,10 +132,16 @@ class _UseCasePanelState extends State<UseCasePanel> {
                     },
                   ),
                 SecondaryButton(
-                  icon: selectedCase.valid == true
+                  icon: selectedCase.valid == null
+                      ? Icons.checklist
+                      : (selectedCase.valid == true
                       ? Icons.check
-                      : Icons.checklist,
-                  color: selectedCase.valid == true ? Colors.green : null,
+                      : Icons.error_outline),
+                  color: selectedCase.valid == null
+                      ? null
+                      : (selectedCase.valid == true
+                      ? Colors.green
+                      : Colors.red),
                   description: 'Validate Use Case',
                   onPressed: () {
                     showValidateUseCaseDialog(context, selectedCase);

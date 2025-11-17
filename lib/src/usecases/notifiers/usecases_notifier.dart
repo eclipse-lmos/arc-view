@@ -11,6 +11,7 @@ import 'package:arc_view/src/usecases/models/use_case_group.dart';
 import 'package:arc_view/src/usecases/models/use_cases.dart';
 import 'package:arc_view/src/usecases/notifiers/selected_usecase_group_notifier.dart';
 import 'package:arc_view/src/usecases/repositories/usecase_repository.dart';
+import 'package:arc_view/src/usecases/services/usecase_validator.dart';
 import 'package:arc_view/src/usecases/usecase_template.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -26,16 +27,41 @@ class UseCasesNotifier extends _$UseCasesNotifier {
     final useCaseGroup = ref.watch(selectedUseCaseGroupProvider);
     if (personalUseCaseGroupId == useCaseGroup) {
       final useCaseRepository = ref.read(useCaseRepositoryProvider);
-      return UseCases(selected: 0, cases: useCaseRepository.fetch());
+      var useCases = useCaseRepository.fetch();
+      useCases = await _validateAll(useCases) ?? useCases;
+      return UseCases(selected: 0, cases: useCases);
     }
     try {
       final client = UseCaseClient();
-      final usecases = await client.getUseCases();
-      return UseCases(selected: 0, cases: usecases);
+      final useCases = await client.getUseCases();
+      return UseCases(selected: 0, cases: useCases);
     } catch (ex) {
       // endpoint not supported.
     }
     return UseCases(selected: 0, cases: []);
+  }
+
+  Future<List<UseCase>?> _validateAll(List<UseCase> useCases) async {
+    try {
+      final validators = ref.read(useCaseValidatorProvider);
+      final validated = <UseCase>[];
+      var validationNeeded = false;
+
+      for (final uc in useCases) {
+        if (uc.valid == null) {
+          validationNeeded = true;
+          validated.add(
+            uc.copyWith(valid: (await validators.validate(uc)).errors.isEmpty),
+          );
+        } else {
+          validated.add(uc);
+        }
+      }
+      if (!validationNeeded) return null;
+      return validated;
+    } catch (ex) {
+      return useCases;
+    }
   }
 
   save() {
@@ -119,6 +145,7 @@ class UseCasesNotifier extends _$UseCasesNotifier {
       useCases.cases.map((e) {
         return e.id == updatedUseCase.id
             ? updatedUseCase.copyWith(
+                valid: null,
                 version: _getVersion(updatedUseCase.content),
               )
             : e;
@@ -135,6 +162,7 @@ class UseCasesNotifier extends _$UseCasesNotifier {
     final updatedUseCase = selected.copyWith(
       content: text,
       version: _getVersion(text),
+      valid: null,
     );
     _update(
       useCases.cases.map((e) {
@@ -152,7 +180,14 @@ class UseCasesNotifier extends _$UseCasesNotifier {
     state = AsyncData(
       useCases.copyWith(cases: updatedCases, selected: selected),
     );
-    save();
+    _validateAll(updatedCases).then((validated) {
+      if (validated != null) {
+        state = AsyncData(
+          useCases.copyWith(cases: validated, selected: selected),
+        );
+      }
+      save();
+    });
   }
 
   void sortByName({required bool ascending}) {

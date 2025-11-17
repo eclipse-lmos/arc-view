@@ -36,7 +36,7 @@ class ChatList extends ConsumerWidget {
       messageCards.add(LoadingChatMessageCard().toRight());
     }
 
-    if (messageCards.isEmpty) {
+    if (messageCards.isEmpty && false) {
       messageCards.add(
         BotChatMessageCard(
           message: ConversationMessage(

@@ -12,12 +12,13 @@ import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'usecase_validator.freezed.dart';
+
 part 'usecase_validator.g.dart';
 
 @riverpod
 UseCaseValidator useCaseValidator(Ref ref) {
   final base = Uri.base;
-  final url = base.isScheme('httpx') || base.isScheme('httpsx')
+  final url = base.isScheme('http') || base.isScheme('https')
       ? '${base.scheme}://${base.host}:${base.port}/arc/usecases'
       : 'http://localhost:8090/arc/usecases';
   return UseCaseValidator(Uri.parse(url));
@@ -29,7 +30,10 @@ class UseCaseValidator {
   final Uri url;
 
   Future<UseCaseValidationResult> validate(UseCase useCase) async {
-    final response = await http.post(url, body: useCase.content);
+    final response = await http.post(
+      url,
+      body: useCase.content,
+    );
     final result = UseCaseValidationResult.fromJson(jsonDecode(response.body));
     return result;
   }
