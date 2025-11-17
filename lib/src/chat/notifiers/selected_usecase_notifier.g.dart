@@ -51,7 +51,7 @@ final class SelectedUsecaseNotifierProvider
 }
 
 String _$selectedUsecaseNotifierHash() =>
-    r'983b51b8ae5c64543630943dc8c93b5c1bed48f1';
+    r'f6d7923e386207dc73d8d76d963d9306cd149012';
 
 ///
 /// Holds the use case that has been selected and is sent to the Agent.

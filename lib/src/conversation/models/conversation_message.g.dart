@@ -17,6 +17,7 @@ _ConversationMessage _$ConversationMessageFromJson(Map<String, dynamic> json) =>
       responseTime: (json['responseTime'] as num?)?.toDouble(),
       agent: json['agent'] as String?,
       useCase: json['useCase'] as String?,
+      useCaseContent: json['useCaseContent'] as String?,
       symbols: (json['symbols'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toSet(),
@@ -37,6 +38,7 @@ Map<String, dynamic> _$ConversationMessageToJson(
   'responseTime': instance.responseTime,
   'agent': instance.agent,
   'useCase': instance.useCase,
+  'useCaseContent': instance.useCaseContent,
   'symbols': instance.symbols?.toList(),
   'toolCalls': instance.toolCalls,
 };

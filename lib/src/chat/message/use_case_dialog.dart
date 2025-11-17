@@ -9,9 +9,15 @@ import 'package:go_router/go_router.dart';
 import 'package:smiles/smiles.dart';
 
 class UseCaseDialog extends StatefulWidget {
-  const UseCaseDialog({super.key, required this.useCase, required this.name});
+  const UseCaseDialog({
+    super.key,
+    required this.useCase,
+    required this.name,
+    this.useCaseContent,
+  });
 
   final UseCase useCase;
+  final String? useCaseContent;
   final String name;
 
   @override
@@ -23,11 +29,16 @@ class UseCaseDialogState extends State<UseCaseDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final String content =
-        widget.useCase.sections
-            .findFirst((c) => c.$1 == ' UseCase: ${widget.name}')
-            ?.$2 ??
-        widget.useCase.content;
+    final String content;
+    if (widget.useCaseContent != null) {
+      content = widget.useCaseContent!;
+    } else {
+      content =
+          widget.useCase.sections
+              .findFirst((c) => c.$1 == ' UseCase: ${widget.name}')
+              ?.$2 ??
+          widget.useCase.content;
+    }
 
     return AlertDialog(
       contentPadding: const EdgeInsets.all(0),

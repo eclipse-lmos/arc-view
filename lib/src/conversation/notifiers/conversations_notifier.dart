@@ -260,6 +260,7 @@ class ConversationsNotifier extends _$ConversationsNotifier {
           agent: value.agent,
           symbols: message.symbols,
           useCase: value.context['useCase'],
+          useCaseContent: value.context['useCaseContent'],
           toolCalls: value.toolCalls,
         ),
       };

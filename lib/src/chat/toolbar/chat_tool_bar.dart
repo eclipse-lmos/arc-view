@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'package:arc_view/config/app_config.dart';
 import 'package:arc_view/src/chat/buttons/login_user_button.dart';
 import 'package:arc_view/src/chat/buttons/new_conversation_button.dart';
 import 'package:arc_view/src/chat/notifiers/selected_usecase_notifier.dart';
@@ -36,7 +37,7 @@ class ChatToolBar extends ConsumerWidget {
 
     return [
       ApplyUseCaseButton(),
-      LoginUserButton(),
+      if (AppConfig.showUseTokenButton) LoginUserButton(),
       HGap.small(),
       Consumer(
         builder: (context, ref, _) {
@@ -49,15 +50,15 @@ class ChatToolBar extends ConsumerWidget {
             ),
             child: selected > 0
                 ? [
-              '$selected Tools active'.txt.padByUnits(0, 1, 0, 3),
-              SecondaryButton(
-                description: 'DeSelect Tools',
-                icon: Icons.close,
-                onPressed: () {
-                  ref.read(selectedToolProvider).clear();
-                },
-              ),
-            ].row(min: true)
+                    '$selected Tools active'.txt.padByUnits(0, 1, 0, 3),
+                    SecondaryButton(
+                      description: 'DeSelect Tools',
+                      icon: Icons.close,
+                      onPressed: () {
+                        ref.read(selectedToolProvider).clear();
+                      },
+                    ),
+                  ].row(min: true)
                 : SizedBox(),
           );
         },

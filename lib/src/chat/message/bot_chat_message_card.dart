@@ -62,8 +62,11 @@ class BotChatMessageCard extends StatelessWidget {
           if (uc != null) {
             showDialog(
               context: context,
-              builder: (_) =>
-                  UseCaseDialog(useCase: uc, name: message.useCase!),
+              builder: (_) => UseCaseDialog(
+                useCase: uc,
+                name: message.useCase!,
+                useCaseContent: message.useCaseContent,
+              ),
             );
           } else {
             showDialog(

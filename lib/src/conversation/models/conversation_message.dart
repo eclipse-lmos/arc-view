@@ -21,6 +21,7 @@ sealed class ConversationMessage with _$ConversationMessage {
     double? responseTime,
     String? agent,
     String? useCase,
+    String? useCaseContent,
     Set<String>? symbols,
     List<String>? toolCalls,
     String? id,

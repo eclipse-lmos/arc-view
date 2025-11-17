@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import 'package:arc_view/config/app_config.dart';
 import 'package:arc_view/src/conversation/notifiers/conversations_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,8 +19,8 @@ class LoginUserButton extends ConsumerWidget {
       child: Row(
         children: [
           HGap.small(),
-          if (AppConfig.showUseTokenButton) 'Add User Token'.small,
-          if (AppConfig.showUseTokenButton) HGap.small(),
+          'Add User Token'.small,
+          HGap.small(),
           Transform(
             alignment: AlignmentDirectional.centerStart,
             transform: Matrix4.identity()..scale(0.8),

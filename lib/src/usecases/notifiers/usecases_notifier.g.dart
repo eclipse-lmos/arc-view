@@ -42,7 +42,7 @@ final class UseCasesNotifierProvider
   UseCasesNotifier create() => UseCasesNotifier();
 }
 
-String _$useCasesNotifierHash() => r'4fa9d2784139d406c8771cd8e710f9d803f6d384';
+String _$useCasesNotifierHash() => r'c2c7a1c776ae137e8e271968137f347d2b900c94';
 
 ///
 /// Manages the creation and editing of Use Cases files.

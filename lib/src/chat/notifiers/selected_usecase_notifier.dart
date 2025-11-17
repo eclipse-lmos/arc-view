@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import 'package:arc_view/config/app_config.dart';
 import 'package:arc_view/src/usecases/models/use_cases.dart';
 import 'package:arc_view/src/usecases/notifiers/usecases_notifier.dart';
 import 'package:arc_view/src/usecases/repositories/usecase_repository.dart';
@@ -23,7 +24,9 @@ class SelectedUsecaseNotifier extends _$SelectedUsecaseNotifier {
         state = useCases.value?.cases.where((c) => c.id == state!.id).first;
       }
     });
-    return ref.read(useCaseRepositoryProvider).fetch().firstOrNull;
+    return AppConfig.autoSelectUseCase
+        ? ref.read(useCaseRepositoryProvider).fetch().firstOrNull
+        : null;
   }
 
   setSelected(UseCase? useCase) {

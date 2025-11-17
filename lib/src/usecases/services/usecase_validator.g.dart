@@ -80,4 +80,4 @@ final class UseCaseValidatorProvider
   }
 }
 
-String _$useCaseValidatorHash() => r'f0f8a189eca11ab731ab3cd2cd2c4ba66ece7d7a';
+String _$useCaseValidatorHash() => r'95be07ca903d8a953f9950d6441c6470bacfa042';
